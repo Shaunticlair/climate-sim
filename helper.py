@@ -46,7 +46,7 @@ def make_M_2d_diffusion_advection_forcing(nr: int, nc: int, dt: float,
                                 F : float,
                                 cyclic_east_west:   bool = True, 
                                 cyclic_north_south: bool = False,
-                                M_is_sparse=True):
+                                M_is_sparse=False):
     """
     Creates linear model M which can be used to forward-simulate a discrete approximation of a 
     2D diffusion-advection-forcing model.
@@ -224,7 +224,7 @@ def make_M_2d_diffusion_advection_forcing(nr: int, nc: int, dt: float,
                 # cell to the south
                 M[ind_here, ind_S] = 0 + d_IM1_J[i,j] + a_IM1_J[i,j]
     
-    if sparse:
+    if M_is_sparse:
         M = M.tocsr()
 
     return M
