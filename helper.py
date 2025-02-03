@@ -335,7 +335,7 @@ def compute_affine_time_evolution_simple(c0, M, r, num_saved_timesteps,
 
 def plot_multi_heatmap_time_evolution(saved_timesteps, many_states_over_time, 
                                  nr, nc, titles, big_title, 
-                                 vmin=None, vmax=None, is_1d=False):
+                                 vmin=None, vmax=None, is_1d=False, transpose=False):
     """
     Display time evolution of multiple 1D or 2D arrays over time, side by side.
 
@@ -348,8 +348,7 @@ def plot_multi_heatmap_time_evolution(saved_timesteps, many_states_over_time,
     big_title (str): Overall title for the entire plot
     vmin, vmax (float, optional): Min/max values for color scaling
     is_1d (bool): Whether the input state is 1D (True) or 2D (False)
-
-    Displays heatmaps of several 1D or 2D arrays evolving over time.
+    transpose (bool): If True, transpose the grid layout of plots
     """
     # Reconstruct 1D arrays into 2D arrays
     if is_1d:
@@ -369,25 +368,39 @@ def plot_multi_heatmap_time_evolution(saved_timesteps, many_states_over_time,
     num_states = len(many_states_over_time)
     num_timesteps = len(many_states_over_time[0])  # Assume all state runs have the same number of timesteps
     
-    # Calculate figure size and height ratios
+    # Calculate figure size and height ratios based on transpose option
     title_height = 0.5  # inches
     subplot_height = 2 if is_1d else 5  # inches
-    total_height = title_height + (subplot_height * num_timesteps)
-    fig_width = 5 * num_states + 1
+    
+    if transpose:
+        # For transposed layout, swap width and height calculations
+        total_height = title_height + (subplot_height * num_states)
+        fig_width = 5 * num_timesteps + 1
+    else:
+        # Original layout
+        total_height = title_height + (subplot_height * num_timesteps)
+        fig_width = 5 * num_states + 1
     
     # Create figure with two subfigures
     fig = plt.figure(figsize=(fig_width, total_height))
-    subfigs = fig.subfigures(2, 1, height_ratios=[title_height, subplot_height * num_timesteps])
+    subfigs = fig.subfigures(2, 1, height_ratios=[title_height, subplot_height * (num_states if transpose else num_timesteps)])
     
     # Add the main title to the top subfigure
     subfigs[0].suptitle(big_title, fontsize=16)
     
     # Create gridspec for the bottom subfigure (plot grid)
-    gs = subfigs[1].add_gridspec(num_timesteps, num_states + 1, width_ratios=[1]*num_states + [0.05])
+    if transpose:
+        gs = subfigs[1].add_gridspec(num_states, num_timesteps + 1, width_ratios=[1]*num_timesteps + [0.05])
+    else:
+        gs = subfigs[1].add_gridspec(num_timesteps, num_states + 1, width_ratios=[1]*num_states + [0.05])
     
     for i, state_over_time in enumerate(plottable_states):
         for j, state in enumerate(state_over_time):
-            ax = subfigs[1].add_subplot(gs[j, i])
+            if transpose:
+                ax = subfigs[1].add_subplot(gs[i, j])
+            else:
+                ax = subfigs[1].add_subplot(gs[j, i])
+            
             im = ax.imshow(state, aspect='auto', cmap='coolwarm', vmin=vmin, vmax=vmax, origin='lower')
             
             # Set the title, including timestep if provided
@@ -403,14 +416,19 @@ def plot_multi_heatmap_time_evolution(saved_timesteps, many_states_over_time,
                 ax.set_yticks([])
             
             # Add colorbar for each row
-            if i == num_states - 1:  # Only for the last column
-                cbar_ax = subfigs[1].add_subplot(gs[j, -1])
-                plt.colorbar(im, cax=cbar_ax)
+            if transpose:
+                if j == num_timesteps - 1:  # Only for the last column
+                    cbar_ax = subfigs[1].add_subplot(gs[i, -1])
+                    plt.colorbar(im, cax=cbar_ax)
+            else:
+                if i == num_states - 1:  # Only for the last column
+                    cbar_ax = subfigs[1].add_subplot(gs[j, -1])
+                    plt.colorbar(im, cax=cbar_ax)
     
     plt.tight_layout()
     plt.show()
 
-def plot_1d_heatmap_time_evolution(saved_timesteps, state_over_time):
+def plot_1d_heatmap_time_evolution(saved_timesteps, state_over_time, transpose=False):
     """
     Displays the time evolution of a 1D state as a series of heatmaps.
 
@@ -428,12 +446,14 @@ def plot_1d_heatmap_time_evolution(saved_timesteps, state_over_time):
         nr=1,
         nc=len(state_over_time[0]),
         titles=["Evolution in time"],
-        big_title="Evolution in time"
+        big_title="Evolution in time",
+        transpose=transpose
     )
 
 
 
-def plot_2d_heatmap_time_evolution(saved_timesteps, state_over_time, nr, nc, vmin = None, vmax = None):
+def plot_2d_heatmap_time_evolution(saved_timesteps, state_over_time, nr, nc, vmin = None, vmax = None,
+                                   transpose=False):
     """
     Displays the time evolution of 2D state as a series of heatmaps.
 
@@ -457,11 +477,12 @@ def plot_2d_heatmap_time_evolution(saved_timesteps, state_over_time, nr, nc, vmi
         titles=["Evolution in time"],
         big_title="Evolution in time",
         vmin=vmin,
-        vmax=vmax
+        vmax=vmax,
+        transpose=transpose
     )
 
 
-def plot_multi_heatmap(many_states, nr, nc, titles, big_title, vmin=None, vmax=None):
+def plot_multi_heatmap(many_states, nr, nc, titles, big_title, vmin=None, vmax=None, transpose=False):
     """
     Display heatmaps of multiple 2D states side by side for comparison.
 
@@ -485,7 +506,8 @@ def plot_multi_heatmap(many_states, nr, nc, titles, big_title, vmin=None, vmax=N
         titles=titles,
         big_title=big_title,
         vmin=vmin,
-        vmax=vmax
+        vmax=vmax,
+        transpose=transpose
     )
 
 
