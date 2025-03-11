@@ -34,7 +34,8 @@ timer.checkpoint("Starting...")
 
 
 import sys
-sys.path.append("../samudra/")
+#sys.path.append("../samudra/")
+sys.path.append("/nobackup/sruiz5/SAMUDRATEST/Samudra/samudra/")
 
 
 # In[2]:
