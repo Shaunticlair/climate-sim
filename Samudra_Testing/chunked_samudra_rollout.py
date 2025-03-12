@@ -7,7 +7,7 @@
 
 # ## Imports
 
-N_test = 200
+N_test = 20
 
 import time
 
@@ -440,7 +440,7 @@ timer.checkpoint("Predictions made")
 from utils import post_processor, convert_train_data
 
 # Define chunk size
-chunk_size = 100
+chunk_size = 10
 total_steps = N_test  # Original total steps (600)
 num_chunks = (total_steps + chunk_size - 1) // chunk_size  # Ceiling division
 
@@ -508,8 +508,8 @@ for chunk_idx in range(num_chunks):
     ds_chunk_prediction = ds_chunk_prediction.to_dataset(name="predictions")
     
     # Get the corresponding ground truth for this chunk
-    ds_chunk_groundtruth = data.isel(time=slice(chunk_start - e_test + hist + 1, 
-                                                chunk_start - e_test + hist + 1 + current_chunk_size))
+    ds_chunk_groundtruth = data.isel(time=slice(chunk_start + hist + 1, 
+                                                chunk_start + hist + 1 + current_chunk_size))
     
     # Post-process the chunk prediction
     ds_chunk_prediction = post_processor(ds_chunk_prediction, ds_chunk_groundtruth, var_ls)
