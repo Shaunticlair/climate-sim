@@ -63,6 +63,7 @@ endif
 # Run the samudra rollout script
 echo "Starting Samudra model run at `date`"
 ${CONDA_PYTHON} chunked_samudra_rollout.py
+#${CONDA_PYTHON} samudra_rollout.py
 echo "Finished Samudra model run at `date`"
 
 # Check if output was created
