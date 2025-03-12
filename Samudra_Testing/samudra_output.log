@@ -1,0 +1,96 @@
+Job 21758529.pbspl1.nas.nasa.gov started on Tue Mar 11 18:44:59 PDT 2025
+The job requested the following resources:
+    ncpus=20
+    place=scatter:excl
+    walltime=00:10:00
+
+PBS set the following environment variables:
+        FORT_BUFFERED = 1
+                   TZ = PST8PDT
+
+On r465i7n2:
+Warning: no access to tty (Inappropriate ioctl for device).
+Thus no job control in this shell.
+Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
+Starting Samudra model run at Tue Mar 11 18:45:04 PDT 2025
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
+  return data.astype(dtype, **kwargs)
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
+  return data.astype(dtype, **kwargs)
+Section 'Starting...' took 0.0000 seconds
+Total elapsed time: 0.0000 seconds
+----------------------------------------
+Section 'Imports' took 8.0399 seconds
+Total elapsed time: 8.0399 seconds
+----------------------------------------
+Section 'Torch config' took 0.3169 seconds
+Total elapsed time: 8.3569 seconds
+----------------------------------------
+Number of inputs:  158
+Number of outputs:  154
+Section 'Set constants' took 0.0001 seconds
+Total elapsed time: 8.3570 seconds
+----------------------------------------
+Section 'Data retrieved' took 3.0031 seconds
+Total elapsed time: 11.3601 seconds
+----------------------------------------
+Wet resolution: torch.Size([154, 180, 360])
+Section 'Dataloader run' took 0.0532 seconds
+Total elapsed time: 11.4132 seconds
+----------------------------------------
+Section 'Model create' took 0.9978 seconds
+Total elapsed time: 12.4110 seconds
+----------------------------------------
+Section 'Weights retrieved' took 0.0001 seconds
+Total elapsed time: 12.4111 seconds
+----------------------------------------
+Section 'Weights loaded to model' took 1.7927 seconds
+Total elapsed time: 14.2038 seconds
+----------------------------------------
+Processing 20 timesteps in 2 chunks of 10
+
+Processing chunk 1/2: timesteps 0 to 9
+Long rollout will begin with input and produce output from time index 0 and 2 respectively
+Section 'Dataloader created for chunk 1' took 0.0263 seconds
+Total elapsed time: 14.2302 seconds
+----------------------------------------
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Section 'Rollout generated for chunk 1' took 43.2236 seconds
+Total elapsed time: 57.4537 seconds
+----------------------------------------
+Saving chunk to 3D_thermo_dynamic_all_prediction_chunk1.zarr
+Section 'Chunk 1 saved' took 3.1117 seconds
+Total elapsed time: 60.5655 seconds
+----------------------------------------
+
+Processing chunk 2/2: timesteps 10 to 19
+Long rollout will begin with input and produce output from time index 10 and 12 respectively
+Section 'Dataloader created for chunk 2' took 0.4173 seconds
+Total elapsed time: 60.9828 seconds
+----------------------------------------
+Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Section 'Rollout generated for chunk 2' took 40.5747 seconds
+Total elapsed time: 101.5574 seconds
+----------------------------------------
+Saving chunk to 3D_thermo_dynamic_all_prediction_chunk2.zarr
+Section 'Chunk 2 saved' took 3.1368 seconds
+Total elapsed time: 104.6942 seconds
+----------------------------------------
+
+All chunks processed successfully!
+Finished Samudra model run at Tue Mar 11 18:46:50 PDT 2025
+
+____________________________________________________________________
+Job Resource Usage Summary for 21758529.pbspl1.nas.nasa.gov
+
+    CPU Time Used            : 00:33:35
+    Real Memory Used         : 3217416kb
+    Walltime Used            : 00:01:47
+    Exit Status              : 0
+
+    Number of CPUs Requested : 20
+    Walltime Requested       : 00:10:00
+
+    Execution Queue          : normal
+    Charged To               : g26113
+
+    Job Stopped              : Tue Mar 11 18:46:54 2025
+____________________________________________________________________
