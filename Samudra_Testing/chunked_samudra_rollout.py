@@ -8,6 +8,7 @@
 # ## Imports
 
 N_test = 20
+chunk_size = 10
 
 import time
 
@@ -440,7 +441,7 @@ timer.checkpoint("Predictions made")
 from utils import post_processor, convert_train_data
 
 # Define chunk size
-chunk_size = 10
+
 total_steps = N_test  # Original total steps (600)
 num_chunks = (total_steps + chunk_size - 1) // chunk_size  # Ceiling division
 

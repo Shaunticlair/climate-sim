@@ -7,7 +7,7 @@
 
 # ## Imports
 
-N_test = 4
+N_test = 20
 
 import time
 
