@@ -447,6 +447,9 @@ num_chunks = (total_steps + chunk_size - 1) // chunk_size  # Ceiling division
 
 print(f"Processing {total_steps} timesteps in {num_chunks} chunks of {chunk_size}")
 
+# Variable to store the last output from previous chunk
+last_chunk_output = None
+
 for chunk_idx in range(num_chunks):
     # Calculate current chunk's start and size
     chunk_start = chunk_idx * chunk_size
@@ -489,15 +492,18 @@ for chunk_idx in range(num_chunks):
     timer.checkpoint(f"Dataloader created for chunk {chunk_idx+1}")
     
     # Generate rollout for this chunk
-    chunk_model_pred, _ = generate_model_rollout(
+    chunk_model_pred, chunk_outputs = generate_model_rollout(
         current_chunk_size,
         chunk_test_data,
         model,
         hist,
         N_out,
         N_extra,
-        initial_input=None,
+        initial_input=last_chunk_output,
     )
+
+    # Store the last output for the next chunk
+    last_chunk_output = chunk_outputs[-1]
     
     timer.checkpoint(f"Rollout generated for chunk {chunk_idx+1}")
     
