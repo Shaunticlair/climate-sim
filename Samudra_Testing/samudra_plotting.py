@@ -594,13 +594,10 @@ plt.savefig(os.path.join(output_path, "Nina_Figure_Short_without_map.png"), bbox
 
 # %%
 # OHC Map + Bias
+# OHC Map + Bias
 import matplotlib.pyplot as plt
 import numpy as np
 import cmocean
-import cartopy.crs as ccrs
-import cartopy.feature as cfeature
-from matplotlib.ticker import FixedLocator
-
 
 Days_to_Eq = 0
 c_p = 3850  # J/(kg C)
@@ -608,7 +605,7 @@ rho_0 = 1025  # kg/m^3
 zeta_joules_factor = 1e21  # Conversion factor to ZJ
 
 plt.rcParams.update({'font.size': 14})
-fig, axs = plt.subplots(2, 3, figsize=(16, 6), subplot_kw={'projection': ccrs.PlateCarree()},
+fig, axs = plt.subplots(2, 3, figsize=(16, 6),
                         gridspec_kw={'wspace': 0.02, 'hspace': 0.23})
 axs = axs.flatten()
 
@@ -616,10 +613,9 @@ def ohc_map(ohc_intz):
     # return last 1 year - first 1 year
     return ohc_intz.isel(time=slice(-73, None)).mean('time')-ohc_intz.isel(time=slice(0, 73)).mean('time')
 
-# Define a common plotting function for Cartesian lat-lon grids
+# Define a simple plotting function without cartopy
 def plot_ohc(ax, ohc_data, title, i):
-    # Configure colormap and set color for NaN values (land)
-    colormap = cmocean.cm.balance # cmocean.cm.thermal  # Using thermal colormap from cmocean
+    colormap = cmocean.cm.balance 
     colormap.set_bad(color=(0.7, 0.7, 0.7, 0)) 
     mean = ohc_data.mean().compute().item()
     std = ohc_data.std().compute().item()
@@ -627,25 +623,29 @@ def plot_ohc(ax, ohc_data, title, i):
     vmax = mean+8*std
     im = ax.pcolormesh(
         ohc_data['x'], ohc_data['y'], ohc_data,
-        shading='auto', cmap=colormap, transform=ccrs.PlateCarree(), vmin=vmin, vmax=vmax
+        shading='auto', cmap=colormap, vmin=vmin, vmax=vmax
     )
-    ax.add_feature(cfeature.COASTLINE, edgecolor='black')
     ax.set_title(title, fontsize=14)
-    # Set longitude and latitude labels
-    gl = ax.gridlines(draw_labels=True, color='0.4', linestyle='--', alpha=0)
-    gl.top_labels = False
-    gl.right_labels = False
-    gl.xlabel_style = {'size': 14}
-    gl.ylabel_style = {'size': 14}
-    gl.xlocator = FixedLocator([-120, -60, 0, 60, 120])
-
+    
+    # Simple grid lines
+    ax.grid(linestyle='--', alpha=0.5)
+    
+    # Only add y-axis labels for the leftmost plots
     if i > 0:
-        gl.left_labels = False
+        ax.set_yticks([])
+    else:
+        ax.set_ylabel('Latitude')
+    
+    # Set proper x-axis labels only for bottom row
+    if i < 3:
+        ax.set_xticks([])
+    else:
+        ax.set_xlabel('Longitude')
+        
     return im
 
 def plot_diff_ohc(ax, ohc_data, gt_ohc_data, title, i):
-    # Configure colormap and set color for NaN values (land)
-    colormap = cmocean.cm.balance  # Using thermal colormap from cmocean
+    colormap = cmocean.cm.balance
     colormap.set_bad(color=(0.7, 0.7, 0.7, 0)) 
     bias_ohc = ohc_data - gt_ohc_data
     mean = ohc_data.mean().compute().item()
@@ -654,20 +654,22 @@ def plot_diff_ohc(ax, ohc_data, gt_ohc_data, title, i):
     vmax = mean+8*std
     im = ax.pcolormesh(
         bias_ohc['x'], bias_ohc['y'], bias_ohc,
-        shading='auto', cmap=colormap, transform=ccrs.PlateCarree(), vmin=vmin, vmax=vmax
+        shading='auto', cmap=colormap, vmin=vmin, vmax=vmax
     )
-    ax.add_feature(cfeature.COASTLINE, edgecolor='black')
     ax.set_title(title, fontsize=14)
-    # Set longitude and latitude labels
-    gl = ax.gridlines(draw_labels=True, color='0.4', linestyle='--', alpha=0)
-    gl.top_labels = False
-    gl.right_labels = False
-    gl.xlabel_style = {'size': 14}
-    gl.ylabel_style = {'size': 14}
-    gl.xlocator = FixedLocator([-120, -60, 0, 60, 120])
-
-    if i > 4:
-        gl.left_labels = False
+    
+    # Simple grid lines
+    ax.grid(linestyle='--', alpha=0.5)
+    
+    # Only add y-axis labels for the leftmost plots
+    if i > 3:
+        ax.set_yticks([])
+    else:
+        ax.set_ylabel('Latitude')
+        
+    # Set proper x-axis labels
+    ax.set_xlabel('Longitude')
+        
     return im
 
 # Calculate Ocean Heat Content for different scenarios and convert to Zeta Joules
@@ -675,7 +677,7 @@ titles = ["OM4", pred_dict[key1]["name"], pred_dict[key2]["name"]]
 bias_titles = [pred_dict[key1]["name"] + " Bias", pred_dict[key2]["name"] + " Bias"]
 datasets = [data, pred_dict[key1]["ds_prediction"], pred_dict[key2]["ds_prediction"]]
 
-for i, (ax, title, ds) in enumerate(zip(axs, titles, datasets)):
+for i, (ax, title, ds) in enumerate(zip(axs[:3], titles, datasets)):
     section_mask = np.isnan(ds['thetao']).all('lev').isel(time=5)
     OHC_pred = (
         (ds['thetao'][Days_to_Eq:] * c_p * rho_0 / zeta_joules_factor)
@@ -689,7 +691,6 @@ for i, (ax, title, ds) in enumerate(zip(axs, titles, datasets)):
     OHC_pred['x'] = OHC_pred.x.assign_attrs(long_name='longitude', units=r"${^o}$")
     OHC_pred = OHC_pred.assign_attrs(units='ZJ')
     
-    
     if i == 0:
         gt_ohc = OHC_pred
     elif i == 1:
@@ -697,7 +698,7 @@ for i, (ax, title, ds) in enumerate(zip(axs, titles, datasets)):
     elif i == 2:
         pred2_ohc = OHC_pred
 
-    # Plot using the Cartesian lat-lon grid
+    # Plot using simple pcolormesh
     im = plot_ohc(ax, OHC_pred, title, i)
 
 # Add colorbar
@@ -713,7 +714,7 @@ cbar.set_label("Ocean Heat Content [ZJ]", fontsize=14)
 
 fig.delaxes(axs[3])
 
-# Save or display the plot
+# Save the plot
 plt.savefig(os.path.join(output_path, "OHC_Global_map.png"), bbox_inches='tight', dpi=600)
 # plt.show()
 
@@ -724,18 +725,14 @@ plt.savefig(os.path.join(output_path, "OHC_Global_map.png"), bbox_inches='tight'
 import matplotlib.pyplot as plt
 import numpy as np
 import cmocean
-import cartopy.crs as ccrs
-import cartopy.feature as cfeature
-from matplotlib.ticker import FixedLocator
-
 
 Days_to_Eq = 0
 plt.rcParams.update({'font.size': 14})
-fig, axs = plt.subplots(2, 3, figsize=(16, 6), subplot_kw={'projection': ccrs.PlateCarree()},
+fig, axs = plt.subplots(2, 3, figsize=(16, 6),
                         gridspec_kw={'wspace': 0.02, 'hspace': 0.23})
 axs = axs.flatten()
 
-# Define a common plotting function for Cartesian lat-lon grids
+# Define a simple plotting function without cartopy
 def plot_sst(ax, sst_data, title, i):
     colormap = cmocean.cm.thermal
     colormap.set_bad(color=(0.7, 0.7, 0.7, 0)) 
@@ -745,19 +742,25 @@ def plot_sst(ax, sst_data, title, i):
     vmax = mean+std
     im = ax.pcolormesh(
         sst_data['x'], sst_data['y'], sst_data,
-        shading='auto', cmap=colormap, transform=ccrs.PlateCarree(), vmin=vmin, vmax=vmax
+        shading='auto', cmap=colormap, vmin=vmin, vmax=vmax
     )
-    ax.add_feature(cfeature.COASTLINE, edgecolor='black')
     ax.set_title(title, fontsize=14)
-    gl = ax.gridlines(draw_labels=True, color='0.4', linestyle='--', alpha=0)
-    gl.top_labels = False
-    gl.right_labels = False
-    gl.xlabel_style = {'size': 14}
-    gl.ylabel_style = {'size': 14}
-    gl.xlocator = FixedLocator([-120, -60, 0, 60, 120])
-
+    
+    # Simple grid lines
+    ax.grid(linestyle='--', alpha=0.5)
+    
+    # Only add y-axis labels for the leftmost plots
     if i > 0:
-        gl.left_labels = False
+        ax.set_yticks([])
+    else:
+        ax.set_ylabel('Latitude')
+    
+    # Set proper x-axis labels only for bottom row
+    if i < 3:
+        ax.set_xticks([])
+    else:
+        ax.set_xlabel('Longitude')
+        
     return im
 
 def plot_diff_sst(ax, sst_data, gt_sst_data, title, i):
@@ -766,19 +769,22 @@ def plot_diff_sst(ax, sst_data, gt_sst_data, title, i):
     sst_bias = sst_data - gt_sst_data
     im = ax.pcolormesh(
         sst_bias['x'], sst_bias['y'], sst_bias,
-        shading='auto', cmap=colormap, transform=ccrs.PlateCarree()
+        shading='auto', cmap=colormap
     )
-    ax.add_feature(cfeature.COASTLINE, edgecolor='black')
     ax.set_title(title, fontsize=14)
-    gl = ax.gridlines(draw_labels=True, color='0.4', linestyle='--', alpha=0)
-    gl.top_labels = False
-    gl.right_labels = False
-    gl.xlabel_style = {'size': 14}
-    gl.ylabel_style = {'size': 14}
-    gl.xlocator = FixedLocator([-120, -60, 0, 60, 120])
-
-    if i > 4:
-        gl.left_labels = False
+    
+    # Simple grid lines
+    ax.grid(linestyle='--', alpha=0.5)
+    
+    # Only add y-axis labels for the leftmost plots
+    if i > 3:
+        ax.set_yticks([])
+    else:
+        ax.set_ylabel('Latitude')
+        
+    # Set proper x-axis labels
+    ax.set_xlabel('Longitude')
+        
     return im
 
 # Calculate Sea Surface Temperature (SST) for different scenarios
@@ -786,7 +792,7 @@ titles = ["OM4", pred_dict[key1]["name"], pred_dict[key2]["name"]]
 bias_titles = [pred_dict[key1]["name"] + " Bias", pred_dict[key2]["name"] + " Bias"]
 datasets = [data, pred_dict[key1]["ds_prediction"], pred_dict[key2]["ds_prediction"]]
 
-for i, (ax, title, ds) in enumerate(zip(axs, titles, datasets)):
+for i, (ax, title, ds) in enumerate(zip(axs[:3], titles, datasets)):
     section_mask = np.isnan(ds['thetao']).isel(lev=0).isel(time=5)
     SST_pred = ds['thetao'].isel(lev=0).mean('time')
     SST_pred = SST_pred.where(~section_mask)
@@ -802,7 +808,7 @@ for i, (ax, title, ds) in enumerate(zip(axs, titles, datasets)):
     elif i == 2:
         pred2_sst = SST_pred
 
-    # Plot using the Cartesian lat-lon grid
+    # Plot using simple pcolormesh
     im = plot_sst(ax, SST_pred, title, i)
 
 # Add colorbar for SST plots
@@ -822,7 +828,6 @@ fig.delaxes(axs[3])
 
 # Save or display the plot
 plt.savefig(os.path.join(output_path, "SST_Global_map.png"), bbox_inches='tight', dpi=600)
-# plt.show()
 
 # %%
 
