@@ -2,9 +2,9 @@
 #PBS -S /bin/csh
 #PBS -q normal
 #PBS -l select=1:ncpus=20:model=ivy
-#PBS -l walltime=3:00:00
+#PBS -l walltime=1:00:00
 #PBS -j oe
-#PBS -o ./samudra_plotting.log
+#PBS -o ./samudra_stats.log
 #PBS -m bea
 #PBS -r n
 
@@ -29,6 +29,7 @@ cd ${basedir}
 
 # Run the samudra rollout script
 echo "Starting Samudra model run at `date`"
-${CONDA_PYTHON} samudra_plotting.py
+${CONDA_PYTHON} compute_statistics.py
+#${CONDA_PYTHON} samudra_rollout.py
 echo "Finished Samudra model run at `date`"
 

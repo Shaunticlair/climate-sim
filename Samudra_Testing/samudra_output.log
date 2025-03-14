@@ -1,37 +1,88 @@
-Job 21775311.pbspl1.nas.nasa.gov started on Fri Mar 14 14:48:41 PDT 2025
+Job 21775604.pbspl1.nas.nasa.gov started on Fri Mar 14 16:00:10 PDT 2025
 The job requested the following resources:
     ncpus=20
     place=scatter:excl
-    walltime=00:10:00
+    walltime=01:00:00
 
 PBS set the following environment variables:
         FORT_BUFFERED = 1
                    TZ = PST8PDT
 
-On r431i5n14:
+On r401i2n13:
 Warning: no access to tty (Inappropriate ioctl for device).
 Thus no job control in this shell.
 Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
-Starting Samudra model run at Fri Mar 14 14:48:46 PDT 2025
-  File "/nobackupp28/sruiz5/climate-sim/Samudra_Testing/samudra_plotting.py", line 201
-    print(f'{list(data.data_vars)})
-          ^
-SyntaxError: unterminated string literal (detected at line 201)
-Finished Samudra model run at Fri Mar 14 14:48:46 PDT 2025
+Starting Samudra model run at Fri Mar 14 16:00:16 PDT 2025
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/numpy/lib/function_base.py:518: RuntimeWarning: Mean of empty slice.
+  avg = a.mean(axis, **keepdims_kw)
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/numpy/core/_methods.py:184: RuntimeWarning: invalid value encountered in divide
+  ret = um.true_divide(
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/numpy/lib/function_base.py:2846: RuntimeWarning: Degrees of freedom <= 0 for slice
+  c = cov(x, y, rowvar, dtype=dtype)
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/numpy/lib/function_base.py:2705: RuntimeWarning: divide by zero encountered in divide
+  c *= np.true_divide(1, fact)
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/numpy/lib/function_base.py:2705: RuntimeWarning: invalid value encountered in multiply
+  c *= np.true_divide(1, fact)
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/numpy/lib/function_base.py:518: RuntimeWarning: Mean of empty slice.
+  avg = a.mean(axis, **keepdims_kw)
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/numpy/core/_methods.py:184: RuntimeWarning: invalid value encountered in divide
+  ret = um.true_divide(
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/numpy/lib/function_base.py:2846: RuntimeWarning: Degrees of freedom <= 0 for slice
+  c = cov(x, y, rowvar, dtype=dtype)
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/numpy/lib/function_base.py:2705: RuntimeWarning: divide by zero encountered in divide
+  c *= np.true_divide(1, fact)
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/numpy/lib/function_base.py:2705: RuntimeWarning: invalid value encountered in multiply
+  c *= np.true_divide(1, fact)
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/numpy/lib/function_base.py:518: RuntimeWarning: Mean of empty slice.
+  avg = a.mean(axis, **keepdims_kw)
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/numpy/core/_methods.py:184: RuntimeWarning: invalid value encountered in divide
+  ret = um.true_divide(
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/numpy/lib/function_base.py:2846: RuntimeWarning: Degrees of freedom <= 0 for slice
+  c = cov(x, y, rowvar, dtype=dtype)
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/numpy/lib/function_base.py:2705: RuntimeWarning: divide by zero encountered in divide
+  c *= np.true_divide(1, fact)
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/numpy/lib/function_base.py:2705: RuntimeWarning: invalid value encountered in multiply
+  c *= np.true_divide(1, fact)
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/numpy/lib/function_base.py:518: RuntimeWarning: Mean of empty slice.
+  avg = a.mean(axis, **keepdims_kw)
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/numpy/core/_methods.py:184: RuntimeWarning: invalid value encountered in divide
+  ret = um.true_divide(
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/numpy/lib/function_base.py:2846: RuntimeWarning: Degrees of freedom <= 0 for slice
+  c = cov(x, y, rowvar, dtype=dtype)
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/numpy/lib/function_base.py:2705: RuntimeWarning: divide by zero encountered in divide
+  c *= np.true_divide(1, fact)
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/numpy/lib/function_base.py:2705: RuntimeWarning: invalid value encountered in multiply
+  c *= np.true_divide(1, fact)
+Loading ground truth data...
+Loading thermo prediction data...
+Loading thermo+dynamic prediction data...
+Aligning datasets...
+Computing metrics for temperature (thetao):
+Thermo MAE: nan °C
+Thermo Pattern Correlation: nan
+Thermo+Dynamic MAE: nan °C
+Thermo+Dynamic Pattern Correlation: nan
+
+Computing metrics for salinity (so):
+Thermo MAE: nan psu
+Thermo Pattern Correlation: nan
+Thermo+Dynamic MAE: nan psu
+Thermo+Dynamic Pattern Correlation: nan
+Finished Samudra model run at Fri Mar 14 16:00:41 PDT 2025
 
 ____________________________________________________________________
-Job Resource Usage Summary for 21775311.pbspl1.nas.nasa.gov
+Job Resource Usage Summary for 21775604.pbspl1.nas.nasa.gov
 
-    CPU Time Used            : 00:00:01
-    Real Memory Used         : 4kb
-    Walltime Used            : 00:00:01
+    CPU Time Used            : 00:03:52
+    Real Memory Used         : 299316kb
+    Walltime Used            : 00:00:27
     Exit Status              : 0
 
     Number of CPUs Requested : 20
-    Walltime Requested       : 00:10:00
+    Walltime Requested       : 01:00:00
 
     Execution Queue          : normal
     Charged To               : g26113
 
-    Job Stopped              : Fri Mar 14 14:48:49 2025
+    Job Stopped              : Fri Mar 14 16:00:46 2025
 ____________________________________________________________________
