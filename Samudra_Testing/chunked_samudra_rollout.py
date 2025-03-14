@@ -156,7 +156,7 @@ MODEL_PATHS = {
 # In[6]:
 
 
-exp_num_in = "3D_thermo_dynamic_all" # "3D_thermo_all" or "3D_thermo_dynamic_all"
+exp_num_in = "3D_thermo_all" # "3D_thermo_all" or "3D_thermo_dynamic_all"
 exp_num_extra = "3D_all_hfds_anom"
 exp_num_out = exp_num_in
 
