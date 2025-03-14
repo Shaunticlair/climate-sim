@@ -8,7 +8,8 @@
 
 # %%
 import sys
-sys.path.append("../samudra/")
+#sys.path.append("../samudra/")
+sys.path.append("/nobackup/sruiz5/SAMUDRATEST/Samudra/samudra/")
 
 # %%
 import xarray as xr
@@ -59,7 +60,9 @@ from utils import convert_train_data
 data_file = "./data.zarr"
 data = xr.open_zarr(data_file)
 
-ds_groundtruth = data.isel(time=slice(start_index, start_index+N_test))
+#ds_groundtruth = data.isel(time=slice(start_index, start_index+N_test))
+# Handles error where first timestep is excluded from testing data
+ds_groundtruth = data.isel(time=slice(start_index+2, start_index+N_test))
 ds_groundtruth = convert_train_data(ds_groundtruth)
 
 

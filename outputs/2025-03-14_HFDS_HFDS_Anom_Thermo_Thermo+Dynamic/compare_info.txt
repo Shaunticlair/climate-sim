@@ -1,0 +1,12 @@
+{
+    "pred_1": {
+        "mode": "thermo",
+        "name": "Thermo",
+        "path": "3D_thermo_all_prediction.zarr"
+    },
+    "pred_2": {
+        "mode": "thermo_dynamic",
+        "name": "Thermo+Dynamic",
+        "path": "3D_thermo_dynamic_all_prediction.zarr"
+    }
+}
