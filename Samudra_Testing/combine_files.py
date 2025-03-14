@@ -6,11 +6,14 @@ def get_memory_usage():
     """Return the memory usage in MB using the resource module."""
     return resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024  # Convert to MB
 
+exp_num_in = "3D_thermo_all" # "3D_thermo_all" or "3D_thermo_dynamic_all"
+exp_num_out = exp_num_in
+
 # Define input and output files
 chunks = [
-    f"3D_thermo_dynamic_all_prediction_chunk{i}.zarr"
+    f"{exp_num_in}_prediction_chunk{i}.zarr"
          for i in range(1,7)]
-output_file = "3D_thermo_dynamic_all_prediction_merged.zarr"
+output_file = f"{exp_num_out}_prediction.zarr"
 
 print(f"Initial memory usage: {get_memory_usage():.2f} MB")
 

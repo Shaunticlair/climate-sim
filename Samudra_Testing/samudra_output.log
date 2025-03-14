@@ -1,4 +1,4 @@
-Job 21771747.pbspl1.nas.nasa.gov started on Fri Mar 14 08:39:16 PDT 2025
+Job 21773222.pbspl1.nas.nasa.gov started on Fri Mar 14 10:34:55 PDT 2025
 The job requested the following resources:
     ncpus=20
     place=scatter:excl
@@ -8,59 +8,59 @@ PBS set the following environment variables:
         FORT_BUFFERED = 1
                    TZ = PST8PDT
 
-On r437i1n17:
+On r447i1n7:
 Warning: no access to tty (Inappropriate ioctl for device).
 Thus no job control in this shell.
 Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
-Starting Samudra model run at Fri Mar 14 08:39:21 PDT 2025
-Initial memory usage: 65.82 MB
-Memory after creating output structure: 4239.41 MB
+Starting Samudra model run at Fri Mar 14 10:34:57 PDT 2025
+Initial memory usage: 66.94 MB
+Memory after creating output structure: 2534.00 MB
 Processing chunk 1/6
-Memory before opening chunk 1: 4239.41 MB
-Memory after opening chunk 1: 4239.41 MB
-Memory after writing chunk 1: 10605.27 MB
-Memory after garbage collection: 10605.27 MB
+Memory before opening chunk 1: 2534.00 MB
+Memory after opening chunk 1: 2534.00 MB
+Memory after writing chunk 1: 5467.52 MB
+Memory after garbage collection: 5467.52 MB
 Chunk 1 appended and memory cleared
 Processing chunk 2/6
-Memory before opening chunk 2: 10605.27 MB
-Memory after opening chunk 2: 10605.27 MB
-Memory after writing chunk 2: 10767.92 MB
-Memory after garbage collection: 10767.92 MB
+Memory before opening chunk 2: 5467.52 MB
+Memory after opening chunk 2: 5467.52 MB
+Memory after writing chunk 2: 5778.90 MB
+Memory after garbage collection: 5778.90 MB
 Chunk 2 appended and memory cleared
 Processing chunk 3/6
-Memory before opening chunk 3: 10767.92 MB
-Memory after opening chunk 3: 10767.92 MB
-Memory after writing chunk 3: 11018.86 MB
-Memory after garbage collection: 11018.86 MB
+Memory before opening chunk 3: 5778.90 MB
+Memory after opening chunk 3: 5778.90 MB
+Memory after writing chunk 3: 5779.21 MB
+Memory after garbage collection: 5779.21 MB
 Chunk 3 appended and memory cleared
 Processing chunk 4/6
-Memory before opening chunk 4: 11018.86 MB
-Memory after opening chunk 4: 11018.86 MB
-Memory after writing chunk 4: 11018.94 MB
-Memory after garbage collection: 11018.94 MB
+Memory before opening chunk 4: 5779.21 MB
+Memory after opening chunk 4: 5779.21 MB
+Memory after writing chunk 4: 5951.77 MB
+Memory after garbage collection: 5951.77 MB
 Chunk 4 appended and memory cleared
 Processing chunk 5/6
-Memory before opening chunk 5: 11018.94 MB
-Memory after opening chunk 5: 11018.94 MB
-Memory after writing chunk 5: 11228.39 MB
-Memory after garbage collection: 11228.39 MB
+Memory before opening chunk 5: 5951.77 MB
+Memory after opening chunk 5: 5951.77 MB
+Memory after writing chunk 5: 6036.47 MB
+Memory after garbage collection: 6036.47 MB
 Chunk 5 appended and memory cleared
 Processing chunk 6/6
-Memory before opening chunk 6: 11228.39 MB
-Memory after opening chunk 6: 11228.39 MB
-Memory after writing chunk 6: 11385.05 MB
-Memory after garbage collection: 11385.05 MB
+Memory before opening chunk 6: 6036.47 MB
+Memory after opening chunk 6: 6036.47 MB
+Memory after writing chunk 6: 6126.29 MB
+Memory after garbage collection: 6126.29 MB
 Chunk 6 appended and memory cleared
 Merge complete!
-Final memory usage: 11385.05 MB
-Finished Samudra model run at Fri Mar 14 08:39:43 PDT 2025
+Final memory usage: 6126.29 MB
+Finished Samudra model run at Fri Mar 14 10:35:13 PDT 2025
 
 ____________________________________________________________________
-Job Resource Usage Summary for 21771747.pbspl1.nas.nasa.gov
+Job Resource Usage Summary for 21773222.pbspl1.nas.nasa.gov
 
-    CPU Time Used            : 00:02:27
-    Real Memory Used         : 10219332kb
-    Walltime Used            : 00:00:23
+    CPU Time Used            : 00:01:03
+    Real Memory Used         : 5200436kb
+    Walltime Used            : 00:00:17
     Exit Status              : 0
 
     Number of CPUs Requested : 20
@@ -69,5 +69,5 @@ Job Resource Usage Summary for 21771747.pbspl1.nas.nasa.gov
     Execution Queue          : normal
     Charged To               : g26113
 
-    Job Stopped              : Fri Mar 14 08:39:51 2025
+    Job Stopped              : Fri Mar 14 10:35:19 2025
 ____________________________________________________________________
