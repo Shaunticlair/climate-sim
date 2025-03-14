@@ -1,18 +1,26 @@
-Job 21758634.pbspl1.nas.nasa.gov started on Tue Mar 11 19:33:04 PDT 2025
+Job 21758730.pbspl1.nas.nasa.gov started on Tue Mar 11 19:54:28 PDT 2025
 The job requested the following resources:
     ncpus=20
     place=scatter:excl
-    walltime=00:10:00
+    walltime=01:00:00
 
 PBS set the following environment variables:
         FORT_BUFFERED = 1
                    TZ = PST8PDT
 
-On r481i6n0:
+On r409i5n12:
 Warning: no access to tty (Inappropriate ioctl for device).
 Thus no job control in this shell.
 Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
-Starting Samudra model run at Tue Mar 11 19:33:07 PDT 2025
+Starting Samudra model run at Tue Mar 11 19:54:31 PDT 2025
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
+  return data.astype(dtype, **kwargs)
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
+  return data.astype(dtype, **kwargs)
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
+  return data.astype(dtype, **kwargs)
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
+  return data.astype(dtype, **kwargs)
 /nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
   return data.astype(dtype, **kwargs)
 /nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
@@ -20,77 +28,129 @@ Starting Samudra model run at Tue Mar 11 19:33:07 PDT 2025
 Section 'Starting...' took 0.0000 seconds
 Total elapsed time: 0.0000 seconds
 ----------------------------------------
-Section 'Imports' took 60.3177 seconds
-Total elapsed time: 60.3177 seconds
+Section 'Imports' took 10.4655 seconds
+Total elapsed time: 10.4655 seconds
 ----------------------------------------
-Section 'Torch config' took 0.3625 seconds
-Total elapsed time: 60.6802 seconds
+Section 'Torch config' took 0.3229 seconds
+Total elapsed time: 10.7883 seconds
 ----------------------------------------
 Number of inputs:  158
 Number of outputs:  154
 Section 'Set constants' took 0.0001 seconds
-Total elapsed time: 60.6803 seconds
+Total elapsed time: 10.7885 seconds
 ----------------------------------------
-Section 'Data retrieved' took 24.1994 seconds
-Total elapsed time: 84.8797 seconds
+Section 'Data retrieved' took 3.4663 seconds
+Total elapsed time: 14.2547 seconds
 ----------------------------------------
 Wet resolution: torch.Size([154, 180, 360])
-Section 'Dataloader run' took 0.3104 seconds
-Total elapsed time: 85.1900 seconds
+Section 'Dataloader run' took 0.0669 seconds
+Total elapsed time: 14.3216 seconds
 ----------------------------------------
-Section 'Model create' took 1.1454 seconds
-Total elapsed time: 86.3355 seconds
+Section 'Model create' took 1.0156 seconds
+Total elapsed time: 15.3372 seconds
 ----------------------------------------
 Section 'Weights retrieved' took 0.0002 seconds
-Total elapsed time: 86.3356 seconds
+Total elapsed time: 15.3374 seconds
 ----------------------------------------
-Section 'Weights loaded to model' took 1.7382 seconds
-Total elapsed time: 88.0738 seconds
+Section 'Weights loaded to model' took 2.3593 seconds
+Total elapsed time: 17.6967 seconds
 ----------------------------------------
-Processing 20 timesteps in 2 chunks of 10
+Processing 600 timesteps in 6 chunks of 100
 
-Processing chunk 1/2: timesteps 0 to 9
+Processing chunk 1/6: timesteps 0 to 99
 Long rollout will begin with input and produce output from time index 0 and 2 respectively
-Section 'Dataloader created for chunk 1' took 0.0676 seconds
-Total elapsed time: 88.1414 seconds
+Section 'Dataloader created for chunk 1' took 0.0261 seconds
+Total elapsed time: 17.7228 seconds
 ----------------------------------------
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Section 'Rollout generated for chunk 1' took 65.9858 seconds
-Total elapsed time: 154.1271 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Out:  [[24 25]] Out:  [[26 27]] Out:  [[28 29]] Out:  [[30 31]] Out:  [[32 33]] Out:  [[34 35]] Out:  [[36 37]] Out:  [[38 39]] Out:  [[40 41]] Out:  [[42 43]] Out:  [[44 45]] Out:  [[46 47]] Out:  [[48 49]] Out:  [[50 51]] Out:  [[52 53]] Out:  [[54 55]] Out:  [[56 57]] Out:  [[58 59]] Out:  [[60 61]] Out:  [[62 63]] Out:  [[64 65]] Out:  [[66 67]] Out:  [[68 69]] Out:  [[70 71]] Out:  [[72 73]] Out:  [[74 75]] Out:  [[76 77]] Out:  [[78 79]] Out:  [[80 81]] Out:  [[82 83]] Out:  [[84 85]] Out:  [[86 87]] Out:  [[88 89]] Out:  [[90 91]] Out:  [[92 93]] Out:  [[94 95]] Out:  [[96 97]] Out:  [[98 99]] Out:  [[100 101]] Section 'Rollout generated for chunk 1' took 406.4526 seconds
+Total elapsed time: 424.1754 seconds
 ----------------------------------------
 Saving chunk to 3D_thermo_dynamic_all_prediction_chunk1.zarr
-Section 'Chunk 1 saved' took 3.3707 seconds
-Total elapsed time: 157.4978 seconds
+Section 'Chunk 1 saved' took 27.4305 seconds
+Total elapsed time: 451.6059 seconds
 ----------------------------------------
 
-Processing chunk 2/2: timesteps 10 to 19
-Long rollout will begin with input and produce output from time index 10 and 12 respectively
-Section 'Dataloader created for chunk 2' took 0.5001 seconds
-Total elapsed time: 157.9980 seconds
+Processing chunk 2/6: timesteps 100 to 199
+Long rollout will begin with input and produce output from time index 100 and 102 respectively
+Section 'Dataloader created for chunk 2' took 0.4471 seconds
+Total elapsed time: 452.0531 seconds
 ----------------------------------------
-Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Section 'Rollout generated for chunk 2' took 41.6956 seconds
-Total elapsed time: 199.6936 seconds
+Out:  [[102 103]] Out:  [[104 105]] Out:  [[106 107]] Out:  [[108 109]] Out:  [[110 111]] Out:  [[112 113]] Out:  [[114 115]] Out:  [[116 117]] Out:  [[118 119]] Out:  [[120 121]] Out:  [[122 123]] Out:  [[124 125]] Out:  [[126 127]] Out:  [[128 129]] Out:  [[130 131]] Out:  [[132 133]] Out:  [[134 135]] Out:  [[136 137]] Out:  [[138 139]] Out:  [[140 141]] Out:  [[142 143]] Out:  [[144 145]] Out:  [[146 147]] Out:  [[148 149]] Out:  [[150 151]] Out:  [[152 153]] Out:  [[154 155]] Out:  [[156 157]] Out:  [[158 159]] Out:  [[160 161]] Out:  [[162 163]] Out:  [[164 165]] Out:  [[166 167]] Out:  [[168 169]] Out:  [[170 171]] Out:  [[172 173]] Out:  [[174 175]] Out:  [[176 177]] Out:  [[178 179]] Out:  [[180 181]] Out:  [[182 183]] Out:  [[184 185]] Out:  [[186 187]] Out:  [[188 189]] Out:  [[190 191]] Out:  [[192 193]] Out:  [[194 195]] Out:  [[196 197]] Out:  [[198 199]] Out:  [[200 201]] Section 'Rollout generated for chunk 2' took 406.9515 seconds
+Total elapsed time: 859.0045 seconds
 ----------------------------------------
 Saving chunk to 3D_thermo_dynamic_all_prediction_chunk2.zarr
-Section 'Chunk 2 saved' took 3.5892 seconds
-Total elapsed time: 203.2828 seconds
+Section 'Chunk 2 saved' took 27.2380 seconds
+Total elapsed time: 886.2426 seconds
+----------------------------------------
+
+Processing chunk 3/6: timesteps 200 to 299
+Long rollout will begin with input and produce output from time index 200 and 202 respectively
+Section 'Dataloader created for chunk 3' took 0.3746 seconds
+Total elapsed time: 886.6171 seconds
+----------------------------------------
+Out:  [[202 203]] Out:  [[204 205]] Out:  [[206 207]] Out:  [[208 209]] Out:  [[210 211]] Out:  [[212 213]] Out:  [[214 215]] Out:  [[216 217]] Out:  [[218 219]] Out:  [[220 221]] Out:  [[222 223]] Out:  [[224 225]] Out:  [[226 227]] Out:  [[228 229]] Out:  [[230 231]] Out:  [[232 233]] Out:  [[234 235]] Out:  [[236 237]] Out:  [[238 239]] Out:  [[240 241]] Out:  [[242 243]] Out:  [[244 245]] Out:  [[246 247]] Out:  [[248 249]] Out:  [[250 251]] Out:  [[252 253]] Out:  [[254 255]] Out:  [[256 257]] Out:  [[258 259]] Out:  [[260 261]] Out:  [[262 263]] Out:  [[264 265]] Out:  [[266 267]] Out:  [[268 269]] Out:  [[270 271]] Out:  [[272 273]] Out:  [[274 275]] Out:  [[276 277]] Out:  [[278 279]] Out:  [[280 281]] Out:  [[282 283]] Out:  [[284 285]] Out:  [[286 287]] Out:  [[288 289]] Out:  [[290 291]] Out:  [[292 293]] Out:  [[294 295]] Out:  [[296 297]] Out:  [[298 299]] Out:  [[300 301]] Section 'Rollout generated for chunk 3' took 407.5685 seconds
+Total elapsed time: 1294.1857 seconds
+----------------------------------------
+Saving chunk to 3D_thermo_dynamic_all_prediction_chunk3.zarr
+Section 'Chunk 3 saved' took 27.0189 seconds
+Total elapsed time: 1321.2046 seconds
+----------------------------------------
+
+Processing chunk 4/6: timesteps 300 to 399
+Long rollout will begin with input and produce output from time index 300 and 302 respectively
+Section 'Dataloader created for chunk 4' took 0.3565 seconds
+Total elapsed time: 1321.5611 seconds
+----------------------------------------
+Out:  [[302 303]] Out:  [[304 305]] Out:  [[306 307]] Out:  [[308 309]] Out:  [[310 311]] Out:  [[312 313]] Out:  [[314 315]] Out:  [[316 317]] Out:  [[318 319]] Out:  [[320 321]] Out:  [[322 323]] Out:  [[324 325]] Out:  [[326 327]] Out:  [[328 329]] Out:  [[330 331]] Out:  [[332 333]] Out:  [[334 335]] Out:  [[336 337]] Out:  [[338 339]] Out:  [[340 341]] Out:  [[342 343]] Out:  [[344 345]] Out:  [[346 347]] Out:  [[348 349]] Out:  [[350 351]] Out:  [[352 353]] Out:  [[354 355]] Out:  [[356 357]] Out:  [[358 359]] Out:  [[360 361]] Out:  [[362 363]] Out:  [[364 365]] Out:  [[366 367]] Out:  [[368 369]] Out:  [[370 371]] Out:  [[372 373]] Out:  [[374 375]] Out:  [[376 377]] Out:  [[378 379]] Out:  [[380 381]] Out:  [[382 383]] Out:  [[384 385]] Out:  [[386 387]] Out:  [[388 389]] Out:  [[390 391]] Out:  [[392 393]] Out:  [[394 395]] Out:  [[396 397]] Out:  [[398 399]] Out:  [[400 401]] Section 'Rollout generated for chunk 4' took 405.5182 seconds
+Total elapsed time: 1727.0793 seconds
+----------------------------------------
+Saving chunk to 3D_thermo_dynamic_all_prediction_chunk4.zarr
+Section 'Chunk 4 saved' took 26.9477 seconds
+Total elapsed time: 1754.0270 seconds
+----------------------------------------
+
+Processing chunk 5/6: timesteps 400 to 499
+Long rollout will begin with input and produce output from time index 400 and 402 respectively
+Section 'Dataloader created for chunk 5' took 0.1092 seconds
+Total elapsed time: 1754.1362 seconds
+----------------------------------------
+Out:  [[402 403]] Out:  [[404 405]] Out:  [[406 407]] Out:  [[408 409]] Out:  [[410 411]] Out:  [[412 413]] Out:  [[414 415]] Out:  [[416 417]] Out:  [[418 419]] Out:  [[420 421]] Out:  [[422 423]] Out:  [[424 425]] Out:  [[426 427]] Out:  [[428 429]] Out:  [[430 431]] Out:  [[432 433]] Out:  [[434 435]] Out:  [[436 437]] Out:  [[438 439]] Out:  [[440 441]] Out:  [[442 443]] Out:  [[444 445]] Out:  [[446 447]] Out:  [[448 449]] Out:  [[450 451]] Out:  [[452 453]] Out:  [[454 455]] Out:  [[456 457]] Out:  [[458 459]] Out:  [[460 461]] Out:  [[462 463]] Out:  [[464 465]] Out:  [[466 467]] Out:  [[468 469]] Out:  [[470 471]] Out:  [[472 473]] Out:  [[474 475]] Out:  [[476 477]] Out:  [[478 479]] Out:  [[480 481]] Out:  [[482 483]] Out:  [[484 485]] Out:  [[486 487]] Out:  [[488 489]] Out:  [[490 491]] Out:  [[492 493]] Out:  [[494 495]] Out:  [[496 497]] Out:  [[498 499]] Out:  [[500 501]] Section 'Rollout generated for chunk 5' took 413.1072 seconds
+Total elapsed time: 2167.2434 seconds
+----------------------------------------
+Saving chunk to 3D_thermo_dynamic_all_prediction_chunk5.zarr
+Section 'Chunk 5 saved' took 27.0556 seconds
+Total elapsed time: 2194.2990 seconds
+----------------------------------------
+
+Processing chunk 6/6: timesteps 500 to 599
+Long rollout will begin with input and produce output from time index 500 and 502 respectively
+Section 'Dataloader created for chunk 6' took 0.0824 seconds
+Total elapsed time: 2194.3814 seconds
+----------------------------------------
+Out:  [[502 503]] Out:  [[504 505]] Out:  [[506 507]] Out:  [[508 509]] Out:  [[510 511]] Out:  [[512 513]] Out:  [[514 515]] Out:  [[516 517]] Out:  [[518 519]] Out:  [[520 521]] Out:  [[522 523]] Out:  [[524 525]] Out:  [[526 527]] Out:  [[528 529]] Out:  [[530 531]] Out:  [[532 533]] Out:  [[534 535]] Out:  [[536 537]] Out:  [[538 539]] Out:  [[540 541]] Out:  [[542 543]] Out:  [[544 545]] Out:  [[546 547]] Out:  [[548 549]] Out:  [[550 551]] Out:  [[552 553]] Out:  [[554 555]] Out:  [[556 557]] Out:  [[558 559]] Out:  [[560 561]] Out:  [[562 563]] Out:  [[564 565]] Out:  [[566 567]] Out:  [[568 569]] Out:  [[570 571]] Out:  [[572 573]] Out:  [[574 575]] Out:  [[576 577]] Out:  [[578 579]] Out:  [[580 581]] Out:  [[582 583]] Out:  [[584 585]] Out:  [[586 587]] Out:  [[588 589]] Out:  [[590 591]] Out:  [[592 593]] Out:  [[594 595]] Out:  [[596 597]] Out:  [[598 599]] Out:  [[600 601]] Section 'Rollout generated for chunk 6' took 409.7229 seconds
+Total elapsed time: 2604.1043 seconds
+----------------------------------------
+Saving chunk to 3D_thermo_dynamic_all_prediction_chunk6.zarr
+Section 'Chunk 6 saved' took 27.3261 seconds
+Total elapsed time: 2631.4304 seconds
 ----------------------------------------
 
 All chunks processed successfully!
-Finished Samudra model run at Tue Mar 11 19:36:36 PDT 2025
+Finished Samudra model run at Tue Mar 11 20:38:30 PDT 2025
 
 ____________________________________________________________________
-Job Resource Usage Summary for 21758634.pbspl1.nas.nasa.gov
+Job Resource Usage Summary for 21758730.pbspl1.nas.nasa.gov
 
-    CPU Time Used            : 00:33:23
-    Real Memory Used         : 2961596kb
-    Walltime Used            : 00:03:30
+    CPU Time Used            : 16:26:40
+    Real Memory Used         : 10217064kb
+    Walltime Used            : 00:44:00
     Exit Status              : 0
 
     Number of CPUs Requested : 20
-    Walltime Requested       : 00:10:00
+    Walltime Requested       : 01:00:00
 
     Execution Queue          : normal
     Charged To               : g26113
 
-    Job Stopped              : Tue Mar 11 19:36:41 2025
+    Job Stopped              : Tue Mar 11 20:38:39 2025
 ____________________________________________________________________

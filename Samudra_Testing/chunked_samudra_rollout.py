@@ -7,8 +7,8 @@
 
 # ## Imports
 
-N_test = 20
-chunk_size = 10
+N_test = 600
+chunk_size = 100
 
 import time
 
