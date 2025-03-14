@@ -1,4 +1,4 @@
-Job 21774967.pbspl1.nas.nasa.gov started on Fri Mar 14 14:10:44 PDT 2025
+Job 21775311.pbspl1.nas.nasa.gov started on Fri Mar 14 14:48:41 PDT 2025
 The job requested the following resources:
     ncpus=20
     place=scatter:excl
@@ -8,44 +8,23 @@ PBS set the following environment variables:
         FORT_BUFFERED = 1
                    TZ = PST8PDT
 
-On r471i0n14:
+On r431i5n14:
 Warning: no access to tty (Inappropriate ioctl for device).
 Thus no job control in this shell.
 Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
-Starting Samudra model run at Fri Mar 14 14:10:47 PDT 2025
-Using Output Folder :  ../outputs/2025-03-14_HFDS_HFDS_Anom_Thermo_Thermo+Dynamic
-Ground truth OM4
-[                                        ] | 0% Completed | 320.92 us[########################################] | 100% Completed | 103.51 ms
-pred_1
-[                                        ] | 0% Completed | 190.64 us[                                        ] | 0% Completed | 105.49 ms[                                        ] | 0% Completed | 205.88 ms[                                        ] | 0% Completed | 306.21 ms[                                        ] | 0% Completed | 447.14 ms[                                        ] | 0% Completed | 547.63 ms[                                        ] | 0% Completed | 648.64 ms[#                                       ] | 2% Completed | 749.65 ms[##                                      ] | 6% Completed | 860.66 ms[###                                     ] | 9% Completed | 961.63 ms[####                                    ] | 12% Completed | 1.07 s[#######                                 ] | 17% Completed | 1.17 s[##########                              ] | 25% Completed | 1.27 s[#############                           ] | 32% Completed | 1.38 s[#############                           ] | 34% Completed | 1.48 s[#############                           ] | 34% Completed | 1.58 s[#############                           ] | 34% Completed | 1.68 s[##############                          ] | 36% Completed | 1.81 s[###############                         ] | 38% Completed | 1.92 s[################                        ] | 41% Completed | 2.05 s[##################                      ] | 46% Completed | 2.16 s[#####################                   ] | 52% Completed | 2.26 s[########################                ] | 61% Completed | 2.36 s[#########################               ] | 64% Completed | 2.46 s[#################################       ] | 82% Completed | 2.56 s[###################################     ] | 89% Completed | 2.67 s[####################################    ] | 91% Completed | 2.77 s[#####################################   ] | 93% Completed | 2.87 s[####################################### ] | 99% Completed | 2.97 s[########################################] | 100% Completed | 3.07 s
-pred_2
-[                                        ] | 0% Completed | 264.15 us[                                        ] | 0% Completed | 105.60 ms[                                        ] | 1% Completed | 205.90 ms[                                        ] | 1% Completed | 306.27 ms[                                        ] | 1% Completed | 406.60 ms[                                        ] | 1% Completed | 506.95 ms[                                        ] | 2% Completed | 607.40 ms[#                                       ] | 2% Completed | 709.38 ms[#                                       ] | 3% Completed | 810.40 ms[#                                       ] | 4% Completed | 927.41 ms[##                                      ] | 6% Completed | 1.03 s[###                                     ] | 9% Completed | 1.14 s[#####                                   ] | 13% Completed | 1.24 s[######                                  ] | 16% Completed | 1.34 s[######                                  ] | 17% Completed | 1.44 s[######                                  ] | 17% Completed | 1.54 s[#######                                 ] | 17% Completed | 1.65 s[#######                                 ] | 18% Completed | 1.75 s[#######                                 ] | 18% Completed | 1.88 s[########                                ] | 20% Completed | 1.99 s[########                                ] | 21% Completed | 2.09 s[#########                               ] | 23% Completed | 2.19 s[#########                               ] | 24% Completed | 2.30 s[##########                              ] | 27% Completed | 2.40 s[###########                             ] | 28% Completed | 2.50 s[############                            ] | 30% Completed | 2.60 s[############                            ] | 30% Completed | 2.71 s[############                            ] | 31% Completed | 2.81 s[############                            ] | 32% Completed | 2.92 s[#############                           ] | 33% Completed | 3.03 s[#############                           ] | 34% Completed | 3.14 s[##############                          ] | 36% Completed | 3.24 s[###############                         ] | 38% Completed | 3.35 s[################                        ] | 40% Completed | 3.45 s[################                        ] | 42% Completed | 3.55 s[##################                      ] | 47% Completed | 3.67 s[###################                     ] | 48% Completed | 3.77 s[###################                     ] | 49% Completed | 3.87 s[####################                    ] | 51% Completed | 3.98 s[####################                    ] | 51% Completed | 4.08 s[#####################                   ] | 53% Completed | 4.19 s[#####################                   ] | 53% Completed | 4.29 s[######################                  ] | 56% Completed | 4.41 s[########################                ] | 60% Completed | 4.52 s[########################                ] | 62% Completed | 4.62 s[#########################               ] | 62% Completed | 4.72 s[#########################               ] | 64% Completed | 4.82 s[##########################              ] | 65% Completed | 4.92 s[##########################              ] | 66% Completed | 5.04 s[###########################             ] | 67% Completed | 5.14 s[###########################             ] | 69% Completed | 5.24 s[############################            ] | 71% Completed | 5.34 s[#############################           ] | 73% Completed | 5.45 s[###############################         ] | 78% Completed | 5.55 s[###############################         ] | 78% Completed | 5.65 s[###############################         ] | 78% Completed | 5.75 s[###############################         ] | 79% Completed | 5.85 s[###############################         ] | 79% Completed | 5.96 s[################################        ] | 80% Completed | 6.07 s[#################################       ] | 82% Completed | 6.18 s[##################################      ] | 86% Completed | 6.28 s[###################################     ] | 88% Completed | 6.39 s[#####################################   ] | 92% Completed | 6.49 s[########################################] | 100% Completed | 6.59 s
-Traceback (most recent call last):
-  File "/nobackupp28/sruiz5/climate-sim/Samudra_Testing/samudra_plotting.py", line 197, in <module>
-    section_mask = np.isnan(da_temp).all('x').isel(time=0)
-  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/dataarray.py", line 1421, in isel
-    variable = self._variable.isel(indexers, missing_dims=missing_dims)
-  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/variable.py", line 1378, in isel
-    return self[key]
-  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/variable.py", line 900, in __getitem__
-    data = as_indexable(self._data)[indexer]
-  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/indexing.py", line 1436, in __getitem__
-    return self.array[key.tuple]
-  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/dask/array/core.py", line 1979, in __getitem__
-    index2 = normalize_index(index, self.shape)
-  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/dask/array/slicing.py", line 922, in normalize_index
-    check_index(axis, i, d)
-  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/dask/array/slicing.py", line 994, in check_index
-    raise IndexError(
-IndexError: Index 0 is out of bounds for axis 0 with size 0
-Finished Samudra model run at Fri Mar 14 14:11:52 PDT 2025
+Starting Samudra model run at Fri Mar 14 14:48:46 PDT 2025
+  File "/nobackupp28/sruiz5/climate-sim/Samudra_Testing/samudra_plotting.py", line 201
+    print(f'{list(data.data_vars)})
+          ^
+SyntaxError: unterminated string literal (detected at line 201)
+Finished Samudra model run at Fri Mar 14 14:48:46 PDT 2025
 
 ____________________________________________________________________
-Job Resource Usage Summary for 21774967.pbspl1.nas.nasa.gov
+Job Resource Usage Summary for 21775311.pbspl1.nas.nasa.gov
 
-    CPU Time Used            : 00:02:25
-    Real Memory Used         : 334356kb
-    Walltime Used            : 00:01:06
+    CPU Time Used            : 00:00:01
+    Real Memory Used         : 4kb
+    Walltime Used            : 00:00:01
     Exit Status              : 0
 
     Number of CPUs Requested : 20
@@ -54,5 +33,5 @@ Job Resource Usage Summary for 21774967.pbspl1.nas.nasa.gov
     Execution Queue          : normal
     Charged To               : g26113
 
-    Job Stopped              : Fri Mar 14 14:11:59 2025
+    Job Stopped              : Fri Mar 14 14:48:49 2025
 ____________________________________________________________________

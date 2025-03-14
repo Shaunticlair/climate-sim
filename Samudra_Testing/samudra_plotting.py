@@ -62,8 +62,13 @@ data = xr.open_zarr(data_file)
 
 #ds_groundtruth = data.isel(time=slice(start_index, start_index+N_test))
 # Handles error where first timestep is excluded from testing data
-ds_groundtruth = data.isel(time=slice(start_index+2, start_index+N_test))
+ds_groundtruth = data #.isel(time=slice(start_index+2, start_index+N_test))
+#print("Before transform")
+#print(f'{list(ds_groundtruth.data_vars)}')
 ds_groundtruth = convert_train_data(ds_groundtruth)
+#print("After transform")
+#print(f'{list(ds_groundtruth.data_vars)}')
+
 
 
 output_path = "../outputs/" + str(datetime.now())[:10] + '_' + prefix_path + '_' + '_'.join([pred_dict[k]["name"] for k in pred_dict.keys()])
@@ -193,6 +198,7 @@ ax = np.array(ax)  # Ensure ax is an array for easy indexing
 vmin, vmax = 0, 30
 
 # Plot OM4 (original data)
+#print(f'{list(data.data_vars)})
 da_temp = data['thetao'] # Directly use temperature variable
 section_mask = np.isnan(da_temp).all('x').isel(time=0)
 da_temp_int_x = da_temp.weighted(data['areacello']).mean(['x', 'time'])
