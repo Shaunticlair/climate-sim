@@ -8,8 +8,8 @@ sys.path.append("/nobackup/sruiz5/SAMUDRATEST/Samudra/samudra/")
 from utils import convert_train_data
 
 def profile_mean(ds):
-    """Calculate weighted mean across spatial dimensions"""
-    return ds.weighted(ds.areacello).mean(["x", "y"])
+    """Calculate weighted mean across spatial dimensions, ignoring NaNs"""
+    return ds.weighted(ds.areacello).mean(["x", "y"], skipna=True)
         
 def compute_metrics(ground_truth, prediction, variable='thetao'):
     """Compute MAE and pattern correlation between ground truth and prediction"""
@@ -32,8 +32,9 @@ def compute_metrics(ground_truth, prediction, variable='thetao'):
     if 'time' in pred.dims:
         pred = pred.mean('time')
     
-    gt_profile = profile_mean(gt.fillna(0))
-    pred_profile = profile_mean(pred.fillna(0))
+    # Proper handling of NaNs in weighted mean
+    gt_profile = profile_mean(gt)  # Remove fillna(0)
+    pred_profile = profile_mean(pred)  # Remove fillna(0)
     
     if gt_profile.dims != pred_profile.dims:
         common_dims = set(gt_profile.dims) & set(pred_profile.dims)
@@ -44,8 +45,9 @@ def compute_metrics(ground_truth, prediction, variable='thetao'):
     if np.isnan(gt_profile).all().compute().item() or np.isnan(pred_profile).all().compute().item():
         return np.nan, np.nan
     
+    # Calculate MAE only on non-NaN values in both datasets
     diff = np.abs(pred_profile - gt_profile)
-    mae_array = diff.mean(skipna=True)
+    mae_array = diff.mean(skipna=True)  # skipna=True ensures NaNs are ignored
     mae = float(mae_array.compute().values)
     
     gt_profile_computed = gt_profile.compute()
