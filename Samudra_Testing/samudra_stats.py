@@ -42,11 +42,20 @@ N_test = 600
 
 # Load and process data
 data = xr.open_zarr(data_file)
-ds_groundtruth = data#.isel(time=slice(start_index, start_index+N_test))
+ds_groundtruth = data.isel(time=slice(1,None))#.isel(time=slice(start_index, start_index+N_test))
+#Print time range
+time_range = ds_groundtruth.time
+print(f"Time range of ds_groundtruth: {time_range.values[0]} to {time_range.values[-1]}")
+
+
 from utils import convert_train_data
 ds_groundtruth = convert_train_data(ds_groundtruth)
 
 ds_prediction = xr.open_zarr(path_to_pred)
+
+# Print time range for preds
+time_range_pred = ds_prediction.time
+print(f"Time range of ds_prediction: {time_range_pred.values[0]} to {time_range_pred.values[-1]}")
 
 # Compute metrics
 mae, corr = compute_paper_metrics(ds_groundtruth, ds_prediction, 'thetao')
