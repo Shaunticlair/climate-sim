@@ -1,4 +1,4 @@
-Job 21776100.pbspl1.nas.nasa.gov started on Fri Mar 14 18:14:20 PDT 2025
+Job 21776135.pbspl1.nas.nasa.gov started on Fri Mar 14 18:48:33 PDT 2025
 The job requested the following resources:
     ncpus=20
     place=scatter:excl
@@ -8,47 +8,17 @@ PBS set the following environment variables:
         FORT_BUFFERED = 1
                    TZ = PST8PDT
 
-On r415i7n11:
+On r407i3n17:
 Warning: no access to tty (Inappropriate ioctl for device).
 Thus no job control in this shell.
 Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
-Starting Samudra model run at Fri Mar 14 18:14:23 PDT 2025
-Time range of ds_groundtruth: 2014-10-10 12:00:00 to 2022-12-24 12:00:00
-Time range of ds_prediction: 2014-10-10 12:00:00 to 2022-12-24 12:00:00
-600 601
-Traceback (most recent call last):
-  File "/nobackupp28/sruiz5/climate-sim/Samudra_Testing/samudra_stats.py", line 71, in <module>
-    mae, corr = compute_paper_metrics(ds_groundtruth, ds_prediction, 'thetao')
-  File "/nobackupp28/sruiz5/climate-sim/Samudra_Testing/samudra_stats.py", line 29, in compute_paper_metrics
-    diff = np.abs(pred - truth)
-  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/_typed_ops.py", line 225, in __sub__
-    return self._binary_op(other, operator.sub)
-  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/dataarray.py", line 4615, in _binary_op
-    self, other = align(self, other, join=align_type, copy=False)  # type: ignore
-  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/alignment.py", line 787, in align
-    aligner.align()
-  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/alignment.py", line 580, in align
-    self.reindex_all()
-  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/alignment.py", line 555, in reindex_all
-    self.results = tuple(
-  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/alignment.py", line 556, in <genexpr>
-    self._reindex_one(obj, matching_indexes)
-  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/alignment.py", line 540, in _reindex_one
-    dim_pos_indexers = self._get_dim_pos_indexers(matching_indexes)
-  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/alignment.py", line 506, in _get_dim_pos_indexers
-    indexers = obj_idx.reindex_like(aligned_idx, **self.reindex_kwargs)
-  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/indexes.py", line 527, in reindex_like
-    raise ValueError(
-ValueError: cannot reindex or align along dimension 'time' because the (pandas) index has duplicate values
-Finished Samudra model run at Fri Mar 14 18:14:46 PDT 2025
+Starting Samudra model run at Fri Mar 14 18:48:37 PDT 2025
 
 ____________________________________________________________________
-Job Resource Usage Summary for 21776100.pbspl1.nas.nasa.gov
+Job Resource Usage Summary for 21776135.pbspl1.nas.nasa.gov
 
-    CPU Time Used            : 00:00:06
-    Real Memory Used         : 83992kb
-    Walltime Used            : 00:00:24
-    Exit Status              : 0
+    Walltime Used            : 00:00:00
+    Exit Status              : -4
 
     Number of CPUs Requested : 20
     Walltime Requested       : 01:00:00
@@ -56,5 +26,5 @@ Job Resource Usage Summary for 21776100.pbspl1.nas.nasa.gov
     Execution Queue          : normal
     Charged To               : g26113
 
-    Job Stopped              : Fri Mar 14 18:14:55 2025
+    Job Stopped              : Fri Mar 14 18:54:55 2025
 ____________________________________________________________________

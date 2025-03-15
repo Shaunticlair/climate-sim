@@ -74,6 +74,7 @@ from utils import convert_train_data
 ds_groundtruth = convert_train_data(ds_groundtruth)
 
 ds_prediction = xr.open_zarr(path_to_pred)
+ds_prediction = ds_prediction.isel(time=slice(1,None))
 
 # Print time range for preds
 time_range_pred = ds_prediction.time
