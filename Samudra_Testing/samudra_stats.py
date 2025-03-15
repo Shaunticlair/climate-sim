@@ -21,6 +21,18 @@ def compute_paper_metrics(ds_truth, ds_pred, variable='thetao'):
     num_time_steps_pred = ds_pred.time.size
     print(num_time_steps,num_time_steps_pred)
 
+    # Print the first 5 and last 5 time steps of ds_groundtruth
+    print("First 5 time steps of ds_groundtruth:")
+    print(ds_truth.time.values[:5])
+    print("Last 5 time steps of ds_groundtruth:")
+    print(ds_truth.time.values[-5:])
+    print("First 5 time steps of ds_prediction:")
+    print(ds_pred.time.values[:5])
+    print("Last 5 time steps of ds_prediction:")
+    print(ds_pred.time.values[-5:])
+    
+
+
     # Volume weighting
     vol_weights = ds_truth['areacello'] * ds_truth['dz']
     vol_weights = vol_weights / vol_weights.sum()
