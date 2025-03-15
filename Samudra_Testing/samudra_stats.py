@@ -11,6 +11,16 @@ def compute_paper_metrics(ds_truth, ds_pred, variable='thetao'):
     truth = ds_truth[variable]
     pred = ds_pred[variable]
     
+    # Make sure we have the same time points
+    #common_times = sorted(list(set(truth.time.values) & set(pred.time.values)))
+    #truth = truth.sel(time=common_times)
+    #pred = pred.sel(time=common_times)
+
+    # Print number of time steps in ds_groundtruth
+    num_time_steps = ds_truth.time.size
+    num_time_steps_pred = ds_pred.time.size
+    print(num_time_steps,num_time_steps_pred)
+
     # Volume weighting
     vol_weights = ds_truth['areacello'] * ds_truth['dz']
     vol_weights = vol_weights / vol_weights.sum()
@@ -42,7 +52,7 @@ N_test = 600
 
 # Load and process data
 data = xr.open_zarr(data_file)
-ds_groundtruth = data.isel(time=slice(1,None))#.isel(time=slice(start_index, start_index+N_test))
+ds_groundtruth = data.isel(time=slice(2,None))#.isel(time=slice(start_index, start_index+N_test))
 #Print time range
 time_range = ds_groundtruth.time
 print(f"Time range of ds_groundtruth: {time_range.values[0]} to {time_range.values[-1]}")
