@@ -2,6 +2,10 @@ import xarray as xr
 import numpy as np
 from datetime import datetime
 import sys
+import sys
+#sys.path.append("../samudra/")
+sys.path.append("/nobackup/sruiz5/SAMUDRATEST/Samudra/samudra/")
+
 
 try:
     from utils import convert_train_data
@@ -165,8 +169,8 @@ if __name__ == "__main__":
     # Load data with chunking to avoid memory issues
     print("Loading ground truth data...")
     try:
-        data = xr.open_zarr(data_file, chunks={'time': 100})
-        ds_groundtruth = data.isel(time=slice(start_index, start_index+N_test))
+        data = xr.open_zarr(data_file)
+        ds_groundtruth = data
         ds_groundtruth = convert_train_data(ds_groundtruth)
     except Exception as e:
         print(f"Error loading ground truth data: {e}")

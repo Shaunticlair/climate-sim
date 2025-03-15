@@ -1,5 +1,9 @@
 import xarray as xr
 import sys
+
+import sys
+#sys.path.append("../samudra/")
+sys.path.append("/nobackup/sruiz5/SAMUDRATEST/Samudra/samudra/")
 from utils import convert_train_data  # Import the conversion function
 
 # Paths

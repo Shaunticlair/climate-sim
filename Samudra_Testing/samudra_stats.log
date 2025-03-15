@@ -1,4 +1,4 @@
-Job 21775734.pbspl1.nas.nasa.gov started on Fri Mar 14 16:26:59 PDT 2025
+Job 21775863.pbspl1.nas.nasa.gov started on Fri Mar 14 16:53:06 PDT 2025
 The job requested the following resources:
     ncpus=20
     place=scatter:excl
@@ -8,23 +8,32 @@ PBS set the following environment variables:
         FORT_BUFFERED = 1
                    TZ = PST8PDT
 
-On r439i5n10:
+On r459i1n0:
 Warning: no access to tty (Inappropriate ioctl for device).
 Thus no job control in this shell.
-Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
-Starting Samudra model run at Fri Mar 14 16:27:02 PDT 2025
-Traceback (most recent call last):
-  File "/nobackupp28/sruiz5/climate-sim/Samudra_Testing/compute_statistics.py", line 3, in <module>
-    from utils import convert_train_data  # Import the conversion function
-ModuleNotFoundError: No module named 'utils'
-Finished Samudra model run at Fri Mar 14 16:27:05 PDT 2025
+Current directory is /nobackup/sruiz5/SAMUDRATEST/Samudra/Samudra_Testing
+Starting Samudra model run at Fri Mar 14 16:53:09 PDT 2025
+Loading and converting ground truth...
+Ground truth converted successfully
+Ground truth variables after conversion: ['areacello', 'dz', 'hfds', 'hfds_anomalies', 'lat', 'lat_b', 'lev', 'lon', 'lon_b', 'ocean_fraction', 'tauuo', 'tauvo', 'time', 'wetmask', 'x', 'y', 'zos', 'vo', 'thetao', 'uo', 'so']
+
+Loading predictions...
+Thermo prediction variables: ['areacello', 'dz', 'lat', 'lat_b', 'lev', 'lon', 'lon_b', 'ocean_fraction', 'so', 'thetao', 'time', 'wetmask', 'x', 'y', 'zos']
+
+Dimension comparison:
+thetao - Ground truth: ('lev', 'time', 'y', 'x'), Prediction: ('time', 'y', 'x', 'lev')
+  WARNING: Dimension mismatch for thetao
+so - Ground truth: ('lev', 'time', 'y', 'x'), Prediction: ('time', 'y', 'x', 'lev')
+  WARNING: Dimension mismatch for so
+zos - Ground truth: ('time', 'y', 'x'), Prediction: ('time', 'y', 'x')
+Finished Samudra model run at Fri Mar 14 16:53:21 PDT 2025
 
 ____________________________________________________________________
-Job Resource Usage Summary for 21775734.pbspl1.nas.nasa.gov
+Job Resource Usage Summary for 21775863.pbspl1.nas.nasa.gov
 
-    CPU Time Used            : 00:00:02
-    Real Memory Used         : 4kb
-    Walltime Used            : 00:00:04
+    CPU Time Used            : 00:00:05
+    Real Memory Used         : 362408kb
+    Walltime Used            : 00:00:13
     Exit Status              : 0
 
     Number of CPUs Requested : 20
@@ -33,5 +42,5 @@ Job Resource Usage Summary for 21775734.pbspl1.nas.nasa.gov
     Execution Queue          : normal
     Charged To               : g26113
 
-    Job Stopped              : Fri Mar 14 16:27:07 2025
+    Job Stopped              : Fri Mar 14 16:53:24 2025
 ____________________________________________________________________
