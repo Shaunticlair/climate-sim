@@ -28,8 +28,10 @@ def compute_zonal_mean_metrics(ds_truth, ds_pred, variable='thetao'):
     print(f"Truth time dimension: {truth.time.size} steps")
     print(f"Prediction time dimension: {pred.time.size} steps")
     
-    # Area weighting for longitude averaging
     area_weights = ds_truth['areacello']
+    """
+    # Area weighting for longitude averaging
+    
     
     # Compute zonal mean (longitude-averaged) for both datasets
     # First compute weights for each longitude point
@@ -38,16 +40,19 @@ def compute_zonal_mean_metrics(ds_truth, ds_pred, variable='thetao'):
     
     # Apply weights to compute zonal mean
     truth_zonal = (truth * x_weights).sum(dim='x')
-    pred_zonal = (pred * x_weights).sum(dim='x')
+    pred_zonal = (pred * x_weights).sum(dim='x')"
+
+    # Time averaging
+    truth_zonal = truth_zonal.mean(dim='time')
+    pred_zonal = pred_zonal.mean(dim='time')
+    """
+
+    ruth_zonal = truth.weighted(ds_truth['areacello']).mean(['x', 'time'])
+    pred_zonal = pred.weighted(ds_truth['areacello']).mean(['x', 'time'])
 
     # Apply mask to exclude land areas
     truth_zonal = truth_zonal.where(~section_mask)
     pred_zonal = pred_zonal.where(~section_mask)
-    
-    # Time averaging
-    truth_zonal_time_mean = truth_zonal.mean(dim='time')
-    pred_zonal_time_mean = pred_zonal.mean(dim='time')
-
 
     
     # Get depth layer thicknesses and latitudinal weights
@@ -60,7 +65,7 @@ def compute_zonal_mean_metrics(ds_truth, ds_pred, variable='thetao'):
 
     # Create weight arrays with both dimensions
     # This preserves the original coordinates
-    combined_weights = xr.ones_like(truth_zonal_time_mean)
+    combined_weights = xr.ones_like(truth_zonal)
 
     # Multiply by each weight along its proper dimension
     combined_weights = combined_weights * dz_norm
@@ -73,15 +78,15 @@ def compute_zonal_mean_metrics(ds_truth, ds_pred, variable='thetao'):
     combined_weights = combined_weights / combined_weights.sum()
     
     # Compute MAE between the time-averaged zonal means with proper weighting
-    mae = (np.abs(pred_zonal_time_mean - truth_zonal_time_mean) * combined_weights).sum()
+    mae = (np.abs(pred_zonal - truth_zonal) * combined_weights).sum()
     
     # Compute pattern correlation between the time-averaged zonal means
     # First remove the mean across all depths and latitudes (weighted)
-    truth_mean = (truth_zonal_time_mean * combined_weights).sum()
-    pred_mean = (pred_zonal_time_mean * combined_weights).sum()
+    truth_mean = (truth_zonal * combined_weights).sum()
+    pred_mean = (pred_zonal * combined_weights).sum()
     
-    truth_anom = truth_zonal_time_mean - truth_mean
-    pred_anom = pred_zonal_time_mean - pred_mean
+    truth_anom = truth_zonal - truth_mean
+    pred_anom = pred_zonal - pred_mean
     
     # Compute correlation with proper weighting
     num = (truth_anom * pred_anom * combined_weights).sum()
@@ -90,7 +95,7 @@ def compute_zonal_mean_metrics(ds_truth, ds_pred, variable='thetao'):
     
     corr = num / np.sqrt(denom1 * denom2)
     
-    return float(mae.values), float(corr.values), truth_zonal_time_mean, pred_zonal_time_mean
+    return float(mae.values), float(corr.values), truth_zonal, pred_zonal
 
 # Main execution
 if __name__ == "__main__":
