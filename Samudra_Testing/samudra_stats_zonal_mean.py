@@ -94,7 +94,7 @@ if __name__ == "__main__":
     print("Loading prediction data...")
     ds_prediction = xr.open_zarr(path_to_pred)
     # Adjust slice as needed to align with ground truth
-    ds_prediction = ds_prediction.isel(time=slice(0, None))
+    ds_prediction = ds_prediction.isel(time=slice(1, None))
     
     # Find overlapping time period
     truth_start = ds_groundtruth.time.values[0]
