@@ -11,15 +11,10 @@ def compute_paper_metrics(ds_truth, ds_pred, variable='thetao'):
     truth = ds_truth[variable]
     pred = ds_pred[variable]
     
-    # Make sure we have the same time points
-    #common_times = sorted(list(set(truth.time.values) & set(pred.time.values)))
-    #truth = truth.sel(time=common_times)
-    #pred = pred.sel(time=common_times)
-
     # Print number of time steps in ds_groundtruth
     num_time_steps = ds_truth.time.size
     num_time_steps_pred = ds_pred.time.size
-    print(num_time_steps,num_time_steps_pred)
+    print(f"Number of time steps: truth={num_time_steps}, prediction={num_time_steps_pred}")
 
     # Print the first 5 and last 5 time steps of ds_groundtruth
     print("First 5 time steps of ds_groundtruth:")
@@ -31,30 +26,56 @@ def compute_paper_metrics(ds_truth, ds_pred, variable='thetao'):
     print("Last 5 time steps of ds_prediction:")
     print(ds_pred.time.values[-5:])
     
-
-
-    # Volume weighting
+    # Volume weighting for spatial dimensions
     vol_weights = ds_truth['areacello'] * ds_truth['dz']
     vol_weights = vol_weights / vol_weights.sum()
     
-    # MAE with volume weighting
+    # MAE with volume weighting - compute over spatial dimensions first, then average over time
     diff = np.abs(pred - truth)
-    mae = (diff * vol_weights).sum(dim=['x', 'y', 'lev', 'time'])
     
-    # Pattern correlation
-    truth_mean = (truth * vol_weights).sum(dim=['x', 'y', 'lev', 'time'])
-    pred_mean = (pred * vol_weights).sum(dim=['x', 'y', 'lev', 'time'])
+    # Compute weighted spatial MAE for each time step
+    mae_time = (diff * vol_weights).sum(dim=['x', 'y', 'lev'])
     
-    truth_anom = truth - truth_mean
-    pred_anom = pred - pred_mean
+    # Average over time
+    mae = mae_time.mean(dim='time')
     
-    num = (truth_anom * pred_anom * vol_weights).sum(dim=['x', 'y', 'lev', 'time'])
-    denom1 = ((truth_anom**2) * vol_weights).sum(dim=['x', 'y', 'lev', 'time'])
-    denom2 = ((pred_anom**2) * vol_weights).sum(dim=['x', 'y', 'lev', 'time'])
+    # Pattern correlation - compute over spatial dimensions and then average correlation across time
+    # Calculate spatial mean at each time step
+    truth_spatial_mean = (truth * vol_weights).sum(dim=['x', 'y', 'lev'])
+    pred_spatial_mean = (pred * vol_weights).sum(dim=['x', 'y', 'lev'])
     
-    corr = num / np.sqrt(denom1 * denom2)
+    # Calculate anomalies at each time step
+    truth_anom = truth.copy()
+    pred_anom = pred.copy()
     
-    return float(mae.values), float(corr.values)
+    # Loop through time to calculate anomalies
+    correlations = []
+    for t in range(len(truth.time)):
+        truth_t = truth.isel(time=t)
+        pred_t = pred.isel(time=t)
+        
+        truth_mean_t = truth_spatial_mean.isel(time=t)
+        pred_mean_t = pred_spatial_mean.isel(time=t)
+        
+        truth_anom_t = truth_t - truth_mean_t
+        pred_anom_t = pred_t - pred_mean_t
+        
+        num = (truth_anom_t * pred_anom_t * vol_weights).sum(dim=['x', 'y', 'lev'])
+        denom1 = ((truth_anom_t**2) * vol_weights).sum(dim=['x', 'y', 'lev'])
+        denom2 = ((pred_anom_t**2) * vol_weights).sum(dim=['x', 'y', 'lev'])
+        
+        # Avoid division by zero
+        if denom1 == 0 or denom2 == 0:
+            corr_t = np.nan
+        else:
+            corr_t = num / np.sqrt(denom1 * denom2)
+        
+        correlations.append(float(corr_t.values))
+    
+    # Average correlation over time
+    corr = np.nanmean(correlations)
+    
+    return float(mae.values), corr
 
 # Usage
 data_file = "./data.zarr"
@@ -64,11 +85,10 @@ N_test = 600
 
 # Load and process data
 data = xr.open_zarr(data_file)
-ds_groundtruth = data.isel(time=slice(2,None))#.isel(time=slice(start_index, start_index+N_test))
-#Print time range
+ds_groundtruth = data.isel(time=slice(2,None))
+# Print time range
 time_range = ds_groundtruth.time
 print(f"Time range of ds_groundtruth: {time_range.values[0]} to {time_range.values[-1]}")
-
 
 from utils import convert_train_data
 ds_groundtruth = convert_train_data(ds_groundtruth)
