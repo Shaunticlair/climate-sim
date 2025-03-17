@@ -45,17 +45,6 @@ def compute_zonal_mean_metrics(ds_truth, ds_pred, variable='thetao'):
     truth_zonal = truth_zonal.mean(dim='time')
     pred_zonal = pred_zonal.mean(dim='time')
     """
-
-    # Compare number of masked cells to regular ones
-    num_masked_truth = np.isnan(truth).sum()
-    num_masked_pred = np.isnan(pred).sum()
-    num_total_truth = truth.size
-    num_total_pred = pred.size
-    num_masked_cells_truth = float(num_masked_truth / num_total_truth)
-    num_masked_cells_pred = float(num_masked_pred / num_total_pred)
-    
-    print(f"Number of masked cells in truth: {num_masked_cells_truth:.2%}")
-    print(f"Number of masked cells in prediction: {num_masked_cells_pred:.2%}")
     
 
     truth_zonal = truth.weighted(ds_truth['areacello']).mean(['x', 'time'])
@@ -64,6 +53,8 @@ def compute_zonal_mean_metrics(ds_truth, ds_pred, variable='thetao'):
     # Apply mask to exclude land areas
     truth_zonal = truth_zonal.where(~section_mask)
     pred_zonal = pred_zonal.where(~section_mask)
+
+    diff_zonal = np.abs(truth_zonal - pred_zonal)
 
     area_weights = ds_truth['areacello']
 
@@ -90,7 +81,7 @@ def compute_zonal_mean_metrics(ds_truth, ds_pred, variable='thetao'):
     combined_weights = combined_weights / combined_weights.sum()
     
     # Compute MAE between the time-averaged zonal means with proper weighting
-    mae = (np.abs(pred_zonal - truth_zonal) * combined_weights).sum()
+    mae = diff_zonal.weighted(combined_weights).mean()
 
     
     # Compute pattern correlation between the time-averaged zonal means
