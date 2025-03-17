@@ -83,7 +83,7 @@ def compute_zonal_mean_metrics(ds_truth, ds_pred, variable='thetao'):
     # Compute MAE between the time-averaged zonal means with proper weighting
     mae = diff_zonal.weighted(combined_weights).mean()
 
-    print(mae, (diff_zonal * combined_weights).sum())
+    print(float(mae.values), float( (diff_zonal * combined_weights).sum().values))
 
     
     # Compute pattern correlation between the time-averaged zonal means
