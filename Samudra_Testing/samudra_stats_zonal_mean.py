@@ -33,6 +33,9 @@ def compute_zonal_mean_metrics(ds_truth, ds_pred, variable='thetao'):
     # Create combined weights with area and depth
     combined_weights = ds_truth['areacello'].sum(dim='x') * ds_truth['dz']
     combined_weights = combined_weights.where(~section_mask)
+
+    # Fill NaN values with 0 in weights
+    combined_weights = combined_weights.fillna(0)
     
     # Compute weighted MAE
     mae = abs(pred_zonal - truth_zonal).weighted(combined_weights).mean()
