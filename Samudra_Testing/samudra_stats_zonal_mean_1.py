@@ -47,7 +47,7 @@ def compute_zonal_mean_metrics(ds_truth, ds_pred, variable='thetao'):
     pred_zonal = pred_zonal.mean(dim='time')
     """
 
-    ruth_zonal = truth.weighted(ds_truth['areacello']).mean(['x', 'time'])
+    truth_zonal = truth.weighted(ds_truth['areacello']).mean(['x', 'time'])
     pred_zonal = pred.weighted(ds_truth['areacello']).mean(['x', 'time'])
 
     # Apply mask to exclude land areas
