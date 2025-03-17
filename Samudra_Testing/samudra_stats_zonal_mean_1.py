@@ -24,12 +24,11 @@ def compute_zonal_mean_metrics(ds_truth, ds_pred, variable='thetao'):
     # Compute zonal mean exactly as in the paper
     section_mask = np.isnan(truth).all('x').isel(time=0)
     
+    """
     # Print time dimensions
     print(f"Truth time dimension: {truth.time.size} steps")
     print(f"Prediction time dimension: {pred.time.size} steps")
-    
-    area_weights = ds_truth['areacello']
-    """
+
     # Area weighting for longitude averaging
     
     
@@ -54,7 +53,8 @@ def compute_zonal_mean_metrics(ds_truth, ds_pred, variable='thetao'):
     truth_zonal = truth_zonal.where(~section_mask)
     pred_zonal = pred_zonal.where(~section_mask)
 
-    
+    area_weights = ds_truth['areacello']
+
     # Get depth layer thicknesses and latitudinal weights
     dz = ds_truth['dz']  # Has dimension 'lev'
     y_weights = area_weights.sum(dim='x')  # Has dimension 'y'
@@ -79,6 +79,16 @@ def compute_zonal_mean_metrics(ds_truth, ds_pred, variable='thetao'):
     
     # Compute MAE between the time-averaged zonal means with proper weighting
     mae = (np.abs(pred_zonal - truth_zonal) * combined_weights).sum()
+
+    # Compare number of masked cells to regular ones
+    num_masked_truth = np.isnan(truth_zonal).sum()
+    num_masked_pred = np.isnan(pred_zonal).sum()
+    num_total_truth = truth_zonal.size
+    num_total_pred = pred_zonal.size
+    num_masked_cells_truth = num_masked_truth / num_total_truth
+    num_masked_cells_pred = num_masked_pred / num_total_pred
+    print(f"Number of masked cells in truth: {num_masked_cells_truth:.2%}")
+    print(f"Number of masked cells in prediction: {num_masked_cells_pred:.2%}")
     
     # Compute pattern correlation between the time-averaged zonal means
     # First remove the mean across all depths and latitudes (weighted)
