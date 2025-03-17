@@ -85,8 +85,9 @@ def compute_zonal_mean_metrics(ds_truth, ds_pred, variable='thetao'):
     num_masked_pred = np.isnan(pred_zonal).sum()
     num_total_truth = truth_zonal.size
     num_total_pred = pred_zonal.size
-    num_masked_cells_truth = num_masked_truth / num_total_truth
-    num_masked_cells_pred = num_masked_pred / num_total_pred
+    num_masked_cells_truth = float(num_masked_truth / num_total_truth)
+    num_masked_cells_pred = float(num_masked_pred / num_total_pred)
+    
     print(f"Number of masked cells in truth: {num_masked_cells_truth:.2%}")
     print(f"Number of masked cells in prediction: {num_masked_cells_pred:.2%}")
     
