@@ -13,22 +13,16 @@ from utils import convert_train_data
 
 def compute_zonal_mean_metrics(ds_truth, ds_pred, variable='thetao'):
     """
-    Compute metrics for zonal mean of ocean variables using the same approach
-    as in the plotting code for Figure 1b in the Samudra paper.
+    Compute weighted metrics for zonal mean of ocean variables.
     """
     # Get data
     truth = ds_truth[variable]
     pred = ds_pred[variable]
     
-    # Print time dimensions
-    print(f"Truth time dimension: {truth.time.size} steps")
-    print(f"Prediction time dimension: {pred.time.size} steps")
-    
-    # Compute zonal mean exactly as in samudra_plotting.py
-    # First, identify and apply land-ocean mask to avoid NaN issues
+    # Compute zonal mean exactly as in the paper
     section_mask = np.isnan(truth).all('x').isel(time=0)
     
-    # Area-weighted zonal mean (longitude average) with time average
+    # Area-weighted zonal mean with time average
     truth_zonal = truth.weighted(ds_truth['areacello']).mean(['x', 'time'])
     pred_zonal = pred.weighted(ds_truth['areacello']).mean(['x', 'time'])
     
@@ -36,31 +30,27 @@ def compute_zonal_mean_metrics(ds_truth, ds_pred, variable='thetao'):
     truth_zonal = truth_zonal.where(~section_mask)
     pred_zonal = pred_zonal.where(~section_mask)
     
-    # Compute MAE without additional weighting, just on the masked fields
-    # First, ensure both have the same NaN pattern for fair comparison
-    combined_mask = np.isnan(truth_zonal) | np.isnan(pred_zonal)
-    truth_masked = truth_zonal.where(~combined_mask)
-    pred_masked = pred_zonal.where(~combined_mask)
+    # Create combined weights with area and depth
+    combined_weights = ds_truth['areacello'].sum(dim='x') * ds_truth['dz']
+    combined_weights = combined_weights.where(~section_mask)
     
-    # Simple MAE calculation
-    mae = np.abs(pred_masked - truth_masked).mean()
+    # Compute weighted MAE
+    mae = abs(pred_zonal - truth_zonal).weighted(combined_weights).mean()
     
-    # Pattern correlation
-    # Remove mean for correlation
-    truth_mean = truth_masked.mean()
-    pred_mean = pred_masked.mean()
+    # Pattern correlation with weights
+    truth_anom = truth_zonal - truth_zonal.weighted(combined_weights).mean()
+    pred_anom = pred_zonal - pred_zonal.weighted(combined_weights).mean()
     
-    truth_anom = truth_masked - truth_mean
-    pred_anom = pred_masked - pred_mean
-    
-    # Compute correlation
-    num = (truth_anom * pred_anom).sum()
-    denom1 = (truth_anom**2).sum()
-    denom2 = (pred_anom**2).sum()
+    # Compute weighted correlation
+    num = (truth_anom * pred_anom).weighted(combined_weights).sum()
+    denom1 = (truth_anom**2).weighted(combined_weights).sum()
+    denom2 = (pred_anom**2).weighted(combined_weights).sum()
     
     corr = num / np.sqrt(denom1 * denom2)
     
     return float(mae.values), float(corr.values), truth_zonal, pred_zonal
+
+
 
 # Main execution
 if __name__ == "__main__":
