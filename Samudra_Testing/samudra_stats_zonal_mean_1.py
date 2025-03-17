@@ -67,7 +67,7 @@ def compute_zonal_mean_metrics(ds_truth, ds_pred, variable='thetao'):
     combined_weights = combined_weights * y_weights_norm
 
     # Remove NaN values from the weights
-    combined_weights = combined_weights.fillna(0)
+    #combined_weights = combined_weights.fillna(0)
 
     # Renormalize
     combined_weights = combined_weights / combined_weights.sum()

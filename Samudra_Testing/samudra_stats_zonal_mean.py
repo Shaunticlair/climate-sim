@@ -79,6 +79,7 @@ if __name__ == "__main__":
     print(f"MAE for zonal mean temperature (thermo): {mae_thermo:.6f} °C")
     print(f"Pattern Correlation for zonal mean temperature (thermo): {corr_thermo:.6f}")
     
+    """
     # Compute metrics for temperature (thermo+dynamic model)
     print("\nComputing zonal mean metrics for thermo+dynamic model (temperature)...")
     mae_thermo_dynamic, corr_thermo_dynamic, _, thermo_dynamic_zonal = compute_zonal_mean_metrics(
@@ -92,7 +93,8 @@ if __name__ == "__main__":
         'Model': ['Thermo', 'Thermo+Dynamic'],
         'Temperature_MAE': [mae_thermo, mae_thermo_dynamic],
         'Temperature_Correlation': [corr_thermo, corr_thermo_dynamic],
-    }
+    }"
+    """
     
     #df = pd.DataFrame(results)
     #df.to_csv(os.path.join(output_dir, 'zonal_mean_metrics.csv'), index=False)
