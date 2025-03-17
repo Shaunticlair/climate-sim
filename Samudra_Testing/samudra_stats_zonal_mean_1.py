@@ -20,6 +20,9 @@ def compute_zonal_mean_metrics(ds_truth, ds_pred, variable='thetao'):
     # Get data
     truth = ds_truth[variable]
     pred = ds_pred[variable]
+
+    # Compute zonal mean exactly as in the paper
+    section_mask = np.isnan(truth).all('x').isel(time=0)
     
     # Print time dimensions
     print(f"Truth time dimension: {truth.time.size} steps")
@@ -36,10 +39,16 @@ def compute_zonal_mean_metrics(ds_truth, ds_pred, variable='thetao'):
     # Apply weights to compute zonal mean
     truth_zonal = (truth * x_weights).sum(dim='x')
     pred_zonal = (pred * x_weights).sum(dim='x')
+
+    # Apply mask to exclude land areas
+    truth_zonal = truth_zonal.where(~section_mask)
+    pred_zonal = pred_zonal.where(~section_mask)
     
     # Time averaging
     truth_zonal_time_mean = truth_zonal.mean(dim='time')
     pred_zonal_time_mean = pred_zonal.mean(dim='time')
+
+
     
     # Get depth layer thicknesses and latitudinal weights
     dz = ds_truth['dz']  # Has dimension 'lev'
