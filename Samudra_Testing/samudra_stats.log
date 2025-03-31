@@ -1,62 +1,41 @@
-Job 21776262.pbspl1.nas.nasa.gov started on Fri Mar 14 20:18:58 PDT 2025
+Job 21789229.pbspl1.nas.nasa.gov started on Mon Mar 17 10:48:20 PDT 2025
 The job requested the following resources:
     ncpus=40
     place=scatter:excl
-    walltime=01:00:00
+    walltime=00:05:00
 
 PBS set the following environment variables:
         FORT_BUFFERED = 1
                    TZ = PST8PDT
 
-On r147i3n15:
+On r135i7n10:
 Warning: no access to tty (Inappropriate ioctl for device).
 Thus no job control in this shell.
 Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
-Starting Samudra model run at Fri Mar 14 20:19:04 PDT 2025
-Time range of ds_groundtruth: 2014-10-10 12:00:00 to 2022-12-24 12:00:00
-Time range of ds_prediction: 2014-10-10 12:00:00 to 2022-12-24 12:00:00
-600 600
-First 5 time steps of ds_groundtruth:
-[cftime.DatetimeJulian(2014, 10, 10, 12, 0, 0, 0, has_year_zero=False)
- cftime.DatetimeJulian(2014, 10, 15, 12, 0, 0, 0, has_year_zero=False)
- cftime.DatetimeJulian(2014, 10, 20, 12, 0, 0, 0, has_year_zero=False)
- cftime.DatetimeJulian(2014, 10, 25, 12, 0, 0, 0, has_year_zero=False)
- cftime.DatetimeJulian(2014, 10, 30, 12, 0, 0, 0, has_year_zero=False)]
-Last 5 time steps of ds_groundtruth:
-[cftime.DatetimeJulian(2022, 12, 4, 12, 0, 0, 0, has_year_zero=False)
- cftime.DatetimeJulian(2022, 12, 9, 12, 0, 0, 0, has_year_zero=False)
- cftime.DatetimeJulian(2022, 12, 14, 12, 0, 0, 0, has_year_zero=False)
- cftime.DatetimeJulian(2022, 12, 19, 12, 0, 0, 0, has_year_zero=False)
- cftime.DatetimeJulian(2022, 12, 24, 12, 0, 0, 0, has_year_zero=False)]
-First 5 time steps of ds_prediction:
-[cftime.DatetimeJulian(2014, 10, 10, 12, 0, 0, 0, has_year_zero=False)
- cftime.DatetimeJulian(2014, 10, 15, 12, 0, 0, 0, has_year_zero=False)
- cftime.DatetimeJulian(2014, 10, 20, 12, 0, 0, 0, has_year_zero=False)
- cftime.DatetimeJulian(2014, 10, 25, 12, 0, 0, 0, has_year_zero=False)
- cftime.DatetimeJulian(2014, 10, 30, 12, 0, 0, 0, has_year_zero=False)]
-Last 5 time steps of ds_prediction:
-[cftime.DatetimeJulian(2022, 12, 4, 12, 0, 0, 0, has_year_zero=False)
- cftime.DatetimeJulian(2022, 12, 9, 12, 0, 0, 0, has_year_zero=False)
- cftime.DatetimeJulian(2022, 12, 14, 12, 0, 0, 0, has_year_zero=False)
- cftime.DatetimeJulian(2022, 12, 19, 12, 0, 0, 0, has_year_zero=False)
- cftime.DatetimeJulian(2022, 12, 24, 12, 0, 0, 0, has_year_zero=False)]
-MAE (temp): 21.187711 °C
-Pattern Correlation (temp): 1.000000
-Finished Samudra model run at Fri Mar 14 20:29:10 PDT 2025
+Starting Samudra model run at Mon Mar 17 10:48:23 PDT 2025
+Loading ground truth data...
+Loading prediction data...
+Truth time range: 2014-10-10 12:00:00 to 2022-12-24 12:00:00
+Prediction time range: 2014-10-10 12:00:00 to 2022-12-24 12:00:00
+Computing zonal mean metrics...
+0.01871755369532434 0.01792482747594072
+MAE for zonal mean temperature: 0.018718 °C
+Pattern Correlation for zonal mean temperature: 0.999916
+Finished Samudra model run at Mon Mar 17 10:53:04 PDT 2025
 
 ____________________________________________________________________
-Job Resource Usage Summary for 21776262.pbspl1.nas.nasa.gov
+Job Resource Usage Summary for 21789229.pbspl1.nas.nasa.gov
 
-    CPU Time Used            : 00:09:01
-    Real Memory Used         : 93921064kb
-    Walltime Used            : 00:10:08
+    CPU Time Used            : 00:06:08
+    Real Memory Used         : 2601716kb
+    Walltime Used            : 00:04:43
     Exit Status              : 0
 
     Number of CPUs Requested : 40
-    Walltime Requested       : 01:00:00
+    Walltime Requested       : 00:05:00
 
     Execution Queue          : normal
     Charged To               : g26113
 
-    Job Stopped              : Fri Mar 14 20:29:13 2025
+    Job Stopped              : Mon Mar 17 10:53:09 2025
 ____________________________________________________________________
