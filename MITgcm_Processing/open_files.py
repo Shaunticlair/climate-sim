@@ -29,3 +29,42 @@ freshwater_flux = mds.rdmds('diags/oceFWflx_mon_mean/oceFWflx_mon_mean') #Surfac
 # iter_numbers = [10000, 20000, 30000]
 # uo_data_multiple = mds.rdmds('U', itrs=iter_numbers)
 # vo_data_multiple = mds.rdmds('V', itrs=iter_numbers)
+
+
+# Display dimensions of state variables
+print("\n--- State Variables Dimensions ---")
+print(f"uo_data (zonal velocity): {uo_data.shape}")
+print(f"vo_data (meridional velocity): {vo_data.shape}")
+print(f"thetao_data (potential temperature): {thetao_data.shape}")
+print(f"so_data (salinity): {so_data.shape}")
+print(f"zos_data (sea surface height): {zos_data.shape}")
+
+# Display dimensions of boundary conditions
+print("\n--- Boundary Conditions Dimensions ---")
+print(f"bottom_pressure: {bottom_pressure.shape}")
+print(f"tau_x (x-axis wind stress): {tau_x.shape}")
+print(f"tau_y (y-axis wind stress): {tau_y.shape}")
+print(f"heat_flux (diabatic heat flux): {heat_flux.shape}")
+print(f"freshwater_flux (surface mass flux): {freshwater_flux.shape}")
+
+# Display data types
+print("\n--- Data Types ---")
+print(f"uo_data type: {uo_data.dtype}")
+print(f"thetao_data type: {thetao_data.dtype}")
+
+# Display some basic statistics for a variable (e.g., temperature)
+print("\n--- Basic Statistics for Temperature ---")
+print(f"Min temperature: {np.nanmin(thetao_data)}")
+print(f"Max temperature: {np.nanmax(thetao_data)}")
+print(f"Mean temperature: {np.nanmean(thetao_data)}")
+
+# Display statistics for sea surface height
+print("\n--- Basic Statistics for Sea Surface Height ---")
+print(f"Min SSH: {np.nanmin(zos_data)}")
+print(f"Max SSH: {np.nanmax(zos_data)}")
+print(f"Mean SSH: {np.nanmean(zos_data)}")
+
+# Count NaN values
+print("\n--- NaN Count ---")
+print(f"NaN count in temperature: {np.isnan(thetao_data).sum()}")
+print(f"NaN count in zonal velocity: {np.isnan(uo_data).sum()}")
