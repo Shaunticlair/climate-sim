@@ -310,7 +310,31 @@ timer.checkpoint("Sensitivity configuration complete")
 print("Starting sensitivity computation...")
 print("This may take some time depending on the region size and time steps.")
 
-#try:
+# Extract a single point from your region for testing
+init_c = surface_temp_channels[0]  # First temperature channel
+init_h = pacific_region['latitude_indices'][0]  # First latitude index
+init_w = pacific_region['longitude_indices'][0]  # First longitude index
+
+# Same for final indices (in this case they're the same)
+final_c = init_c
+final_h = init_h
+final_w = init_w
+
+print(f"Computing sensitivity for a single point: ({init_c}, {init_h}, {init_w}) -> ({final_c}, {final_h}, {final_w})")
+
+# Compute sensitivity for this single point
+gradient = adjoint_model.compute_single_element_sensitivity(
+    test_data,
+    initial_time=initial_time,
+    final_time=final_time,
+    initial_c=init_c, initial_h=init_h, initial_w=init_w,
+    final_c=final_c, final_h=final_h, final_w=final_w,
+    device=device
+)
+
+print(f"Computed sensitivity: {gradient}")
+
+"""
 # Compute sensitivity with gradient checkpointing for memory efficiency
 sensitivity = adjoint_model.state_sensitivity_computation(
     test_data,
@@ -357,11 +381,7 @@ if len(pacific_region['latitude_indices']) > 0 and len(pacific_region['longitude
     
     print("Sensitivity visualization saved")
 """
-except Exception as e:
-    print(f"Error during sensitivity computation: {e}")
-    import traceback
-    traceback.print_exc()
-"""
+
 timer.checkpoint("Process completed")
 
 print("============================================")

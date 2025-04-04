@@ -569,6 +569,50 @@ class SamudraAdjoint(Samudra):
                     ))
         
         return sensitivity
+    
+    def compute_single_element_sensitivity(self, inputs, 
+                                     initial_time,
+                                     final_time,
+                                     initial_c, initial_h, initial_w,  # Initial element indices
+                                     final_c, final_h, final_w,        # Final element indices
+                                     device="cuda"):
+        """
+        Computes sensitivity of a single output element with respect to a single input element
+        """
+        # Create a copy of the input to avoid modifying the original
+        initial_input = inputs[initial_time][0].clone().detach().to(device)
+        
+        # Get the original value at the location we care about
+        original_value = initial_input[0, initial_c, initial_h, initial_w].item()
+        
+        # Create a scalar tensor with requires_grad=True containing our value of interest
+        input_element = torch.tensor([original_value], requires_grad=True, device=device)
+        
+        # Create a fresh copy of the input each time to avoid accumulating gradients
+        model_input = initial_input.clone()
+        
+        # Inject our tracked element into the input tensor
+        model_input[0, initial_c, initial_h, initial_w] = input_element
+        
+        # Run the full autoregressive rollout
+        current_input = model_input
+        for t in range(initial_time, final_time + 1):
+            # Forward pass
+            output = self.forward_once(current_input)
+            
+            # Prepare for next time step if needed
+            if t < final_time:
+                boundary = inputs[t+1][0][:, self.output_channels:].to(device)
+                current_input = torch.cat([output, boundary], dim=1)
+        
+        # Get the specific output element we're interested in
+        output_value = output[0, final_c, final_h, final_w]
+        
+        # Compute the gradient
+        output_value.backward()
+        gradient = input_element.grad.item()
+        
+        return gradient
 
 def generate_model_rollout(
     N_eval, test_data, model, hist, N_out, N_extra, initial_input=None, train=False
