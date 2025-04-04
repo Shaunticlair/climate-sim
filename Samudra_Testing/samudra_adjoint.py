@@ -103,7 +103,7 @@ MODEL_PATHS = {
 }
 
 # Choose the model type (thermo or thermo+dynamic)
-exp_num_in = "3D_thermo_all" # Options: "3D_thermo_all" or "3D_thermo_dynamic_all"
+exp_num_in = "3D_thermo_dynamic_all" # Options: "3D_thermo_all" or "3D_thermo_dynamic_all"
 exp_num_extra = "3D_all_hfds_anom"
 exp_num_out = exp_num_in
 model_path = MODEL_PATHS[exp_num_out]
@@ -112,7 +112,7 @@ model_path = MODEL_PATHS[exp_num_out]
 hist = 1
 N_samples = 2850  # Used for train
 N_val = 50        # Used for validation
-N_test = 10       # Number of time steps to use for testing
+N_test = 20       # Number of time steps to use for testing
 
 inputs_str = INPT_VARS[exp_num_in]
 extra_in_str = EXTRA_VARS[exp_num_extra]
@@ -141,31 +141,31 @@ timer.checkpoint("Constants set")
 # ## Load Data
 # Load the necessary data for the model
 
-# Replace with your local paths if needed
+from pathlib import Path
+
+# Replace these local zarr paths if required
 data_mean_file = "./data_mean.zarr"
 data_std_file = "./data_std.zarr"
 data_file = "./data.zarr"
 
-# Load mean and standard deviation data
-try:
-    data_mean = xr.open_zarr(data_mean_file)
-    data_std = xr.open_zarr(data_std_file)
-except Exception as e:
-    print(f"Error loading mean/std data: {e}")
-    print("Please download data files or use remotely hosted data.")
+if not Path(data_mean_file).exists():
+    raise Exception("This file should exist already!")
     data_mean = xr.open_dataset("https://nyu1.osn.mghpcc.org/m2lines-pubs/Samudra/OM4_means", engine='zarr', chunks={})
-    data_std = xr.open_dataset("https://nyu1.osn.mghpcc.org/m2lines-pubs/Samudra/OM4_stds", engine='zarr', chunks={})
+    data_mean.to_zarr(data_mean_file, mode="w")
+    
+data_mean = xr.open_zarr("./data_mean.zarr")
 
-# Load the actual data for testing
-try:
-    data = xr.open_zarr(data_file)
-    # We only need a subset of the data for sensitivity analysis
-    data = data.isel(time=slice(e_test, e_test+hist+1+N_test))
-except Exception as e:
-    print(f"Error loading data: {e}")
-    print("Please download data files or use remotely hosted data.")
+if not Path(data_std_file).exists():
+    data_std = xr.open_dataset("https://nyu1.osn.mghpcc.org/m2lines-pubs/Samudra/OM4_stds", engine='zarr', chunks={})
+    data_std.to_zarr(data_std_file, mode="w")
+data_std = xr.open_zarr(data_std_file)
+
+if not Path(data_file).exists():
     data = xr.open_dataset("https://nyu1.osn.mghpcc.org/m2lines-pubs/Samudra/OM4", engine='zarr', chunks={})
-    data = data.isel(time=slice(e_test, e_test+hist+1+N_test))
+    data = data.isel(time=slice(e_test, e_test+hist+1+N_test)) # We only require the data in the test period
+    data.to_zarr(data_file, mode="w")
+data = xr.open_zarr(data_file)
+data
 
 timer.checkpoint("Data loaded")
 
@@ -191,6 +191,8 @@ test_data = Test(
     long_rollout=False,  # Setting to False for sensitivity analysis
     device=device,
 )
+
+
 
 # ## Data 
 # The data is available from 1975 to the 2022, at 5-day temporal resolution. The variables in the data is arranged in the following format:

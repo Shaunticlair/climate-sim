@@ -172,7 +172,7 @@ model_path = MODEL_PATHS[exp_num_out]
 hist = 1
 N_samples = 2850 # Used for train
 N_val = 50 # Used for validation
-#N_test = 4 # Used for testing
+N_test = 20 # Used for testing
 # Should take 1 min/2 N_test
 
 
