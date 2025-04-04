@@ -164,16 +164,41 @@ def main():
     timer.checkpoint("Model built and loaded")
     
     # Create the adjoint method instance
-    adjoint = SamudraAdjoint(model, device=device)
+    adjoint = SamudraAdjoint(
+        model=model, 
+        data_loader=test_data, 
+        hist=hist,
+        n_out=N_out,
+        n_extra=N_extra,
+        device=device
+    )
     
-    # Get observations from the data loader
+    # Get all the data items for initialization and observations
+    initial_items = []
     observations = []
-    for i in range(N_test + 1):  # +1 for initial state
-        obs = test_data[i][1][0]  # Get the labels which are our observations
-        observations.append(obs)
     
-    # Get the initial state from the first observation
-    initial_state = test_data[0][0][0]  # Get the first input state
+    for i in range(N_test + 1):
+        initial_items.append(test_data[i])
+        
+        # Get the output/label part for observations
+        obs = test_data[i][1]
+        # The observation should be just the tensor without batch dimension
+        if isinstance(obs, torch.Tensor):
+            # If it's already batched, extract the first item
+            if obs.dim() == 4:  # [B, C, H, W]
+                obs = obs[0]  # Take first item from batch
+            observations.append(obs)
+        else:
+            raise ValueError(f"Unexpected observation format: {type(obs)}")
+    
+    print(f"Number of initial items: {len(initial_items)}")
+    print(f"Number of observations: {len(observations)}")
+    
+    # Compute the gradient following the inference pattern
+    print("Computing adjoint using inference-like method...")
+    initial_gradient, simulated_states, total_loss = adjoint.compute_initial_state_gradient(
+        initial_items, observations, N_test + 1
+    )
     
     # Compute the gradient of the loss with respect to the initial state
     print("Computing adjoint...")
@@ -207,22 +232,7 @@ def main():
     
     # Optionally, calculate sensitivity to particular regions of interest
     # For example, to find sensitivity to surface temperature in the tropics:
-    if "thetao_lev_2_5" in inputs_str:
-        # Find the index of surface temperature in the input state
-        surface_temp_index = inputs_str.index("thetao_lev_2_5")
-        
-        # Extract gradient for surface temperature
-        surface_temp_gradient = initial_gradient[:, surface_temp_index, :, :]
-        
-        # Calculate mean sensitivity in the tropical region (roughly -20 to 20 latitude)
-        tropical_indices = (initial_state.shape[2] // 2 - initial_state.shape[2] // 9, 
-                            initial_state.shape[2] // 2 + initial_state.shape[2] // 9)
-        
-        tropical_sensitivity = torch.mean(torch.abs(
-            surface_temp_gradient[:, :, tropical_indices[0]:tropical_indices[1]]
-        )).item()
-        
-        print(f"Mean sensitivity to tropical surface temperature: {tropical_sensitivity}")
+    
     
     timer.checkpoint("Analysis completed")
 
