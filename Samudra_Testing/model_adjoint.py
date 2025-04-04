@@ -699,6 +699,7 @@ class SamudraAdjoint(Samudra):
                             ], dim=1)
 
                     print("Forward pass completed for sensitivity computation at final time step: ", final_time)
+                    raise Exception("Debugging breakpoint reached during sensitivity computation")  # Remove this line in production
 
                     # Process final indices based on output dimensions
                     batch_channels, output_channels, output_height, output_width = output.shape
