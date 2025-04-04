@@ -256,7 +256,7 @@ if not weights_path.exists():
         local_dir="."
     )
 
-model_state = torch.load(weights_path, map_location=device)["model"]
+model_state = torch.load(weights_path, map_location=torch.device(device))["model"]
 adjoint_model.load_state_dict(model_state)
 adjoint_model = adjoint_model.to(device)
 
@@ -317,7 +317,7 @@ try:
         initial_time=initial_time,
         final_time=final_time,
         device=device,
-        use_checkpointing=True
+        use_checkpointing=False
     )
     
     print(f"Sensitivity tensor shape: {sensitivity.shape}")
