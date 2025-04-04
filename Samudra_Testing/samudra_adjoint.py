@@ -16,6 +16,8 @@ import xarray as xr
 import matplotlib.pyplot as plt
 from pathlib import Path
 
+torch.set_num_threads(torch.get_num_threads())
+
 # Add the Samudra package to the path
 sys.path.append("/nobackup/sruiz5/SAMUDRATEST/Samudra/samudra/")
 
