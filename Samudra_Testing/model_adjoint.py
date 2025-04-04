@@ -665,7 +665,6 @@ class SamudraAdjoint(Samudra):
         )
         sensitivity = torch.zeros(sensitivity_shape, device=device)
         
-        # CRUCIAL CHANGE: We'll use a loop to compute sensitivities for each target index
         for c_idx in range(len(initial_c_idx)):
             for h_idx in range(len(initial_h_idx)):
                 for w_idx in range(len(initial_w_idx)):
@@ -695,7 +694,7 @@ class SamudraAdjoint(Samudra):
                             
                             # Create next input with gradient tracking preserved
                             current_input = torch.cat([
-                                output.unsqueeze(0),  # Keep batch dimension
+                                output,  # Keep batch dimension
                                 boundary
                             ], dim=1)
 
