@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 
 # Add the Samudra package to the path
-sys.path.append("./samudra/")
+sys.path.append("/nobackup/sruiz5/SAMUDRATEST/Samudra/samudra/")
 
 class Timer:
     def __init__(self):
@@ -192,6 +192,43 @@ test_data = Test(
     device=device,
 )
 
+# ## Data 
+# The data is available from 1975 to the 2022, at 5-day temporal resolution. The variables in the data is arranged in the following format:
+# 
+# 
+# ```
+# thetao_lev_2_5
+# thetao_lev_10_0
+# thetao_lev_22_5
+# ...
+# thetao_lev_6000_0
+# 
+# so_lev_2_5
+# so_lev_10_0
+# so_lev_22_5
+# ...
+# so_lev_6000_0
+# 
+# uo_lev_2_5
+# uo_lev_10_0
+# uo_lev_22_5
+# ...
+# uo_lev_6000_0
+# 
+# vo_lev_2_5
+# vo_lev_10_0
+# vo_lev_22_5
+# ...
+# vo_lev_6000_0
+# 
+# zos
+# 
+# hfds
+# hfds_anomalies
+# tauuo
+# tauvo
+# ```
+
 timer.checkpoint("Data loader created")
 
 # ## Initialize the Adjoint Model
@@ -233,16 +270,12 @@ final_time = 4          # Ending time step (adjust based on your needs)
 
 # Example: Define regions of interest for sensitivity analysis
 # For temperature sensitivity analysis at the ocean surface
-if exp_num_in == "3D_thermo_all":
-    # For thermo-only model, temperature channels start at 0
-    temp_channel_offset = 0
-else:
-    # For thermo+dynamic model, temperature channels start after velocity channels (2 * levels)
-    temp_channel_offset = 2 * levels
+
+channel_index = 0  # This is the index of the first variable in the output (e.g., thetao_lev_2_5)
 
 # Example: Ocean surface temperature sensitivity (first depth level)
 # Channel indices for temperature at the surface (first level)
-surface_temp_channels = [temp_channel_offset]  
+surface_temp_channels = [channel_index]  
 
 # Define regions of interest in the ocean
 # Example: Small region in the Pacific
