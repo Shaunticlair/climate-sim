@@ -310,58 +310,58 @@ timer.checkpoint("Sensitivity configuration complete")
 print("Starting sensitivity computation...")
 print("This may take some time depending on the region size and time steps.")
 
-try:
-    # Compute sensitivity with gradient checkpointing for memory efficiency
-    sensitivity = adjoint_model.state_sensitivity_computation(
-        test_data,
-        initial_indices=initial_indices,
-        final_indices=final_indices,
-        initial_time=initial_time,
-        final_time=final_time,
-        device=device,
-        use_checkpointing=True
-    )
+#try:
+# Compute sensitivity with gradient checkpointing for memory efficiency
+sensitivity = adjoint_model.state_sensitivity_computation(
+    test_data,
+    initial_indices=initial_indices,
+    final_indices=final_indices,
+    initial_time=initial_time,
+    final_time=final_time,
+    device=device,
+    use_checkpointing=True
+)
+
+print(f"Sensitivity tensor shape: {sensitivity.shape}")
+
+# Basic statistics of the sensitivity
+sensitivity_np = sensitivity.cpu().numpy()
+print(f"Sensitivity statistics:")
+print(f"  Mean: {np.mean(sensitivity_np)}")
+print(f"  Max: {np.max(sensitivity_np)}")
+print(f"  Min: {np.min(sensitivity_np)}")
+print(f"  Std: {np.std(sensitivity_np)}")
+
+# Save the sensitivity results
+output_file = f"sensitivity_{exp_num_in}_t{initial_time}to{final_time}.npy"
+np.save(output_file, sensitivity_np)
+print(f"Saved sensitivity to {output_file}")
+
+timer.checkpoint("Sensitivity computation")
+
+# Optional: Visualize the sensitivity
+# For simplicity, we'll just plot the mean sensitivity across all final indices
+if len(pacific_region['latitude_indices']) > 0 and len(pacific_region['longitude_indices']) > 0:
+    mean_sensitivity = np.mean(sensitivity_np, axis=(0, 1, 2))
     
-    print(f"Sensitivity tensor shape: {sensitivity.shape}")
+    plt.figure(figsize=(10, 8))
+    plt.imshow(mean_sensitivity.reshape(
+        len(initial_indices[1]), len(initial_indices[2])
+    ), cmap='seismic', interpolation='none')
+    plt.colorbar(label='Mean Sensitivity')
+    plt.title('Mean Surface Temperature Sensitivity')
+    plt.xlabel('Longitude Index')
+    plt.ylabel('Latitude Index')
+    plt.savefig(f"sensitivity_map_{exp_num_in}_t{initial_time}to{final_time}.png", dpi=300)
+    plt.close()
     
-    # Basic statistics of the sensitivity
-    sensitivity_np = sensitivity.cpu().numpy()
-    print(f"Sensitivity statistics:")
-    print(f"  Mean: {np.mean(sensitivity_np)}")
-    print(f"  Max: {np.max(sensitivity_np)}")
-    print(f"  Min: {np.min(sensitivity_np)}")
-    print(f"  Std: {np.std(sensitivity_np)}")
-    
-    # Save the sensitivity results
-    output_file = f"sensitivity_{exp_num_in}_t{initial_time}to{final_time}.npy"
-    np.save(output_file, sensitivity_np)
-    print(f"Saved sensitivity to {output_file}")
-    
-    timer.checkpoint("Sensitivity computation")
-    
-    # Optional: Visualize the sensitivity
-    # For simplicity, we'll just plot the mean sensitivity across all final indices
-    if len(pacific_region['latitude_indices']) > 0 and len(pacific_region['longitude_indices']) > 0:
-        mean_sensitivity = np.mean(sensitivity_np, axis=(0, 1, 2))
-        
-        plt.figure(figsize=(10, 8))
-        plt.imshow(mean_sensitivity.reshape(
-            len(initial_indices[1]), len(initial_indices[2])
-        ), cmap='seismic', interpolation='none')
-        plt.colorbar(label='Mean Sensitivity')
-        plt.title('Mean Surface Temperature Sensitivity')
-        plt.xlabel('Longitude Index')
-        plt.ylabel('Latitude Index')
-        plt.savefig(f"sensitivity_map_{exp_num_in}_t{initial_time}to{final_time}.png", dpi=300)
-        plt.close()
-        
-        print("Sensitivity visualization saved")
-        
+    print("Sensitivity visualization saved")
+"""
 except Exception as e:
     print(f"Error during sensitivity computation: {e}")
     import traceback
     traceback.print_exc()
-
+"""
 timer.checkpoint("Process completed")
 
 print("============================================")
