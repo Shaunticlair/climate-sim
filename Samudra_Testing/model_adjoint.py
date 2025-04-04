@@ -596,6 +596,8 @@ class SamudraAdjoint(Samudra):
                 
             # The final output is the last element in outputs
             final_output = outputs[-1]
+
+            print("Output shape at final time step: ", final_output.shape)
             
             # Process final indices based on the final output shape
             _, final_height, final_width = final_output.shape
@@ -630,6 +632,93 @@ class SamudraAdjoint(Samudra):
                             for m, init_h in enumerate(initial_h_idx):
                                 for n, init_w in enumerate(initial_w_idx):
                                     sensitivity[i, j, k, l, m, n] = initial_input.grad[0, init_c, init_h, init_w].item()
+        
+        return sensitivity
+    
+    def state_sensitivity_computation(self, inputs, 
+                              initial_indices,
+                              final_indices,
+                              initial_time=0, 
+                              final_time=-1,
+                              device="cuda",
+                              use_checkpointing=True):
+        """
+        Computes the sensitivity with improved gradient tracking
+        """
+        # SETUP PHASE - similar to your original code
+        assert self.hist == 1, "Sensitivity computation currently only supports hist=1"
+        
+        if final_time < 0:
+            final_time = len(inputs) + final_time
+        
+        # Get dimensions from the first input
+        _, n_channels, height, width = inputs[initial_time][0].shape
+        
+        # Process initial indices
+        initial_c_idx, initial_h_idx, initial_w_idx = self.process_indices(
+            initial_indices, [n_channels, height, width], device=device
+        )
+        
+        # Initialize sensitivity tensor
+        sensitivity_shape = (
+            len(initial_c_idx), len(initial_h_idx), len(initial_w_idx)
+        )
+        sensitivity = torch.zeros(sensitivity_shape, device=device)
+        
+        # CRUCIAL CHANGE: We'll use a loop to compute sensitivities for each target index
+        for c_idx in range(len(initial_c_idx)):
+            for h_idx in range(len(initial_h_idx)):
+                for w_idx in range(len(initial_w_idx)):
+                    # Reset computation for each point of interest
+                    # Start with a fresh initial input for each sensitivity computation
+                    initial_input = inputs[initial_time][0].detach().clone().to(device)
+                    # Set requires_grad only for the specific index we're analyzing
+                    initial_input.requires_grad_(False)  # Turn off grad for all
+                    c = initial_c_idx[c_idx]
+                    h = initial_h_idx[h_idx]
+                    w = initial_w_idx[w_idx]
+                    initial_input[0, c, h, w].requires_grad_(True)  # Turn on for specific element
+                    
+                    # Choose the forward function
+                    forward_func = self.checkpointed_forward_once if use_checkpointing else self.forward_once
+                    
+                    # Perform autoregressive rollout with careful gradient tracking
+                    current_input = initial_input
+                    for t in range(initial_time, final_time + 1):
+                        # Forward pass
+                        output = forward_func(current_input)
+                        
+                        # Prepare for next time step if needed
+                        if t < final_time:
+                            # Get boundary conditions from inputs
+                            boundary = inputs[t+1][0][:, self.output_channels:].to(device)
+                            
+                            # Create next input with gradient tracking preserved
+                            current_input = torch.cat([
+                                output.unsqueeze(0),  # Keep batch dimension
+                                boundary
+                            ], dim=1)
+
+                    # Process final indices based on output dimensions
+                    output_channels, output_height, output_width = output.shape
+                    final_c_idx, final_h_idx, final_w_idx = self.process_indices(
+                        final_indices, [output_channels, output_height, output_width], device=device
+                    )
+
+                    # Use the correct final index for this computation
+                    fc = final_c_idx[c_idx % len(final_c_idx)]  # Cycle through if dimensions don't match
+                    fh = final_h_idx[h_idx % len(final_h_idx)]
+                    fw = final_w_idx[w_idx % len(final_w_idx)]
+
+                    # Create gradient mask for the specific final point
+                    grad_mask = torch.zeros_like(output, device=device)
+                    grad_mask[fc, fh, fw] = 1.0
+
+                    # Get gradient with respect to this final point
+                    output.backward(grad_mask)
+
+                    # Store the sensitivity value
+                    sensitivity[c_idx, h_idx, w_idx] = initial_input.grad[0, c, h, w].item()
         
         return sensitivity
 
