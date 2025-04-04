@@ -720,6 +720,11 @@ class SamudraAdjoint(Samudra):
 
                     # Store the sensitivity value
                     sensitivity[c_idx, h_idx, w_idx] = initial_input.grad[0, c, h, w].item()
+
+                    print("Sensitivity acquired for initial index (c,h,w): ({}, {}, {}) with value: {}".format(
+                        c_idx, h_idx, w_idx,
+                        sensitivity[c_idx, h_idx, w_idx]
+                    ))
         
         return sensitivity
 
