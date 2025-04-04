@@ -317,7 +317,7 @@ try:
         initial_time=initial_time,
         final_time=final_time,
         device=device,
-        use_checkpointing=False
+        use_checkpointing=True
     )
     
     print(f"Sensitivity tensor shape: {sensitivity.shape}")

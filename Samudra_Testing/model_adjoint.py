@@ -474,7 +474,7 @@ class SamudraAdjoint(Samudra):
             return self.forward_once(inputs[0])
         
         # Apply checkpointing
-        return checkpoint.checkpoint(custom_forward, x)
+        return checkpoint.checkpoint(custom_forward, x, use_reentrant=False)
 
     def state_sensitivity_computation(self, inputs, 
                                   initial_indices,
