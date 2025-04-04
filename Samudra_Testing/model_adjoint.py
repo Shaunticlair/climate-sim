@@ -699,6 +699,8 @@ class SamudraAdjoint(Samudra):
                                 boundary
                             ], dim=1)
 
+                    print("Forward pass completed for sensitivity computation at final time step: ", final_time)
+
                     # Process final indices based on output dimensions
                     output_channels, output_height, output_width = output.shape
                     final_c_idx, final_h_idx, final_w_idx = self.process_indices(
