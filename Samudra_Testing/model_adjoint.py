@@ -476,6 +476,96 @@ class SamudraAdjoint(Samudra):
         # Apply checkpointing
         return checkpoint.checkpoint(custom_forward, x, use_reentrant=False)
     
+    
+    
+    def grad_track_one_element(self, state_tensor, initial_c, initial_h, initial_w, 
+                               device="cuda"):
+        """
+        Utility function to track the gradient of a single element in the output with respect to a single input element.
+        """
+        state_tensor = state_tensor.clone().detach().to(device)  # Ensure we don't modify the original tensor
+
+        # Retrieve desired element
+        element_value = state_tensor[0, initial_c, initial_h, initial_w].item()
+        # Create a tensor with requires_grad=True for the specific element
+        input_element = torch.tensor([element_value], requires_grad=True, device=device)
+
+        # Inject the input element into the state tensor
+        state_tensor[0, initial_c, initial_h, initial_w] = input_element
+
+        return state_tensor, input_element
+    
+    def grad_track_multiple_elements(self, state_tensor, initial_idx, device="cuda"):
+        """
+        Utility function to track the gradient of multiple elements in the output with respect to multiple input elements.
+        """
+        state_tensor = state_tensor.clone().detach().to(device)
+
+        # Process initial indices
+        initial_c_idx, initial_h_idx, initial_w_idx = initial_idx
+
+        # Create a tensor to hold the gradients for each of the specified elements
+        input_elements = []
+        for c_idx, h_idx, w_idx in zip(initial_c_idx, initial_h_idx, initial_w_idx):
+            # Retrieve the value of the specific element
+            element_value = state_tensor[0, c_idx, h_idx, w_idx].item()
+            # Create a tensor with requires_grad=True for this element
+            input_element = torch.tensor([element_value], requires_grad=True, device=device)
+
+            # Inject the input element into the state tensor
+            state_tensor[0, c_idx, h_idx, w_idx] = input_element
+
+            input_elements.append(input_element)
+
+        # Return the modified state tensor and the list of input elements
+        return state_tensor, input_elements
+        
+            
+    
+    def compute_single_element_sensitivity(self, inputs, 
+                                     initial_time,
+                                     final_time,
+                                     initial_c, initial_h, initial_w,  # Initial element indices
+                                     final_c, final_h, final_w,        # Final element indices
+                                     device="cuda"):
+        """
+        Computes sensitivity of a single output element with respect to a single input element
+        """
+        # Assert that we have only one index for initial and final indices
+        assert isinstance(initial_c, int) and isinstance(initial_h, int) and isinstance(initial_w, int), \
+            "initial_c, initial_h, initial_w must be integers representing a single element"
+        assert isinstance(final_c, int) and isinstance(final_h, int) and isinstance(final_w, int), \
+            "final_c, final_h, final_w must be integers representing a single element"
+
+        model_input = inputs[initial_time][0].clone().detach().to(device)  # Start with the initial input tensor
+
+        # Track the gradient of the desired element in the input tensor
+        model_input, input_element = self.grad_track_one_element(
+            model_input,
+            initial_c, initial_h, initial_w,
+            device=device
+        )
+
+        # Run the full autoregressive rollout
+        current_input = model_input
+        for t in range(initial_time, final_time + 1):
+            # Forward pass
+            output = self.forward_once(current_input)
+            
+            # Prepare for next time step if needed
+            if t < final_time:
+                boundary = inputs[t+1][0][:, self.output_channels:].to(device)
+                current_input = torch.cat([output, boundary], dim=1)
+        
+        # Get the specific output element we're interested in
+        output_value = output[0, final_c, final_h, final_w]
+        
+        # Compute the gradient
+        output_value.backward()
+        gradient = input_element.grad.item()
+        
+        return gradient
+    
     def state_sensitivity_computation(self, inputs, 
                               initial_indices,
                               final_indices,
@@ -569,64 +659,6 @@ class SamudraAdjoint(Samudra):
                     ))
         
         return sensitivity
-    
-    def grad_track_one_element(self, state_tensor, initial_c, initial_h, initial_w, 
-                               device="cuda"):
-        """
-        Utility function to track the gradient of a single element in the output with respect to a single input element.
-        """
-        state_tensor = state_tensor.clone().detach().to(device)  # Ensure we don't modify the original tensor
-
-        # Retrieve desired element
-        element_value = state_tensor[0, initial_c, initial_h, initial_w].item()
-        # Create a tensor with requires_grad=True for the specific element
-        input_element = torch.tensor([element_value], requires_grad=True, device=device)
-
-        # Inject the input element into the state tensor
-        state_tensor[0, initial_c, initial_h, initial_w] = input_element
-
-        return state_tensor, input_element
-        
-            
-    
-    def compute_single_element_sensitivity(self, inputs, 
-                                     initial_time,
-                                     final_time,
-                                     initial_c, initial_h, initial_w,  # Initial element indices
-                                     final_c, final_h, final_w,        # Final element indices
-                                     device="cuda"):
-        """
-        Computes sensitivity of a single output element with respect to a single input element
-        """
-
-        model_input = inputs[initial_time][0].clone().detach().to(device)  # Start with the initial input tensor
-
-        # Track the gradient of the desired element in the input tensor
-        model_input, input_element = self.grad_track_one_element(
-            model_input,
-            initial_c, initial_h, initial_w,
-            device=device
-        )
-
-        # Run the full autoregressive rollout
-        current_input = model_input
-        for t in range(initial_time, final_time + 1):
-            # Forward pass
-            output = self.forward_once(current_input)
-            
-            # Prepare for next time step if needed
-            if t < final_time:
-                boundary = inputs[t+1][0][:, self.output_channels:].to(device)
-                current_input = torch.cat([output, boundary], dim=1)
-        
-        # Get the specific output element we're interested in
-        output_value = output[0, final_c, final_h, final_w]
-        
-        # Compute the gradient
-        output_value.backward()
-        gradient = input_element.grad.item()
-        
-        return gradient
 
 def generate_model_rollout(
     N_eval, test_data, model, hist, N_out, N_extra, initial_input=None, train=False

@@ -262,6 +262,10 @@ model_state = torch.load(weights_path, map_location=torch.device(device))["model
 adjoint_model.load_state_dict(model_state)
 adjoint_model = adjoint_model.to(device)
 
+# Turn off gradient tracking for all model parameters to improve performance
+for param in adjoint_model.parameters():
+    param.requires_grad_(False)
+
 print("SamudraAdjoint model initialized and weights loaded")
 timer.checkpoint("Model loaded")
 
