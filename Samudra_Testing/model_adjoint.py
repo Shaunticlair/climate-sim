@@ -570,6 +570,25 @@ class SamudraAdjoint(Samudra):
         
         return sensitivity
     
+    def grad_track_one_element(self, state_tensor, initial_c, initial_h, initial_w, 
+                               device="cuda"):
+        """
+        Utility function to track the gradient of a single element in the output with respect to a single input element.
+        """
+        state_tensor = state_tensor.clone().detach().to(device)  # Ensure we don't modify the original tensor
+
+        # Retrieve desired element
+        element_value = state_tensor[0, initial_c, initial_h, initial_w].item()
+        # Create a tensor with requires_grad=True for the specific element
+        input_element = torch.tensor([element_value], requires_grad=True, device=device)
+
+        # Inject the input element into the state tensor
+        state_tensor[0, initial_c, initial_h, initial_w] = input_element
+
+        return state_tensor, input_element
+        
+            
+    
     def compute_single_element_sensitivity(self, inputs, 
                                      initial_time,
                                      final_time,
@@ -579,21 +598,16 @@ class SamudraAdjoint(Samudra):
         """
         Computes sensitivity of a single output element with respect to a single input element
         """
-        # Create a copy of the input to avoid modifying the original
-        initial_input = inputs[initial_time][0].clone().detach().to(device)
-        
-        # Get the original value at the location we care about
-        original_value = initial_input[0, initial_c, initial_h, initial_w].item()
-        
-        # Create a scalar tensor with requires_grad=True containing our value of interest
-        input_element = torch.tensor([original_value], requires_grad=True, device=device)
-        
-        # Create a fresh copy of the input each time to avoid accumulating gradients
-        model_input = initial_input.clone()
-        
-        # Inject our tracked element into the input tensor
-        model_input[0, initial_c, initial_h, initial_w] = input_element
-        
+
+        model_input = inputs[initial_time][0].clone().detach().to(device)  # Start with the initial input tensor
+
+        # Track the gradient of the desired element in the input tensor
+        model_input, input_element = self.grad_track_one_element(
+            model_input,
+            initial_c, initial_h, initial_w,
+            device=device
+        )
+
         # Run the full autoregressive rollout
         current_input = model_input
         for t in range(initial_time, final_time + 1):
