@@ -302,89 +302,92 @@ initial_indices = [
 # For demonstration, we're looking at sensitivity of the same region at the final time
 final_indices = initial_indices
 
-print(f"Computing sensitivity from time step {initial_time} to {final_time}")
-print(f"Initial region: Surface temperature in Pacific region")
-print(f"Final region: Same as initial region")
 
-timer.checkpoint("Sensitivity configuration complete")
+testing_compute_single_element_sensitivity = False
 
-# ## Compute Sensitivity
-# Use the SamudraAdjoint to compute state sensitivities
+if testing_compute_single_element_sensitivity:
 
-print("Starting sensitivity computation...")
-print("This may take some time depending on the region size and time steps.")
 
-# Extract a single point from your region for testing
-init_c = surface_temp_channels[0]  # First temperature channel
-init_h = pacific_region['latitude_indices'][0]  # First latitude index
-init_w = pacific_region['longitude_indices'][0]  # First longitude index
+    print(f"Computing sensitivity from time step {initial_time} to {final_time}")
+    print(f"Initial region: Surface temperature in Pacific region")
+    print(f"Final region: Same as initial region")
 
-# Same for final indices (in this case they're the same)
-final_c = init_c
-final_h = init_h
-final_w = init_w
+    timer.checkpoint("Sensitivity configuration complete")
 
-print(f"Computing sensitivity for a single point: ({init_c}, {init_h}, {init_w}) -> ({final_c}, {final_h}, {final_w})")
+    # ## Compute Sensitivity
+    # Use the SamudraAdjoint to compute state sensitivities
 
-# Compute sensitivity for this single point
-gradient = adjoint_model.compute_single_element_sensitivity(
-    test_data,
-    initial_time=initial_time,
-    final_time=final_time,
-    initial_c=init_c, initial_h=init_h, initial_w=init_w,
-    final_c=final_c, final_h=final_h, final_w=final_w,
-    device=device
-)
+    print("Starting sensitivity computation...")
+    print("This may take some time depending on the region size and time steps.")
 
-print(f"Computed sensitivity: {gradient}")
+    # Extract a single point from your region for testing
+    init_c = surface_temp_channels[0]  # First temperature channel
+    init_h = pacific_region['latitude_indices'][0]  # First latitude index
+    init_w = pacific_region['longitude_indices'][0]  # First longitude index
 
-"""
-# Compute sensitivity with gradient checkpointing for memory efficiency
-sensitivity = adjoint_model.state_sensitivity_computation(
-    test_data,
-    initial_indices=initial_indices,
-    final_indices=final_indices,
-    initial_time=initial_time,
-    final_time=final_time,
-    device=device,
-    use_checkpointing=True
-)
+    # Same for final indices (in this case they're the same)
+    final_c = init_c
+    final_h = init_h
+    final_w = init_w
 
-print(f"Sensitivity tensor shape: {sensitivity.shape}")
+    print(f"Computing sensitivity for a single point: ({init_c}, {init_h}, {init_w}) -> ({final_c}, {final_h}, {final_w})")
 
-# Basic statistics of the sensitivity
-sensitivity_np = sensitivity.cpu().numpy()
-print(f"Sensitivity statistics:")
-print(f"  Mean: {np.mean(sensitivity_np)}")
-print(f"  Max: {np.max(sensitivity_np)}")
-print(f"  Min: {np.min(sensitivity_np)}")
-print(f"  Std: {np.std(sensitivity_np)}")
+    # Compute sensitivity for this single point
+    gradient = adjoint_model.compute_single_element_sensitivity(
+        test_data,
+        initial_time=initial_time,
+        final_time=final_time,
+        initial_c=init_c, initial_h=init_h, initial_w=init_w,
+        final_c=final_c, final_h=final_h, final_w=final_w,
+        device=device
+    )
 
-# Save the sensitivity results
-output_file = f"sensitivity_{exp_num_in}_t{initial_time}to{final_time}.npy"
-np.save(output_file, sensitivity_np)
-print(f"Saved sensitivity to {output_file}")
+    print(f"Computed sensitivity: {gradient}")
 
-timer.checkpoint("Sensitivity computation")
+# Test state_sensitivity_computation with a single element
+testing_state_sensitivity_computation = True
 
-# Optional: Visualize the sensitivity
-# For simplicity, we'll just plot the mean sensitivity across all final indices
-if len(pacific_region['latitude_indices']) > 0 and len(pacific_region['longitude_indices']) > 0:
-    mean_sensitivity = np.mean(sensitivity_np, axis=(0, 1, 2))
+if testing_state_sensitivity_computation:
+    print("\nTesting state_sensitivity_computation with a single element...")
     
-    plt.figure(figsize=(10, 8))
-    plt.imshow(mean_sensitivity.reshape(
-        len(initial_indices[1]), len(initial_indices[2])
-    ), cmap='seismic', interpolation='none')
-    plt.colorbar(label='Mean Sensitivity')
-    plt.title('Mean Surface Temperature Sensitivity')
-    plt.xlabel('Longitude Index')
-    plt.ylabel('Latitude Index')
-    plt.savefig(f"sensitivity_map_{exp_num_in}_t{initial_time}to{final_time}.png", dpi=300)
-    plt.close()
+    # Use the same point from the earlier test for consistency
+    init_c = surface_temp_channels[0]  # First temperature channel
+    init_h = pacific_region['latitude_indices'][0]  # First latitude index
+    init_w = pacific_region['longitude_indices'][0]  # First longitude index
     
-    print("Sensitivity visualization saved")
-"""
+    # Set up single-element indices for sensitivity computation
+    single_element_initial_indices = [
+        [init_c],      # Channel index as a list with one element
+        [init_h],      # Latitude index as a list with one element
+        [init_w]       # Longitude index as a list with one element
+    ]
+    
+    single_element_final_indices = single_element_initial_indices  # Same point for final indices
+    
+    print(f"Computing sensitivity matrix for point: ({init_c}, {init_h}, {init_w}) -> ({init_c}, {init_h}, {init_w})")
+    
+    # Compute the sensitivity matrix
+    sensitivity_matrix = adjoint_model.state_sensitivity_computation(
+        test_data,
+        initial_indices=single_element_initial_indices,
+        final_indices=single_element_final_indices,
+        initial_time=initial_time,
+        final_time=final_time,
+        device=device,
+        use_checkpointing=False  # Set to False for a single element test
+    )
+    
+    # Print the result
+    print(f"Computed sensitivity matrix shape: {sensitivity_matrix.shape}")
+    print(f"Sensitivity value: {sensitivity_matrix.item()}")
+    
+    # Compare with the earlier single element computation
+    if testing_compute_single_element_sensitivity:
+        print(f"Single element computation: {gradient}")
+        print(f"Matrix computation: {sensitivity_matrix.item()}")
+        print(f"Difference: {abs(gradient - sensitivity_matrix.item())}")
+        
+    timer.checkpoint("State sensitivity matrix computation completed")
 
 timer.checkpoint("Process completed")
 
