@@ -529,13 +529,8 @@ class SamudraAdjoint(Samudra):
                                      final_c, final_h, final_w,        # Final element indices
                                      device="cuda"):
         """
-        Computes sensitivity of a single output element with respect to a single input element
+        Computes sensitivity of a single output element with respect to a single input element.
         """
-        # Assert that we have only one index for initial and final indices
-        assert isinstance(initial_c, int) and isinstance(initial_h, int) and isinstance(initial_w, int), \
-            "initial_c, initial_h, initial_w must be integers representing a single element"
-        assert isinstance(final_c, int) and isinstance(final_h, int) and isinstance(final_w, int), \
-            "final_c, final_h, final_w must be integers representing a single element"
 
         model_input = inputs[initial_time][0].clone().detach().to(device)  # Start with the initial input tensor
 

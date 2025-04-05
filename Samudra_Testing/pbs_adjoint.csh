@@ -1,6 +1,6 @@
 #!/bin/csh
 #PBS -S /bin/csh
-#PBS -q normal
+#PBS -q devel
 #PBS -l select=1:ncpus=40:model=sky_ele
 #PBS -l walltime=0:30:00
 #PBS -j oe
