@@ -303,7 +303,7 @@ initial_indices = [
 final_indices = initial_indices
 
 
-testing_compute_single_element_sensitivity = False
+testing_compute_single_element_sensitivity = True
 
 if testing_compute_single_element_sensitivity:
 
@@ -337,15 +337,16 @@ if testing_compute_single_element_sensitivity:
         test_data,
         initial_time=initial_time,
         final_time=final_time,
-        initial_c=init_c, initial_h=init_h, initial_w=init_w,
-        final_c=final_c, final_h=final_h, final_w=final_w,
-        device=device
+        initial_index=[0, init_c,  init_h,  init_w],  # Initial indices (channel, latitude, longitude)
+        final_index=  [0, final_c, final_h, final_w],  # Final indices (channel, latitude, longitude)
+        device=device,
+        use_checkpointing=False  # Set to False for a single element test
     )
 
     print(f"Computed sensitivity: {gradient}")
 
 # Test state_sensitivity_computation with a single element
-testing_state_sensitivity_computation = True
+testing_state_sensitivity_computation = False
 
 if testing_state_sensitivity_computation:
     print("\nTesting state_sensitivity_computation with a single element...")

@@ -301,13 +301,6 @@ class BaseSamudra(torch.nn.Module):
 
         return res
     
-
-    
-
-
-    
-
-
 class Samudra(BaseSamudra):
     def __init__(
         self,
@@ -456,15 +449,6 @@ class SamudraAdjoint(Samudra):
             pad
         )
 
-    def process_indices(self, indices, dims, device="cuda"):
-        processed = []
-        for i, idx in enumerate(indices):
-            if idx is None:
-                processed.append(torch.arange(dims[i], device=device))
-            else:
-                processed.append(torch.tensor(idx, device=device))
-        return processed
-    
     def checkpointed_forward_once(self, x):
         """
         Wrapper for forward_once that uses gradient checkpointing for memory efficiency
@@ -476,60 +460,75 @@ class SamudraAdjoint(Samudra):
         # Apply checkpointing
         return checkpoint.checkpoint(custom_forward, x, use_reentrant=False)
     
-    
-    
-    def grad_track_one_element(self, state_tensor, initial_c, initial_h, initial_w, 
+    def grad_track_one_element(self, state_tensor, initial_index,
                                device="cuda"):
         """
         Utility function to track the gradient of a single element in the output with respect to a single input element.
+        
+        state_tensor : torch.Tensor
+            The state tensor from which to track the gradient.
+        initial_index : tuple
+            A tuple (b, c, h, w) indicating the batch, channel, height, and width index of the element to track.
         """
         state_tensor = state_tensor.clone().detach().to(device)  # Ensure we don't modify the original tensor
 
         # Retrieve desired element
-        element_value = state_tensor[0, initial_c, initial_h, initial_w].item()
+        element_value = state_tensor[initial_index].item()
         # Create a tensor with requires_grad=True for the specific element
         input_element = torch.tensor([element_value], requires_grad=True, device=device)
 
         # Inject the input element into the state tensor
-        state_tensor[0, initial_c, initial_h, initial_w] = input_element
+        state_tensor[initial_index] = input_element
 
         return state_tensor, input_element
     
-    def grad_track_multiple_elements(self, state_tensor, initial_idx, device="cuda"):
+    def grad_track_multiple_elements(self, state_tensor, 
+                                     initial_indices,
+                                     device="cuda"):
         """
         Utility function to track the gradient of multiple elements in the output with respect to multiple input elements.
         """
         state_tensor = state_tensor.clone().detach().to(device)
 
-        # Process initial indices
-        initial_c_idx, initial_h_idx, initial_w_idx = initial_idx
-
         # Create a tensor to hold the gradients for each of the specified elements
         input_elements = []
-        for c_idx, h_idx, w_idx in zip(initial_c_idx, initial_h_idx, initial_w_idx):
+        for initial_index in initial_indices:
             # Retrieve the value of the specific element
-            element_value = state_tensor[0, c_idx, h_idx, w_idx].item()
+            element_value = state_tensor[initial_index].item()  # Get the value of the element at the specified index
             # Create a tensor with requires_grad=True for this element
             input_element = torch.tensor([element_value], requires_grad=True, device=device)
 
             # Inject the input element into the state tensor
-            state_tensor[0, c_idx, h_idx, w_idx] = input_element
+            state_tensor[initial_index] = input_element
 
             input_elements.append(input_element)
 
         # Return the modified state tensor and the list of input elements
         return state_tensor, input_elements
         
-            
-    
     def compute_single_element_sensitivity(self, inputs, 
                                      initial_time,
                                      final_time,
-                                     initial_c, initial_h, initial_w,  # Initial element indices
-                                     final_c, final_h, final_w,        # Final element indices
+                                     initial_index,  # Initial element indices
+                                     final_index,        # Final element indices
                                      device="cuda"):
         """
         Computes sensitivity of a single output element with respect to a single input element.
+
+        Parameters:
+        -----------
+        inputs : list of tensors
+            The input tensors for each time step in the sequence.
+        initial_time : int
+            The initial time step for the autoregressive rollout.
+        final_time : int
+            The final time step for the autoregressive rollout.
+        initial_index : tuple
+            A tuple (b, c, h, w) indicating the batch, channel, height, and width index 
+            of the initial element to track.
+        final_index : tuple
+            A tuple (b,c, h, w) indicating the channel, height, and width index of the final output element.
+
         """
 
         model_input = inputs[initial_time][0].clone().detach().to(device)  # Start with the initial input tensor
@@ -537,7 +536,7 @@ class SamudraAdjoint(Samudra):
         # Track the gradient of the desired element in the input tensor
         model_input, input_element = self.grad_track_one_element(
             model_input,
-            initial_c, initial_h, initial_w,
+            initial_index,
             device=device
         )
 
@@ -553,7 +552,7 @@ class SamudraAdjoint(Samudra):
                 current_input = torch.cat([output, boundary], dim=1)
         
         # Get the specific output element we're interested in
-        output_value = output[0, final_c, final_h, final_w]
+        output_value = output[final_index]  
         
         # Compute the gradient
         output_value.backward()
@@ -561,7 +560,7 @@ class SamudraAdjoint(Samudra):
         
         return gradient
     
-    def state_sensitivity_computation(self, inputs, 
+    def compute_state_sensitivity_iterative(self, inputs, 
                           initial_indices,
                           final_indices,
                           initial_time=0, 
@@ -571,71 +570,111 @@ class SamudraAdjoint(Samudra):
         """
         Computes the full sensitivity matrix showing how each initial element
         affects each final element.
-        
-        Returns:
-            sensitivity: Tensor of shape [len(initial_c_idx), len(initial_h_idx), len(initial_w_idx),
-                                        len(final_c_idx), len(final_h_idx), len(final_w_idx)]
+
+        Parameters:
+        -----------
+        inputs : list of tensors
+            The input tensors for each time step in the sequence.
+        initial_indices : list of tuples
+            A list of tuples (b, c, h, w) indicating the batch, channel, height, and width indices
+            of the initial elements to track. This should be a list of tuples for multiple elements.
+        final_indices : list of tuples
+            A list of tuples (b, c, h, w) indicating the batch, channel, height, and width indices
+            of the final output elements to compute sensitivities for. This should also be a list of tuples. 
+        initial_time : int
+            The initial time step for the autoregressive rollout.
+        final_time : int    
+            The final time step for the autoregressive rollout. 
+            If negative, it will be computed as len(inputs) + final_time.
         """
         # Process final time if negative
         if final_time < 0:
             final_time = len(inputs) + final_time
         
-        # Get dimensions from the first input
-        _, n_channels, height, width = inputs[initial_time][0].shape
-        
-        # Process initial indices
-        initial_c_idx, initial_h_idx, initial_w_idx = self.process_indices(
-            initial_indices, [n_channels, height, width], device=device
-        )
-        
-        # Process final indices based on output dimensions
-        final_c_idx, final_h_idx, final_w_idx = self.process_indices(
-            final_indices, [n_channels, height, width], device=device
-        )
-        
-        # Initialize 6D sensitivity tensor
-        sensitivity_shape = (
-            len(initial_c_idx), len(initial_h_idx), len(initial_w_idx),
-            len(final_c_idx), len(final_h_idx), len(final_w_idx)
-        )
+        # Initialize 2D sensitivity tensor
+        sensitivity_shape = (len(initial_indices), len(final_indices))
         sensitivity = torch.zeros(sensitivity_shape, device=device)
         
         # Total computations for progress reporting
-        total_computations = len(initial_c_idx) * len(initial_h_idx) * len(initial_w_idx) * \
-                            len(final_c_idx) * len(final_h_idx) * len(final_w_idx)
+        total_computations = len(initial_indices) * len(final_indices)
         completed = 0
         
         # Iterate through each initial point
-        for ic_idx, initial_c in enumerate(initial_c_idx):
-            for ih_idx, initial_h in enumerate(initial_h_idx):
-                for iw_idx, initial_w in enumerate(initial_w_idx):
-                    # For each initial point, compute sensitivity to all final points
-                    for fc_idx, final_c in enumerate(final_c_idx):
-                        for fh_idx, final_h in enumerate(final_h_idx):
-                            for fw_idx, final_w in enumerate(final_w_idx):
-                                # Compute single element sensitivity
-                                gradient = self.compute_single_element_sensitivity(
-                                    inputs,
-                                    initial_time=initial_time,
-                                    final_time=final_time,
-                                    initial_c=initial_c, initial_h=initial_h, initial_w=initial_w,
-                                    final_c=final_c, final_h=final_h, final_w=final_w,
-                                    device=device
-                                )
+        for ic_idx, initial_index in enumerate(initial_indices):
+            for ih_idx, final_index in enumerate(final_indices):
+                # Compute single element sensitivity
+                gradient = self.compute_single_element_sensitivity(
+                    inputs,
+                    initial_time=initial_time,
+                    final_time=final_time,
+                    initial_index=initial_index,  # Initial element index (b, c, h, w)
+                    final_index=final_index,        # Final element index (b, c, h, w)  
+                    device=device
+                )
                                 
-                                # Store the result in the 6D tensor
-                                sensitivity[ic_idx, ih_idx, iw_idx, fc_idx, fh_idx, fw_idx] = gradient
-                                
-                                # Update progress
-                                completed += 1
-                                if completed % 10 == 0 or completed == total_computations:
-                                    print(f"Progress: {completed}/{total_computations} sensitivities computed "
-                                        f"({100*completed/total_computations:.2f}%)")
+                # Store the result in the tensor
+                sensitivity[ic_idx, ih_idx] = gradient
+                
+                # Update progress
+                completed += 1
+                if completed % 10 == 0 or completed == total_computations:
+                    print(f"Progress: {completed}/{total_computations} sensitivities computed "
+                        f"({100*completed/total_computations:.2f}%)")
         
         return sensitivity
     
+    def compute_state_sensitivity(self, inputs,
+                            initial_indices,
+                            final_indices,
+                            initial_time=0, 
+                            final_time=-1,
+                            device="cuda",
+                            use_checkpointing=True):
+        """
+        Alternate version of compute_state_sensitivity_iterative that 
+        uses autograd.grad to compute the sensitivity in a more efficient manner.
+        """
+        # Process final time if negative
+        if final_time < 0:
+            final_time = len(inputs) + final_time
+        
 
-    
+        
+        
+        # Run the forward pass for the entire sequence to get the final output
+        model_input = inputs[initial_time][0].clone().detach().to(device)  # Start with the initial input tensor
+        # Run the full autoregressive rollout
+
+        model_input, input_elements = self.grad_track_multiple_elements(
+            model_input,
+            initial_c_idx, initial_h_idx, initial_w_idx,
+            device=device
+        )
+
+        # Run the full autoregressive rollout
+        current_input = model_input
+        for t in range(initial_time, final_time + 1):
+            # Forward pass
+            if use_checkpointing:
+                output = self.checkpointed_forward_once(current_input)
+            else:
+                output = self.forward_once(current_input)
+            
+            # Prepare for next time step if needed
+            if t < final_time:
+                boundary = inputs[t+1][0][:, self.output_channels:].to(device)
+                current_input = torch.cat([output, boundary], dim=1)
+        # Get the final output tensor
+        
+        final_output = output
+
+        # Create a vector for the final output elements we want to compute sensitivities for
+        # Create a vector for the intial input elements we want to compute sensitivities for
+        # Use torch.autograd.grad to compute the sensitivities for each of the final points 
+        #   with respect to the initial input elements, at the same time
+
+
+
 
 def generate_model_rollout(
     N_eval, test_data, model, hist, N_out, N_extra, initial_input=None, train=False
