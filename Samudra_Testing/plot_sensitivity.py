@@ -12,7 +12,7 @@ print(f"Original sensitivity matrix shape: {sensitivity_matrix.shape}")
 
 sensitivity_latitude = 90  # Center latitude for the matrix (assuming 180x360 grid)
 sensitivity_longitude = 180  # Center longitude for the matrix (assuming 180x360 grid)
-time=19
+time=3
 """
 # Path to the wetmask file
 wetmask_path = 'full_wetmask.npy'

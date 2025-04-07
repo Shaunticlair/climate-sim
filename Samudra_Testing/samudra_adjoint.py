@@ -454,6 +454,15 @@ if testing_compute_state_sensitivity:
     # Convert sensitivity grid to numpy for masking
     sensitivity_grid_np = sensitivity_grid.cpu().numpy()
 
+    # Write to file for debugging purposes (optional)
+    sensitivity_output_file = Path("sensitivity_matrix.npy")
+    if sensitivity_output_file.exists():
+        print(f"Removing existing file: {sensitivity_output_file}")
+        sensitivity_output_file.unlink()
+
+    # Save the sensitivity matrix to a file for debugging
+    np.save(sensitivity_output_file, sensitivity_grid_np)
+
     # Create a masked array where land (wet=0) is masked
     masked_sensitivity = np.ma.masked_array(
         sensitivity_grid_np,
