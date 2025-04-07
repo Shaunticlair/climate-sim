@@ -507,10 +507,10 @@ class SamudraAdjoint(Samudra):
         return state_tensor, input_elements
         
     def compute_single_element_sensitivity(self, inputs, 
-                                     initial_time,
-                                     final_time,
                                      initial_index,  # Initial element indices
                                      final_index,        # Final element indices
+                                     initial_time=0,
+                                     final_time=-1,
                                      device="cuda"):
         """
         Computes sensitivity of a single output element with respect to a single input element.
@@ -530,6 +530,8 @@ class SamudraAdjoint(Samudra):
             A tuple (b,c, h, w) indicating the channel, height, and width index of the final output element.
 
         """
+        if final_time < 0:
+            final_time = len(inputs) + final_time
 
         model_input = inputs[initial_time][0].clone().detach().to(device)  # Start with the initial input tensor
 
@@ -638,8 +640,6 @@ class SamudraAdjoint(Samudra):
         if final_time < 0:
             final_time = len(inputs) + final_time
         
-
-        
         
         # Run the forward pass for the entire sequence to get the final output
         model_input = inputs[initial_time][0].clone().detach().to(device)  # Start with the initial input tensor
@@ -647,7 +647,7 @@ class SamudraAdjoint(Samudra):
 
         model_input, input_elements = self.grad_track_multiple_elements(
             model_input,
-            initial_c_idx, initial_h_idx, initial_w_idx,
+            initial_indices,  # List of initial indices to track
             device=device
         )
 
@@ -673,7 +673,103 @@ class SamudraAdjoint(Samudra):
         # Use torch.autograd.grad to compute the sensitivities for each of the final points 
         #   with respect to the initial input elements, at the same time
 
-
+    def compute_state_sensitivity(self, inputs,
+                        initial_indices,
+                        final_indices,
+                        initial_time=0, 
+                        final_time=-1,
+                        device="cuda",
+                        use_checkpointing=True):
+        """
+        Computes the sensitivity of multiple final output elements with respect to 
+        multiple initial elements in a single backward pass.
+        
+        Parameters:
+        -----------
+        inputs : list of tensors
+            The input tensors for each time step in the sequence.
+        initial_indices : list of tuples
+            A list of tuples (b, c, h, w) indicating the batch, channel, height, and width indices
+            of the initial elements to track.
+        final_indices : list of tuples
+            A list of tuples (b, c, h, w) indicating the batch, channel, height, and width indices
+            of the final output elements to compute sensitivities for.
+        initial_time : int
+            The initial time step for the autoregressive rollout.
+        final_time : int    
+            The final time step for the autoregressive rollout. 
+            If negative, it will be computed as len(inputs) + final_time.
+        device : str
+            The device to run the computation on ('cuda' or 'cpu').
+        use_checkpointing : bool
+            Whether to use gradient checkpointing for memory efficiency.
+            
+        Returns:
+        --------
+        torch.Tensor
+            A 2D tensor of shape (len(initial_indices), len(final_indices)) containing 
+            the sensitivity of each final element with respect to each initial element.
+        """
+        import torch
+        
+        # Process final time if negative
+        if final_time < 0:
+            final_time = len(inputs) + final_time
+        
+        # Initialize the model input
+        model_input = inputs[initial_time][0].clone().detach().to(device)
+        model_input.requires_grad_(True)
+        
+        # Store the initial input elements that we want to track
+        initial_elements = []
+        for idx in initial_indices:
+            b, c, h, w = idx
+            initial_elements.append(model_input[b, c, h, w])
+        
+        # Run the full autoregressive rollout
+        current_input = model_input
+        for t in range(initial_time, final_time + 1):
+            # Forward pass
+            if use_checkpointing and t < final_time:
+                output = self.checkpointed_forward_once(current_input)
+            else:
+                output = self.forward_once(current_input)
+            
+            # Prepare for next time step if needed
+            if t < final_time:
+                boundary = inputs[t+1][0][:, self.output_channels:].to(device)
+                current_input = torch.cat([output, boundary], dim=1)
+        
+        # Get the final output tensor
+        final_output = output
+        
+        # Create a sensitivity matrix to store results
+        sensitivity_matrix = torch.zeros(len(initial_indices), len(final_indices), device=device)
+        
+        # Extract the final output elements we're interested in
+        final_elements = []
+        for idx in final_indices:
+            b, c, h, w = idx
+            final_elements.append(final_output[b, c, h, w])
+        
+        # For each final element, compute gradients w.r.t all initial elements
+        for j, final_element in enumerate(final_elements):
+            # Clear any previous gradients
+            if model_input.grad is not None:
+                model_input.grad.zero_()
+            
+            # Compute gradients of the current final element w.r.t the input
+            final_element.backward(retain_graph=(j < len(final_elements) - 1))
+            
+            # Extract gradients for the initial elements we're tracking
+            for i, idx in enumerate(initial_indices):
+                b, c, h, w = idx
+                if model_input.grad is not None:
+                    sensitivity_matrix[i, j] = model_input.grad[b, c, h, w].item()
+        
+        return sensitivity_matrix
+        
+        
 
 
 def generate_model_rollout(

@@ -303,7 +303,7 @@ initial_indices = [
 final_indices = initial_indices
 
 
-testing_compute_single_element_sensitivity = True
+testing_compute_single_element_sensitivity = False
 
 if testing_compute_single_element_sensitivity:
 
@@ -346,9 +346,9 @@ if testing_compute_single_element_sensitivity:
     print(f"Computed sensitivity: {gradient}")
 
 # Test state_sensitivity_computation with a single element
-testing_state_sensitivity_computation = False
+testing_compute_state_sensitivity_iterative = False
 
-if testing_state_sensitivity_computation:
+if testing_compute_state_sensitivity_iterative:
     print("\nTesting state_sensitivity_computation with a single element...")
     
     # Use the same point from the earlier test for consistency
@@ -356,22 +356,16 @@ if testing_state_sensitivity_computation:
     init_h = pacific_region['latitude_indices'][0]  # First latitude index
     init_w = pacific_region['longitude_indices'][0]  # First longitude index
     
-    # Set up single-element indices for sensitivity computation
-    single_element_initial_indices = [
-        [init_c],      # Channel index as a list with one element
-        [init_h],      # Latitude index as a list with one element
-        [init_w]       # Longitude index as a list with one element
-    ]
-    
-    single_element_final_indices = single_element_initial_indices  # Same point for final indices
+    initial_indices = [[0, init_c, init_h, init_w]]  # Initial indices for the sensitivity computation
+    final_indices = [[0, init_c, init_h, init_w]]    # Final indices (same as initial for this test)
     
     print(f"Computing sensitivity matrix for point: ({init_c}, {init_h}, {init_w}) -> ({init_c}, {init_h}, {init_w})")
     
     # Compute the sensitivity matrix
-    sensitivity_matrix = adjoint_model.state_sensitivity_computation(
+    sensitivity_matrix = adjoint_model.compute_state_sensitivity_iterative(
         test_data,
-        initial_indices=single_element_initial_indices,
-        final_indices=single_element_final_indices,
+        initial_indices=initial_indices,  # Initial indices for sensitivity computation
+        final_indices=final_indices,    # Final indices for sensitivity computation (same as initial in this case)
         initial_time=initial_time,
         final_time=final_time,
         device=device,
@@ -389,6 +383,93 @@ if testing_state_sensitivity_computation:
         print(f"Difference: {abs(gradient - sensitivity_matrix.item())}")
         
     timer.checkpoint("State sensitivity matrix computation completed")
+
+# Test compute_state_sensitivity method
+testing_compute_state_sensitivity = True
+
+if testing_compute_state_sensitivity:
+    print("\nTesting compute_state_sensitivity method...")
+    
+    # Use the same point from the earlier test for consistency
+    init_c = surface_temp_channels[0]  # First temperature channel
+    init_h = pacific_region['latitude_indices'][0]  # First latitude index
+    init_w = pacific_region['longitude_indices'][0]  # First longitude index
+    
+    # For testing multiple elements, create a small grid of 2x2 points
+    initial_indices = [
+        [0, init_c, init_h, init_w],
+        [0, init_c, init_h+1, init_w],
+        [0, init_c, init_h, init_w+1],
+        [0, init_c, init_h+1, init_w+1]
+    ]
+    
+    final_indices = initial_indices.copy()  # Use the same points for final indices
+    
+    print(f"Computing sensitivity matrix for {len(initial_indices)} initial points and {len(final_indices)} final points")
+    
+    # Compute the sensitivity matrix using the more efficient method
+    sensitivity_matrix = adjoint_model.compute_state_sensitivity(
+        test_data,
+        initial_indices=initial_indices,
+        final_indices=final_indices,
+        initial_time=initial_time,
+        final_time=final_time,
+        device=device,
+        use_checkpointing=False  # Set to False for a small test case
+    )
+    
+    # Print the results
+    print(f"Computed sensitivity matrix shape: {sensitivity_matrix.shape}")
+    print("Sensitivity matrix:")
+    print(sensitivity_matrix)
+    
+    # Compare with the iterative method if it was run
+    if testing_compute_state_sensitivity_iterative:
+        # Run the iterative method on the same points for comparison
+        print("\nComputing the same sensitivities using the iterative method for comparison...")
+        iterative_matrix = adjoint_model.compute_state_sensitivity_iterative(
+            test_data,
+            initial_indices=initial_indices,
+            final_indices=final_indices,
+            initial_time=initial_time,
+            final_time=final_time,
+            device=device,
+            use_checkpointing=False
+        )
+        
+        # Compare the results
+        print("Iterative method matrix:")
+        print(iterative_matrix)
+        
+        # Calculate absolute difference and relative error
+        abs_diff = torch.abs(sensitivity_matrix - iterative_matrix)
+        max_abs_diff = torch.max(abs_diff).item()
+        mean_abs_diff = torch.mean(abs_diff).item()
+        
+        # Avoid division by zero when calculating relative error
+        non_zero_mask = iterative_matrix != 0
+        rel_error = torch.zeros_like(iterative_matrix)
+        if non_zero_mask.any():
+            rel_error[non_zero_mask] = abs_diff[non_zero_mask] / torch.abs(iterative_matrix[non_zero_mask])
+            max_rel_error = torch.max(rel_error[non_zero_mask]).item()
+            mean_rel_error = torch.mean(rel_error[non_zero_mask]).item()
+        else:
+            max_rel_error = float('nan')
+            mean_rel_error = float('nan')
+            
+        print(f"Maximum absolute difference: {max_abs_diff}")
+        print(f"Mean absolute difference: {mean_abs_diff}")
+        print(f"Maximum relative error: {max_rel_error}")
+        print(f"Mean relative error: {mean_rel_error}")
+    
+    # If single element sensitivity was computed, compare that too
+    if testing_compute_single_element_sensitivity:
+        single_element_value = sensitivity_matrix[0, 0].item()
+        print(f"\nSingle element sensitivity from matrix: {single_element_value}")
+        print(f"Single element computation from earlier: {gradient}")
+        print(f"Difference: {abs(gradient - single_element_value)}")
+    
+    timer.checkpoint("Efficient state sensitivity computation completed")
 
 timer.checkpoint("Process completed")
 
