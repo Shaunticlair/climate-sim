@@ -403,7 +403,7 @@ if testing_compute_state_sensitivity:
         [0, init_c, init_h+1, init_w+1]
     ]
     
-    final_indices = initial_indices.copy()  # Use the same points for final indices
+    final_indices = [[0, init_c, init_h, init_w]]
     
     print(f"Computing sensitivity matrix for {len(initial_indices)} initial points and {len(final_indices)} final points")
     
