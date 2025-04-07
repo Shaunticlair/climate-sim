@@ -1,4 +1,4 @@
-Job 21978408.pbspl1.nas.nasa.gov started on Sun Apr 06 21:43:13 PDT 2025
+Job 21978464.pbspl1.nas.nasa.gov started on Sun Apr 06 22:16:09 PDT 2025
 The job requested the following resources:
     ncpus=40
     place=scatter:excl
@@ -12,7 +12,7 @@ On r147i0n16:
 Warning: no access to tty (Inappropriate ioctl for device).
 Thus no job control in this shell.
 Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
-Starting Samudra model run at Sun Apr  6 21:43:16 PDT 2025
+Starting Samudra model run at Sun Apr  6 22:16:12 PDT 2025
 /nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
   return data.astype(dtype, **kwargs)
 Section 'Starting...' took 0.0000 seconds
@@ -20,49 +20,48 @@ Total elapsed time: 0.0000 seconds
 ----------------------------------------
 Using CPU
 Using 80 CPU cores for computation
-Section 'Environment configured' took 0.3724 seconds
-Total elapsed time: 0.3724 seconds
+Section 'Environment configured' took 0.3234 seconds
+Total elapsed time: 0.3234 seconds
 ----------------------------------------
 Number of inputs: 158
 Number of outputs: 154
 Section 'Constants set' took 0.0001 seconds
-Total elapsed time: 0.3725 seconds
+Total elapsed time: 0.3235 seconds
 ----------------------------------------
-Section 'Data loaded' took 6.6109 seconds
-Total elapsed time: 6.9834 seconds
+Section 'Data loaded' took 11.8609 seconds
+Total elapsed time: 12.1844 seconds
 ----------------------------------------
 Wet mask shape: torch.Size([154, 180, 360])
-Section 'Data loader created' took 0.4405 seconds
-Total elapsed time: 7.4239 seconds
+Section 'Data loader created' took 0.6222 seconds
+Total elapsed time: 12.8066 seconds
 ----------------------------------------
 SamudraAdjoint model initialized and weights loaded
-Section 'Model loaded' took 3.7282 seconds
-Total elapsed time: 11.1522 seconds
+Section 'Model loaded' took 4.2152 seconds
+Total elapsed time: 17.0218 seconds
 ----------------------------------------
 
 Testing compute_state_sensitivity method...
 Final point for sensitivity: (0, 90, 180)
 Computing sensitivity matrix for 64800 initial points and 1 final points
 Out:  [[2 3]] torch.Size([1, 158, 180, 360])
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Out:  [[24 25]] Out:  [[26 27]] Out:  [[28 29]] Out:  [[30 31]] Out:  [[32 33]] Out:  [[34 35]] Out:  [[36 37]] Out:  [[38 39]] Out:  [[40 41]] Out:  [[42 43]] Computed sensitivity matrix shape: torch.Size([64800, 1])
-Drymask saved to drymask.npy
-Section 'Efficient state sensitivity computation and plotting completed' took 173.2792 seconds
-Total elapsed time: 184.4314 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Computed sensitivity matrix shape: torch.Size([64800, 1])
+Section 'Efficient state sensitivity computation and plotting completed' took 67.3557 seconds
+Total elapsed time: 84.3775 seconds
 ----------------------------------------
 Section 'Process completed' took 0.0000 seconds
-Total elapsed time: 184.4314 seconds
+Total elapsed time: 84.3775 seconds
 ----------------------------------------
 ============================================
           Sensitivity Analysis Done         
 ============================================
-Finished Samudra model run at Sun Apr  6 21:47:21 PDT 2025
+Finished Samudra model run at Sun Apr  6 22:19:08 PDT 2025
 
 ____________________________________________________________________
-Job Resource Usage Summary for 21978408.pbspl1.nas.nasa.gov
+Job Resource Usage Summary for 21978464.pbspl1.nas.nasa.gov
 
-    CPU Time Used            : 01:52:15
-    Real Memory Used         : 7849380kb
-    Walltime Used            : 00:04:06
+    CPU Time Used            : 00:27:08
+    Real Memory Used         : 2865288kb
+    Walltime Used            : 00:02:57
     Exit Status              : 0
 
     Number of CPUs Requested : 40
@@ -71,5 +70,5 @@ Job Resource Usage Summary for 21978408.pbspl1.nas.nasa.gov
     Execution Queue          : normal
     Charged To               : g26113
 
-    Job Stopped              : Sun Apr  6 21:47:23 2025
+    Job Stopped              : Sun Apr  6 22:19:10 2025
 ____________________________________________________________________
