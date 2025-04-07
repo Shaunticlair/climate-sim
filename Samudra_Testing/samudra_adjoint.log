@@ -1,0 +1,71 @@
+Job 21978324.pbspl1.nas.nasa.gov started on Sun Apr 06 20:20:10 PDT 2025
+The job requested the following resources:
+    ncpus=40
+    place=scatter:excl
+    walltime=00:30:00
+
+PBS set the following environment variables:
+        FORT_BUFFERED = 1
+                   TZ = PST8PDT
+
+On r147i0n16:
+Warning: no access to tty (Inappropriate ioctl for device).
+Thus no job control in this shell.
+Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
+Starting Samudra model run at Sun Apr  6 20:20:13 PDT 2025
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
+  return data.astype(dtype, **kwargs)
+Section 'Starting...' took 0.0000 seconds
+Total elapsed time: 0.0000 seconds
+----------------------------------------
+Using CPU
+Section 'Environment configured' took 0.2289 seconds
+Total elapsed time: 0.2289 seconds
+----------------------------------------
+Number of inputs: 158
+Number of outputs: 154
+Section 'Constants set' took 0.0001 seconds
+Total elapsed time: 0.2290 seconds
+----------------------------------------
+Section 'Data loaded' took 6.1547 seconds
+Total elapsed time: 6.3837 seconds
+----------------------------------------
+Wet mask shape: torch.Size([154, 180, 360])
+Section 'Data loader created' took 0.2735 seconds
+Total elapsed time: 6.6572 seconds
+----------------------------------------
+SamudraAdjoint model initialized and weights loaded
+Section 'Model loaded' took 2.2599 seconds
+Total elapsed time: 8.9171 seconds
+----------------------------------------
+
+Testing compute_state_sensitivity method...
+Computing sensitivity matrix for 400 initial points and 1 final points
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Computed sensitivity matrix shape: torch.Size([400, 1])
+Section 'Efficient state sensitivity computation and plotting completed' took 290.8509 seconds
+Total elapsed time: 299.7680 seconds
+----------------------------------------
+Section 'Process completed' took 0.0000 seconds
+Total elapsed time: 299.7680 seconds
+----------------------------------------
+============================================
+          Sensitivity Analysis Done         
+============================================
+Finished Samudra model run at Sun Apr  6 20:25:59 PDT 2025
+
+____________________________________________________________________
+Job Resource Usage Summary for 21978324.pbspl1.nas.nasa.gov
+
+    CPU Time Used            : 00:04:47
+    Real Memory Used         : 7019544kb
+    Walltime Used            : 00:05:47
+    Exit Status              : 0
+
+    Number of CPUs Requested : 40
+    Walltime Requested       : 00:30:00
+
+    Execution Queue          : normal
+    Charged To               : g26113
+
+    Job Stopped              : Sun Apr  6 20:26:03 2025
+____________________________________________________________________
