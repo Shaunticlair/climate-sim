@@ -288,8 +288,8 @@ surface_temp_channels = [channel_index]
 # Define regions of interest in the ocean
 # Example: Small region in the Pacific
 pacific_region = {
-    'latitude_indices': np.arange(100,101), #np.arange(80, 100),    # Y indices for a region in the Pacific
-    'longitude_indices': np.arange(150,151) #np.arange(150, 170),  # X indices for a region in the Pacific
+    'latitude_indices': np.arange(80, 100),    # Y indices for a region in the Pacific
+    'longitude_indices': np.arange(150, 170),  # X indices for a region in the Pacific
 }
 
 # Set up the initial and final indices for sensitivity computation
@@ -387,23 +387,25 @@ if testing_compute_state_sensitivity_iterative:
 # Test compute_state_sensitivity method
 testing_compute_state_sensitivity = True
 
+# Test compute_state_sensitivity method
+testing_compute_state_sensitivity = True
+
 if testing_compute_state_sensitivity:
     print("\nTesting compute_state_sensitivity method...")
     
     # Use the same point from the earlier test for consistency
     init_c = surface_temp_channels[0]  # First temperature channel
-    init_h = pacific_region['latitude_indices'][0]  # First latitude index
-    init_w = pacific_region['longitude_indices'][0]  # First longitude index
     
-    # For testing multiple elements, create a small grid of 2x2 points
-    initial_indices = [
-        [0, init_c, init_h, init_w],
-        [0, init_c, init_h+1, init_w],
-        [0, init_c, init_h, init_w+1],
-        [0, init_c, init_h+1, init_w+1]
-    ]
+    # Create indices for the full grid
+    initial_indices = []
+    for h in pacific_region['latitude_indices']:
+        for w in pacific_region['longitude_indices']:
+            initial_indices.append([0, init_c, h, w])
     
-    final_indices = [[0, init_c, init_h, init_w]]
+    # For the output, we'll just look at a single point (can be modified as needed)
+    final_lat = pacific_region['latitude_indices'][10]
+    final_lon = pacific_region['longitude_indices'][10]
+    final_indices = [[0, init_c, final_lat, final_lon]]  # Final indices for sensitivity computation
     
     print(f"Computing sensitivity matrix for {len(initial_indices)} initial points and {len(final_indices)} final points")
     
@@ -415,61 +417,33 @@ if testing_compute_state_sensitivity:
         initial_time=initial_time,
         final_time=final_time,
         device=device,
-        use_checkpointing=False  # Set to False for a small test case
+        use_checkpointing=True  # Set to True for larger computation
     )
     
     # Print the results
     print(f"Computed sensitivity matrix shape: {sensitivity_matrix.shape}")
-    print("Sensitivity matrix:")
-    print(sensitivity_matrix)
     
-    # Compare with the iterative method if it was run
-    if testing_compute_state_sensitivity_iterative:
-        # Run the iterative method on the same points for comparison
-        print("\nComputing the same sensitivities using the iterative method for comparison...")
-        iterative_matrix = adjoint_model.compute_state_sensitivity_iterative(
-            test_data,
-            initial_indices=initial_indices,
-            final_indices=final_indices,
-            initial_time=initial_time,
-            final_time=final_time,
-            device=device,
-            use_checkpointing=False
-        )
-        
-        # Compare the results
-        print("Iterative method matrix:")
-        print(iterative_matrix)
-        
-        # Calculate absolute difference and relative error
-        abs_diff = torch.abs(sensitivity_matrix - iterative_matrix)
-        max_abs_diff = torch.max(abs_diff).item()
-        mean_abs_diff = torch.mean(abs_diff).item()
-        
-        # Avoid division by zero when calculating relative error
-        non_zero_mask = iterative_matrix != 0
-        rel_error = torch.zeros_like(iterative_matrix)
-        if non_zero_mask.any():
-            rel_error[non_zero_mask] = abs_diff[non_zero_mask] / torch.abs(iterative_matrix[non_zero_mask])
-            max_rel_error = torch.max(rel_error[non_zero_mask]).item()
-            mean_rel_error = torch.mean(rel_error[non_zero_mask]).item()
-        else:
-            max_rel_error = float('nan')
-            mean_rel_error = float('nan')
-            
-        print(f"Maximum absolute difference: {max_abs_diff}")
-        print(f"Mean absolute difference: {mean_abs_diff}")
-        print(f"Maximum relative error: {max_rel_error}")
-        print(f"Mean relative error: {mean_rel_error}")
+    # Reshape the sensitivity matrix back to latitude-longitude grid for plotting
+    lat_size = len(pacific_region['latitude_indices'])
+    lon_size = len(pacific_region['longitude_indices'])
+    sensitivity_grid = sensitivity_matrix.reshape(lat_size, lon_size)
     
-    # If single element sensitivity was computed, compare that too
-    if testing_compute_single_element_sensitivity:
-        single_element_value = sensitivity_matrix[0, 0].item()
-        print(f"\nSingle element sensitivity from matrix: {single_element_value}")
-        print(f"Single element computation from earlier: {gradient}")
-        print(f"Difference: {abs(gradient - single_element_value)}")
+    # Plot the sensitivity map
+    plt.figure(figsize=(10, 8))
+    plt.imshow(sensitivity_grid.cpu(), cmap='RdBu_r', interpolation='nearest')
+    plt.colorbar(label='Sensitivity')
+    plt.title(f'Sensitivity Map (t={initial_time} to t={final_time})')
+    plt.xlabel('Longitude Index')
+    plt.ylabel('Latitude Index')
     
-    timer.checkpoint("Efficient state sensitivity computation completed")
+    # Optional: Add actual lat/lon coordinates if available
+    # plt.xticks(range(len(pacific_region['longitude_indices'])), pacific_region['longitude_indices'])
+    # plt.yticks(range(len(pacific_region['latitude_indices'])), pacific_region['latitude_indices'])
+    
+    plt.savefig('sensitivity_map.png', dpi=300, bbox_inches='tight')
+    plt.show()
+    
+    timer.checkpoint("Efficient state sensitivity computation and plotting completed")
 
 timer.checkpoint("Process completed")
 
