@@ -292,15 +292,14 @@ pacific_region = {
     'longitude_indices': np.arange(150, 170),  # X indices for a region in the Pacific
 }
 
-# Set up the initial and final indices for sensitivity computation
-initial_indices = [
-    surface_temp_channels,                    # Channel indices (temperature at surface)
-    pacific_region['latitude_indices'],       # Latitude indices
-    pacific_region['longitude_indices']       # Longitude indices
-]
+# y: 180, x: 360, lev: 19, time: 602, y_b: 181, x_b: 361
 
-# For demonstration, we're looking at sensitivity of the same region at the final time
-final_indices = initial_indices
+full_map = {
+    'latitude_indices': np.arange(0, 180),  # Full latitude range (0-179)
+    'longitude_indices': np.arange(0, 360), # Full longitude range (0-359)
+}
+
+pacific_region = full_map
 
 
 testing_compute_single_element_sensitivity = False
