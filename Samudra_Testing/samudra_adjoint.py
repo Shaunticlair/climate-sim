@@ -278,7 +278,7 @@ timer.checkpoint("Model loaded")
 
 # Time steps for sensitivity analysis
 initial_time = 0        # Starting time step
-final_time = 20          # Ending time step (adjust based on your needs)
+final_time =   4          # Ending time step (adjust based on your needs)
 
 # Example: Define regions of interest for sensitivity analysis
 # For temperature sensitivity analysis at the ocean surface
@@ -449,17 +449,7 @@ if testing_compute_state_sensitivity:
         min(pacific_region['longitude_indices']):max(pacific_region['longitude_indices'])+1
     ]
 
-    # After creating the region_wet_mask but before plotting
-    # Save the drymask (inverse of wetmask) to a numpy file
-    drymask_file = Path("drymask.npy")
-    if drymask_file.exists():
-        print(f"Removing existing file: {drymask_file}")
-        drymask_file.unlink()
-
-    # Create and save the drymask (inverted wetmask)
-    drymask = ~region_wet_mask.astype(bool)
-    np.save(drymask_file, drymask)
-    print(f"Drymask saved to {drymask_file}")
+    
 
     # Convert sensitivity grid to numpy for masking
     sensitivity_grid_np = sensitivity_grid.cpu().numpy()
@@ -472,7 +462,7 @@ if testing_compute_state_sensitivity:
 
     # Plot the masked sensitivity map
     plt.figure(figsize=(10, 8))
-    plt.imshow(masked_sensitivity, cmap='RdBu_r', interpolation='nearest')
+    plt.imshow(masked_sensitivity, cmap='RdBu_r', interpolation='nearest', origin='lower')
     plt.colorbar(label='Sensitivity')
     plt.title(f'Sensitivity Map (t={initial_time} to t={final_time})')
     plt.xlabel('Longitude Index')
@@ -486,6 +476,28 @@ if testing_compute_state_sensitivity:
     timer.checkpoint("Efficient state sensitivity computation and plotting completed")
 
 timer.checkpoint("Process completed")
+
+"""
+# Wetmask and region-specific wetmask saving
+# Save the full wetmask to a numpy file
+wetmask_file = Path("full_wetmask.npy")
+if wetmask_file.exists():
+    print(f"Removing existing file: {wetmask_file}")
+    wetmask_file.unlink()
+
+# Get the full wetmask for the surface level and save it
+full_wet_mask = wet_zarr.isel(lev=0).values
+np.save(wetmask_file, full_wet_mask)
+print(f"Full wetmask saved to {wetmask_file}")
+
+# Also save the region-specific wetmask if needed
+region_wetmask_file = Path("region_wetmask.npy")
+if region_wetmask_file.exists():
+    print(f"Removing existing file: {region_wetmask_file}")
+    region_wetmask_file.unlink()
+np.save(region_wetmask_file, region_wet_mask)
+print(f"Region wetmask saved to {region_wetmask_file}")
+"""
 
 print("============================================")
 print("          Sensitivity Analysis Done         ")
