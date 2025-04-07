@@ -402,12 +402,14 @@ if testing_compute_state_sensitivity:
             initial_indices.append([0, init_c, h, w])
     
     # For the output, we'll just look at a single point (can be modified as needed)
-    final_lat = pacific_region['latitude_indices'][10]
-    final_lon = pacific_region['longitude_indices'][10]
+    final_lat = 90
+    final_lon = 180
+    print(f"Final point for sensitivity: ({init_c}, {final_lat}, {final_lon})")  # For plotting purposes
     final_indices = [[0, init_c, final_lat, final_lon]]  # Final indices for sensitivity computation
     
     print(f"Computing sensitivity matrix for {len(initial_indices)} initial points and {len(final_indices)} final points")
     
+    print(test_data[0][0].shape)
     # Compute the sensitivity matrix using the more efficient method
     sensitivity_matrix = adjoint_model.compute_state_sensitivity(
         test_data,
@@ -426,6 +428,14 @@ if testing_compute_state_sensitivity:
     lat_size = len(pacific_region['latitude_indices'])
     lon_size = len(pacific_region['longitude_indices'])
     sensitivity_grid = sensitivity_matrix.reshape(lat_size, lon_size)
+
+    # Write matrix to file for debugging purposes
+    sensitivity_matrix_file = Path("sensitivity_matrix.npy")
+    if sensitivity_matrix_file.exists():
+        print(f"Removing existing file: {sensitivity_matrix_file}")
+        sensitivity_matrix_file.unlink()
+    # Save the sensitivity matrix for debugging purposes
+    np.save(sensitivity_matrix_file, sensitivity_matrix.cpu().numpy())
     
     # Plot the sensitivity map
     plt.figure(figsize=(10, 8))
