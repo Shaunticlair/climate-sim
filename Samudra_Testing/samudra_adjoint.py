@@ -16,7 +16,7 @@ import xarray as xr
 import matplotlib.pyplot as plt
 from pathlib import Path
 
-torch.set_num_threads(torch.get_num_threads())
+
 
 # Add the Samudra package to the path
 sys.path.append("/nobackup/sruiz5/SAMUDRATEST/Samudra/samudra/")
@@ -49,6 +49,10 @@ if torch.cuda.is_available():
 else:
     device = torch.device("cpu")
     print("Using CPU")
+    import os
+    num_cores = os.cpu_count()
+    torch.set_num_threads(num_cores)
+    print(f"Using {num_cores} CPU cores for computation")
 
 # Set seeds for reproducibility
 random.seed(42)
@@ -274,7 +278,7 @@ timer.checkpoint("Model loaded")
 
 # Time steps for sensitivity analysis
 initial_time = 0        # Starting time step
-final_time = 4          # Ending time step (adjust based on your needs)
+final_time = 20          # Ending time step (adjust based on your needs)
 
 # Example: Define regions of interest for sensitivity analysis
 # For temperature sensitivity analysis at the ocean surface
