@@ -433,28 +433,55 @@ if testing_compute_state_sensitivity:
     lon_size = len(pacific_region['longitude_indices'])
     sensitivity_grid = sensitivity_matrix.reshape(lat_size, lon_size)
 
-    # Write matrix to file for debugging purposes
-    sensitivity_matrix_file = Path("sensitivity_matrix.npy")
-    if sensitivity_matrix_file.exists():
-        print(f"Removing existing file: {sensitivity_matrix_file}")
-        sensitivity_matrix_file.unlink()
-    # Save the sensitivity matrix for debugging purposes
-    np.save(sensitivity_matrix_file, sensitivity_matrix.cpu().numpy())
+    # Get the wetmask (inverse of drymask) for the first level
+    wet_mask = wet_zarr.isel(lev=0).values  # This gives you the 2D mask for the surface level
+
     
-    # Plot the sensitivity map
+
+    # Reshape the sensitivity matrix back to latitude-longitude grid for plotting
+    lat_size = len(pacific_region['latitude_indices'])
+    lon_size = len(pacific_region['longitude_indices'])
+    sensitivity_grid = sensitivity_matrix.reshape(lat_size, lon_size)
+
+    # Get the corresponding wetmask for the region you're analyzing
+    region_wet_mask = wet_mask[
+        min(pacific_region['latitude_indices']):max(pacific_region['latitude_indices'])+1,
+        min(pacific_region['longitude_indices']):max(pacific_region['longitude_indices'])+1
+    ]
+
+    # After creating the region_wet_mask but before plotting
+    # Save the drymask (inverse of wetmask) to a numpy file
+    drymask_file = Path("drymask.npy")
+    if drymask_file.exists():
+        print(f"Removing existing file: {drymask_file}")
+        drymask_file.unlink()
+
+    # Create and save the drymask (inverted wetmask)
+    drymask = ~region_wet_mask.astype(bool)
+    np.save(drymask_file, drymask)
+    print(f"Drymask saved to {drymask_file}")
+
+    # Convert sensitivity grid to numpy for masking
+    sensitivity_grid_np = sensitivity_grid.cpu().numpy()
+
+    # Create a masked array where land (wet=0) is masked
+    masked_sensitivity = np.ma.masked_array(
+        sensitivity_grid_np,
+        mask=~region_wet_mask.astype(bool)  # Invert wetmask to get drymask
+    )
+
+    # Plot the masked sensitivity map
     plt.figure(figsize=(10, 8))
-    plt.imshow(sensitivity_grid.cpu(), cmap='RdBu_r', interpolation='nearest')
+    plt.imshow(masked_sensitivity, cmap='RdBu_r', interpolation='nearest')
     plt.colorbar(label='Sensitivity')
     plt.title(f'Sensitivity Map (t={initial_time} to t={final_time})')
     plt.xlabel('Longitude Index')
     plt.ylabel('Latitude Index')
-    
-    # Optional: Add actual lat/lon coordinates if available
-    # plt.xticks(range(len(pacific_region['longitude_indices'])), pacific_region['longitude_indices'])
-    # plt.yticks(range(len(pacific_region['latitude_indices'])), pacific_region['latitude_indices'])
-    
-    plt.savefig('sensitivity_map.png', dpi=300, bbox_inches='tight')
+
+    # Save the figure
+    plt.savefig('sensitivity_map_with_land.png', dpi=300, bbox_inches='tight')
     plt.show()
+
     
     timer.checkpoint("Efficient state sensitivity computation and plotting completed")
 

@@ -16,13 +16,16 @@ print(f"Reshaped sensitivity matrix: {sensitivity_matrix.shape}")
 xmin, xmax = 90-3, 90+4  # Matrix row indices
 ymin, ymax = 180-3, 180+4  # Matrix column indices
 
+xmin, xmax = 0, 180
+ymin, ymax = 0, 360
+
 # Crop the sensitivity matrix to the region of interest
 cropped_sensitivity = sensitivity_matrix[xmin:xmax, ymin:ymax]
 print(f"Cropped sensitivity matrix: {cropped_sensitivity.shape}")
 
 # Plot the cropped sensitivity matrix with indices as labels
 plt.figure(figsize=(10, 8))
-plt.imshow(cropped_sensitivity, cmap='RdBu_r', aspect='auto')
+plt.imshow(cropped_sensitivity, cmap='RdBu_r', aspect='auto', origin='lower')
 
 # Get the row and column indices for the cropped region
 row_indices = np.arange(xmin, xmax)
