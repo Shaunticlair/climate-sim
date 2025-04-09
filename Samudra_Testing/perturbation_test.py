@@ -38,7 +38,7 @@ def compute_unperturbed_output(model, data_input):
 
 
 def simple_sensitivity(model, data_input, source_coords, target_coords, 
-                      baseline_output=None, perturbation_size=1e-3):
+                      baseline_output=None, perturbation_size=1e-4):
     """
     Computes sensitivity of target cell to a perturbation in source cell.
     
