@@ -101,7 +101,7 @@ if __name__ == "__main__":
     
     # Load model
     model = Samudra(n_out=num_out, ch_width=[num_in]+[200,250,300,400], wet=wet.to(device), hist=hist)
-    model.load_state_dict(torch.load("samudra_thermo_seed1.pt", map_location=device)["model"])
+    model.load_state_dict(torch.load("samudra_thermo_dynamic_seed1.pt", map_location=device)["model"])
     model = model.to(device)
     
     # Create test data
