@@ -93,6 +93,7 @@ class SamudraAdjoint(model.Samudra):
         input_elements = []
         for initial_index in initial_indices:
             # Retrieve the value of the specific element
+            initial_index = tuple(initial_index)  # Ensure it's a tuple
             element_value = state_tensor[initial_index].item()  # Get the value of the element at the specified index
             # Create a tensor with requires_grad=True for this element
             input_element = torch.tensor([element_value], requires_grad=True, device=device)

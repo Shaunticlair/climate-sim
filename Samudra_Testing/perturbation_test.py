@@ -1,5 +1,19 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# Perturbation test for Samudra model using finite difference approximation
+# Rewritten to take advantage of setup.py
+
 import torch
 import numpy as np
+import sys
+import setup
+
+path ="/path/to/samudra/" # Replace with the actual path to the Samudra package
+path = "/nobackup/sruiz5/SAMUDRATEST/Samudra/samudra/"
+sys.path.append(path)
+
+from model import Samudra
 
 def simple_sensitivity(model, data_input, source_coords, target_coords, perturbation_size=1e-4):
     """
@@ -51,81 +65,68 @@ def simple_sensitivity(model, data_input, source_coords, target_coords, perturba
     
     return sensitivity
 
-# Example usage:
 if __name__ == "__main__":
-    # Load model and data 
-    from model import Samudra
-    from data_loaders import Test
-    from utils import extract_wet
-    import xarray as xr
+    # Create a timer for tracking performance
+    timer = setup.Timer()
     
-    # Quick setup for example
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    data = xr.open_zarr("./data.zarr")
-    data_mean = xr.open_zarr("./data_mean.zarr")
-    data_std = xr.open_zarr("./data_std.zarr")
+    # Configure the environment
+    device = setup.torch_config_cuda_cpu_seed()
+    timer.checkpoint("Environment configured")
     
-    # Configure model (simplified from samudra_rollout.py)
+    # Set up model configuration
     hist = 1
-    exp_num_in = "3D_thermo_all"  # Could also be "3D_thermo_dynamic_all"
-    exp_num_extra = "3D_all_hfds_anom"
+    N_test = 10
+    state_in_vars_config = "3D_thermo_all"  # Could also be "3D_thermo_dynamic_all"
+    state_out_vars_config = state_in_vars_config
+    boundary_vars_config = "3D_all_hfds_anom"
     
-    # Define input variables based on experiment type
-    DEPTH_LEVELS = ['2_5', '10_0', '22_5', '40_0', '65_0', '105_0', '165_0', '250_0', '375_0', 
-                   '550_0', '775_0', '1050_0', '1400_0', '1850_0', '2400_0', '3100_0', 
-                   '4000_0', '5000_0', '6000_0']
+    # Get variable lists and channel counts
+    list_list_str, list_num_channels = setup.choose_model(
+        state_in_vars_config, 
+        boundary_vars_config, 
+        hist
+    )
+    input_list_str, boundary_list_str, output_list_str, vars_list_str = list_list_str
+    num_input_channels, num_output_channels = list_num_channels
+    timer.checkpoint("Model configuration set up")
     
-    INPT_VARS = {
-        "3D_thermo_dynamic_all": [f"{k}{j}" for k in ["uo_lev_", "vo_lev_", "thetao_lev_", "so_lev_"] 
-                                 for j in DEPTH_LEVELS] + ["zos"],
-        "3D_thermo_all": [f"{k}{j}" for k in ["thetao_lev_", "so_lev_"] 
-                         for j in DEPTH_LEVELS] + ["zos"]
-    }
-    EXTRA_VARS = {"3D_all_hfds_anom": ["tauuo", "tauvo", "hfds", "hfds_anomalies"]}
-    OUT_VARS = INPT_VARS.copy()
-    
-    inputs_str = INPT_VARS[exp_num_in]
-    extra_in_str = EXTRA_VARS[exp_num_extra]
-    outputs_str = OUT_VARS[exp_num_in]
-    
-    N_in = len(inputs_str)
-    N_extra = len(extra_in_str)
-    N_out = len(outputs_str)
-    
-    num_in = int((hist + 1) * N_in + N_extra)
-    num_out = int((hist + 1) * len(outputs_str))
-    
-    # Create model
-    wet_zarr = data.wetmask
-    wet = extract_wet(wet_zarr, outputs_str, hist)
-    
-    # Load model
-    model = Samudra(n_out=num_out, ch_width=[num_in]+[200,250,300,400], wet=wet.to(device), hist=hist)
-    model.load_state_dict(torch.load("samudra_thermo_dynamic_seed1.pt", map_location=device)["model"])
-    model = model.to(device)
-    
-    # Create test data
-    test_data = Test(
-        data,
-        inputs_str,
-        extra_in_str,
-        outputs_str,
-        wet,
-        data_mean,
-        data_std,
-        10,  # N_test
-        hist,
-        0,
-        long_rollout=False,
-        device=device,
+    # Get data indices
+    s_train, e_train, s_test, e_test = setup.compute_indices(
+        hist=hist, N_samples=2850, N_val=50, N_test=10
     )
     
-    # Get input data
+    # Load the data
+    test_data, wet, data_mean, data_std = setup.load_data(s_test, e_test, N_test,  # N_test
+        input_list_str, boundary_list_str, output_list_str,
+        hist=hist, device=device
+    )
+    timer.checkpoint("Data loaded")
+    
+    # Load the model
+    model = Samudra(
+        n_out=num_output_channels, 
+        ch_width=[num_input_channels]+[200,250,300,400], 
+        wet=wet.to(device), 
+        hist=hist
+    )
+    model = setup.load_weights(model, state_out_vars_config, device)
+    timer.checkpoint("Model loaded")
+    
+    # Get input data for testing
     input_data = test_data[0][0].to(device)
     
-    # Test sensitivity
-    source_coords = (0, 90, 180)  # Surface temperature at center of grid
-    target_coords = (0, 90, 180)  # Surface temperature at nearby point
+    # Run sensitivity tests
+    # Example: Surface temperature at center of grid
+    source_coords = (0, 90, 180)  
+    # Same point (self-sensitivity)
+    target_coords = (0, 90, 180)  
     
     sensitivity = simple_sensitivity(model, input_data, source_coords, target_coords)
     print(f"Sensitivity from {source_coords} to {target_coords}: {sensitivity}")
+    
+    # Test another point if desired
+    distant_target = (0, 90, 190)  # 10 degrees east
+    sensitivity2 = simple_sensitivity(model, input_data, source_coords, distant_target)
+    print(f"Sensitivity from {source_coords} to {distant_target}: {sensitivity2}")
+    
+    timer.checkpoint("Sensitivity tests completed")
