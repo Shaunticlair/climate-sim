@@ -2,7 +2,7 @@
 # coding: utf-8
 
 # Perturbation test for Samudra model using finite difference approximation
-# Rewritten to take advantage of setup.py
+# Modified to compute sensitivities in a 5x5 grid centered around (180,90)
 
 import torch
 import numpy as np
@@ -96,7 +96,7 @@ if __name__ == "__main__":
     )
     
     # Load the data
-    test_data, wet, data_mean, data_std = setup.load_data(s_test, e_test, N_test,  # N_test
+    test_data, wet, data_mean, data_std = setup.load_data(s_test, e_test, N_test,
         input_list_str, boundary_list_str, output_list_str,
         hist=hist, device=device
     )
@@ -115,18 +115,49 @@ if __name__ == "__main__":
     # Get input data for testing
     input_data = test_data[0][0].to(device)
     
-    # Run sensitivity tests
-    # Example: Surface temperature at center of grid
-    source_coords = (0, 90, 180)  
-    # Same point (self-sensitivity)
-    target_coords = (0, 90, 180)  
+    # Define the center point 
+    center_y, center_x = 90, 180
+    channel = 0  # Using the first channel for tests
     
-    sensitivity = simple_sensitivity(model, input_data, source_coords, target_coords)
-    print(f"Sensitivity from {source_coords} to {target_coords}: {sensitivity}")
+    # Target coords - the center point
+    target_coords = (channel, center_y, center_x)
     
-    # Test another point if desired
-    distant_target = (0, 90, 190)  # 10 degrees east
-    sensitivity2 = simple_sensitivity(model, input_data, source_coords, distant_target)
-    print(f"Sensitivity from {source_coords} to {distant_target}: {sensitivity2}")
+    # Create a 5x5 grid of source points centered on the target point
+    grid_size = 5
+    half_grid = grid_size // 2
+    
+    # Initialize sensitivity array
+    sensitivities = np.zeros((grid_size, grid_size))
+    
+    print(f"Computing sensitivities for 5x5 grid centered at {center_y, center_x}")
+    
+    # Compute sensitivity for each point in the 5x5 grid
+    for i in range(grid_size):
+        for j in range(grid_size):
+            # Calculate the coordinates for this grid position
+            source_y = center_y - half_grid + i
+            source_x = center_x - half_grid + j
+            
+            # Skip if coordinates are outside the valid range
+            if (source_y < 0 or source_y >= input_data.shape[2] or 
+                source_x < 0 or source_x >= input_data.shape[3]):
+                sensitivities[i, j] = np.nan
+                continue
+            
+            # Compute sensitivity
+            source_coords = (channel, source_y, source_x)
+            sens = simple_sensitivity(model, input_data, source_coords, target_coords)
+            sensitivities[i, j] = sens
+            
+            print(f"Sensitivity from ({source_y}, {source_x}) to {target_coords}: {sens}")
+    
+    # Print the full grid
+    print("\nSensitivity Grid (5x5):")
+    for row in sensitivities:
+        print(" ".join([f"{x:.4f}" if not np.isnan(x) else "N/A" for x in row]))
+    
+    # Save results
+    np.save("sensitivity_grid_5x5.npy", sensitivities)
+    print("\nResults saved to sensitivity_grid_5x5.npy")
     
     timer.checkpoint("Sensitivity tests completed")
