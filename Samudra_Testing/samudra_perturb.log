@@ -1,4 +1,4 @@
-Job 21995897.pbspl1.nas.nasa.gov started on Wed Apr 09 12:29:51 PDT 2025
+Job 21996382.pbspl1.nas.nasa.gov started on Wed Apr 09 14:02:37 PDT 2025
 The job requested the following resources:
     ncpus=40
     place=scatter:excl
@@ -8,77 +8,467 @@ PBS set the following environment variables:
         FORT_BUFFERED = 1
                    TZ = PST8PDT
 
-On r135i1n25:
+On r147i0n5:
 Warning: no access to tty (Inappropriate ioctl for device).
 Thus no job control in this shell.
 Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
-Starting Samudra model run at Wed Apr  9 12:29:56 PDT 2025
+Starting Samudra model run at Wed Apr  9 14:02:42 PDT 2025
 /nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
   return data.astype(dtype, **kwargs)
 Using CPU
 Using 80 CPU cores for computation
-Section 'Environment configured' took 0.0352 seconds
-Total elapsed time: 0.0352 seconds
+Section 'Environment configured' took 0.0099 seconds
+Total elapsed time: 0.0099 seconds
 ----------------------------------------
 Number of input channels: 82
 Number of output channels: 78
-Section 'Model configuration set up' took 0.0001 seconds
-Total elapsed time: 0.0352 seconds
+Section 'Model configuration set up' took 0.0000 seconds
+Total elapsed time: 0.0099 seconds
 ----------------------------------------
-Section 'Data loaded' took 14.0755 seconds
-Total elapsed time: 14.1107 seconds
+Section 'Data loaded' took 6.1481 seconds
+Total elapsed time: 6.1581 seconds
 ----------------------------------------
-Section 'Model loaded' took 4.1250 seconds
-Total elapsed time: 18.2357 seconds
+Section 'Model loaded' took 3.7864 seconds
+Total elapsed time: 9.9445 seconds
 ----------------------------------------
 Out:  [[2 3]] Computing sensitivities for 5x5 grid centered at (90, 180)
 Computing baseline unperturbed output...
 Baseline output computed.
-Sensitivity from (88, 178) to (0, 90, 180): -0.0015497207641601562
-Sensitivity from (88, 179) to (0, 90, 180): 0.0008344650268554688
-Sensitivity from (88, 180) to (0, 90, 180): 0.0019073486328125
-Sensitivity from (88, 181) to (0, 90, 180): 0.00011920928955078125
-Sensitivity from (88, 182) to (0, 90, 180): 0.0010728836059570312
-Sensitivity from (89, 178) to (0, 90, 180): -0.001430511474609375
-Sensitivity from (89, 179) to (0, 90, 180): 0.004291534423828125
-Sensitivity from (89, 180) to (0, 90, 180): 0.0057220458984375
-Sensitivity from (89, 181) to (0, 90, 180): -0.010967254638671875
+Sensitivity from (80, 170) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (80, 171) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (80, 172) to (0, 90, 180): 0.0
+Sensitivity from (80, 173) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (80, 174) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (80, 175) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (80, 176) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (80, 177) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (80, 178) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (80, 179) to (0, 90, 180): 0.0
+Sensitivity from (80, 180) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (80, 181) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (80, 182) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (80, 183) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (80, 184) to (0, 90, 180): 0.0
+Sensitivity from (80, 185) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (80, 186) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (80, 187) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (80, 188) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (80, 189) to (0, 90, 180): 0.0
+Sensitivity from (81, 170) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (81, 171) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (81, 172) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (81, 173) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (81, 174) to (0, 90, 180): 0.0
+Sensitivity from (81, 175) to (0, 90, 180): 0.0
+Sensitivity from (81, 176) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (81, 177) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (81, 178) to (0, 90, 180): 0.0
+Sensitivity from (81, 179) to (0, 90, 180): 0.0
+Sensitivity from (81, 180) to (0, 90, 180): 0.0
+Sensitivity from (81, 181) to (0, 90, 180): 0.0
+Sensitivity from (81, 182) to (0, 90, 180): 0.0
+Sensitivity from (81, 183) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (81, 184) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (81, 185) to (0, 90, 180): 0.0
+Sensitivity from (81, 186) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (81, 187) to (0, 90, 180): 0.0
+Sensitivity from (81, 188) to (0, 90, 180): 0.0
+Sensitivity from (81, 189) to (0, 90, 180): 0.0
+Sensitivity from (82, 170) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (82, 171) to (0, 90, 180): 0.0
+Sensitivity from (82, 172) to (0, 90, 180): 0.0
+Sensitivity from (82, 173) to (0, 90, 180): 0.0
+Sensitivity from (82, 174) to (0, 90, 180): 0.0
+Sensitivity from (82, 175) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (82, 176) to (0, 90, 180): 0.0
+Sensitivity from (82, 177) to (0, 90, 180): 0.0
+Sensitivity from (82, 178) to (0, 90, 180): 0.0
+Sensitivity from (82, 179) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (82, 180) to (0, 90, 180): 0.0
+Sensitivity from (82, 181) to (0, 90, 180): 0.0
+Sensitivity from (82, 182) to (0, 90, 180): 0.0
+Sensitivity from (82, 183) to (0, 90, 180): 0.0
+Sensitivity from (82, 184) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (82, 185) to (0, 90, 180): 0.0
+Sensitivity from (82, 186) to (0, 90, 180): 0.0
+Sensitivity from (82, 187) to (0, 90, 180): 0.0
+Sensitivity from (82, 188) to (0, 90, 180): 0.0
+Sensitivity from (82, 189) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (83, 170) to (0, 90, 180): 0.0
+Sensitivity from (83, 171) to (0, 90, 180): 0.0
+Sensitivity from (83, 172) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (83, 173) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (83, 174) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (83, 175) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (83, 176) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (83, 177) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (83, 178) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (83, 179) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (83, 180) to (0, 90, 180): 0.0
+Sensitivity from (83, 181) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (83, 182) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (83, 183) to (0, 90, 180): 0.0
+Sensitivity from (83, 184) to (0, 90, 180): 0.0
+Sensitivity from (83, 185) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (83, 186) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (83, 187) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (83, 188) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (83, 189) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (84, 170) to (0, 90, 180): 0.0
+Sensitivity from (84, 171) to (0, 90, 180): 0.0
+Sensitivity from (84, 172) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (84, 173) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (84, 174) to (0, 90, 180): 0.0
+Sensitivity from (84, 175) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (84, 176) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (84, 177) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (84, 178) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (84, 179) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (84, 180) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (84, 181) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (84, 182) to (0, 90, 180): 0.0
+Sensitivity from (84, 183) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (84, 184) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (84, 185) to (0, 90, 180): 0.0
+Sensitivity from (84, 186) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (84, 187) to (0, 90, 180): 0.0
+Sensitivity from (84, 188) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (84, 189) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (85, 170) to (0, 90, 180): 0.0
+Sensitivity from (85, 171) to (0, 90, 180): 0.0
+Sensitivity from (85, 172) to (0, 90, 180): 0.0
+Sensitivity from (85, 173) to (0, 90, 180): 0.0
+Sensitivity from (85, 174) to (0, 90, 180): 0.0
+Sensitivity from (85, 175) to (0, 90, 180): -0.002384185791015625
+Sensitivity from (85, 176) to (0, 90, 180): 0.0
+Sensitivity from (85, 177) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (85, 178) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (85, 179) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (85, 180) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (85, 181) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (85, 182) to (0, 90, 180): 0.0
+Sensitivity from (85, 183) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (85, 184) to (0, 90, 180): 0.0
+Sensitivity from (85, 185) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (85, 186) to (0, 90, 180): 0.0
+Sensitivity from (85, 187) to (0, 90, 180): 0.0
+Sensitivity from (85, 188) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (85, 189) to (0, 90, 180): 0.0
+Sensitivity from (86, 170) to (0, 90, 180): 0.0
+Sensitivity from (86, 171) to (0, 90, 180): 0.0
+Sensitivity from (86, 172) to (0, 90, 180): 0.0
+Sensitivity from (86, 173) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (86, 174) to (0, 90, 180): 0.0
+Sensitivity from (86, 175) to (0, 90, 180): 0.0
+Sensitivity from (86, 176) to (0, 90, 180): 0.0
+Sensitivity from (86, 177) to (0, 90, 180): 0.0
+Sensitivity from (86, 178) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (86, 179) to (0, 90, 180): 0.0
+Sensitivity from (86, 180) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (86, 181) to (0, 90, 180): 0.0
+Sensitivity from (86, 182) to (0, 90, 180): 0.0035762786865234375
+Sensitivity from (86, 183) to (0, 90, 180): 0.0035762786865234375
+Sensitivity from (86, 184) to (0, 90, 180): 0.0
+Sensitivity from (86, 185) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (86, 186) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (86, 187) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (86, 188) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (86, 189) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (87, 170) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (87, 171) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (87, 172) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (87, 173) to (0, 90, 180): 0.0
+Sensitivity from (87, 174) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (87, 175) to (0, 90, 180): 0.0
+Sensitivity from (87, 176) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (87, 177) to (0, 90, 180): 0.0
+Sensitivity from (87, 178) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (87, 179) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (87, 180) to (0, 90, 180): 0.0035762786865234375
+Sensitivity from (87, 181) to (0, 90, 180): 0.0035762786865234375
+Sensitivity from (87, 182) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (87, 183) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (87, 184) to (0, 90, 180): 0.0
+Sensitivity from (87, 185) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (87, 186) to (0, 90, 180): 0.0
+Sensitivity from (87, 187) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (87, 188) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (87, 189) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (88, 170) to (0, 90, 180): 0.0
+Sensitivity from (88, 171) to (0, 90, 180): 0.0
+Sensitivity from (88, 172) to (0, 90, 180): 0.0
+Sensitivity from (88, 173) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (88, 174) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (88, 175) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (88, 176) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (88, 177) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (88, 178) to (0, 90, 180): 0.0
+Sensitivity from (88, 179) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (88, 180) to (0, 90, 180): 0.00476837158203125
+Sensitivity from (88, 181) to (0, 90, 180): 0.0
+Sensitivity from (88, 182) to (0, 90, 180): 0.0
+Sensitivity from (88, 183) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (88, 184) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (88, 185) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (88, 186) to (0, 90, 180): 0.0
+Sensitivity from (88, 187) to (0, 90, 180): 0.0
+Sensitivity from (88, 188) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (88, 189) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (89, 170) to (0, 90, 180): 0.0
+Sensitivity from (89, 171) to (0, 90, 180): 0.0
+Sensitivity from (89, 172) to (0, 90, 180): 0.0
+Sensitivity from (89, 173) to (0, 90, 180): 0.0
+Sensitivity from (89, 174) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (89, 175) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (89, 176) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (89, 177) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (89, 178) to (0, 90, 180): 0.0
+Sensitivity from (89, 179) to (0, 90, 180): 0.00476837158203125
+Sensitivity from (89, 180) to (0, 90, 180): 0.008344650268554688
+Sensitivity from (89, 181) to (0, 90, 180): -0.0095367431640625
 Sensitivity from (89, 182) to (0, 90, 180): -0.002384185791015625
-Sensitivity from (90, 178) to (0, 90, 180): 0.001430511474609375
-Sensitivity from (90, 179) to (0, 90, 180): -0.012040138244628906
-Sensitivity from (90, 180) to (0, 90, 180): -0.005245208740234375
-Sensitivity from (90, 181) to (0, 90, 180): 0.0025033950805664062
-Sensitivity from (90, 182) to (0, 90, 180): -0.0015497207641601562
-Sensitivity from (91, 178) to (0, 90, 180): -0.0013113021850585938
-Sensitivity from (91, 179) to (0, 90, 180): -0.005125999450683594
-Sensitivity from (91, 180) to (0, 90, 180): 0.009298324584960938
-Sensitivity from (91, 181) to (0, 90, 180): -0.0026226043701171875
-Sensitivity from (91, 182) to (0, 90, 180): 0.0013113021850585938
-Sensitivity from (92, 178) to (0, 90, 180): 0.0025033950805664062
-Sensitivity from (92, 179) to (0, 90, 180): 0.0022649765014648438
-Sensitivity from (92, 180) to (0, 90, 180): -0.0007152557373046875
-Sensitivity from (92, 181) to (0, 90, 180): 0.003337860107421875
-Sensitivity from (92, 182) to (0, 90, 180): 0.0
+Sensitivity from (89, 183) to (0, 90, 180): 0.00476837158203125
+Sensitivity from (89, 184) to (0, 90, 180): 0.0
+Sensitivity from (89, 185) to (0, 90, 180): 0.0035762786865234375
+Sensitivity from (89, 186) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (89, 187) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (89, 188) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (89, 189) to (0, 90, 180): 0.0
+Sensitivity from (90, 170) to (0, 90, 180): 0.0
+Sensitivity from (90, 171) to (0, 90, 180): 0.0
+Sensitivity from (90, 172) to (0, 90, 180): 0.0
+Sensitivity from (90, 173) to (0, 90, 180): 0.0
+Sensitivity from (90, 174) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (90, 175) to (0, 90, 180): 0.0035762786865234375
+Sensitivity from (90, 176) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (90, 177) to (0, 90, 180): 0.00476837158203125
+Sensitivity from (90, 178) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (90, 179) to (0, 90, 180): -0.011920928955078125
+Sensitivity from (90, 180) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (90, 181) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (90, 182) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (90, 183) to (0, 90, 180): 0.0035762786865234375
+Sensitivity from (90, 184) to (0, 90, 180): 0.00476837158203125
+Sensitivity from (90, 185) to (0, 90, 180): 0.0
+Sensitivity from (90, 186) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (90, 187) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (90, 188) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (90, 189) to (0, 90, 180): 0.0
+Sensitivity from (91, 170) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (91, 171) to (0, 90, 180): 0.0
+Sensitivity from (91, 172) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (91, 173) to (0, 90, 180): 0.0
+Sensitivity from (91, 174) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (91, 175) to (0, 90, 180): 0.0
+Sensitivity from (91, 176) to (0, 90, 180): 0.0035762786865234375
+Sensitivity from (91, 177) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (91, 178) to (0, 90, 180): 0.0
+Sensitivity from (91, 179) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (91, 180) to (0, 90, 180): 0.010728836059570312
+Sensitivity from (91, 181) to (0, 90, 180): -0.0035762786865234375
+Sensitivity from (91, 182) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (91, 183) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (91, 184) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (91, 185) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (91, 186) to (0, 90, 180): 0.0
+Sensitivity from (91, 187) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (91, 188) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (91, 189) to (0, 90, 180): 0.0
+Sensitivity from (92, 170) to (0, 90, 180): 0.0
+Sensitivity from (92, 171) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (92, 172) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (92, 173) to (0, 90, 180): 0.0
+Sensitivity from (92, 174) to (0, 90, 180): 0.0
+Sensitivity from (92, 175) to (0, 90, 180): 0.0
+Sensitivity from (92, 176) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (92, 177) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (92, 178) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (92, 179) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (92, 180) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (92, 181) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (92, 182) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (92, 183) to (0, 90, 180): 0.0035762786865234375
+Sensitivity from (92, 184) to (0, 90, 180): 0.0
+Sensitivity from (92, 185) to (0, 90, 180): 0.0035762786865234375
+Sensitivity from (92, 186) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (92, 187) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (92, 188) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (92, 189) to (0, 90, 180): 0.0
+Sensitivity from (93, 170) to (0, 90, 180): 0.0
+Sensitivity from (93, 171) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (93, 172) to (0, 90, 180): 0.0
+Sensitivity from (93, 173) to (0, 90, 180): 0.0
+Sensitivity from (93, 174) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (93, 175) to (0, 90, 180): 0.0
+Sensitivity from (93, 176) to (0, 90, 180): 0.0
+Sensitivity from (93, 177) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (93, 178) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (93, 179) to (0, 90, 180): 0.00476837158203125
+Sensitivity from (93, 180) to (0, 90, 180): 0.0
+Sensitivity from (93, 181) to (0, 90, 180): 0.0059604644775390625
+Sensitivity from (93, 182) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (93, 183) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (93, 184) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (93, 185) to (0, 90, 180): 0.0035762786865234375
+Sensitivity from (93, 186) to (0, 90, 180): 0.0
+Sensitivity from (93, 187) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (93, 188) to (0, 90, 180): 0.0
+Sensitivity from (93, 189) to (0, 90, 180): 0.0
+Sensitivity from (94, 170) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (94, 171) to (0, 90, 180): 0.0
+Sensitivity from (94, 172) to (0, 90, 180): 0.0
+Sensitivity from (94, 173) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (94, 174) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (94, 175) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (94, 176) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (94, 177) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (94, 178) to (0, 90, 180): 0.0
+Sensitivity from (94, 179) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (94, 180) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (94, 181) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (94, 182) to (0, 90, 180): 0.0
+Sensitivity from (94, 183) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (94, 184) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (94, 185) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (94, 186) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (94, 187) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (94, 188) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (94, 189) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (95, 170) to (0, 90, 180): 0.0
+Sensitivity from (95, 171) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (95, 172) to (0, 90, 180): 0.0
+Sensitivity from (95, 173) to (0, 90, 180): 0.0
+Sensitivity from (95, 174) to (0, 90, 180): 0.0
+Sensitivity from (95, 175) to (0, 90, 180): 0.0
+Sensitivity from (95, 176) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (95, 177) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (95, 178) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (95, 179) to (0, 90, 180): 0.0
+Sensitivity from (95, 180) to (0, 90, 180): 0.0
+Sensitivity from (95, 181) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (95, 182) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (95, 183) to (0, 90, 180): 0.0
+Sensitivity from (95, 184) to (0, 90, 180): 0.0
+Sensitivity from (95, 185) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (95, 186) to (0, 90, 180): 0.0
+Sensitivity from (95, 187) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (95, 188) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (95, 189) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (96, 170) to (0, 90, 180): 0.0
+Sensitivity from (96, 171) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (96, 172) to (0, 90, 180): 0.0
+Sensitivity from (96, 173) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (96, 174) to (0, 90, 180): 0.0
+Sensitivity from (96, 175) to (0, 90, 180): 0.0
+Sensitivity from (96, 176) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (96, 177) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (96, 178) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (96, 179) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (96, 180) to (0, 90, 180): 0.0
+Sensitivity from (96, 181) to (0, 90, 180): 0.0
+Sensitivity from (96, 182) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (96, 183) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (96, 184) to (0, 90, 180): 0.0
+Sensitivity from (96, 185) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (96, 186) to (0, 90, 180): 0.0
+Sensitivity from (96, 187) to (0, 90, 180): 0.0
+Sensitivity from (96, 188) to (0, 90, 180): 0.0
+Sensitivity from (96, 189) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (97, 170) to (0, 90, 180): 0.0
+Sensitivity from (97, 171) to (0, 90, 180): 0.0
+Sensitivity from (97, 172) to (0, 90, 180): 0.0
+Sensitivity from (97, 173) to (0, 90, 180): 0.0
+Sensitivity from (97, 174) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (97, 175) to (0, 90, 180): 0.0
+Sensitivity from (97, 176) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (97, 177) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (97, 178) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (97, 179) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (97, 180) to (0, 90, 180): 0.0
+Sensitivity from (97, 181) to (0, 90, 180): 0.0
+Sensitivity from (97, 182) to (0, 90, 180): 0.0
+Sensitivity from (97, 183) to (0, 90, 180): 0.0
+Sensitivity from (97, 184) to (0, 90, 180): 0.0
+Sensitivity from (97, 185) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (97, 186) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (97, 187) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (97, 188) to (0, 90, 180): 0.0
+Sensitivity from (97, 189) to (0, 90, 180): 0.0
+Sensitivity from (98, 170) to (0, 90, 180): 0.0
+Sensitivity from (98, 171) to (0, 90, 180): 0.0
+Sensitivity from (98, 172) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (98, 173) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (98, 174) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (98, 175) to (0, 90, 180): 0.0
+Sensitivity from (98, 176) to (0, 90, 180): 0.0
+Sensitivity from (98, 177) to (0, 90, 180): 0.0
+Sensitivity from (98, 178) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (98, 179) to (0, 90, 180): 0.0035762786865234375
+Sensitivity from (98, 180) to (0, 90, 180): 0.0
+Sensitivity from (98, 181) to (0, 90, 180): 0.0
+Sensitivity from (98, 182) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (98, 183) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (98, 184) to (0, 90, 180): 0.0
+Sensitivity from (98, 185) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (98, 186) to (0, 90, 180): 0.0
+Sensitivity from (98, 187) to (0, 90, 180): 0.0
+Sensitivity from (98, 188) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (98, 189) to (0, 90, 180): 0.0
+Sensitivity from (99, 170) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (99, 171) to (0, 90, 180): 0.0
+Sensitivity from (99, 172) to (0, 90, 180): -0.0011920928955078125
+Sensitivity from (99, 173) to (0, 90, 180): 0.0
+Sensitivity from (99, 174) to (0, 90, 180): 0.0
+Sensitivity from (99, 175) to (0, 90, 180): 0.0
+Sensitivity from (99, 176) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (99, 177) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (99, 178) to (0, 90, 180): 0.0
+Sensitivity from (99, 179) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (99, 180) to (0, 90, 180): 0.0
+Sensitivity from (99, 181) to (0, 90, 180): 0.0
+Sensitivity from (99, 182) to (0, 90, 180): 0.0
+Sensitivity from (99, 183) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (99, 184) to (0, 90, 180): 0.0
+Sensitivity from (99, 185) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (99, 186) to (0, 90, 180): 0.0011920928955078125
+Sensitivity from (99, 187) to (0, 90, 180): 0.002384185791015625
+Sensitivity from (99, 188) to (0, 90, 180): 0.0
+Sensitivity from (99, 189) to (0, 90, 180): 0.002384185791015625
 
-Sensitivity Grid (5x5):
--0.0015 0.0008 0.0019 0.0001 0.0011
--0.0014 0.0043 0.0057 -0.0110 -0.0024
-0.0014 -0.0120 -0.0052 0.0025 -0.0015
--0.0013 -0.0051 0.0093 -0.0026 0.0013
-0.0025 0.0023 -0.0007 0.0033 0.0000
+Sensitivity Grid (20x20):
+0.0012 0.0024 0.0000 0.0012 0.0024 0.0012 -0.0012 -0.0012 0.0012 0.0000 0.0024 0.0012 0.0024 0.0012 0.0000 0.0024 -0.0012 0.0012 0.0012 0.0000
+0.0024 0.0012 0.0024 0.0012 0.0000 0.0000 0.0012 0.0024 0.0000 0.0000 0.0000 0.0000 0.0000 0.0024 -0.0012 0.0000 0.0012 0.0000 0.0000 0.0000
+0.0012 0.0000 0.0000 0.0000 0.0000 0.0012 0.0000 0.0000 0.0000 0.0012 0.0000 0.0000 0.0000 0.0000 0.0024 0.0000 0.0000 0.0000 0.0000 0.0012
+0.0000 0.0000 0.0012 -0.0012 0.0024 -0.0012 0.0012 0.0012 -0.0012 0.0012 0.0000 0.0012 0.0012 0.0000 0.0000 0.0012 0.0024 0.0012 0.0024 0.0012
+0.0000 0.0000 -0.0012 0.0024 0.0000 0.0024 0.0024 -0.0012 -0.0012 -0.0012 -0.0012 0.0012 0.0000 0.0012 0.0012 0.0000 0.0012 0.0000 0.0012 0.0012
+0.0000 0.0000 0.0000 0.0000 0.0000 -0.0024 0.0000 0.0012 0.0024 0.0024 0.0012 0.0012 0.0000 0.0012 0.0000 0.0012 0.0000 0.0000 0.0012 0.0000
+0.0000 0.0000 0.0000 0.0024 0.0000 0.0000 0.0000 0.0000 0.0012 0.0000 0.0012 0.0000 0.0036 0.0036 0.0000 0.0012 0.0024 0.0012 -0.0012 0.0012
+0.0012 -0.0012 0.0012 0.0000 -0.0012 0.0000 0.0024 0.0000 0.0024 0.0024 0.0036 0.0036 0.0012 0.0012 0.0000 0.0012 0.0000 0.0012 0.0024 0.0024
+0.0000 0.0000 0.0000 -0.0012 -0.0012 -0.0012 0.0012 0.0012 0.0000 0.0024 0.0048 0.0000 0.0000 0.0012 -0.0012 0.0024 0.0000 0.0000 -0.0012 0.0012
+0.0000 0.0000 0.0000 0.0000 -0.0012 0.0012 0.0012 0.0024 0.0000 0.0048 0.0083 -0.0095 -0.0024 0.0048 0.0000 0.0036 0.0012 0.0012 0.0012 0.0000
+0.0000 0.0000 0.0000 0.0000 -0.0012 0.0036 0.0012 0.0048 0.0024 -0.0119 -0.0012 0.0024 0.0024 0.0036 0.0048 0.0000 0.0012 0.0024 0.0012 0.0000
+0.0012 0.0000 0.0012 0.0000 0.0024 0.0000 0.0036 0.0024 0.0000 -0.0012 0.0107 -0.0036 0.0024 0.0012 0.0012 0.0012 0.0000 -0.0012 0.0024 0.0000
+0.0000 0.0012 0.0012 0.0000 0.0000 0.0000 0.0024 0.0012 0.0024 0.0012 -0.0012 0.0012 0.0012 0.0036 0.0000 0.0036 0.0012 -0.0012 0.0012 0.0000
+0.0000 0.0012 0.0000 0.0000 -0.0012 0.0000 0.0000 -0.0012 0.0012 0.0048 0.0000 0.0060 0.0024 0.0024 0.0012 0.0036 0.0000 -0.0012 0.0000 0.0000
+0.0024 0.0000 0.0000 -0.0012 -0.0012 0.0012 0.0012 -0.0012 0.0000 -0.0012 0.0024 0.0024 0.0000 0.0012 0.0012 0.0012 -0.0012 0.0012 0.0012 0.0024
+0.0000 0.0012 0.0000 0.0000 0.0000 0.0000 0.0024 0.0012 0.0012 0.0000 0.0000 0.0012 -0.0012 0.0000 0.0000 0.0024 0.0000 -0.0012 0.0012 0.0024
+0.0000 -0.0012 0.0000 0.0012 0.0000 0.0000 0.0012 0.0012 0.0024 0.0012 0.0000 0.0000 -0.0012 0.0012 0.0000 0.0024 0.0000 0.0000 0.0000 0.0012
+0.0000 0.0000 0.0000 0.0000 0.0012 0.0000 0.0024 0.0012 0.0012 0.0012 0.0000 0.0000 0.0000 0.0000 0.0000 0.0012 0.0012 0.0012 0.0000 0.0000
+0.0000 0.0000 0.0012 -0.0012 0.0012 0.0000 0.0000 0.0000 0.0012 0.0036 0.0000 0.0000 0.0012 0.0024 0.0000 0.0012 0.0000 0.0000 0.0012 0.0000
+0.0012 0.0000 -0.0012 0.0000 0.0000 0.0000 0.0012 0.0012 0.0000 0.0024 0.0000 0.0000 0.0000 0.0012 0.0000 0.0012 0.0012 0.0024 0.0000 0.0024
 
 Results saved to sensitivity_grid_5x5.npy
-Section 'Sensitivity tests completed' took 55.2761 seconds
-Total elapsed time: 73.5118 seconds
+Section 'Sensitivity tests completed' took 440.9514 seconds
+Total elapsed time: 450.8959 seconds
 ----------------------------------------
-Finished Samudra model run at Wed Apr  9 12:32:53 PDT 2025
+Finished Samudra model run at Wed Apr  9 14:11:10 PDT 2025
 
 ____________________________________________________________________
-Job Resource Usage Summary for 21995897.pbspl1.nas.nasa.gov
+Job Resource Usage Summary for 21996382.pbspl1.nas.nasa.gov
 
-    CPU Time Used            : 00:35:46
-    Real Memory Used         : 1777348kb
-    Walltime Used            : 00:02:58
+    CPU Time Used            : 09:19:34
+    Real Memory Used         : 1973976kb
+    Walltime Used            : 00:08:29
     Exit Status              : 0
 
     Number of CPUs Requested : 40
@@ -87,5 +477,5 @@ Job Resource Usage Summary for 21995897.pbspl1.nas.nasa.gov
     Execution Queue          : normal
     Charged To               : g26113
 
-    Job Stopped              : Wed Apr  9 12:32:56 2025
+    Job Stopped              : Wed Apr  9 14:11:13 2025
 ____________________________________________________________________
