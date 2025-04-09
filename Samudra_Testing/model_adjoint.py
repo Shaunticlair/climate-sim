@@ -710,7 +710,11 @@ class SamudraAdjoint(Samudra):
             A 2D tensor of shape (len(initial_indices), len(final_indices)) containing 
             the sensitivity of each final element with respect to each initial element.
         """
-        import torch
+        # 0->[[0, 1], [2, 3]]; 1->[[2, 3], [4, 5]]; 2->[[4, 5], [6, 7]]; 3->[[6, 7], [8, 9]]
+        N, C, H, W = inputs[0].shape
+        print(f"Input shape: {inputs[0].shape}")
+        print(f"First input shape: {inputs[0][0].shape}")
+        raise ValueError("Debug")
         
         # Process final time if negative
         if final_time < 0:
@@ -728,7 +732,7 @@ class SamudraAdjoint(Samudra):
         
         # Run the full autoregressive rollout
         current_input = model_input
-        for t in range(initial_time, final_time + 1):
+        for t in range(initial_time, final_time // 2 ):
             # Forward pass
             if use_checkpointing and t < final_time:
                 output = self.checkpointed_forward_once(current_input)
