@@ -12,7 +12,7 @@ print(f"Original sensitivity matrix shape: {sensitivity_matrix.shape}")
 
 sensitivity_latitude = 90  # Center latitude for the matrix (assuming 180x360 grid)
 sensitivity_longitude = 180  # Center longitude for the matrix (assuming 180x360 grid)
-time=3
+t0,t1 = 0,2
 """
 # Path to the wetmask file
 wetmask_path = 'full_wetmask.npy'
@@ -47,12 +47,21 @@ else:
 sensitivity_matrix = sensitivity_matrix.reshape(180, 360)
 print(f"Reshaped sensitivity matrix: {sensitivity_matrix.shape}")
 
-# Define the region of interest in the matrix for cropping
-xmin, xmax = 90-3, 90+4  # Matrix row indices
-ymin, ymax = 180-3, 180+4  # Matrix column indices
+size = "local"
 
-xmin, xmax = 0, 180
-ymin, ymax = 0, 360
+if size == "tiny":
+    # Define the region of interest in the matrix for cropping
+    xmin, xmax = 90-3, 90+4  # Matrix row indices
+    ymin, ymax = 180-3, 180+4  # Matrix column indices
+
+if size == "local":
+    xmin, xmax = 90-20, 90+20  # Matrix row indices
+    ymin, ymax = 180-20, 180+20  # Matrix column indices
+
+if size == "global":
+    xmin, xmax = 0, 180
+    ymin, ymax = 0, 360
+
 
 # Crop the sensitivity matrix to the region of interest
 cropped_sensitivity = sensitivity_matrix[xmin:xmax, ymin:ymax]
@@ -89,7 +98,7 @@ plt.xticks(x_positions[::36], col_indices[::36])  # Show every 36th index for re
 plt.yticks(y_positions[::18], row_indices[::18])  # Show every 18th index for readability
 
 plt.colorbar(label='Sensitivity Value')
-plt.title(f'Sensitivity Matrix Heatmap: 2.5m temp (C) wrt 2.5m temp (C) at ({sensitivity_latitude},{sensitivity_longitude}), time {time}')
+plt.title(f'$\\partial \\left( \\text{{2.5m }} \\theta_0 \\text{{ at }}({sensitivity_latitude},{sensitivity_longitude}), t={t0} \\right) / \\partial \\left( \\text{{2.5m }} \\theta_0 \\text{{ across map}}, t={t1} \\right)$')
 plt.xlabel('Longitude Index')
 plt.ylabel('Latitude Index')
 plt.grid(False)
