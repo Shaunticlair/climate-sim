@@ -15,7 +15,30 @@ sys.path.append(path)
 
 from model import Samudra
 
-def simple_sensitivity(model, data_input, source_coords, target_coords, perturbation_size=1e-4):
+def compute_unperturbed_output(model, data_input):
+    """
+    Compute the unperturbed output of the model once to be reused.
+    
+    Parameters:
+    -----------
+    model : torch.nn.Module
+        The model to evaluate
+    data_input : torch.Tensor
+        Input tensor to the model (b, c, h, w)
+        
+    Returns:
+    --------
+    baseline_output : torch.Tensor
+        The unperturbed output of the model
+    """
+    model.eval()
+    with torch.no_grad():
+        baseline_output = model.forward_once(data_input)
+    return baseline_output
+
+
+def simple_sensitivity(model, data_input, source_coords, target_coords, 
+                      baseline_output=None, perturbation_size=1e-4):
     """
     Computes sensitivity of target cell to a perturbation in source cell.
     
@@ -29,6 +52,8 @@ def simple_sensitivity(model, data_input, source_coords, target_coords, perturba
         (channel, y, x) coordinates of source cell to perturb
     target_coords : tuple
         (channel, y, x) coordinates of target cell to measure
+    baseline_output : torch.Tensor, optional
+        Pre-computed unperturbed output to save computation
     perturbation_size : float
         Size of perturbation to apply
         
@@ -39,20 +64,19 @@ def simple_sensitivity(model, data_input, source_coords, target_coords, perturba
     """
     model.eval()
     
-    # Make sure we don't modify the original input
-    data_input = data_input.clone().detach()
-    
     # Unpack coordinates
     s_c, s_y, s_x = source_coords
     t_c, t_y, t_x = target_coords
     
-    # Step 1: Run model on unperturbed input
-    with torch.no_grad():
-        baseline_output = model.forward_once(data_input)
-        baseline_value = baseline_output[0, t_c, t_y, t_x].item()
+    # Step 1: Get baseline value (either from pre-computed output or compute it)
+    if baseline_output is None:
+        with torch.no_grad():
+            baseline_output = model.forward_once(data_input.clone().detach())
+    
+    baseline_value = baseline_output[0, t_c, t_y, t_x].item()
     
     # Step 2: Perturb the input at source coordinates
-    perturbed_input = data_input.clone()
+    perturbed_input = data_input.clone().detach()
     perturbed_input[0, s_c, s_y, s_x] += perturbation_size
     
     # Step 3: Run model on perturbed input
@@ -131,6 +155,11 @@ if __name__ == "__main__":
     
     print(f"Computing sensitivities for 5x5 grid centered at {center_y, center_x}")
     
+    # Compute the unperturbed output once
+    print("Computing baseline unperturbed output...")
+    baseline_output = compute_unperturbed_output(model, input_data)
+    print("Baseline output computed.")
+    
     # Compute sensitivity for each point in the 5x5 grid
     for i in range(grid_size):
         for j in range(grid_size):
@@ -144,9 +173,10 @@ if __name__ == "__main__":
                 sensitivities[i, j] = np.nan
                 continue
             
-            # Compute sensitivity
+            # Compute sensitivity using the pre-computed baseline output
             source_coords = (channel, source_y, source_x)
-            sens = simple_sensitivity(model, input_data, source_coords, target_coords)
+            sens = simple_sensitivity(model, input_data, source_coords, target_coords, 
+                                     baseline_output=baseline_output)
             sensitivities[i, j] = sens
             
             print(f"Sensitivity from ({source_y}, {source_x}) to {target_coords}: {sens}")
