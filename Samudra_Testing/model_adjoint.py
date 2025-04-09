@@ -143,6 +143,9 @@ class SamudraAdjoint(model.Samudra):
             A 2D tensor of shape (len(initial_indices), len(final_indices)) containing 
             the sensitivity of each final element with respect to each initial element.
         """
+        # Make sure we're in evaluation mode
+        self.eval()
+
         # Process final time if negative
         if final_time < 0:
             final_time = 2*len(inputs) + final_time

@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from pathlib import Path
+from scipy import stats
 
 
 # Path to the sensitivity matrix file
@@ -9,6 +10,16 @@ path = 'sensitivity_matrix.npy'
 # Load the sensitivity matrix
 sensitivity_matrix = np.load(path)
 print(f"Original sensitivity matrix shape: {sensitivity_matrix.shape}")
+
+# Load the finite difference sensitivity grid
+fd_path = 'sensitivity_grid_5x5.npy'
+if Path(fd_path).exists():
+    fd_sensitivity = np.load(fd_path)
+    print(f"Loaded finite difference sensitivity with shape: {fd_sensitivity.shape}")
+    has_fd_sensitivity = True
+else:
+    print(f"Warning: Finite difference sensitivity file {fd_path} not found.")
+    has_fd_sensitivity = False
 
 sensitivity_latitude = 90  # Center latitude for the matrix (assuming 180x360 grid)
 sensitivity_longitude = 180  # Center longitude for the matrix (assuming 180x360 grid)
@@ -31,7 +42,7 @@ else:
 sensitivity_matrix = sensitivity_matrix.reshape(180, 360)
 print(f"Reshaped sensitivity matrix: {sensitivity_matrix.shape}")
 
-size = "local"
+size = "manual"
 
 if size == "tiny":
     # Define the region of interest in the matrix for cropping
@@ -45,6 +56,13 @@ if size == "local":
 if size == "global":
     xmin, xmax = 0, 180
     ymin, ymax = 0, 360
+
+if size == "manual":
+    deltax = 2
+    deltay = 2
+    # Define the region of interest in the matrix for cropping
+    xmin, xmax = 90-deltax, 90+deltax+1  # Matrix row indices
+    ymin, ymax = 180-deltay, 180+deltay+1  # Matrix column indices
 
 
 # Crop the sensitivity matrix to the region of interest
@@ -90,4 +108,59 @@ plt.tight_layout()
 
 # Save the figure
 plt.savefig('masked_sensitivity_map.png', dpi=300, bbox_inches='tight')
+
+# Compare sensitivity matrix with finite difference results if available
+if has_fd_sensitivity:
+    # Extract sensitivity values from the adjoint method for the 5x5 grid
+    grid_size = fd_sensitivity.shape[0]
+    half_grid = grid_size // 2
+    
+    # Extract the corresponding values from the sensitivity matrix
+    adjoint_values = []
+    fd_values = []
+    
+    for i in range(grid_size):
+        for j in range(grid_size):
+            # Calculate matrix indices
+            lat_idx = sensitivity_latitude - half_grid + i
+            lon_idx = sensitivity_longitude - half_grid + j
+            
+            # Skip if outside valid range or NaN in finite difference results
+            if (lat_idx < 0 or lat_idx >= sensitivity_matrix.shape[0] or 
+                lon_idx < 0 or lon_idx >= sensitivity_matrix.shape[1] or
+                np.isnan(fd_sensitivity[i, j])):
+                continue
+            
+            adjoint_values.append(sensitivity_matrix[lat_idx, lon_idx])
+            fd_values.append(fd_sensitivity[i, j])
+    
+    # Convert to numpy arrays
+    adjoint_values = np.array(adjoint_values)
+    fd_values = np.array(fd_values)
+    
+    # Calculate correlation
+    slope, intercept, r_value, p_value, std_err = stats.linregress(adjoint_values, fd_values)
+    
+    # Create a scatter plot
+    plt.figure(figsize=(8, 8))
+    plt.scatter(adjoint_values, fd_values, alpha=0.7)
+    
+    # Add best fit line
+    x_line = np.linspace(min(adjoint_values), max(adjoint_values), 100)
+    y_line = slope * x_line + intercept
+    plt.plot(x_line, y_line, 'r-', linewidth=2)
+    
+    # Add correlation information
+    plt.text(0.05, 0.95, f"Correlation: {r_value:.4f}\nSlope: {slope:.4f}\nIntercept: {intercept:.4f}", 
+             transform=plt.gca().transAxes, bbox=dict(facecolor='white', alpha=0.8))
+    
+    plt.title('Sensitivity Comparison: Adjoint vs. Finite Difference')
+    plt.xlabel('Adjoint Sensitivity')
+    plt.ylabel('Finite Difference Sensitivity')
+    plt.grid(True)
+    plt.tight_layout()
+    
+    # Save the correlation plot
+    plt.savefig('sensitivity_correlation.png', dpi=300, bbox_inches='tight')
+
 plt.show()
