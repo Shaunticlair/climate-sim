@@ -147,7 +147,7 @@ if __name__ == "__main__":
     target_coords = (channel, center_y, center_x)
     
     # Create a 5x5 grid of source points centered on the target point
-    grid_size = 5
+    grid_size = 20
     half_grid = grid_size // 2
     
     # Initialize sensitivity array
@@ -182,12 +182,12 @@ if __name__ == "__main__":
             print(f"Sensitivity from ({source_y}, {source_x}) to {target_coords}: {sens}")
     
     # Print the full grid
-    print("\nSensitivity Grid (5x5):")
+    print(f"\nSensitivity Grid ({grid_size}x{grid_size}):")
     for row in sensitivities:
         print(" ".join([f"{x:.4f}" if not np.isnan(x) else "N/A" for x in row]))
     
     # Save results
-    np.save("sensitivity_grid_5x5.npy", sensitivities)
+    np.save(f"sensitivity_grid_{grid_size}x{grid_size}.npy", sensitivities)
     print("\nResults saved to sensitivity_grid_5x5.npy")
     
     timer.checkpoint("Sensitivity tests completed")

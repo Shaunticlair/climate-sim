@@ -69,6 +69,9 @@ if size == "manual":
 cropped_sensitivity = sensitivity_matrix[xmin:xmax, ymin:ymax]
 print(f"Cropped sensitivity matrix: {cropped_sensitivity.shape}")
 
+###### TEMP
+#cropped_sensitivity = fd_sensitivity
+
 # Apply the wetmask if available
 if has_wetmask:
     # Crop the wetmask to match the sensitivity matrix
