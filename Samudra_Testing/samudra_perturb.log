@@ -1,4 +1,4 @@
-Job 21995613.pbspl1.nas.nasa.gov started on Wed Apr 09 11:55:33 PDT 2025
+Job 21995897.pbspl1.nas.nasa.gov started on Wed Apr 09 12:29:51 PDT 2025
 The job requested the following resources:
     ncpus=40
     place=scatter:excl
@@ -8,77 +8,77 @@ PBS set the following environment variables:
         FORT_BUFFERED = 1
                    TZ = PST8PDT
 
-On r147i0n4:
+On r135i1n25:
 Warning: no access to tty (Inappropriate ioctl for device).
 Thus no job control in this shell.
 Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
-Starting Samudra model run at Wed Apr  9 11:55:36 PDT 2025
+Starting Samudra model run at Wed Apr  9 12:29:56 PDT 2025
 /nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
   return data.astype(dtype, **kwargs)
 Using CPU
 Using 80 CPU cores for computation
-Section 'Environment configured' took 0.0066 seconds
-Total elapsed time: 0.0066 seconds
+Section 'Environment configured' took 0.0352 seconds
+Total elapsed time: 0.0352 seconds
 ----------------------------------------
 Number of input channels: 82
 Number of output channels: 78
-Section 'Model configuration set up' took 0.0000 seconds
-Total elapsed time: 0.0066 seconds
+Section 'Model configuration set up' took 0.0001 seconds
+Total elapsed time: 0.0352 seconds
 ----------------------------------------
-Section 'Data loaded' took 3.2107 seconds
-Total elapsed time: 3.2173 seconds
+Section 'Data loaded' took 14.0755 seconds
+Total elapsed time: 14.1107 seconds
 ----------------------------------------
-Section 'Model loaded' took 2.0712 seconds
-Total elapsed time: 5.2886 seconds
+Section 'Model loaded' took 4.1250 seconds
+Total elapsed time: 18.2357 seconds
 ----------------------------------------
 Out:  [[2 3]] Computing sensitivities for 5x5 grid centered at (90, 180)
 Computing baseline unperturbed output...
 Baseline output computed.
-Sensitivity from (88, 178) to (0, 90, 180): -0.0015854835510253906
-Sensitivity from (88, 179) to (0, 90, 180): 0.00057220458984375
-Sensitivity from (88, 180) to (0, 90, 180): 0.0017285346984863281
-Sensitivity from (88, 181) to (0, 90, 180): -0.00010728836059570312
-Sensitivity from (88, 182) to (0, 90, 180): 0.0008940696716308594
-Sensitivity from (89, 178) to (0, 90, 180): -0.0019550323486328125
-Sensitivity from (89, 179) to (0, 90, 180): 0.004458427429199219
-Sensitivity from (89, 180) to (0, 90, 180): 0.005733966827392578
-Sensitivity from (89, 181) to (0, 90, 180): -0.011134147644042969
-Sensitivity from (89, 182) to (0, 90, 180): -0.002372264862060547
-Sensitivity from (90, 178) to (0, 90, 180): 0.0013113021850585938
-Sensitivity from (90, 179) to (0, 90, 180): -0.012362003326416016
-Sensitivity from (90, 180) to (0, 90, 180): -0.006008148193359375
-Sensitivity from (90, 181) to (0, 90, 180): 0.0024080276489257812
-Sensitivity from (90, 182) to (0, 90, 180): -0.0016927719116210938
-Sensitivity from (91, 178) to (0, 90, 180): -0.0014066696166992188
-Sensitivity from (91, 179) to (0, 90, 180): -0.005137920379638672
-Sensitivity from (91, 180) to (0, 90, 180): 0.009000301361083984
-Sensitivity from (91, 181) to (0, 90, 180): -0.002849102020263672
-Sensitivity from (91, 182) to (0, 90, 180): 0.0012159347534179688
-Sensitivity from (92, 178) to (0, 90, 180): 0.0022172927856445312
-Sensitivity from (92, 179) to (0, 90, 180): 0.002300739288330078
-Sensitivity from (92, 180) to (0, 90, 180): -0.0009894371032714844
-Sensitivity from (92, 181) to (0, 90, 180): 0.0028371810913085938
-Sensitivity from (92, 182) to (0, 90, 180): 0.00021457672119140625
+Sensitivity from (88, 178) to (0, 90, 180): -0.0015497207641601562
+Sensitivity from (88, 179) to (0, 90, 180): 0.0008344650268554688
+Sensitivity from (88, 180) to (0, 90, 180): 0.0019073486328125
+Sensitivity from (88, 181) to (0, 90, 180): 0.00011920928955078125
+Sensitivity from (88, 182) to (0, 90, 180): 0.0010728836059570312
+Sensitivity from (89, 178) to (0, 90, 180): -0.001430511474609375
+Sensitivity from (89, 179) to (0, 90, 180): 0.004291534423828125
+Sensitivity from (89, 180) to (0, 90, 180): 0.0057220458984375
+Sensitivity from (89, 181) to (0, 90, 180): -0.010967254638671875
+Sensitivity from (89, 182) to (0, 90, 180): -0.002384185791015625
+Sensitivity from (90, 178) to (0, 90, 180): 0.001430511474609375
+Sensitivity from (90, 179) to (0, 90, 180): -0.012040138244628906
+Sensitivity from (90, 180) to (0, 90, 180): -0.005245208740234375
+Sensitivity from (90, 181) to (0, 90, 180): 0.0025033950805664062
+Sensitivity from (90, 182) to (0, 90, 180): -0.0015497207641601562
+Sensitivity from (91, 178) to (0, 90, 180): -0.0013113021850585938
+Sensitivity from (91, 179) to (0, 90, 180): -0.005125999450683594
+Sensitivity from (91, 180) to (0, 90, 180): 0.009298324584960938
+Sensitivity from (91, 181) to (0, 90, 180): -0.0026226043701171875
+Sensitivity from (91, 182) to (0, 90, 180): 0.0013113021850585938
+Sensitivity from (92, 178) to (0, 90, 180): 0.0025033950805664062
+Sensitivity from (92, 179) to (0, 90, 180): 0.0022649765014648438
+Sensitivity from (92, 180) to (0, 90, 180): -0.0007152557373046875
+Sensitivity from (92, 181) to (0, 90, 180): 0.003337860107421875
+Sensitivity from (92, 182) to (0, 90, 180): 0.0
 
 Sensitivity Grid (5x5):
--0.0016 0.0006 0.0017 -0.0001 0.0009
--0.0020 0.0045 0.0057 -0.0111 -0.0024
-0.0013 -0.0124 -0.0060 0.0024 -0.0017
--0.0014 -0.0051 0.0090 -0.0028 0.0012
-0.0022 0.0023 -0.0010 0.0028 0.0002
+-0.0015 0.0008 0.0019 0.0001 0.0011
+-0.0014 0.0043 0.0057 -0.0110 -0.0024
+0.0014 -0.0120 -0.0052 0.0025 -0.0015
+-0.0013 -0.0051 0.0093 -0.0026 0.0013
+0.0025 0.0023 -0.0007 0.0033 0.0000
 
 Results saved to sensitivity_grid_5x5.npy
-Section 'Sensitivity tests completed' took 37.3608 seconds
-Total elapsed time: 42.6493 seconds
+Section 'Sensitivity tests completed' took 55.2761 seconds
+Total elapsed time: 73.5118 seconds
 ----------------------------------------
-Finished Samudra model run at Wed Apr  9 11:56:44 PDT 2025
+Finished Samudra model run at Wed Apr  9 12:32:53 PDT 2025
 
 ____________________________________________________________________
-Job Resource Usage Summary for 21995613.pbspl1.nas.nasa.gov
+Job Resource Usage Summary for 21995897.pbspl1.nas.nasa.gov
 
-    CPU Time Used            : 00:40:25
-    Real Memory Used         : 1684712kb
-    Walltime Used            : 00:01:10
+    CPU Time Used            : 00:35:46
+    Real Memory Used         : 1777348kb
+    Walltime Used            : 00:02:58
     Exit Status              : 0
 
     Number of CPUs Requested : 40
@@ -87,5 +87,5 @@ Job Resource Usage Summary for 21995613.pbspl1.nas.nasa.gov
     Execution Queue          : normal
     Charged To               : g26113
 
-    Job Stopped              : Wed Apr  9 11:56:47 2025
+    Job Stopped              : Wed Apr  9 12:32:56 2025
 ____________________________________________________________________
