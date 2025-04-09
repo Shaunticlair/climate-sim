@@ -2,7 +2,7 @@
 #PBS -S /bin/csh
 #PBS -q normal
 #PBS -l select=1:ncpus=40:model=sky_ele
-#PBS -l walltime=0:2222w22w2w22www2ww0:00
+#PBS -l walltime=0:20:00
 #PBS -j oe
 #PBS -o ./samudra_perturb.log
 #PBS -m bea

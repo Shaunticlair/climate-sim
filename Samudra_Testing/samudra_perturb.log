@@ -1,0 +1,37 @@
+Job 21993795.pbspl1.nas.nasa.gov started on Wed Apr 09 07:55:05 PDT 2025
+The job requested the following resources:
+    ncpus=40
+    place=scatter:excl
+    walltime=00:20:00
+
+PBS set the following environment variables:
+        FORT_BUFFERED = 1
+                   TZ = PST8PDT
+
+On r143i2n32:
+Warning: no access to tty (Inappropriate ioctl for device).
+Thus no job control in this shell.
+Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
+Starting Samudra model run at Wed Apr  9 07:55:11 PDT 2025
+Traceback (most recent call last):
+  File "/nobackupp28/sruiz5/climate-sim/Samudra_Testing/perturbation_test.py", line 57, in <module>
+    from model import Samudra
+ModuleNotFoundError: No module named 'model'
+Finished Samudra model run at Wed Apr  9 07:56:32 PDT 2025
+
+____________________________________________________________________
+Job Resource Usage Summary for 21993795.pbspl1.nas.nasa.gov
+
+    CPU Time Used            : 00:00:05
+    Real Memory Used         : 264644kb
+    Walltime Used            : 00:01:23
+    Exit Status              : 0
+
+    Number of CPUs Requested : 40
+    Walltime Requested       : 00:20:00
+
+    Execution Queue          : normal
+    Charged To               : g26113
+
+    Job Stopped              : Wed Apr  9 07:56:34 2025
+____________________________________________________________________

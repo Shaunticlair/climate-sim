@@ -1,4 +1,4 @@
-Job 21993391.pbspl1.nas.nasa.gov started on Wed Apr 09 06:23:24 PDT 2025
+Job 21995191.pbspl1.nas.nasa.gov started on Wed Apr 09 10:35:21 PDT 2025
 The job requested the following resources:
     ncpus=40
     place=scatter:excl
@@ -8,62 +8,34 @@ PBS set the following environment variables:
         FORT_BUFFERED = 1
                    TZ = PST8PDT
 
-On r145i1n29:
+On r141i1n31:
 Warning: no access to tty (Inappropriate ioctl for device).
 Thus no job control in this shell.
 Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
-Starting Samudra model run at Wed Apr  9 06:23:27 PDT 2025
+Starting Samudra model run at Wed Apr  9 10:35:24 PDT 2025
 /nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
   return data.astype(dtype, **kwargs)
-Section 'Starting...' took 0.0000 seconds
-Total elapsed time: 0.0000 seconds
-----------------------------------------
 Using CPU
 Using 80 CPU cores for computation
-Section 'Environment configured' took 0.3700 seconds
-Total elapsed time: 0.3700 seconds
-----------------------------------------
-Number of inputs: 158
-Number of outputs: 154
-Section 'Constants set' took 0.0001 seconds
-Total elapsed time: 0.3701 seconds
-----------------------------------------
-Section 'Data loaded' took 14.1478 seconds
-Total elapsed time: 14.5179 seconds
-----------------------------------------
-Wet mask shape: torch.Size([154, 180, 360])
-Section 'Data loader created' took 0.8097 seconds
-Total elapsed time: 15.3276 seconds
-----------------------------------------
-SamudraAdjoint model initialized and weights loaded
-Section 'Model loaded' took 4.5474 seconds
-Total elapsed time: 19.8750 seconds
-----------------------------------------
-
-Testing compute_state_sensitivity method...
-Final point for sensitivity: (0, 90, 180)
+Number of input channels: 158
+Number of output channels: 154
+Out:  [[2 3]] Our data has the shape torch.Size([1, 158, 180, 360])
+Final point for sensitivity: [[0, 0, 90, 180]]
 Computing sensitivity matrix for 64800 initial points and 1 final points
-Out:  [[2 3]] torch.Size([1, 158, 180, 360])
-Out:  [[2 3]] 0
+Out:  [[2 3]] Processing time step: 0
 Computed sensitivity matrix shape: torch.Size([64800, 1])
 Removing existing file: sensitivity_matrix.npy
-Section 'Efficient state sensitivity computation and plotting completed' took 48.3701 seconds
-Total elapsed time: 68.2452 seconds
-----------------------------------------
-Section 'Process completed' took 0.0000 seconds
-Total elapsed time: 68.2452 seconds
-----------------------------------------
 ============================================
           Sensitivity Analysis Done         
 ============================================
-Finished Samudra model run at Wed Apr  9 06:26:03 PDT 2025
+Finished Samudra model run at Wed Apr  9 10:39:09 PDT 2025
 
 ____________________________________________________________________
-Job Resource Usage Summary for 21993391.pbspl1.nas.nasa.gov
+Job Resource Usage Summary for 21995191.pbspl1.nas.nasa.gov
 
-    CPU Time Used            : 00:05:00
-    Real Memory Used         : 6557888kb
-    Walltime Used            : 00:02:37
+    CPU Time Used            : 03:51:16
+    Real Memory Used         : 3119028kb
+    Walltime Used            : 00:03:46
     Exit Status              : 0
 
     Number of CPUs Requested : 40
@@ -72,5 +44,5 @@ Job Resource Usage Summary for 21993391.pbspl1.nas.nasa.gov
     Execution Queue          : normal
     Charged To               : g26113
 
-    Job Stopped              : Wed Apr  9 06:26:06 2025
+    Job Stopped              : Wed Apr  9 10:39:12 2025
 ____________________________________________________________________
