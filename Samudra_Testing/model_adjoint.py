@@ -506,7 +506,7 @@ class SamudraAdjoint(Samudra):
         # Return the modified state tensor and the list of input elements
         return state_tensor, input_elements
         
-    def compute_single_element_sensitivity(self, inputs, 
+    def DEFUNCT_compute_single_element_sensitivity(self, inputs, 
                                      initial_index,  # Initial element indices
                                      final_index,        # Final element indices
                                      initial_time=0,
@@ -562,7 +562,7 @@ class SamudraAdjoint(Samudra):
         
         return gradient
     
-    def compute_state_sensitivity_iterative(self, inputs, 
+    def DEFUNCT_compute_state_sensitivity_iterative(self, inputs, 
                           initial_indices,
                           final_indices,
                           initial_time=0, 
@@ -625,7 +625,7 @@ class SamudraAdjoint(Samudra):
         
         return sensitivity
     
-    def compute_state_sensitivity(self, inputs,
+    def DEFUNCT_compute_state_sensitivity(self, inputs,
                             initial_indices,
                             final_indices,
                             initial_time=0, 
@@ -698,7 +698,7 @@ class SamudraAdjoint(Samudra):
             The initial time step for the autoregressive rollout.
         final_time : int    
             The final time step for the autoregressive rollout. 
-            If negative, it will be computed as len(inputs) + final_time.
+            If negative, it will be computed as 2*len(inputs) + final_time.
         device : str
             The device to run the computation on ('cuda' or 'cpu').
         use_checkpointing : bool
@@ -711,17 +711,15 @@ class SamudraAdjoint(Samudra):
             the sensitivity of each final element with respect to each initial element.
         """
         # 0->[[0, 1], [2, 3]]; 1->[[2, 3], [4, 5]]; 2->[[4, 5], [6, 7]]; 3->[[6, 7], [8, 9]]
-        N, C, H, W = inputs[0].shape
-        print(f"Input shape: {inputs[0].shape}")
-        print(f"First input shape: {inputs[0][0].shape}")
-        raise ValueError("Debug")
         
         # Process final time if negative
         if final_time < 0:
-            final_time = len(inputs) + final_time
+            final_time = 2*len(inputs) + final_time
+
+        initial_iter, final_iter = initial_time//2, final_time//2
         
         # Initialize the model input
-        model_input = inputs[initial_time][0].clone().detach().to(device)
+        model_input = inputs[initial_iter][0].clone().detach().to(device)
         model_input.requires_grad_(True)
         
         # Store the initial input elements that we want to track
@@ -732,16 +730,17 @@ class SamudraAdjoint(Samudra):
         
         # Run the full autoregressive rollout
         current_input = model_input
-        for t in range(initial_time, final_time // 2 ):
+        for it in range(initial_iter, final_iter ):
+            print(it)
             # Forward pass
-            if use_checkpointing and t < final_time:
+            if use_checkpointing and it < final_iter - 1:
                 output = self.checkpointed_forward_once(current_input)
             else:
                 output = self.forward_once(current_input)
             
             # Prepare for next time step if needed
-            if t < final_time:
-                boundary = inputs[t+1][0][:, self.output_channels:].to(device)
+            if it < final_iter - 1:
+                boundary = inputs[it+1][0][:, self.output_channels:].to(device)
                 current_input = torch.cat([output, boundary], dim=1)
         
         # Get the final output tensor

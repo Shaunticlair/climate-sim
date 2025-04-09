@@ -278,7 +278,7 @@ timer.checkpoint("Model loaded")
 
 # Time steps for sensitivity analysis
 initial_time = 0        # Starting time step
-final_time =   4          # Ending time step (adjust based on your needs)
+final_time =   2          # Ending time step (adjust based on your needs)
 
 # Example: Define regions of interest for sensitivity analysis
 # For temperature sensitivity analysis at the ocean surface
@@ -305,90 +305,6 @@ full_map = {
 
 pacific_region = full_map
 
-
-testing_compute_single_element_sensitivity = False
-
-if testing_compute_single_element_sensitivity:
-
-
-    print(f"Computing sensitivity from time step {initial_time} to {final_time}")
-    print(f"Initial region: Surface temperature in Pacific region")
-    print(f"Final region: Same as initial region")
-
-    timer.checkpoint("Sensitivity configuration complete")
-
-    # ## Compute Sensitivity
-    # Use the SamudraAdjoint to compute state sensitivities
-
-    print("Starting sensitivity computation...")
-    print("This may take some time depending on the region size and time steps.")
-
-    # Extract a single point from your region for testing
-    init_c = surface_temp_channels[0]  # First temperature channel
-    init_h = pacific_region['latitude_indices'][0]  # First latitude index
-    init_w = pacific_region['longitude_indices'][0]  # First longitude index
-
-    # Same for final indices (in this case they're the same)
-    final_c = init_c
-    final_h = init_h
-    final_w = init_w
-
-    print(f"Computing sensitivity for a single point: ({init_c}, {init_h}, {init_w}) -> ({final_c}, {final_h}, {final_w})")
-
-    # Compute sensitivity for this single point
-    gradient = adjoint_model.compute_single_element_sensitivity(
-        test_data,
-        initial_time=initial_time,
-        final_time=final_time,
-        initial_index=[0, init_c,  init_h,  init_w],  # Initial indices (channel, latitude, longitude)
-        final_index=  [0, final_c, final_h, final_w],  # Final indices (channel, latitude, longitude)
-        device=device,
-        use_checkpointing=False  # Set to False for a single element test
-    )
-
-    print(f"Computed sensitivity: {gradient}")
-
-# Test state_sensitivity_computation with a single element
-testing_compute_state_sensitivity_iterative = False
-
-if testing_compute_state_sensitivity_iterative:
-    print("\nTesting state_sensitivity_computation with a single element...")
-    
-    # Use the same point from the earlier test for consistency
-    init_c = surface_temp_channels[0]  # First temperature channel
-    init_h = pacific_region['latitude_indices'][0]  # First latitude index
-    init_w = pacific_region['longitude_indices'][0]  # First longitude index
-    
-    initial_indices = [[0, init_c, init_h, init_w]]  # Initial indices for the sensitivity computation
-    final_indices = [[0, init_c, init_h, init_w]]    # Final indices (same as initial for this test)
-    
-    print(f"Computing sensitivity matrix for point: ({init_c}, {init_h}, {init_w}) -> ({init_c}, {init_h}, {init_w})")
-    
-    # Compute the sensitivity matrix
-    sensitivity_matrix = adjoint_model.compute_state_sensitivity_iterative(
-        test_data,
-        initial_indices=initial_indices,  # Initial indices for sensitivity computation
-        final_indices=final_indices,    # Final indices for sensitivity computation (same as initial in this case)
-        initial_time=initial_time,
-        final_time=final_time,
-        device=device,
-        use_checkpointing=False  # Set to False for a single element test
-    )
-    
-    # Print the result
-    print(f"Computed sensitivity matrix shape: {sensitivity_matrix.shape}")
-    print(f"Sensitivity value: {sensitivity_matrix.item()}")
-    
-    # Compare with the earlier single element computation
-    if testing_compute_single_element_sensitivity:
-        print(f"Single element computation: {gradient}")
-        print(f"Matrix computation: {sensitivity_matrix.item()}")
-        print(f"Difference: {abs(gradient - sensitivity_matrix.item())}")
-        
-    timer.checkpoint("State sensitivity matrix computation completed")
-
-# Test compute_state_sensitivity method
-testing_compute_state_sensitivity = True
 
 # Test compute_state_sensitivity method
 testing_compute_state_sensitivity = True
