@@ -13,22 +13,6 @@ print(f"Original sensitivity matrix shape: {sensitivity_matrix.shape}")
 sensitivity_latitude = 90  # Center latitude for the matrix (assuming 180x360 grid)
 sensitivity_longitude = 180  # Center longitude for the matrix (assuming 180x360 grid)
 t0,t1 = 0,2
-"""
-# Path to the wetmask file
-wetmask_path = 'full_wetmask.npy'
-
-
-
-# Load the wetmask (if it exists)
-if Path(wetmask_path).exists():
-    wetmask = np.load(wetmask_path)
-    print(f"Loaded wetmask with shape: {wetmask.shape}")
-    has_wetmask = True
-else:
-    print(f"Warning: Wetmask file {wetmask_path} not found. Proceeding without masking land areas.")
-    has_wetmask = False
-
-"""
 
 drymask_path = 'drymask.npy'
 
