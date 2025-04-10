@@ -64,7 +64,7 @@ print(f"Our data has the shape {test_data[0][0].shape}")
 
 # Time steps for sensitivity analysis
 initial_time = 0        # Starting time step
-final_time =   2          # Ending time step 
+final_time =   10          # Ending time step 
 
 # Choose channel index to study
 initial_channel_index = 0 

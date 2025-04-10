@@ -12,7 +12,8 @@ sensitivity_matrix = np.load(path)
 print(f"Original sensitivity matrix shape: {sensitivity_matrix.shape}")
 
 # Load the finite difference sensitivity grid
-fd_path = 'sensitivity_grid_5x5.npy'
+grid_size = 5
+fd_path = f'sensitivity_grid_{grid_size}x{grid_size}.npy'
 if Path(fd_path).exists():
     fd_sensitivity = np.load(fd_path)
     print(f"Loaded finite difference sensitivity with shape: {fd_sensitivity.shape}")
@@ -42,7 +43,7 @@ else:
 sensitivity_matrix = sensitivity_matrix.reshape(180, 360)
 print(f"Reshaped sensitivity matrix: {sensitivity_matrix.shape}")
 
-size = "manual"
+size = "global"
 
 if size == "tiny":
     # Define the region of interest in the matrix for cropping
@@ -58,8 +59,8 @@ if size == "global":
     ymin, ymax = 0, 360
 
 if size == "manual":
-    deltax = 2
-    deltay = 2
+    deltax = 10
+    deltay = 10
     # Define the region of interest in the matrix for cropping
     xmin, xmax = 90-deltax, 90+deltax+1  # Matrix row indices
     ymin, ymax = 180-deltay, 180+deltay+1  # Matrix column indices
@@ -71,6 +72,8 @@ print(f"Cropped sensitivity matrix: {cropped_sensitivity.shape}")
 
 ###### TEMP
 #cropped_sensitivity = fd_sensitivity
+
+print(fd_sensitivity.shape)
 
 # Apply the wetmask if available
 if has_wetmask:
