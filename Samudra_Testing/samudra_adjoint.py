@@ -22,7 +22,7 @@ import model_adjoint
 ### SETUP STAGE ###
 
 hist = 1
-N_test = 20 # Timesteps to use for testing
+N_test = 40 # Timesteps to use for testing
 state_in_vars_config="3D_thermo_dynamic_all"
 state_out_vars_config=state_in_vars_config
 boundary_vars_config="3D_all_hfds_anom"
@@ -64,7 +64,7 @@ print(f"Our data has the shape {test_data[0][0].shape}")
 
 # Time steps for sensitivity analysis
 initial_time = 0        # Starting time step
-final_time =   10          # Ending time step 
+final_time =   20          # Ending time step 
 
 # Choose channel index to study
 initial_channel_index = 0 
