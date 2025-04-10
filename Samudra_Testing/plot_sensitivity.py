@@ -3,9 +3,10 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 from scipy import stats
 
+t0,t1 = 0,10
 
 # Path to the sensitivity matrix file
-path = 'sensitivity_matrix.npy'
+path = f'sensitivity_matrix_t={t0},{t1}.npy'
 
 # Load the sensitivity matrix
 sensitivity_matrix = np.load(path)
@@ -13,7 +14,7 @@ print(f"Original sensitivity matrix shape: {sensitivity_matrix.shape}")
 
 # Load the finite difference sensitivity grid
 grid_size = 5
-fd_path = f'sensitivity_grid_{grid_size}x{grid_size}.npy'
+fd_path = f'perturb_sensitivity_grid_{grid_size}x{grid_size}_t={t0},{t1}.npy'
 if Path(fd_path).exists():
     fd_sensitivity = np.load(fd_path)
     print(f"Loaded finite difference sensitivity with shape: {fd_sensitivity.shape}")
@@ -24,7 +25,7 @@ else:
 
 sensitivity_latitude = 90  # Center latitude for the matrix (assuming 180x360 grid)
 sensitivity_longitude = 180  # Center longitude for the matrix (assuming 180x360 grid)
-t0,t1 = 0,2
+
 
 drymask_path = 'drymask.npy'
 
@@ -73,7 +74,7 @@ print(f"Cropped sensitivity matrix: {cropped_sensitivity.shape}")
 ###### TEMP
 #cropped_sensitivity = fd_sensitivity
 
-print(fd_sensitivity.shape)
+#print(fd_sensitivity.shape)
 
 # Apply the wetmask if available
 if has_wetmask:

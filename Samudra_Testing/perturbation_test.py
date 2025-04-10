@@ -38,7 +38,7 @@ def compute_unperturbed_output(model, data_input):
 
 
 def simple_sensitivity(model, data_input, source_coords, target_coords, 
-                      baseline_output=None, perturbation_size=1e-4):
+                      baseline_output=None, perturbation_size=1e-5):
     """
     Computes sensitivity of target cell to a perturbation in source cell.
     
@@ -142,12 +142,14 @@ if __name__ == "__main__":
     # Define the center point 
     center_y, center_x = 90, 180
     channel = 0  # Using the first channel for tests
+    perturbation_magn = -5
+    perturbation_size = 10 ** perturbation_magn
     
     # Target coords - the center point
     target_coords = (channel, center_y, center_x)
     
     # Create a 5x5 grid of source points centered on the target point
-    grid_size = 20
+    grid_size = 5
     half_grid = grid_size // 2
     
     # Initialize sensitivity array
@@ -176,7 +178,7 @@ if __name__ == "__main__":
             # Compute sensitivity using the pre-computed baseline output
             source_coords = (channel, source_y, source_x)
             sens = simple_sensitivity(model, input_data, source_coords, target_coords, 
-                                     baseline_output=baseline_output)
+                                     baseline_output=baseline_output, perturbation_size=perturbation_size)
             sensitivities[i, j] = sens
             
             print(f"Sensitivity from ({source_y}, {source_x}) to {target_coords}: {sens}")
@@ -187,7 +189,7 @@ if __name__ == "__main__":
         print(" ".join([f"{x:.4f}" if not np.isnan(x) else "N/A" for x in row]))
     
     # Save results
-    np.save(f"sensitivity_grid_{grid_size}x{grid_size}.npy", sensitivities)
+    np.save(f'perturb_sensitivity_grid_{grid_size}x{grid_size}_t={0},{2}_1e{perturbation_magn}.npy', sensitivities)
     print("\nResults saved to sensitivity_grid_5x5.npy")
     
     timer.checkpoint("Sensitivity tests completed")
