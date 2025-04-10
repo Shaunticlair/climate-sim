@@ -120,7 +120,7 @@ sensitivity_grid = sensitivity_matrix.reshape(lat_size, lon_size)
 sensitivity_grid_np = sensitivity_grid.cpu().numpy()
 
 # Write to file 
-sensitivity_output_file = Path("sensitivity_matrix.npy")
+sensitivity_output_file = Path(f'adjoint_sensitivity_matrix_t={initial_time},{final_time}.npy')
 if sensitivity_output_file.exists():
     print(f"Removing existing file: {sensitivity_output_file}")
     sensitivity_output_file.unlink()

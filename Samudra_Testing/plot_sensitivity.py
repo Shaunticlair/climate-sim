@@ -6,7 +6,7 @@ from scipy import stats
 t0,t1 = 0,10
 
 # Path to the sensitivity matrix file
-path = f'sensitivity_matrix_t={t0},{t1}.npy'
+path = f'adjoint_sensitivity_matrix_t={t0},{t1}.npy'
 
 # Load the sensitivity matrix
 sensitivity_matrix = np.load(path)
