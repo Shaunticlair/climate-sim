@@ -1,4 +1,4 @@
-Job 22006609.pbspl1.nas.nasa.gov started on Fri Apr 11 12:07:24 PDT 2025
+Job 22006673.pbspl1.nas.nasa.gov started on Fri Apr 11 12:28:04 PDT 2025
 The job requested the following resources:
     ncpus=40
     place=scatter:excl
@@ -8,11 +8,11 @@ PBS set the following environment variables:
         FORT_BUFFERED = 1
                    TZ = PST8PDT
 
-On r137i5n15:
+On r147i5n32:
 Warning: no access to tty (Inappropriate ioctl for device).
 Thus no job control in this shell.
 Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
-Starting Samudra model run at Fri Apr 11 12:07:47 PDT 2025
+Starting Samudra model run at Fri Apr 11 12:28:09 PDT 2025
 /nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
   return data.astype(dtype, **kwargs)
 Using CPU
@@ -24,18 +24,23 @@ Final point for sensitivity: [[0, 0, 90, 180]]
 Computing sensitivity matrix for 64800 initial points and 1 final points
 Out:  [[2 3]] Processing time step: 0
 Out:  [[4 5]] Processing time step: 1
-Computed sensitivity matrix shape: torch.Size([64800, 1])
+Out:  [[6 7]] Processing time step: 2
+Out:  [[8 9]] Processing time step: 3
+Out:  [[10 11]] Processing time step: 4
+Out:  [[12 13]] Processing time step: 5
+Computed sensitivity matrix shape: torch.Size([712800, 1])
+Removing existing file: adjoint_sensitivity_matrix_t=0,10.npy
 ============================================
           Sensitivity Analysis Done         
 ============================================
-Finished Samudra model run at Fri Apr 11 12:13:14 PDT 2025
+Finished Samudra model run at Fri Apr 11 12:32:53 PDT 2025
 
 ____________________________________________________________________
-Job Resource Usage Summary for 22006609.pbspl1.nas.nasa.gov
+Job Resource Usage Summary for 22006673.pbspl1.nas.nasa.gov
 
-    CPU Time Used            : 03:55:03
-    Real Memory Used         : 7786244kb
-    Walltime Used            : 00:05:35
+    CPU Time Used            : 04:11:25
+    Real Memory Used         : 8992584kb
+    Walltime Used            : 00:04:46
     Exit Status              : 0
 
     Number of CPUs Requested : 40
@@ -44,5 +49,5 @@ Job Resource Usage Summary for 22006609.pbspl1.nas.nasa.gov
     Execution Queue          : normal
     Charged To               : g26113
 
-    Job Stopped              : Fri Apr 11 12:13:47 2025
+    Job Stopped              : Fri Apr 11 12:32:56 2025
 ____________________________________________________________________
