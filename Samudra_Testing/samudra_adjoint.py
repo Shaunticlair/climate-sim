@@ -23,7 +23,7 @@ import model_adjoint
 
 # Time steps for sensitivity analysis
 initial_time = 0        # Starting time step
-final_time =   2          # Ending time step 
+final_time =   10          # Ending time step 
 # Choose channel index to study
 initial_channel_index = 0 
 final_channel_index = 0
@@ -111,7 +111,7 @@ def convert_indices_to_time_indices(indices, t):
 
 
 
-def one_timestep():
+def one_timestep(initial_time, final_time):
     in_indices = convert_indices_to_time_indices(initial_indices, initial_time)
     out_indices = convert_indices_to_time_indices(final_indices, final_time)
 
@@ -154,7 +154,7 @@ def one_timestep():
 
     # Save the sensitivity matrix to a file for debugging
     np.save(sensitivity_output_file, sensitivity_grid_np)
-#one_timestep()
+one_timestep(initial_time, final_time)
 
 
 
@@ -202,8 +202,7 @@ def multi_timestep(initial_time, final_time):
         np.save(sensitivity_output_file, sensitivity_grid_np)
 
 
-multi_timestep(0,10)
-
+#multi_timestep(initial_time, final_time)
 
 #final_time = 20
 #for initial_time in range(0, 19):
