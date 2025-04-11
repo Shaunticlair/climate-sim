@@ -109,51 +109,6 @@ def convert_indices_to_time_indices(indices, t):
     return out
                 
 
-def multi_timestep(initial_time, final_time):
-    final_time = final_time 
-    times = [i for i in range(initial_time, final_time+1)]
-
-    in_indices = [convert_indices_to_time_indices(initial_indices, t) for t in times]
-    in_indices = [item for sublist in in_indices for item in sublist]  # Flatten the list
-    
-    out_indices = convert_indices_to_time_indices(final_indices, final_time)
-
-    sensitivity_matrix = adjoint_model.compute_state_sensitivity(
-        test_data,
-        in_indices=in_indices,
-        out_indices=out_indices,
-        device=device,
-        use_checkpointing=True  # Set to True for larger computation
-    )
-
-    # Print the results
-    print(f"Computed sensitivity matrix shape: {sensitivity_matrix.shape}")
-
-    # Reshape the sensitivity matrix back to latitude-longitude grid for plotting
-    lat_size = len(lats)
-    lon_size = len(lons)
-    
-    # Reshape to (lat_size, lon_size, len(times))
-    sensitivity_grid = sensitivity_matrix.reshape(lat_size, lon_size, len(times))
-
-    # Write each to a numpy file
-    for t in range(len(times)):
-        sensitivity_grid_t = sensitivity_grid[:, :, t]
-
-        # Convert sensitivity grid to numpy for masking
-        sensitivity_grid_np = sensitivity_grid_t.cpu().numpy()
-
-        # Write to file 
-        sensitivity_output_file = Path(f'adjoint_sensitivity_matrix_t={t},{final_time}.npy')
-        if sensitivity_output_file.exists():
-            print(f"Removing existing file: {sensitivity_output_file}")
-            sensitivity_output_file.unlink()
-
-        # Save the sensitivity matrix to a file for debugging
-        np.save(sensitivity_output_file, sensitivity_grid_np)
-
-
-#multi_timestep(0,10)
 
 
 def one_timestep():
@@ -199,7 +154,56 @@ def one_timestep():
 
     # Save the sensitivity matrix to a file for debugging
     np.save(sensitivity_output_file, sensitivity_grid_np)
-one_timestep()
+#one_timestep()
+
+
+
+def multi_timestep(initial_time, final_time):
+    final_time = final_time 
+    times = [i for i in range(initial_time, final_time+1)]
+
+    in_indices = [convert_indices_to_time_indices(initial_indices, t) for t in times]
+    in_indices = [item for sublist in in_indices for item in sublist]  # Flatten the list
+    
+    out_indices = convert_indices_to_time_indices(final_indices, final_time)
+
+    sensitivity_matrix = adjoint_model.compute_state_sensitivity(
+        test_data,
+        in_indices=in_indices,
+        out_indices=out_indices,
+        device=device,
+        use_checkpointing=True  # Set to True for larger computation
+    )
+
+    # Print the results
+    print(f"Computed sensitivity matrix shape: {sensitivity_matrix.shape}")
+
+    # Reshape the sensitivity matrix back to latitude-longitude grid for plotting
+    lat_size = len(lats)
+    lon_size = len(lons)
+    
+    # Reshape to (lat_size, lon_size, len(times))
+    sensitivity_grid = sensitivity_matrix.reshape(lat_size, lon_size, len(times))
+
+    # Write each to a numpy file
+    for t in range(len(times)):
+        sensitivity_grid_t = sensitivity_grid[:, :, t]
+
+        # Convert sensitivity grid to numpy for masking
+        sensitivity_grid_np = sensitivity_grid_t.cpu().numpy()
+
+        # Write to file 
+        sensitivity_output_file = Path(f'adjoint_sensitivity_matrix_t={t},{final_time}.npy')
+        if sensitivity_output_file.exists():
+            print(f"Removing existing file: {sensitivity_output_file}")
+            sensitivity_output_file.unlink()
+
+        # Save the sensitivity matrix to a file for debugging
+        np.save(sensitivity_output_file, sensitivity_grid_np)
+
+
+multi_timestep(0,10)
+
 
 #final_time = 20
 #for initial_time in range(0, 19):
