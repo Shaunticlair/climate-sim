@@ -1,4 +1,4 @@
-Job 21998302.pbspl1.nas.nasa.gov started on Wed Apr 09 18:53:55 PDT 2025
+Job 21998379.pbspl1.nas.nasa.gov started on Wed Apr 09 19:22:26 PDT 2025
 The job requested the following resources:
     ncpus=40
     place=scatter:excl
@@ -8,11 +8,11 @@ PBS set the following environment variables:
         FORT_BUFFERED = 1
                    TZ = PST8PDT
 
-On r147i3n1:
+On r143i2n32:
 Warning: no access to tty (Inappropriate ioctl for device).
 Thus no job control in this shell.
 Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
-Starting Samudra model run at Wed Apr  9 18:54:00 PDT 2025
+Starting Samudra model run at Wed Apr  9 19:22:29 PDT 2025
 /nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
   return data.astype(dtype, **kwargs)
 Using CPU
@@ -33,18 +33,17 @@ Out:  [[16 17]] Processing time step: 7
 Out:  [[18 19]] Processing time step: 8
 Out:  [[20 21]] Processing time step: 9
 Computed sensitivity matrix shape: torch.Size([64800, 1])
-Removing existing file: sensitivity_matrix.npy
 ============================================
           Sensitivity Analysis Done         
 ============================================
-Finished Samudra model run at Wed Apr  9 19:00:19 PDT 2025
+Finished Samudra model run at Wed Apr  9 19:27:30 PDT 2025
 
 ____________________________________________________________________
-Job Resource Usage Summary for 21998302.pbspl1.nas.nasa.gov
+Job Resource Usage Summary for 21998379.pbspl1.nas.nasa.gov
 
-    CPU Time Used            : 04:50:22
-    Real Memory Used         : 8912944kb
-    Walltime Used            : 00:06:20
+    CPU Time Used            : 04:48:14
+    Real Memory Used         : 7324592kb
+    Walltime Used            : 00:05:02
     Exit Status              : 0
 
     Number of CPUs Requested : 40
@@ -53,5 +52,5 @@ Job Resource Usage Summary for 21998302.pbspl1.nas.nasa.gov
     Execution Queue          : normal
     Charged To               : g26113
 
-    Job Stopped              : Wed Apr  9 19:00:22 2025
+    Job Stopped              : Wed Apr  9 19:27:33 2025
 ____________________________________________________________________
