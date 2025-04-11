@@ -6,7 +6,7 @@ from scipy import stats
 ### PARAMETERS ###
 
 t0,t1 = 0,2
-size = "manual"
+size = "global"
 magn= 5
 grid_size = 20
 
