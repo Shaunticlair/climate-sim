@@ -106,7 +106,7 @@ class SamudraAdjoint(model.Samudra):
         # Return the modified state tensor and the list of input elements
         return state_tensor, input_elements
         
-    def compute_state_sensitivity(self, inputs,
+    def compute_state_sensitivity_DEFUNCT(self, inputs,
                     initial_indices,
                     final_indices,
                     initial_time=0, 
@@ -202,4 +202,131 @@ class SamudraAdjoint(model.Samudra):
         
         return sensitivity_matrix
         
+    def compute_state_sensitivity(self, inputs,
+                  in_indices,
+                  out_indices,
+                  device="cuda",
+                  use_checkpointing=True):
+        """
+        Computes the sensitivity of output elements with respect to 
+        input elements in a single backward pass, with time specified in the indices.
+        
+        Parameters:
+        -----------
+        inputs : list of tensors
+            The input tensors for each time step in the sequence.
+        in_indices : list of tuples
+            A list of tuples (b, c, h, w, t) indicating the batch, channel, height, width
+            indices, and time step of the input elements to track.
+        out_indices : list of tuples
+            A list of tuples (b, c, h, w, t) indicating the batch, channel, height, width
+            indices, and time step of the output elements to compute sensitivities for.
+        device : str
+            The device to run the computation on ('cuda' or 'cpu').
+        use_checkpointing : bool
+            Whether to use gradient checkpointing for memory efficiency.
+            
+        Returns:
+        --------
+        torch.Tensor
+            A 2D tensor of shape (len(in_indices), len(out_indices)) containing 
+            the sensitivity of each output element with respect to each input element.
+        """
+        # Make sure we're in evaluation mode
+        self.eval()
+
+        # Determine the time range we need to process
+        in_times = [idx[4] for idx in in_indices]
+        out_times = [idx[4] for idx in out_indices]
+        min_time = min(min(in_times), min(out_times))
+        max_time = max(out_times)
+        
+        # Create mapping from time step to indices that belong to that time step
+        in_indices_by_time = {}
+        for i, idx in enumerate(in_indices):
+            time = idx[4]
+            if time not in in_indices_by_time:
+                in_indices_by_time[time] = []
+            # Store the original index position and the spatial indices (without time)
+            in_indices_by_time[time].append((i, idx[:4]))
+        
+        # Create mapping for output indices as well
+        out_indices_by_time = {}
+        for i, idx in enumerate(out_indices):
+            time = idx[4]
+            if time not in out_indices_by_time:
+                out_indices_by_time[time] = []
+            out_indices_by_time[time].append((i, idx[:4]))
+        
+        # Initialize the model input for the minimum time step
+        initial_iter = min_time // 2
+        model_input = inputs[initial_iter][0].clone().detach().to(device)
+        
+        # Track the gradients for input elements at the initial time step
+        if min_time in in_indices_by_time:
+            spatial_indices = [idx for _, idx in in_indices_by_time[min_time]]
+            model_input, initial_elements = self.grad_track_multiple_elements(model_input, spatial_indices, device=device)
+            # Create a map to link original indices to tracked elements
+            element_map = {in_indices_by_time[min_time][i][0]: elem for i, elem in enumerate(initial_elements)}
+        else:
+            element_map = {}
+        
+        # Run the autoregressive rollout
+        current_input = model_input
+        outputs = {min_time: current_input}  # Store inputs/outputs by time step
+        
+        for it in range(initial_iter, max_time // 2 + 1):
+            print(f"Processing time step: {it}")
+            
+            # Forward pass
+            if use_checkpointing and it < max_time // 2:
+                output = self.checkpointed_forward_once(current_input)
+            else:
+                output = self.forward_once(current_input)
+            
+            # Store output for this time step
+            time_step = it * 2 + 1
+            outputs[time_step] = output
+            
+            # Prepare for next time step if needed
+            if it < max_time // 2:
+                boundary = inputs[it+1][0][:, self.output_channels:].to(device)
+                current_input = torch.cat([output, boundary], dim=1)
+                
+                # If next time step has input indices, track their gradients
+                next_time = (it + 1) * 2
+                if next_time in in_indices_by_time:
+                    spatial_indices = [idx for _, idx in in_indices_by_time[next_time]]
+                    current_input, new_elements = self.grad_track_multiple_elements(current_input, spatial_indices, device=device)
+                    # Add new elements to the map
+                    for i, elem in enumerate(new_elements):
+                        element_map[in_indices_by_time[next_time][i][0]] = elem
+                
+                outputs[next_time] = current_input
+        
+        # Create a sensitivity matrix to store results
+        sensitivity_matrix = torch.zeros(len(in_indices), len(out_indices), device=device)
+        
+        # For each output time step and indices
+        for out_time, out_idx_list in out_indices_by_time.items():
+            output_tensor = outputs[out_time]
+            
+            # Extract the output elements we're interested in
+            for orig_idx, spatial_idx in out_idx_list:
+                b, c, h, w = spatial_idx
+                output_element = output_tensor[b, c, h, w]
+                
+                # Clear gradients before backward pass
+                for elem in element_map.values():
+                    if elem.grad is not None:
+                        elem.grad.zero_()
+                
+                # Compute gradients
+                output_element.backward(retain_graph=True)
+                
+                # Extract gradients for all input elements
+                for in_idx, elem in element_map.items():
+                    sensitivity_matrix[in_idx, orig_idx] = elem.grad.item() if elem.grad is not None else 0.0
+        
+        return sensitivity_matrix
         

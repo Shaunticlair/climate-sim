@@ -3,7 +3,35 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 from scipy import stats
 
-t0,t1 = 0,20
+### PARAMETERS ###
+
+t0,t1 = 0,2
+size = "manual"
+magn= 5
+grid_size = 20
+
+if size == "tiny":
+    # Define the region of interest in the matrix for cropping
+    xmin, xmax = 90-3, 90+4  # Matrix row indices
+    ymin, ymax = 180-3, 180+4  # Matrix column indices
+
+if size == "local":
+    xmin, xmax = 90-20, 90+20  # Matrix row indices
+    ymin, ymax = 180-20, 180+20  # Matrix column indices
+
+if size == "global":
+    xmin, xmax = 0, 180
+    ymin, ymax = 0, 360
+
+if size == "manual":
+    deltax = 2
+    deltay = 2
+    # Define the region of interest in the matrix for cropping
+    xmin, xmax = 90-deltax, 90+deltax+1  # Matrix row indices
+    ymin, ymax = 180-deltay, 180+deltay+1  # Matrix column indices
+    size = f'{2*deltax+1}x{2*deltay+1}'
+
+### PLOT SENSITIVITY ###
 
 # Path to the sensitivity matrix file
 path = f'adjoint_sensitivity_matrix_t={t0},{t1}.npy'
@@ -13,8 +41,7 @@ sensitivity_matrix = np.load(path)
 print(f"Original sensitivity matrix shape: {sensitivity_matrix.shape}")
 
 # Load the finite difference sensitivity grid
-grid_size = 5
-fd_path = f'perturb_sensitivity_grid_{grid_size}x{grid_size}_t={t0},{t1}.npy'
+fd_path = f'perturb_sensitivity_grid_{grid_size}x{grid_size}_t={t0},{t1}.npy' #_1e-{magn}
 if Path(fd_path).exists():
     fd_sensitivity = np.load(fd_path)
     print(f"Loaded finite difference sensitivity with shape: {fd_sensitivity.shape}")
@@ -44,28 +71,7 @@ else:
 sensitivity_matrix = sensitivity_matrix.reshape(180, 360)
 print(f"Reshaped sensitivity matrix: {sensitivity_matrix.shape}")
 
-size = "manual"
 
-if size == "tiny":
-    # Define the region of interest in the matrix for cropping
-    xmin, xmax = 90-3, 90+4  # Matrix row indices
-    ymin, ymax = 180-3, 180+4  # Matrix column indices
-
-if size == "local":
-    xmin, xmax = 90-20, 90+20  # Matrix row indices
-    ymin, ymax = 180-20, 180+20  # Matrix column indices
-
-if size == "global":
-    xmin, xmax = 0, 180
-    ymin, ymax = 0, 360
-
-if size == "manual":
-    deltax = 2
-    deltay = 2
-    # Define the region of interest in the matrix for cropping
-    xmin, xmax = 90-deltax, 90+deltax+1  # Matrix row indices
-    ymin, ymax = 180-deltay, 180+deltay+1  # Matrix column indices
-    size = f'{2*deltax+1}x{2*deltay+1}'
 
 
 # Crop the sensitivity matrix to the region of interest
@@ -116,6 +122,10 @@ plt.tight_layout()
 
 # Save the figure
 plt.savefig(f'adjoint_map_{x}-{y}_t={t0},{t1}_{size}.png', dpi=300, bbox_inches='tight')
+
+
+
+### PLOT CORRELATION ###
 
 # Compare sensitivity matrix with finite difference results if available
 if has_fd_sensitivity:

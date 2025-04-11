@@ -94,12 +94,24 @@ print(f"Computing sensitivity matrix for {len(initial_indices)} initial points a
 ### COMPUTE SENSITIVITY AND SAVE RESULTS###
 
 
+in_indices = [(b, c, h, w, initial_time) for b, c, h, w in initial_indices]
+out_indices = [(b, c, h, w, final_time) for b, c, h, w in final_indices]
+
+
+#sensitivity_matrix = adjoint_model.compute_state_sensitivity(
+#    test_data,
+#    initial_indices=initial_indices,
+#    final_indices=final_indices,
+#    initial_time=initial_time,
+#    final_time=final_time,
+#    device=device,
+#    use_checkpointing=True  # Set to True for larger computation
+#)
+
 sensitivity_matrix = adjoint_model.compute_state_sensitivity(
     test_data,
-    initial_indices=initial_indices,
-    final_indices=final_indices,
-    initial_time=initial_time,
-    final_time=final_time,
+    in_indices=in_indices,
+    out_indices=out_indices,
     device=device,
     use_checkpointing=True  # Set to True for larger computation
 )
@@ -125,6 +137,8 @@ if sensitivity_output_file.exists():
 # Save the sensitivity matrix to a file for debugging
 np.save(sensitivity_output_file, sensitivity_grid_np)
 
+#final_time = 20
+#for initial_time in range(0, 19):
 
 print("============================================")
 print("          Sensitivity Analysis Done         ")
