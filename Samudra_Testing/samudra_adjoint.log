@@ -1,4 +1,4 @@
-Job 22006464.pbspl1.nas.nasa.gov started on Fri Apr 11 11:26:38 PDT 2025
+Job 22006609.pbspl1.nas.nasa.gov started on Fri Apr 11 12:07:24 PDT 2025
 The job requested the following resources:
     ncpus=40
     place=scatter:excl
@@ -8,11 +8,11 @@ PBS set the following environment variables:
         FORT_BUFFERED = 1
                    TZ = PST8PDT
 
-On r147i2n22:
+On r137i5n15:
 Warning: no access to tty (Inappropriate ioctl for device).
 Thus no job control in this shell.
 Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
-Starting Samudra model run at Fri Apr 11 11:26:43 PDT 2025
+Starting Samudra model run at Fri Apr 11 12:07:47 PDT 2025
 /nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
   return data.astype(dtype, **kwargs)
 Using CPU
@@ -25,18 +25,17 @@ Computing sensitivity matrix for 64800 initial points and 1 final points
 Out:  [[2 3]] Processing time step: 0
 Out:  [[4 5]] Processing time step: 1
 Computed sensitivity matrix shape: torch.Size([64800, 1])
-Removing existing file: adjoint_sensitivity_matrix_t=0,2.npy
 ============================================
           Sensitivity Analysis Done         
 ============================================
-Finished Samudra model run at Fri Apr 11 11:33:56 PDT 2025
+Finished Samudra model run at Fri Apr 11 12:13:14 PDT 2025
 
 ____________________________________________________________________
-Job Resource Usage Summary for 22006464.pbspl1.nas.nasa.gov
+Job Resource Usage Summary for 22006609.pbspl1.nas.nasa.gov
 
-    CPU Time Used            : 03:43:45
-    Real Memory Used         : 7778056kb
-    Walltime Used            : 00:07:14
+    CPU Time Used            : 03:55:03
+    Real Memory Used         : 7786244kb
+    Walltime Used            : 00:05:35
     Exit Status              : 0
 
     Number of CPUs Requested : 40
@@ -45,5 +44,5 @@ Job Resource Usage Summary for 22006464.pbspl1.nas.nasa.gov
     Execution Queue          : normal
     Charged To               : g26113
 
-    Job Stopped              : Fri Apr 11 11:34:00 2025
+    Job Stopped              : Fri Apr 11 12:13:47 2025
 ____________________________________________________________________

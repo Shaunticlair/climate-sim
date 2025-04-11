@@ -153,7 +153,7 @@ def multi_timestep(initial_time, final_time):
         np.save(sensitivity_output_file, sensitivity_grid_np)
 
 
-multi_timestep(0,10)
+#multi_timestep(0,10)
 
 
 def one_timestep():
@@ -199,6 +199,7 @@ def one_timestep():
 
     # Save the sensitivity matrix to a file for debugging
     np.save(sensitivity_output_file, sensitivity_grid_np)
+one_timestep()
 
 #final_time = 20
 #for initial_time in range(0, 19):
