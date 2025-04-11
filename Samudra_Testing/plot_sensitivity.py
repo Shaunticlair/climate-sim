@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 from scipy import stats
 
-t0,t1 = 0,10
+t0,t1 = 0,20
 
 # Path to the sensitivity matrix file
 path = f'adjoint_sensitivity_matrix_t={t0},{t1}.npy'
@@ -25,7 +25,7 @@ else:
 
 sensitivity_latitude = 90  # Center latitude for the matrix (assuming 180x360 grid)
 sensitivity_longitude = 180  # Center longitude for the matrix (assuming 180x360 grid)
-
+x,y = sensitivity_latitude,sensitivity_longitude
 
 drymask_path = 'drymask.npy'
 
@@ -44,7 +44,7 @@ else:
 sensitivity_matrix = sensitivity_matrix.reshape(180, 360)
 print(f"Reshaped sensitivity matrix: {sensitivity_matrix.shape}")
 
-size = "global"
+size = "manual"
 
 if size == "tiny":
     # Define the region of interest in the matrix for cropping
@@ -60,11 +60,12 @@ if size == "global":
     ymin, ymax = 0, 360
 
 if size == "manual":
-    deltax = 10
-    deltay = 10
+    deltax = 2
+    deltay = 2
     # Define the region of interest in the matrix for cropping
     xmin, xmax = 90-deltax, 90+deltax+1  # Matrix row indices
     ymin, ymax = 180-deltay, 180+deltay+1  # Matrix column indices
+    size = f'{2*deltax+1}x{2*deltay+1}'
 
 
 # Crop the sensitivity matrix to the region of interest
@@ -114,7 +115,7 @@ plt.grid(False)
 plt.tight_layout()
 
 # Save the figure
-plt.savefig('masked_sensitivity_map.png', dpi=300, bbox_inches='tight')
+plt.savefig(f'adjoint_map_{x}-{y}_t={t0},{t1}_{size}.png', dpi=300, bbox_inches='tight')
 
 # Compare sensitivity matrix with finite difference results if available
 if has_fd_sensitivity:

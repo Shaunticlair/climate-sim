@@ -19,13 +19,29 @@ from pathlib import Path
 import setup
 import model_adjoint
 
-### SETUP STAGE ###
+### PARAMETERS ###
 
+# Time steps for sensitivity analysis
+initial_time = 0        # Starting time step
+final_time =   2          # Ending time step 
+# Choose channel index to study
+initial_channel_index = 0 
+final_channel_index = 0
+# Define regions of interest in the ocean: latitude and longitude indices
+lats = np.arange(0, 180)
+lons = np.arange(0, 360)
+# Define the final latitude and longitude for the output: the coords we want to study the sensitivity wrt to
+final_lat = 90
+final_lon = 180
+# Model choice
 hist = 1
 N_test = 40 # Timesteps to use for testing
 state_in_vars_config="3D_thermo_dynamic_all"
 state_out_vars_config=state_in_vars_config
 boundary_vars_config="3D_all_hfds_anom"
+
+
+### SETUP STAGE ###
 
 # Configure the environment for CUDA or CPU, and set random seeds for reproducibility.
 device = setup.torch_config_cuda_cpu_seed() 
@@ -59,23 +75,6 @@ adjoint_model = setup.load_weights(adjoint_model, state_out_vars_config,
 
 
 print(f"Our data has the shape {test_data[0][0].shape}")
-
-### SELECT SENSITIVITY PARAMETERS ###
-
-# Time steps for sensitivity analysis
-initial_time = 0        # Starting time step
-final_time =   20          # Ending time step 
-
-# Choose channel index to study
-initial_channel_index = 0 
-final_channel_index = 0
-
-
-# Define regions of interest in the ocean: latitude and longitude indices
-
-lats = np.arange(0, 180)
-lons = np.arange(0, 360)
-
     
 # Create indices for the full grid
 initial_indices = []
@@ -85,8 +84,7 @@ for h in lats:
         initial_indices.append([0, c, h, w])
 
 # For the output, we'll just look at a single point
-final_lat = 90
-final_lon = 180
+
 final_indices = [[0, final_channel_index, final_lat, final_lon]]  # Final indices for sensitivity computation
 print(f"Final point for sensitivity: {final_indices}")  
 
@@ -96,7 +94,6 @@ print(f"Computing sensitivity matrix for {len(initial_indices)} initial points a
 ### COMPUTE SENSITIVITY AND SAVE RESULTS###
 
 
-# Compute the sensitivity matrix using the more efficient method
 sensitivity_matrix = adjoint_model.compute_state_sensitivity(
     test_data,
     initial_indices=initial_indices,
