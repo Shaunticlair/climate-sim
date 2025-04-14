@@ -1,4 +1,4 @@
-Job 22019903.pbspl1.nas.nasa.gov started on Mon Apr 14 15:18:13 PDT 2025
+Job 22020004.pbspl1.nas.nasa.gov started on Mon Apr 14 15:40:14 PDT 2025
 The job requested the following resources:
     ncpus=40
     place=scatter:excl
@@ -12,77 +12,77 @@ On r147i6n3:
 Warning: no access to tty (Inappropriate ioctl for device).
 Thus no job control in this shell.
 Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
-Starting Samudra model run at Mon Apr 14 15:18:16 PDT 2025
+Starting Samudra model run at Mon Apr 14 15:40:17 PDT 2025
 /nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
   return data.astype(dtype, **kwargs)
 Using CPU
 Using 80 CPU cores for computation
-Section 'Environment configured' took 0.0175 seconds
-Total elapsed time: 0.0175 seconds
+Section 'Environment configured' took 0.0517 seconds
+Total elapsed time: 0.0517 seconds
 ----------------------------------------
 Number of input channels: 82
 Number of output channels: 78
 Section 'Model configuration set up' took 0.0000 seconds
-Total elapsed time: 0.0176 seconds
+Total elapsed time: 0.0518 seconds
 ----------------------------------------
-Section 'Data loaded' took 4.0568 seconds
-Total elapsed time: 4.0744 seconds
+Section 'Data loaded' took 11.3757 seconds
+Total elapsed time: 11.4275 seconds
 ----------------------------------------
-Section 'Model loaded' took 4.3823 seconds
-Total elapsed time: 8.4567 seconds
+Section 'Model loaded' took 5.5465 seconds
+Total elapsed time: 16.9740 seconds
 ----------------------------------------
 Setting up 5x5 grid centered at (90, 180)
 Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Created 25 source points in the grid
-Computing sensitivities with perturbation size: 0.01
+Computing sensitivities with perturbation size: 0.001
 Computing baseline outputs...
 Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Processing source coordinate 1/25
 Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Processing source coordinate 11/25
 Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Processing source coordinate 21/25
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Sensitivity from (88, 178) to target: -0.0000
-Sensitivity from (88, 179) to target: 0.0000
-Sensitivity from (88, 180) to target: 0.0000
-Sensitivity from (88, 181) to target: -0.0000
-Sensitivity from (88, 182) to target: 0.0000
-Sensitivity from (89, 178) to target: -0.0000
-Sensitivity from (89, 179) to target: -0.0000
-Sensitivity from (89, 180) to target: -0.0000
-Sensitivity from (89, 181) to target: 0.0000
-Sensitivity from (89, 182) to target: -0.0000
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Sensitivity from (88, 178) to target: 0.0000
+Sensitivity from (88, 179) to target: 0.0002
+Sensitivity from (88, 180) to target: 0.0002
+Sensitivity from (88, 181) to target: -0.0001
+Sensitivity from (88, 182) to target: 0.0005
+Sensitivity from (89, 178) to target: 0.0001
+Sensitivity from (89, 179) to target: 0.0001
+Sensitivity from (89, 180) to target: -0.0001
+Sensitivity from (89, 181) to target: 0.0001
+Sensitivity from (89, 182) to target: -0.0001
 Sensitivity from (90, 178) to target: -0.0001
-Sensitivity from (90, 179) to target: -0.0000
-Sensitivity from (90, 180) to target: -0.0000
-Sensitivity from (90, 181) to target: -0.0000
-Sensitivity from (90, 182) to target: -0.0000
-Sensitivity from (91, 178) to target: -0.0000
-Sensitivity from (91, 179) to target: -0.0000
-Sensitivity from (91, 180) to target: -0.0000
-Sensitivity from (91, 181) to target: -0.0000
-Sensitivity from (91, 182) to target: -0.0000
+Sensitivity from (90, 179) to target: -0.0001
+Sensitivity from (90, 180) to target: 0.0000
+Sensitivity from (90, 181) to target: 0.0000
+Sensitivity from (90, 182) to target: 0.0002
+Sensitivity from (91, 178) to target: 0.0001
+Sensitivity from (91, 179) to target: -0.0001
+Sensitivity from (91, 180) to target: -0.0001
+Sensitivity from (91, 181) to target: -0.0001
+Sensitivity from (91, 182) to target: -0.0001
 Sensitivity from (92, 178) to target: 0.0000
-Sensitivity from (92, 179) to target: -0.0000
-Sensitivity from (92, 180) to target: -0.0000
-Sensitivity from (92, 181) to target: -0.0000
-Sensitivity from (92, 182) to target: 0.0000
+Sensitivity from (92, 179) to target: 0.0000
+Sensitivity from (92, 180) to target: 0.0000
+Sensitivity from (92, 181) to target: 0.0000
+Sensitivity from (92, 182) to target: 0.0001
 
 Sensitivity Grid (5x5):
--0.0000 0.0000 0.0000 -0.0000 0.0000
--0.0000 -0.0000 -0.0000 0.0000 -0.0000
--0.0001 -0.0000 -0.0000 -0.0000 -0.0000
--0.0000 -0.0000 -0.0000 -0.0000 -0.0000
-0.0000 -0.0000 -0.0000 -0.0000 0.0000
+0.0000 0.0002 0.0002 -0.0001 0.0005
+0.0001 0.0001 -0.0001 0.0001 -0.0001
+-0.0001 -0.0001 0.0000 0.0000 0.0002
+0.0001 -0.0001 -0.0001 -0.0001 -0.0001
+0.0000 0.0000 0.0000 0.0000 0.0001
 
-Results saved to perturb_sensitivity_grid_5x5_t=0,20_1e-2.npy
-Section 'Sensitivity tests completed' took 824.2288 seconds
-Total elapsed time: 832.6855 seconds
+Results saved to perturb_sensitivity_grid_5x5_t=0,20_1e-3.npy
+Section 'Sensitivity tests completed' took 843.2436 seconds
+Total elapsed time: 860.2175 seconds
 ----------------------------------------
-Finished Samudra model run at Mon Apr 14 15:32:43 PDT 2025
+Finished Samudra model run at Mon Apr 14 15:56:11 PDT 2025
 
 ____________________________________________________________________
-Job Resource Usage Summary for 22019903.pbspl1.nas.nasa.gov
+Job Resource Usage Summary for 22020004.pbspl1.nas.nasa.gov
 
-    CPU Time Used            : 05:51:03
-    Real Memory Used         : 89304320kb
-    Walltime Used            : 00:14:28
+    CPU Time Used            : 05:54:09
+    Real Memory Used         : 88964288kb
+    Walltime Used            : 00:15:55
     Exit Status              : 0
 
     Number of CPUs Requested : 40
@@ -91,5 +91,5 @@ Job Resource Usage Summary for 22019903.pbspl1.nas.nasa.gov
     Execution Queue          : normal
     Charged To               : g26113
 
-    Job Stopped              : Mon Apr 14 15:32:46 2025
+    Job Stopped              : Mon Apr 14 15:56:14 2025
 ____________________________________________________________________
