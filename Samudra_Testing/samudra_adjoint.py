@@ -202,7 +202,7 @@ def multi_timestep(initial_time, final_time):
         np.save(sensitivity_output_file, sensitivity_grid_np)
 
 
-#multi_timestep(initial_time, final_time)
+multi_timestep(initial_time, final_time)
 
 #final_time = 20
 #for initial_time in range(0, 19):
