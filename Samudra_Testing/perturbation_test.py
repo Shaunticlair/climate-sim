@@ -1,95 +1,23 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# Perturbation test for Samudra model using finite difference approximation
-# Modified to compute sensitivities in a 5x5 grid centered around (180,90)
+# Perturbation test for Samudra model using the new compute_fd_sensitivity function
+# Tests a 5x5 grid centered around (180,90) for sensitivity analysis
 
 import torch
 import numpy as np
 import sys
 import setup
 
-path ="/path/to/samudra/" # Replace with the actual path to the Samudra package
-path = "/nobackup/sruiz5/SAMUDRATEST/Samudra/samudra/"
+path = "/nobackup/sruiz5/SAMUDRATEST/Samudra/samudra/"  # Path to the Samudra package
 sys.path.append(path)
 
-from model import Samudra
+import model_adjoint
 
-def compute_unperturbed_output(model, data_input):
+def run_perturbation_test():
     """
-    Compute the unperturbed output of the model once to be reused.
-    
-    Parameters:
-    -----------
-    model : torch.nn.Module
-        The model to evaluate
-    data_input : torch.Tensor
-        Input tensor to the model (b, c, h, w)
-        
-    Returns:
-    --------
-    baseline_output : torch.Tensor
-        The unperturbed output of the model
+    Main function to run the perturbation test using the SamudraAdjoint's compute_fd_sensitivity function
     """
-    model.eval()
-    with torch.no_grad():
-        baseline_output = model.forward_once(data_input)
-    return baseline_output
-
-
-def simple_sensitivity(model, data_input, source_coords, target_coords, 
-                      baseline_output=None, perturbation_size=1e-5):
-    """
-    Computes sensitivity of target cell to a perturbation in source cell.
-    
-    Parameters:
-    -----------
-    model : torch.nn.Module
-        The model to evaluate sensitivity for
-    data_input : torch.Tensor
-        Input tensor to the model (b, c, h, w)
-    source_coords : tuple
-        (channel, y, x) coordinates of source cell to perturb
-    target_coords : tuple
-        (channel, y, x) coordinates of target cell to measure
-    baseline_output : torch.Tensor, optional
-        Pre-computed unperturbed output to save computation
-    perturbation_size : float
-        Size of perturbation to apply
-        
-    Returns:
-    --------
-    sensitivity : float
-        Sensitivity value between source and target cells
-    """
-    model.eval()
-    
-    # Unpack coordinates
-    s_c, s_y, s_x = source_coords
-    t_c, t_y, t_x = target_coords
-    
-    # Step 1: Get baseline value (either from pre-computed output or compute it)
-    if baseline_output is None:
-        with torch.no_grad():
-            baseline_output = model.forward_once(data_input.clone().detach())
-    
-    baseline_value = baseline_output[0, t_c, t_y, t_x].item()
-    
-    # Step 2: Perturb the input at source coordinates
-    perturbed_input = data_input.clone().detach()
-    perturbed_input[0, s_c, s_y, s_x] += perturbation_size
-    
-    # Step 3: Run model on perturbed input
-    with torch.no_grad():
-        perturbed_output = model.forward_once(perturbed_input)
-        perturbed_value = perturbed_output[0, t_c, t_y, t_x].item()
-    
-    # Step 4: Calculate sensitivity
-    sensitivity = (perturbed_value - baseline_value) / perturbation_size
-    
-    return sensitivity
-
-if __name__ == "__main__":
     # Create a timer for tracking performance
     timer = setup.Timer()
     
@@ -126,8 +54,8 @@ if __name__ == "__main__":
     )
     timer.checkpoint("Data loaded")
     
-    # Load the model
-    model = Samudra(
+    # Load the adjoint model
+    model = model_adjoint.SamudraAdjoint(
         n_out=num_output_channels, 
         ch_width=[num_input_channels]+[200,250,300,400], 
         wet=wet.to(device), 
@@ -136,33 +64,27 @@ if __name__ == "__main__":
     model = setup.load_weights(model, state_out_vars_config, device)
     timer.checkpoint("Model loaded")
     
-    # Get input data for testing
-    input_data = test_data[0][0].to(device)
-    
     # Define the center point 
     center_y, center_x = 90, 180
     channel = 0  # Using the first channel for tests
+    initial_time = 0  # Source time
+    final_time = 2    # Target time
     perturbation_magn = -5
     perturbation_size = 10 ** perturbation_magn
     
     # Target coords - the center point
-    target_coords = (channel, center_y, center_x)
+    target_coords = [(0, channel, center_y, center_x, final_time)]
     
     # Create a 5x5 grid of source points centered on the target point
     grid_size = 5
     half_grid = grid_size // 2
     
-    # Initialize sensitivity array
-    sensitivities = np.zeros((grid_size, grid_size))
+    # Initialize source coordinates list
+    source_coords_list = []
     
-    print(f"Computing sensitivities for 5x5 grid centered at {center_y, center_x}")
+    print(f"Setting up 5x5 grid centered at {center_y, center_x}")
     
-    # Compute the unperturbed output once
-    print("Computing baseline unperturbed output...")
-    baseline_output = compute_unperturbed_output(model, input_data)
-    print("Baseline output computed.")
-    
-    # Compute sensitivity for each point in the 5x5 grid
+    # Build the grid of source coordinates
     for i in range(grid_size):
         for j in range(grid_size):
             # Calculate the coordinates for this grid position
@@ -170,18 +92,39 @@ if __name__ == "__main__":
             source_x = center_x - half_grid + j
             
             # Skip if coordinates are outside the valid range
-            if (source_y < 0 or source_y >= input_data.shape[2] or 
-                source_x < 0 or source_x >= input_data.shape[3]):
-                sensitivities[i, j] = np.nan
+            if (source_y < 0 or source_y >= test_data[0][0].shape[2] or 
+                source_x < 0 or source_x >= test_data[0][0].shape[3]):
                 continue
             
-            # Compute sensitivity using the pre-computed baseline output
-            source_coords = (channel, source_y, source_x)
-            sens = simple_sensitivity(model, input_data, source_coords, target_coords, 
-                                     baseline_output=baseline_output, perturbation_size=perturbation_size)
-            sensitivities[i, j] = sens
-            
-            print(f"Sensitivity from ({source_y}, {source_x}) to {target_coords}: {sens}")
+            # Add valid source coordinates
+            source_coords_list.append((0, channel, source_y, source_x, initial_time))
+    
+    print(f"Created {len(source_coords_list)} source points in the grid")
+    
+    # Compute sensitivities using the new function
+    print(f"Computing sensitivities with perturbation size: {perturbation_size}")
+    sensitivity_matrix = model.compute_fd_sensitivity(
+        test_data,
+        source_coords_list=source_coords_list,
+        target_coords_list=target_coords,
+        perturbation_size=perturbation_size,
+        device=device
+    )
+    
+    # Reshape the results into a grid
+    sensitivities = np.zeros((grid_size, grid_size))
+    sensitivities.fill(np.nan)  # Fill with NaN for positions outside bounds
+    
+    for idx, source_coord in enumerate(source_coords_list):
+        # Get the grid position from the source coordinates
+        _, _, y, x, _ = source_coord
+        grid_i = y - (center_y - half_grid)
+        grid_j = x - (center_x - half_grid)
+        
+        # Store the sensitivity value
+        sensitivities[grid_i, grid_j] = sensitivity_matrix[idx, 0].item()
+        
+        print(f"Sensitivity from ({y}, {x}) to target: {sensitivities[grid_i, grid_j]:.4f}")
     
     # Print the full grid
     print(f"\nSensitivity Grid ({grid_size}x{grid_size}):")
@@ -189,7 +132,10 @@ if __name__ == "__main__":
         print(" ".join([f"{x:.4f}" if not np.isnan(x) else "N/A" for x in row]))
     
     # Save results
-    np.save(f'perturb_sensitivity_grid_{grid_size}x{grid_size}_t={0},{2}_1e{perturbation_magn}.npy', sensitivities)
-    print("\nResults saved to sensitivity_grid_5x5.npy")
+    np.save(f'perturb_sensitivity_grid_{grid_size}x{grid_size}_t={initial_time},{final_time}_1e{perturbation_magn}.npy', sensitivities)
+    print(f"\nResults saved to perturb_sensitivity_grid_{grid_size}x{grid_size}_t={initial_time},{final_time}_1e{perturbation_magn}.npy")
     
     timer.checkpoint("Sensitivity tests completed")
+
+if __name__ == "__main__":
+    run_perturbation_test()
