@@ -1,4 +1,4 @@
-Job 22015891.pbspl1.nas.nasa.gov started on Mon Apr 14 07:58:04 PDT 2025
+Job 22016326.pbspl1.nas.nasa.gov started on Mon Apr 14 09:04:27 PDT 2025
 The job requested the following resources:
     ncpus=40
     place=scatter:excl
@@ -8,11 +8,11 @@ PBS set the following environment variables:
         FORT_BUFFERED = 1
                    TZ = PST8PDT
 
-On r143i5n33:
+On r147i6n31:
 Warning: no access to tty (Inappropriate ioctl for device).
 Thus no job control in this shell.
 Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
-Starting Samudra model run at Mon Apr 14 07:58:09 PDT 2025
+Starting Samudra model run at Mon Apr 14 09:04:32 PDT 2025
 /nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
   return data.astype(dtype, **kwargs)
 Using CPU
@@ -43,14 +43,14 @@ Removing existing file: adjoint_sensitivity_matrix_t=10,10.npy
 ============================================
           Sensitivity Analysis Done         
 ============================================
-Finished Samudra model run at Mon Apr 14 08:18:20 PDT 2025
+Finished Samudra model run at Mon Apr 14 09:36:35 PDT 2025
 
 ____________________________________________________________________
-Job Resource Usage Summary for 22015891.pbspl1.nas.nasa.gov
+Job Resource Usage Summary for 22016326.pbspl1.nas.nasa.gov
 
-    CPU Time Used            : 21:57:27
-    Real Memory Used         : 10681612kb
-    Walltime Used            : 00:20:13
+    CPU Time Used            : 36:30:23
+    Real Memory Used         : 12790420kb
+    Walltime Used            : 00:32:04
     Exit Status              : 0
 
     Number of CPUs Requested : 40
@@ -59,5 +59,5 @@ Job Resource Usage Summary for 22015891.pbspl1.nas.nasa.gov
     Execution Queue          : normal
     Charged To               : g26113
 
-    Job Stopped              : Mon Apr 14 08:18:22 2025
+    Job Stopped              : Mon Apr 14 09:36:38 2025
 ____________________________________________________________________
