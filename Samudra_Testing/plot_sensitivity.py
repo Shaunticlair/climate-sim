@@ -11,7 +11,7 @@ def plot(t0,t1):
 
     ### PARAMETERS ###
     size = "manual"
-    magn= 4
+    magn= 3
     grid_size = 5
 
     fd_path = f'perturb_sensitivity_grid_{grid_size}x{grid_size}_t={t0},{t1}_1e-{magn}.npy' #
@@ -193,4 +193,4 @@ def plot(t0,t1):
 #    print(t0)
 #    plot(t0,t_end)
 
-plot(0,2)
+plot(0,10)
