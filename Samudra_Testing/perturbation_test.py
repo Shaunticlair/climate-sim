@@ -69,7 +69,7 @@ def run_perturbation_test():
     channel = 0  # Using the first channel for tests
     initial_time = 0  # Source time
     final_time = 2    # Target time
-    perturbation_magn = -5
+    perturbation_magn = -4
     perturbation_size = 10 ** perturbation_magn
     
     # Target coords - the center point

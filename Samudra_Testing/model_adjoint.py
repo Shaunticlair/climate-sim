@@ -289,7 +289,7 @@ class SamudraAdjoint(model.Samudra):
     def compute_fd_sensitivity(self, inputs, 
                             source_coords_list, 
                             target_coords_list, 
-                            perturbation_size=1e-5,
+                            perturbation_size=1e-4,
                             device="cuda"):
         """
         Computes finite difference sensitivity between source and target coordinates.
