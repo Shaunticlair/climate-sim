@@ -183,11 +183,11 @@ def multi_timestep(initial_time, final_time):
     lon_size = len(lons)
     
     # Reshape to (lat_size, lon_size, len(times))
-    sensitivity_grid = sensitivity_matrix.reshape(lat_size, lon_size, len(times))
+    sensitivity_grid = sensitivity_matrix.reshape(len(times), lat_size, lon_size)
 
     # Write each to a numpy file
     for t in range(len(times)):
-        sensitivity_grid_t = sensitivity_grid[:, :, t]
+        sensitivity_grid_t = sensitivity_grid[t, :, :]
 
         # Convert sensitivity grid to numpy for masking
         sensitivity_grid_np = sensitivity_grid_t.cpu().numpy()
@@ -202,7 +202,7 @@ def multi_timestep(initial_time, final_time):
         np.save(sensitivity_output_file, sensitivity_grid_np)
 
 
-multi_timestep(initial_time, final_time)
+#multi_timestep(initial_time, final_time)
 
 #final_time = 20
 #for initial_time in range(0, 19):

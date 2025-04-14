@@ -5,7 +5,7 @@ from scipy import stats
 
 ### PARAMETERS ###
 
-t0,t1 = 0, 10
+t0,t1 = 5, 10
 size = "global"
 magn= 5
 grid_size = 20
@@ -34,7 +34,7 @@ if size == "manual":
 ### PLOT SENSITIVITY ###
 
 # Path to the sensitivity matrix file
-path = f'adjoint_sensitivity_matrix_t={t0},{t1}.npy'
+path = f'fixed_adjoint_sensitivity_matrix_t={t0},{t1}.npy'
 
 # Load the sensitivity matrix
 sensitivity_matrix = np.load(path)
