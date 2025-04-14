@@ -5,7 +5,7 @@ from scipy import stats
 
 ### PARAMETERS ###
 
-t_start,t_end = 0, 10
+t_start,t_end = 0, 20
 
 def plot(t0,t1):
 
@@ -186,6 +186,8 @@ def plot(t0,t1):
         # Save the correlation plot
         plt.savefig('sensitivity_correlation.png', dpi=300, bbox_inches='tight')
 
+        print("Correlation plot saved.")
+
     plt.close('all')
     print("Plots saved with symmetric color scale around zero.")
 
@@ -193,4 +195,4 @@ def plot(t0,t1):
 #    print(t0)
 #    plot(t0,t_end)
 
-plot(0,10)
+plot(t_start,t_end)
