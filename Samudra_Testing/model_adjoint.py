@@ -138,7 +138,8 @@ class SamudraAdjoint(model.Samudra):
         # Return the augmented tensor and the list of input elements
         return augmented_tensor, input_elements
         
-    def compute_state_sensitivity_broken(self, inputs,
+    
+    def compute_state_sensitivity_BROKEN(self, inputs,
                   in_indices,
                   out_indices,
                   device="cuda",
@@ -196,7 +197,7 @@ class SamudraAdjoint(model.Samudra):
         
         # Initialize the model input for the minimum time step
         initial_iter = min_time // 2
-        model_input = inputs[initial_iter][0].clone().detach().to(device)
+        model_input = inputs[initial_iter][0].clone().to(device)
         
         # Track the gradients for input elements at the initial time step
         if min_time in in_indices_by_time:
@@ -326,7 +327,7 @@ class SamudraAdjoint(model.Samudra):
         initial_iter = min_time // 2
         model_input = inputs[initial_iter][0].clone().to(device)
         
-        # Track the gradients for input elements at the initial time step
+        # Track the gradients for input elements at the initial time step (even)
         if min_time in in_indices_by_time:
             spatial_indices = [idx for _, idx in in_indices_by_time[min_time]]
             model_input, initial_elements = self.grad_track_multiple_elements(model_input, spatial_indices, device=device)
@@ -334,6 +335,14 @@ class SamudraAdjoint(model.Samudra):
             element_map = {in_indices_by_time[min_time][i][0]: elem for i, elem in enumerate(initial_elements)}
         else:
             element_map = {}
+
+        # Check for odd timestep (second half of state vector)
+        if min_time + 1 in in_indices_by_time and min_time + 1 <= max_time:
+            spatial_indices = [idx for _, idx in in_indices_by_time[min_time + 1]]
+            model_input, odd_elements = self.grad_track_multiple_elements(model_input, spatial_indices, device=device)
+            # Add to the element map
+            for i, elem in enumerate(odd_elements):
+                element_map[in_indices_by_time[min_time + 1][i][0]] = elem
         
         # Run the autoregressive rollout
         current_input = model_input
@@ -357,16 +366,28 @@ class SamudraAdjoint(model.Samudra):
                 boundary = inputs[it+1][0][:, self.output_channels:].to(device)
                 current_input = torch.cat([output, boundary], dim=1)
                 
-                # If next time step has input indices, track their gradients
-                next_time = (it + 1) * 2
-                if next_time in in_indices_by_time:
-                    spatial_indices = [idx for _, idx in in_indices_by_time[next_time]]
-                    current_input, new_elements = self.grad_track_multiple_elements(current_input, spatial_indices, device=device)
-                    # Add new elements to the map
-                    for i, elem in enumerate(new_elements):
-                        element_map[in_indices_by_time[next_time][i][0]] = elem
-                
-                outputs[next_time] = current_input
+            # Store the even timestep
+            next_time = (it + 1) * 2
+            outputs[next_time] = current_input
+            
+            # Check both the even and odd timesteps for the next iteration
+            # Even timestep (first part of next state vector)
+            if next_time in in_indices_by_time:
+                spatial_indices = [idx for _, idx in in_indices_by_time[next_time]]
+                current_input, new_elements = self.grad_track_multiple_elements(current_input, spatial_indices, device=device)
+                # Add new elements to the map
+                for i, elem in enumerate(new_elements):
+                    element_map[in_indices_by_time[next_time][i][0]] = elem
+            
+            # Odd timestep (second part of next state vector)
+            if next_time + 1 in in_indices_by_time and next_time + 1 <= max_time:
+                spatial_indices = [idx for _, idx in in_indices_by_time[next_time + 1]]
+                current_input, odd_elements = self.grad_track_multiple_elements(current_input, spatial_indices, device=device)
+                # Add to the element map
+                for i, elem in enumerate(odd_elements):
+                    element_map[in_indices_by_time[next_time + 1][i][0]] = elem
+
+
         
         # Create a sensitivity matrix to store results
         sensitivity_matrix = torch.zeros(len(in_indices), len(out_indices), device=device)
