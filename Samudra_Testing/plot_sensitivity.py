@@ -11,8 +11,10 @@ def plot(t0,t1):
 
     ### PARAMETERS ###
     size = "manual"
-    magn= 5
-    grid_size = 20
+    magn= 4
+    grid_size = 5
+
+    fd_path = f'perturb_sensitivity_grid_{grid_size}x{grid_size}_t={t0},{t1}_1e-{magn}.npy' #
 
     if size == "tiny":
         # Define the region of interest in the matrix for cropping
@@ -45,7 +47,7 @@ def plot(t0,t1):
     print(f"Original sensitivity matrix shape: {sensitivity_matrix.shape}")
 
     # Load the finite difference sensitivity grid
-    fd_path = f'perturb_sensitivity_grid_{grid_size}x{grid_size}_t={t0},{t1}.npy' #_1e-{magn}
+    
     if Path(fd_path).exists():
         fd_sensitivity = np.load(fd_path)
         print(f"Loaded finite difference sensitivity with shape: {fd_sensitivity.shape}")
@@ -187,6 +189,8 @@ def plot(t0,t1):
     plt.close('all')
     print("Plots saved with symmetric color scale around zero.")
 
-for t0 in range(t_start, t_end):
-    print(t0)
-    plot(t0,t_end)
+#for t0 in range(t_start, t_end):
+#    print(t0)
+#    plot(t0,t_end)
+
+plot(0,2)
