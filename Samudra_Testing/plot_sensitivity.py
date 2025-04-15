@@ -5,14 +5,15 @@ from scipy import stats
 
 ### PARAMETERS ###
 
-t_start,t_end = 0, 20
+t_start,t_end = 0, 2
+magnitude = 3
+perturb_grid_size = 5
 
-def plot(t0,t1):
+def plot(t0,t1, magn, grid_size, draw_corr=False):
 
     ### PARAMETERS ###
     size = "manual"
-    magn= 3
-    grid_size = 5
+    
 
     fd_path = f'perturb_sensitivity_grid_{grid_size}x{grid_size}_t={t0},{t1}_1e-{magn}.npy' #
 
@@ -30,8 +31,8 @@ def plot(t0,t1):
         ymin, ymax = 0, 360
 
     if size == "manual":
-        deltax = 40
-        deltay = 40
+        deltax = 2
+        deltay = 2
         # Define the region of interest in the matrix for cropping
         xmin, xmax = 90-deltax, 90+deltax+1  # Matrix row indices
         ymin, ymax = 180-deltay, 180+deltay+1  # Matrix column indices
@@ -81,6 +82,8 @@ def plot(t0,t1):
     cropped_sensitivity = sensitivity_matrix[xmin:xmax, ymin:ymax]
     print(f"Cropped sensitivity matrix: {cropped_sensitivity.shape}")
 
+    if draw_corr: #Ignore the sensitivity matrix, and instead plot the finite difference sensitivity matrix
+        cropped_sensitivity = fd_sensitivity
     # Apply the wetmask if available
     if has_wetmask:
         # Crop the wetmask to match the sensitivity matrix
@@ -127,6 +130,9 @@ def plot(t0,t1):
 
     # Save the figure
     name = f'adjoint_map_{x}-{y}_t={t0},{t1}_{size}.png'
+
+    if draw_corr:
+        name = f'fd_sensitivity_map_{x}-{y}_t={t0},{t1}_{size}.png'
     print(name)
     plt.savefig(name, dpi=300, bbox_inches='tight')
 
@@ -183,10 +189,11 @@ def plot(t0,t1):
         plt.grid(True)
         plt.tight_layout()
         
+        name = f'sensitivity_correlation_{grid_size}x{grid_size}_t={t0},{t1}_1e-{magn}.png'
         # Save the correlation plot
-        plt.savefig('sensitivity_correlation.png', dpi=300, bbox_inches='tight')
+        plt.savefig(name, dpi=300, bbox_inches='tight')
 
-        print("Correlation plot saved.")
+        print(f"Correlation plot saved as {name}.")
 
     plt.close('all')
     print("Plots saved with symmetric color scale around zero.")
@@ -195,4 +202,4 @@ def plot(t0,t1):
 #    print(t0)
 #    plot(t0,t_end)
 
-plot(t_start,t_end)
+plot(t_start, t_end, magnitude, perturb_grid_size, draw_corr=True)

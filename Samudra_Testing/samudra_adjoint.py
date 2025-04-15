@@ -23,10 +23,13 @@ import model_adjoint
 
 # Time steps for sensitivity analysis
 initial_time = 0        # Starting time step
-final_time =   20          # Ending time step 
+final_time =   2          # Ending time step 
 # Choose channel index to study
-initial_channel_index = 0 
-final_channel_index = 0
+initial_channel_indices = [154,155] # tauuo, tauvo
+final_channel_indices = [76]  # zos
+
+num_in_channels = len(initial_channel_indices)
+num_out_channels = len(final_channel_indices)
 # Define regions of interest in the ocean: latitude and longitude indices
 lats = np.arange(0, 180)
 lons = np.arange(0, 360)
@@ -78,14 +81,14 @@ print(f"Our data has the shape {test_data[0][0].shape}")
     
 # Create indices for the full grid
 initial_indices = []
-c = initial_channel_index
-for h in lats:
-    for w in lons:
-        initial_indices.append([0, c, h, w])
+for c in initial_channel_indices:
+    for h in lats:
+        for w in lons:
+            initial_indices.append([0, c, h, w])
 
 # For the output, we'll just look at a single point
 
-final_indices = [[0, final_channel_index, final_lat, final_lon]]  # Final indices for sensitivity computation
+final_indices = [[0, c, final_lat, final_lon] for c in final_channel_indices]  # Final indices for sensitivity computation
 print(f"Final point for sensitivity: {final_indices}")  
 
 print(f"Computing sensitivity matrix for {len(initial_indices)} initial points and {len(final_indices)} final points")
@@ -115,17 +118,6 @@ def one_timestep(initial_time, final_time):
     in_indices = convert_indices_to_time_indices(initial_indices, initial_time)
     out_indices = convert_indices_to_time_indices(final_indices, final_time)
 
-
-    #sensitivity_matrix = adjoint_model.compute_state_sensitivity(
-    #    test_data,
-    #    initial_indices=initial_indices,
-    #    final_indices=final_indices,
-    #    initial_time=initial_time,
-    #    final_time=final_time,
-    #    device=device,
-    #    use_checkpointing=True  # Set to True for larger computation
-    #)
-
     sensitivity_matrix = adjoint_model.compute_state_sensitivity(
         test_data,
         in_indices=in_indices,
@@ -140,20 +132,23 @@ def one_timestep(initial_time, final_time):
     # Reshape the sensitivity matrix back to latitude-longitude grid for plotting
     lat_size = len(lats)
     lon_size = len(lons)
-    sensitivity_grid = sensitivity_matrix.reshape(lat_size, lon_size)
+    sensitivity_grid = sensitivity_matrix.reshape(num_in_channels, lat_size, lon_size, num_out_channels)
 
 
-    # Convert sensitivity grid to numpy for masking
-    sensitivity_grid_np = sensitivity_grid.cpu().numpy()
+    for in_ch_idx in range(num_in_channels):
+        for out_ch_idx in range(num_out_channels):
+            # Extract sensitivity for this channel pair
+            sensitivity_slice = sensitivity_grid[in_ch_idx, :, :, out_ch_idx]
+            
+            # Convert to numpy
+            sensitivity_np = sensitivity_slice.cpu().numpy()
+            
+            # Create filename that includes channel information
+            filename = f'adjoint_sensitivity_matrix_in_ch{initial_channel_indices[in_ch_idx]}_out_ch{final_channel_indices[out_ch_idx]}_t={initial_time},{final_time}.npy'
+            
+            # Save to file
+            np.save(filename, sensitivity_np)
 
-    # Write to file 
-    sensitivity_output_file = Path(f'adjoint_sensitivity_matrix_t={initial_time},{final_time}.npy')
-    if sensitivity_output_file.exists():
-        print(f"Removing existing file: {sensitivity_output_file}")
-        sensitivity_output_file.unlink()
-
-    # Save the sensitivity matrix to a file for debugging
-    np.save(sensitivity_output_file, sensitivity_grid_np)
 one_timestep(initial_time, final_time)
 
 

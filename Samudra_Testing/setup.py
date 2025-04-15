@@ -86,6 +86,7 @@ INPUT_VARS_LEV = {
         for j in DEPTH_LEVELS
     ] + ["zos"]
 }
+
 BOUNDARY_VARS = {
     "3D_all_hfds_anom": ["tauuo", "tauvo", "hfds", "hfds_anomalies"]
 }
