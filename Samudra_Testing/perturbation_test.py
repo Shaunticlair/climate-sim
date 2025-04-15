@@ -28,7 +28,7 @@ def run_perturbation_test():
     # Set up model configuration
     hist = 1
     N_test = 10
-    state_in_vars_config = "3D_thermo_all"  # Could also be "3D_thermo_dynamic_all"
+    state_in_vars_config = "3D_thermo_dynamic_all"  # Could also be "3D_thermo_dynamic_all"
     state_out_vars_config = state_in_vars_config
     boundary_vars_config = "3D_all_hfds_anom"
     
@@ -68,8 +68,8 @@ def run_perturbation_test():
     center_y, center_x = 90, 180
     channel = 0  # Using the first channel for tests
     initial_time = 0  # Source time
-    final_time = 20    # Target time
-    perturbation_magn = -1
+    final_time = 2    # Target time
+    perturbation_magn = -3
     perturbation_size = 10 ** perturbation_magn
     
     # Target coords - the center point
