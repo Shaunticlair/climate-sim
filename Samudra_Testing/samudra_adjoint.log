@@ -1,4 +1,4 @@
-Job 22019901.pbspl1.nas.nasa.gov started on Mon Apr 14 15:08:40 PDT 2025
+Job 22023620.pbspl1.nas.nasa.gov started on Tue Apr 15 06:42:41 PDT 2025
 The job requested the following resources:
     ncpus=40
     place=scatter:excl
@@ -8,11 +8,11 @@ PBS set the following environment variables:
         FORT_BUFFERED = 1
                    TZ = PST8PDT
 
-On r147i7n23:
+On r143i2n16:
 Warning: no access to tty (Inappropriate ioctl for device).
 Thus no job control in this shell.
 Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
-Starting Samudra model run at Mon Apr 14 15:08:45 PDT 2025
+Starting Samudra model run at Tue Apr 15 06:42:45 PDT 2025
 /nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
   return data.astype(dtype, **kwargs)
 Using CPU
@@ -20,32 +20,22 @@ Using 80 CPU cores for computation
 Number of input channels: 158
 Number of output channels: 154
 Out:  [[2 3]] Our data has the shape torch.Size([1, 158, 180, 360])
-Final point for sensitivity: [[0, 0, 90, 180]]
-Computing sensitivity matrix for 64800 initial points and 1 final points
+Final point for sensitivity: [[0, 76, 90, 180]]
+Computing sensitivity matrix for 129600 initial points and 1 final points
 Out:  [[2 3]] Processing time step: 0
 Out:  [[4 5]] Processing time step: 1
-Out:  [[6 7]] Processing time step: 2
-Out:  [[8 9]] Processing time step: 3
-Out:  [[10 11]] Processing time step: 4
-Out:  [[12 13]] Processing time step: 5
-Out:  [[14 15]] Processing time step: 6
-Out:  [[16 17]] Processing time step: 7
-Out:  [[18 19]] Processing time step: 8
-Out:  [[20 21]] Processing time step: 9
-Out:  [[22 23]] Processing time step: 10
-Computed sensitivity matrix shape: torch.Size([64800, 1])
-Removing existing file: adjoint_sensitivity_matrix_t=0,20.npy
+Computed sensitivity matrix shape: torch.Size([129600, 1])
 ============================================
           Sensitivity Analysis Done         
 ============================================
-Finished Samudra model run at Mon Apr 14 15:16:53 PDT 2025
+Finished Samudra model run at Tue Apr 15 06:52:22 PDT 2025
 
 ____________________________________________________________________
-Job Resource Usage Summary for 22019901.pbspl1.nas.nasa.gov
+Job Resource Usage Summary for 22023620.pbspl1.nas.nasa.gov
 
-    CPU Time Used            : 04:46:55
-    Real Memory Used         : 12635328kb
-    Walltime Used            : 00:08:09
+    CPU Time Used            : 07:31:04
+    Real Memory Used         : 8294724kb
+    Walltime Used            : 00:09:39
     Exit Status              : 0
 
     Number of CPUs Requested : 40
@@ -54,5 +44,5 @@ Job Resource Usage Summary for 22019901.pbspl1.nas.nasa.gov
     Execution Queue          : normal
     Charged To               : g26113
 
-    Job Stopped              : Mon Apr 14 15:16:57 2025
+    Job Stopped              : Tue Apr 15 06:52:25 2025
 ____________________________________________________________________

@@ -1,4 +1,4 @@
-Job 22020844.pbspl1.nas.nasa.gov started on Mon Apr 14 17:11:13 PDT 2025
+Job 22022581.pbspl1.nas.nasa.gov started on Tue Apr 15 05:21:25 PDT 2025
 The job requested the following resources:
     ncpus=40
     place=scatter:excl
@@ -8,28 +8,28 @@ PBS set the following environment variables:
         FORT_BUFFERED = 1
                    TZ = PST8PDT
 
-On r145i0n24:
+On r139i5n23:
 Warning: no access to tty (Inappropriate ioctl for device).
 Thus no job control in this shell.
 Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
-Starting Samudra model run at Mon Apr 14 17:11:18 PDT 2025
+Starting Samudra model run at Tue Apr 15 05:22:50 PDT 2025
 /nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
   return data.astype(dtype, **kwargs)
 Using CPU
 Using 80 CPU cores for computation
-Section 'Environment configured' took 0.0528 seconds
-Total elapsed time: 0.0528 seconds
+Section 'Environment configured' took 0.0538 seconds
+Total elapsed time: 0.0538 seconds
 ----------------------------------------
 Number of input channels: 158
 Number of output channels: 154
 Section 'Model configuration set up' took 0.0000 seconds
-Total elapsed time: 0.0528 seconds
+Total elapsed time: 0.0539 seconds
 ----------------------------------------
-Section 'Data loaded' took 15.4651 seconds
-Total elapsed time: 15.5179 seconds
+Section 'Data loaded' took 20.5282 seconds
+Total elapsed time: 20.5821 seconds
 ----------------------------------------
-Section 'Model loaded' took 4.1735 seconds
-Total elapsed time: 19.6915 seconds
+Section 'Model loaded' took 3.9215 seconds
+Total elapsed time: 24.5036 seconds
 ----------------------------------------
 Setting up 5x5 grid centered at (90, 180)
 Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Out:  [[2 3]] Created 25 source points in the grid
@@ -72,17 +72,17 @@ Sensitivity Grid (5x5):
 -0.0005 0.0000 -0.0010 0.0021 -0.0010
 
 Results saved to perturb_sensitivity_grid_5x5_t=0,2_1e-3.npy
-Section 'Sensitivity tests completed' took 420.2518 seconds
-Total elapsed time: 439.9433 seconds
+Section 'Sensitivity tests completed' took 430.7589 seconds
+Total elapsed time: 455.2624 seconds
 ----------------------------------------
-Finished Samudra model run at Mon Apr 14 17:20:35 PDT 2025
+Finished Samudra model run at Tue Apr 15 05:33:11 PDT 2025
 
 ____________________________________________________________________
-Job Resource Usage Summary for 22020844.pbspl1.nas.nasa.gov
+Job Resource Usage Summary for 22022581.pbspl1.nas.nasa.gov
 
-    CPU Time Used            : 01:22:04
-    Real Memory Used         : 22938232kb
-    Walltime Used            : 00:09:18
+    CPU Time Used            : 01:18:13
+    Real Memory Used         : 21295356kb
+    Walltime Used            : 00:11:01
     Exit Status              : 0
 
     Number of CPUs Requested : 40
@@ -91,5 +91,5 @@ Job Resource Usage Summary for 22020844.pbspl1.nas.nasa.gov
     Execution Queue          : normal
     Charged To               : g26113
 
-    Job Stopped              : Mon Apr 14 17:20:38 2025
+    Job Stopped              : Tue Apr 15 05:33:42 2025
 ____________________________________________________________________
