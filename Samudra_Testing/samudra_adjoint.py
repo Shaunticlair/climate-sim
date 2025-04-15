@@ -19,14 +19,16 @@ from pathlib import Path
 import setup
 import model_adjoint
 
+timer = setup.Timer()
+
 ### PARAMETERS ###
 
 # Time steps for sensitivity analysis
 initial_time = 0        # Starting time step
 final_time =   2          # Ending time step 
 # Choose channel index to study
-initial_channel_indices = [154,155] # tauuo, tauvo
-final_channel_indices = [76]  # zos
+initial_channel_indices = [0]#[154,155] # tauuo, tauvo
+final_channel_indices = [0]#[76]  # zos
 
 num_in_channels = len(initial_channel_indices)
 num_out_channels = len(final_channel_indices)
@@ -59,11 +61,14 @@ num_input_channels, num_output_channels = list_num_channels
 # Get indices for loading data
 s_train, e_train, s_test, e_test = setup.compute_indices(hist=hist, N_samples=2850, N_val=50, N_test=N_test)
 
+timer.checkpoint("Environment configured")
+
 # Load the data
 test_data, wet, data_mean, data_std = setup.load_data(s_test, e_test, N_test,
                                                         input_list_str, boundary_list_str, output_list_str,
                                                         hist=hist, device=device)
 
+timer.checkpoint("Data loaded")
 
 # Initialize SamudraAdjoint with the same parameters as the original model
 adjoint_model = model_adjoint.SamudraAdjoint(
@@ -75,6 +80,8 @@ adjoint_model = model_adjoint.SamudraAdjoint(
 
 adjoint_model = setup.load_weights(adjoint_model, state_out_vars_config, 
                  device=device)
+
+timer.checkpoint("Model loaded")
 
 
 print(f"Our data has the shape {test_data[0][0].shape}")
@@ -92,6 +99,7 @@ final_indices = [[0, c, final_lat, final_lon] for c in final_channel_indices]  #
 print(f"Final point for sensitivity: {final_indices}")  
 
 print(f"Computing sensitivity matrix for {len(initial_indices)} initial points and {len(final_indices)} final points")
+
 
 
 ### COMPUTE SENSITIVITY AND SAVE RESULTS###
@@ -126,6 +134,8 @@ def one_timestep(initial_time, final_time):
         use_checkpointing=True  # Set to True for larger computation
     )
 
+    timer.checkpoint("Finished computing sensitivity matrix")
+
     # Print the results
     print(f"Computed sensitivity matrix shape: {sensitivity_matrix.shape}")
 
@@ -149,11 +159,18 @@ def one_timestep(initial_time, final_time):
             # Save to file
             np.save(filename, sensitivity_np)
 
+
+timer.checkpoint("Finished setting up")
+
 one_timestep(initial_time, final_time)
+
+timer.checkpoint("Finished saving sensitivity matrix")
 
 
 
 def multi_timestep(initial_time, final_time):
+    raise NotImplementedError("We need to implement multi-channel sensitivity analysis \
+                              before this function is usable again!")
     final_time = final_time 
     times = [i for i in range(initial_time, final_time+1)]
 

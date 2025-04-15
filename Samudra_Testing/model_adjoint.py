@@ -277,6 +277,7 @@ class SamudraAdjoint(model.Samudra):
                     if elem.grad is not None:
                         elem.grad.zero_()
                 
+                print("Backwards run initiated")
                 # Compute gradients
                 output_element.backward(retain_graph=True)
                 

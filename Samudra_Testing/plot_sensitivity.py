@@ -9,10 +9,10 @@ t_start,t_end = 0, 2
 magnitude = 3
 perturb_grid_size = 5
 
-def plot(t0,t1, magn, grid_size, draw_corr=False):
+def plot(t0,t1, magn, grid_size, draw_corr=False, manual_path = None):
 
     ### PARAMETERS ###
-    size = "manual"
+    size = "global"
     
 
     fd_path = f'perturb_sensitivity_grid_{grid_size}x{grid_size}_t={t0},{t1}_1e-{magn}.npy' #
@@ -42,6 +42,10 @@ def plot(t0,t1, magn, grid_size, draw_corr=False):
 
     # Path to the sensitivity matrix file
     path = f'adjoint_sensitivity_matrix_t={t0},{t1}.npy'
+    
+    if manual_path:
+        path = manual_path
+        print(f"Using manual path: {path}")
 
     # Load the sensitivity matrix
     sensitivity_matrix = np.load(path)
@@ -49,7 +53,7 @@ def plot(t0,t1, magn, grid_size, draw_corr=False):
 
     # Load the finite difference sensitivity grid
     
-    if Path(fd_path).exists():
+    if Path(fd_path).exists() and not manual_path:
         fd_sensitivity = np.load(fd_path)
         print(f"Loaded finite difference sensitivity with shape: {fd_sensitivity.shape}")
         has_fd_sensitivity = True
@@ -133,6 +137,8 @@ def plot(t0,t1, magn, grid_size, draw_corr=False):
 
     if draw_corr:
         name = f'fd_sensitivity_map_{x}-{y}_t={t0},{t1}_{size}.png'
+    if manual_path:
+        name = manual_path.replace('.npy', '.png')
     print(name)
     plt.savefig(name, dpi=300, bbox_inches='tight')
 
@@ -201,5 +207,5 @@ def plot(t0,t1, magn, grid_size, draw_corr=False):
 #for t0 in range(t_start, t_end):
 #    print(t0)
 #    plot(t0,t_end)
-
-plot(t_start, t_end, magnitude, perturb_grid_size, draw_corr=True)
+manual_path = 'adjoint_sensitivity_matrix_in_ch154_out_ch76_t=0,2.npy'
+plot(t_start, t_end, magnitude, perturb_grid_size, draw_corr=False, manual_path=manual_path)
