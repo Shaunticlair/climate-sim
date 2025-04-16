@@ -14,8 +14,8 @@ def plot(t0,t1, magn, grid_size, draw_corr=False, manual_path = None):
     ### PARAMETERS ###
     size = "global"
     
-
-    fd_path = f'perturb_sensitivity_grid_{grid_size}x{grid_size}_t={t0},{t1}_1e-{magn}.npy' #
+    
+    fd_path = f'sensitivity_arrays/perturb_sensitivity_grid_{grid_size}x{grid_size}_t={t0},{t1}_1e-{magn}.npy' #
 
     if size == "tiny":
         # Define the region of interest in the matrix for cropping
@@ -41,7 +41,7 @@ def plot(t0,t1, magn, grid_size, draw_corr=False, manual_path = None):
     ### PLOT SENSITIVITY ###
 
     # Path to the sensitivity matrix file
-    path = f'adjoint_sensitivity_matrix_t={t0},{t1}.npy'
+    path = f'sensitivity_arrays/adjoint_sensitivity_matrix_t={t0},{t1}.npy'
     
     if manual_path:
         path = manual_path
@@ -133,10 +133,10 @@ def plot(t0,t1, magn, grid_size, draw_corr=False, manual_path = None):
     plt.tight_layout()
 
     # Save the figure
-    name = f'adjoint_map_{x}-{y}_t={t0},{t1}_{size}.png'
+    name = f'Plots/adjoint_map_{x}-{y}_t={t0},{t1}_{size}.png'
 
     if draw_corr:
-        name = f'fd_sensitivity_map_{x}-{y}_t={t0},{t1}_{size}.png'
+        name = f'Plots/fd_sensitivity_map_{x}-{y}_t={t0},{t1}_{size}.png'
     if manual_path:
         name = manual_path.replace('.npy', '.png')
     print(name)
@@ -195,7 +195,7 @@ def plot(t0,t1, magn, grid_size, draw_corr=False, manual_path = None):
         plt.grid(True)
         plt.tight_layout()
         
-        name = f'sensitivity_correlation_{grid_size}x{grid_size}_t={t0},{t1}_1e-{magn}.png'
+        name = f'Plots/sensitivity_correlation_{grid_size}x{grid_size}_t={t0},{t1}_1e-{magn}.png'
         # Save the correlation plot
         plt.savefig(name, dpi=300, bbox_inches='tight')
 
@@ -207,5 +207,5 @@ def plot(t0,t1, magn, grid_size, draw_corr=False, manual_path = None):
 #for t0 in range(t_start, t_end):
 #    print(t0)
 #    plot(t0,t_end)
-manual_path = 'adjoint_sensitivity_matrix_in_ch154_out_ch76_t=0,2.npy'
+manual_path = 'sensitivity_arrays/adjoint_sensitivity_matrix_in_ch154_out_ch76_t=0,2.npy'
 plot(t_start, t_end, magnitude, perturb_grid_size, draw_corr=False, manual_path=manual_path)
