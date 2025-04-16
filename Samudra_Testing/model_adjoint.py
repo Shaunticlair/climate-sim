@@ -9,6 +9,9 @@ path ="/path/to/samudra/" # Replace with the actual path to the Samudra package
 path = "/nobackup/sruiz5/SAMUDRATEST/Samudra/samudra/"
 sys.path.append(path)
 import model
+import setup
+
+null_timer = setup.NullTimer() # Timer class that does nothing, used as default
 
 
 class SamudraAdjoint(model.Samudra):
@@ -142,7 +145,8 @@ class SamudraAdjoint(model.Samudra):
                   in_indices,
                   out_indices,
                   device="cuda",
-                  use_checkpointing=True):
+                  use_checkpointing=True,
+                  timer =null_timer):
         """
         Computes the sensitivity of output elements with respect to 
         input elements in a single backward pass, with time specified in the indices.
@@ -198,6 +202,7 @@ class SamudraAdjoint(model.Samudra):
         initial_iter = min_time // 2
         model_input = inputs[initial_iter][0].clone().to(device)
         
+        timer.checkpoint("Finished setting up model input")
         # Track the gradients for input elements at the initial time step (even)
         if min_time in in_indices_by_time:
             spatial_indices = [idx for _, idx in in_indices_by_time[min_time]]
@@ -214,6 +219,8 @@ class SamudraAdjoint(model.Samudra):
             # Add to the element map
             for i, elem in enumerate(odd_elements):
                 element_map[in_indices_by_time[min_time + 1][i][0]] = elem
+
+        timer.checkpoint("Finished setting up element tracking (maybe expensive?)")
         
         # Run the autoregressive rollout
         current_input = model_input
@@ -228,6 +235,7 @@ class SamudraAdjoint(model.Samudra):
             else:
                 output = self.forward_once(current_input)
             
+            timer.checkpoint(f"Ran model forward for model iteration {it}")
             # Store output for this time step
             time_step = it * 2 + 1
             outputs[time_step] = output
@@ -258,6 +266,8 @@ class SamudraAdjoint(model.Samudra):
                 for i, elem in enumerate(odd_elements):
                     element_map[in_indices_by_time[next_time + 1][i][0]] = elem
 
+            timer.checkpoint(f"Added gradient tracking for model iteration {it+1} (maybe expensive?)")
+
 
         
         # Create a sensitivity matrix to store results
@@ -285,6 +295,8 @@ class SamudraAdjoint(model.Samudra):
                 for in_idx, elem in element_map.items():
                     sensitivity_matrix[in_idx, orig_idx] = elem.grad.item() if elem.grad is not None else 0.0
         
+        timer.checkpoint("Finished computing sensitivity matrix (includes backward pass)")
+
         return sensitivity_matrix
 
     def compute_fd_sensitivity(self, inputs, 

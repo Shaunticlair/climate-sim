@@ -181,7 +181,8 @@ def multi_timestep(initial_time, final_time):
         in_indices=in_indices,
         out_indices=out_indices,
         device=device,
-        use_checkpointing=True  # Set to True for larger computation
+        use_checkpointing=True,  # Set to True for larger computation
+        timer = timer  # Pass the timer to the function
     )
 
     # Print the results

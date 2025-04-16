@@ -32,6 +32,11 @@ class Timer:
         print("-" * 40)
         self.last_checkpoint = current_time
 
+class NullTimer(Timer):
+    """Used for time-tracking."""
+    def checkpoint(self, section_name):
+        pass
+
 
 def torch_config_cuda_cpu_seed():
     """
