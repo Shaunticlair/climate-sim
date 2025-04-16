@@ -25,7 +25,7 @@ timer = setup.Timer()
 
 # Time steps for sensitivity analysis
 initial_time = 0        # Starting time step
-final_time =   2          # Ending time step 
+final_time =   10          # Ending time step 
 # Choose channel index to study
 initial_channel_indices = [0]#[154,155] # tauuo, tauvo
 final_channel_indices = [0]#[76]  # zos
@@ -162,15 +162,12 @@ def one_timestep(initial_time, final_time):
 
 timer.checkpoint("Finished setting up")
 
-one_timestep(initial_time, final_time)
+#one_timestep(initial_time, final_time)
 
-timer.checkpoint("Finished saving sensitivity matrix")
 
 
 
 def multi_timestep(initial_time, final_time):
-    raise NotImplementedError("We need to implement multi-channel sensitivity analysis \
-                              before this function is usable again!")
     final_time = final_time 
     times = [i for i in range(initial_time, final_time+1)]
 
@@ -194,27 +191,29 @@ def multi_timestep(initial_time, final_time):
     lat_size = len(lats)
     lon_size = len(lons)
     
-    # Reshape to (lat_size, lon_size, len(times))
-    sensitivity_grid = sensitivity_matrix.reshape(len(times), lat_size, lon_size)
+    # Reshape 
+    sensitivity_grid = sensitivity_matrix.reshape(len(times), num_in_channels, lat_size, lon_size, num_out_channels)
 
-    # Write each to a numpy file
     for t in range(len(times)):
-        sensitivity_grid_t = sensitivity_grid[t, :, :]
+        for in_ch_idx in range(num_in_channels):
+            for out_ch_idx in range(num_out_channels):
+                # Extract sensitivity for this channel pair
+                sensitivity_slice = sensitivity_grid[t, in_ch_idx, :, :, out_ch_idx]
+                
+                # Convert to numpy
+                sensitivity_np = sensitivity_slice.cpu().numpy()
+                
+                # Create filename that includes channel information
+                filename = f'adjoint_sensitivity_matrix_in_ch{initial_channel_indices[in_ch_idx]}_out_ch{final_channel_indices[out_ch_idx]}_t={t},{final_time}.npy'
+                
+                # Save to file
+                np.save(filename, sensitivity_np)
 
-        # Convert sensitivity grid to numpy for masking
-        sensitivity_grid_np = sensitivity_grid_t.cpu().numpy()
 
-        # Write to file 
-        sensitivity_output_file = Path(f'adjoint_sensitivity_matrix_t={t},{final_time}.npy')
-        if sensitivity_output_file.exists():
-            print(f"Removing existing file: {sensitivity_output_file}")
-            sensitivity_output_file.unlink()
-
-        # Save the sensitivity matrix to a file for debugging
-        np.save(sensitivity_output_file, sensitivity_grid_np)
+multi_timestep(initial_time, final_time)
 
 
-#multi_timestep(initial_time, final_time)
+timer.checkpoint("Finished saving sensitivity matrices")
 
 #final_time = 20
 #for initial_time in range(0, 19):
