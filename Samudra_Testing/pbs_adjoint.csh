@@ -1,10 +1,10 @@
 #!/bin/csh
 #PBS -S /bin/csh
-#PBS -q normal
+#PBS -q R21940709
 #PBS -l select=1:ncpus=40:model=sky_ele
 #PBS -l walltime=1:00:00
 #PBS -j oe
-#PBS -o ./samudra_adjoint.log
+#PBS -o ./samudra_adjoint_timer.log
 #PBS -m bea
 #PBS -r n
 
