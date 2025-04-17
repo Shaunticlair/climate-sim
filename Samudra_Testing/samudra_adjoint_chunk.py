@@ -88,7 +88,7 @@ print(f"Our data has the shape {test_data[0][0].shape}")
 # Define chunks for gradient tracking
 # For this example, we're tracking a region of the grid at initial_channel
 in_chunks_dict = {
-    initial_time: [(0, initial_channel, lat_range, lon_range)]
+    initial_time: [(slice(0,1), initial_channel, lat_range, lon_range)]
 }
 
 # Define output indices to compute sensitivity for
