@@ -28,8 +28,8 @@ initial_time = 0        # Starting time step
 final_time = 10         # Ending time step 
 
 # Define regions of interest in the ocean: latitude and longitude indices
-lat_range = slice(0,180)#slice(85, 95)    # A chunk around latitude 90
-lon_range = slice(0,360)#slice(175, 185)  # A chunk around longitude 180
+lat_slice = slice(0,180)    # A chunk around latitude 90
+lon_slice = slice(0,360)  # A chunk around longitude 180
 
 # Define the final latitude and longitude for the output: the coords we want to study the sensitivity wrt to
 final_lat = 90
@@ -43,7 +43,10 @@ state_out_vars_config = state_in_vars_config
 boundary_vars_config = "3D_all_hfds_anom"
 
 # Channel to study (0 is the first channel which is temperature at 2.5m depth)
-initial_channel = slice(0, 1)  # A chunk of the first channel
+batch = 0
+batch_slice = slice(batch, batch+1)
+initial_channel = 0
+initial_channel_slice = slice(initial_channel, initial_channel+1)
 final_channel = 0
 
 
@@ -87,16 +90,17 @@ print(f"Our data has the shape {test_data[0][0].shape}")
 
 # Define chunks for gradient tracking
 # For this example, we're tracking a region of the grid at initial_channel
+# Using slices for all dimensions to maintain proper dimensionality
 in_chunks_dict = {
-    initial_time: [(slice(0,1), initial_channel, lat_range, lon_range)]
+    initial_time: [batch_slice, initial_channel_slice, lat_slice, lon_slice],
 }
 
 # Define output indices to compute sensitivity for
 out_indices = [(0, final_channel, final_lat, final_lon, final_time)]
 print(f"Final point for sensitivity: {out_indices}")
 
-print(f"Computing sensitivity for chunk at time {initial_time}, channel {initial_channel}, " 
-      f"latitude range {lat_range}, longitude range {lon_range}")
+print(f"Computing sensitivity with batch {batch}, initial channel {initial_channel}, \
+      lat slice {lat_slice}, lon slice {lon_slice}")
 
 
 ### COMPUTE CHUNKED SENSITIVITY AND SAVE RESULTS ###
@@ -126,19 +130,11 @@ def compute_chunked_sensitivity(initial_time, final_time):
     # We'll save the first sensitivity tensor for the first output point
     if len(sensitivity_results) > 0 and len(sensitivity_results[0]) > 0:
         sensitivity_np = sensitivity_results[0][0].cpu().numpy()
-        filename = f'chunk_sensitivity_ch{initial_channel}_t{initial_time}-{final_time}.npy'
+        # Use str representation of the channel to avoid formatting issues with slice objects
+        channel_str = str(initial_channel).replace(' ', '_')
+        filename = f'chunk_sensitivity_ch{channel_str}_t{initial_time}-{final_time}.npy'
         np.save(filename, sensitivity_np)
         print(f"Saved sensitivity tensor to {filename}")
-
-        # Save a visualization of the sensitivity
-        plt.figure(figsize=(10, 8))
-        plt.imshow(sensitivity_np, cmap='RdBu_r')
-        plt.colorbar(label='Sensitivity')
-        plt.title(f'Sensitivity of point ({final_lat},{final_lon}) at t={final_time} to region at t={initial_time}')
-        plt.xlabel('Longitude index within chunk')
-        plt.ylabel('Latitude index within chunk')
-        plt.savefig(filename.replace('.npy', '.png'))
-        plt.close()
 
     return sensitivity_results, chunk_info
 
