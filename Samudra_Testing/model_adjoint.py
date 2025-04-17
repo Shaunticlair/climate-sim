@@ -82,8 +82,7 @@ class SamudraAdjoint(model.Samudra):
         # Inject the input element into the state tensor
         state_tensor[initial_index] = input_element
 
-        return state_tensor, input_element
-    
+        return state_tensor, input_element   
     
     def grad_track_multiple_elements_DEFUNCT(self, state_tensor, 
                                      initial_indices,
@@ -419,3 +418,248 @@ class SamudraAdjoint(model.Samudra):
                 sensitivity_matrix[s_idx, t_idx] = sensitivity
         
         return sensitivity_matrix
+
+    def grad_track_chunked(self, state_tensor, slices_list, device="cuda"):
+        """
+        Utility function to track the gradient of chunks of elements in the state tensor.
+        This implementation uses slicing to efficiently track gradients for regions of interest.
+        
+        Parameters:
+        -----------
+        state_tensor : torch.Tensor
+            The state tensor from which to track the gradient.
+        slices_list : list of tuples
+            A list of tuples (batch_slice, channel_slice, height_slice, width_slice) defining
+            the regions to track gradients for.
+        device : str
+            The device to use for computation.
+            
+        Returns:
+        --------
+        augmented_tensor : torch.Tensor
+            The state tensor with gradient tracking added for the specified chunks.
+        tracked_elements : list
+            A list of tensors with requires_grad=True for the specified chunks.
+        """
+        state_tensor = state_tensor.clone().to(device)  # Clone but don't detach to preserve the computational graph
+        
+        # Create a list to track the tensor elements with gradients
+        tracked_elements = []
+        
+        for slice_tuple in slices_list:
+            batch_slice, channel_slice, height_slice, width_slice = slice_tuple
+            
+            # Get the shape of this slice
+            if isinstance(batch_slice, slice):
+                batch_size = (batch_slice.stop or state_tensor.shape[0]) - (batch_slice.start or 0)
+            else:
+                batch_size = 1
+                
+            if isinstance(channel_slice, slice):
+                channel_size = (channel_slice.stop or state_tensor.shape[1]) - (channel_slice.start or 0)
+            else:
+                channel_size = 1
+                
+            if isinstance(height_slice, slice):
+                height_size = (height_slice.stop or state_tensor.shape[2]) - (height_slice.start or 0)
+            else:
+                height_size = 1
+                
+            if isinstance(width_slice, slice):
+                width_size = (width_slice.stop or state_tensor.shape[3]) - (width_slice.start or 0)
+            else:
+                width_size = 1
+            
+            # Create a zeroed tensor with the shape of this slice
+            chunk_shape = (batch_size, channel_size, height_size, width_size)
+            grad_chunk = torch.zeros(chunk_shape, device=device, requires_grad=True)
+            tracked_elements.append(grad_chunk)
+            
+            # Add the grad_chunk to the corresponding slice of state_tensor
+            state_tensor[batch_slice, channel_slice, height_slice, width_slice] += grad_chunk
+        
+        return state_tensor, tracked_elements
+
+    def track_gradients_for_timestep(self, state_tensor, chunks_dict, timestep, max_time, tracked_chunks, device="cuda"):
+        """
+        Adds gradient tracking for chunks specified for a given timestep and the next timestep if present.
+        
+        Parameters:
+        -----------
+        state_tensor : torch.Tensor
+            The state tensor to augment with gradient tracking.
+        chunks_dict : dict
+            Dictionary mapping timesteps to lists of chunk specifications.
+        timestep : int
+            Current timestep to check for chunks.
+        max_time : int
+            Maximum time to consider.
+        tracked_chunks : dict
+            Dictionary to store the tracked chunks, will be updated in-place.
+        device : str
+            The device to use for computation.
+            
+        Returns:
+        --------
+        torch.Tensor
+            The augmented state tensor with gradient tracking.
+        """
+        # Track gradients for the current timestep if specified
+        if timestep in chunks_dict:
+            state_tensor, chunks = self.grad_track_chunked(
+                state_tensor, chunks_dict[timestep], device=device
+            )
+            tracked_chunks[timestep] = chunks
+        
+        # Track gradients for the next timestep if it's within range and specified
+        next_timestep = timestep + 1
+        if next_timestep in chunks_dict and next_timestep <= max_time:
+            state_tensor, next_chunks = self.grad_track_chunked(
+                state_tensor, chunks_dict[next_timestep], device=device
+            )
+            tracked_chunks[next_timestep] = next_chunks
+        
+        return state_tensor
+
+    def compute_state_sensitivity_chunked(self, inputs,
+                    in_chunks_dict,
+                    out_indices,
+                    device="cuda",
+                    use_checkpointing=True,
+                    timer=null_timer):
+        """
+        Computes the sensitivity of output elements with respect to 
+        chunks of input elements in a single backward pass, with time specified in the dictionary.
+        
+        Parameters:
+        -----------
+        inputs : list of tensors
+            The input tensors for each time step in the sequence.
+        in_chunks_dict : dict
+            A dictionary mapping time steps to lists of slice tuples 
+            (batch_slice, channel_slice, height_slice, width_slice) for gradient tracking.
+        out_indices : list of tuples
+            A list of tuples (b, c, h, w, t) indicating the batch, channel, height, width
+            indices, and time step of the output elements to compute sensitivities for.
+        device : str
+            The device to run the computation on ('cuda' or 'cpu').
+        use_checkpointing : bool
+            Whether to use gradient checkpointing for memory efficiency.
+                
+        Returns:
+        --------
+        list of torch.Tensor
+            A list of tensors, one per output element, containing the sensitivities
+            of that output element with respect to each chunk of input elements.
+        chunk_info : dict
+            A dictionary mapping each time step to the chunk specifications used.
+        """
+        # Make sure we're in evaluation mode
+        self.eval()
+
+        # Determine the time range we need to process
+        in_times = list(in_chunks_dict.keys())
+        out_times = [idx[4] for idx in out_indices]
+        min_time = min(min(in_times), min(out_times))
+        max_time = max(out_times)
+        
+        # Create mapping for output indices
+        out_indices_by_time = {}
+        for i, idx in enumerate(out_indices):
+            time = idx[4]
+            if time not in out_indices_by_time:
+                out_indices_by_time[time] = []
+            out_indices_by_time[time].append((i, idx[:4]))
+        
+        # Initialize the model input for the minimum time step
+        initial_iter = min_time // 2
+        model_input = inputs[initial_iter][0].clone().to(device)
+        
+        timer.checkpoint("Finished setting up model input")
+        
+        # Dictionary to store tracked elements for each time step and chunk
+        tracked_chunks = {}
+        
+        # Add gradient tracking for initial timesteps
+        model_input = self.track_gradients_for_timestep(
+            model_input, in_chunks_dict, min_time, max_time, tracked_chunks, device
+        )
+
+        timer.checkpoint("Finished setting up chunk tracking")
+        
+        # Run the autoregressive rollout
+        current_input = model_input
+        outputs = {min_time: current_input}  # Store inputs/outputs by time step
+        
+        for it in range(initial_iter, max_time // 2 + 1):
+            print(f"Processing time step: {it}")
+            
+            # Forward pass
+            if use_checkpointing and it < max_time // 2:
+                output = self.checkpointed_forward_once(current_input)
+            else:
+                output = self.forward_once(current_input)
+            
+            timer.checkpoint(f"Ran model forward for model iteration {it}")
+            
+            # Store output for this time step
+            time_step = it * 2 + 1
+            outputs[time_step] = output
+            
+            # Prepare for next time step if needed
+            if it < max_time // 2:
+                boundary = inputs[it+1][0][:, self.output_channels:].to(device)
+                current_input = torch.cat([output, boundary], dim=1)
+                
+                # Store the even timestep
+                next_time = (it + 1) * 2
+                outputs[next_time] = current_input
+                
+                # Add gradient tracking for next timesteps
+                current_input = self.track_gradients_for_timestep(
+                    current_input, in_chunks_dict, next_time, max_time, tracked_chunks, device
+                )
+
+                timer.checkpoint(f"Added gradient tracking for model iteration {it+1}")
+        
+        # List to store sensitivity tensors for each output element
+        sensitivity_results = []
+        
+        # For each output time step and indices
+        for out_time, out_idx_list in out_indices_by_time.items():
+            output_tensor = outputs[out_time]
+            
+            # Extract the output elements we're interested in
+            for orig_idx, spatial_idx in out_idx_list:
+                b, c, h, w = spatial_idx
+                output_element = output_tensor[b, c, h, w]
+                
+                # Clear gradients before backward pass
+                for time_chunks in tracked_chunks.values():
+                    for chunk in time_chunks:
+                        if chunk.grad is not None:
+                            chunk.grad.zero_()
+                
+                timer.checkpoint("Cleared gradients before backward pass")
+                # Compute gradients
+                output_element.backward(retain_graph=True)
+
+                timer.checkpoint("Backwards pass complete")
+                
+                # Gather sensitivity tensors for this output element
+                sensitivity_for_element = []
+                for time in sorted(tracked_chunks.keys()):
+                    time_chunks = tracked_chunks[time]
+                    for chunk in time_chunks:
+                        sensitivity_for_element.append(chunk.grad.clone() if chunk.grad is not None else torch.zeros_like(chunk))
+                
+                sensitivity_results.append(sensitivity_for_element)
+
+                timer.checkpoint("Gathered sensitivity for output element")
+        
+        timer.checkpoint("Finished computing sensitivity matrix (includes backward pass)")
+
+        # Create a dictionary to store chunk info for reference
+        chunk_info = {time: in_chunks_dict[time] for time in in_chunks_dict}
+        
+        return sensitivity_results, chunk_info

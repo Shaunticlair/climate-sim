@@ -4,7 +4,7 @@
 #PBS -l select=1:ncpus=40:model=sky_ele
 #PBS -l walltime=1:00:00
 #PBS -j oe
-#PBS -o ./samudra_adjoint_multi_timer.log
+#PBS -o ./samudra_adjoint_single_chunk_timer.log
 #PBS -m bea
 #PBS -r n
 
@@ -29,7 +29,7 @@ cd ${basedir}
 
 # Run the samudra rollout script
 echo "Starting Samudra model run at `date`"
-${CONDA_PYTHON} samudra_adjoint_multi.py
+${CONDA_PYTHON} samudra_adjoint_chunk.py
 #${CONDA_PYTHON} samudra_rollout.py
 echo "Finished Samudra model run at `date`"
 
