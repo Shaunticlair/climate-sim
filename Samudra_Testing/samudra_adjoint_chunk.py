@@ -92,7 +92,9 @@ print(f"Our data has the shape {test_data[0][0].shape}")
 # For this example, we're tracking a region of the grid at initial_channel
 # Using slices for all dimensions to maintain proper dimensionality
 in_chunks_dict = {
-    initial_time: [batch_slice, initial_channel_slice, lat_slice, lon_slice],
+    initial_time: [
+        (batch_slice, initial_channel_slice, lat_slice, lon_slice)
+        ],
 }
 
 # Define output indices to compute sensitivity for
