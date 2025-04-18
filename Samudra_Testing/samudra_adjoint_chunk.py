@@ -97,6 +97,11 @@ in_chunks_dict = {
         ],
 }
 
+in_chunks_dict = {
+    t: [(batch_slice, initial_channel_slice, lat_slice, lon_slice)]
+    for t in range(initial_time, final_time)
+}
+
 # Define output indices to compute sensitivity for
 out_indices = [(0, final_channel, final_lat, final_lon, final_time)]
 print(f"Final point for sensitivity: {out_indices}")

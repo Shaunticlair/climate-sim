@@ -591,7 +591,7 @@ class SamudraAdjoint(model.Samudra):
         current_input = model_input
         outputs = {min_time: current_input}  # Store inputs/outputs by time step
         
-        for it in range(initial_iter, max_time // 2 + 1):
+        for it in range(initial_iter, max_time // 2 ):
             print(f"Processing time step: {it}")
             
             # Forward pass

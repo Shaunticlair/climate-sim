@@ -5,7 +5,7 @@ from scipy import stats
 
 ### PARAMETERS ###
 
-t_start,t_end = 0, 2
+t_start,t_end = 0, 10
 magnitude = 3
 perturb_grid_size = 5
 
