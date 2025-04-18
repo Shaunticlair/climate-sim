@@ -12,7 +12,7 @@ perturb_grid_size = 5
 def plot(t0,t1, magn, grid_size, draw_corr=False, manual_path = None):
 
     ### PARAMETERS ###
-    size = "global"
+    size = "manual_centered"
     
     
     fd_path = f'sensitivity_arrays/perturb_sensitivity_grid_{grid_size}x{grid_size}_t={t0},{t1}_1e-{magn}.npy' #
@@ -30,13 +30,23 @@ def plot(t0,t1, magn, grid_size, draw_corr=False, manual_path = None):
         xmin, xmax = 0, 180
         ymin, ymax = 0, 360
 
-    if size == "manual":
-        deltax = 2
-        deltay = 2
+        
+    if size == "manual_centered":
+        deltax = 25
+        deltay = 25
+        #centerx = 90
+        #centery = 180
+        centerx = 131
+        centery = 289
         # Define the region of interest in the matrix for cropping
-        xmin, xmax = 90-deltax, 90+deltax+1  # Matrix row indices
-        ymin, ymax = 180-deltay, 180+deltay+1  # Matrix column indices
+        xmin, xmax = centerx-deltax, centerx+deltax+1  # Matrix row indices
+        ymin, ymax = centery-deltay, centery+deltay+1  # Matrix column indices
         size = f'{2*deltax+1}x{2*deltay+1}'
+
+    if size == "manual":
+        xmin, xmax = 130,160
+        ymin, ymax = 270,310  # Matrix column indices
+        size = f'{xmax-xmin}x{ymax-ymin}'
 
     ### PLOT SENSITIVITY ###
 
@@ -122,8 +132,8 @@ def plot(t0,t1, magn, grid_size, draw_corr=False, manual_path = None):
     x_positions = np.arange(cropped_sensitivity.shape[1])
 
     # Display actual matrix indices on the axes
-    plt.xticks(x_positions[::36], col_indices[::36])  # Show every 36th index for readability
-    plt.yticks(y_positions[::18], row_indices[::18])  # Show every 18th index for readability
+    plt.xticks(x_positions[::20], col_indices[::20])  # Show every 36th index for readability
+    plt.yticks(y_positions[::20], row_indices[::20])  # Show every 18th index for readability
 
     plt.colorbar(label='Sensitivity Value')
     plt.title(f'$\\partial \\left( \\text{{2.5m }} \\theta_0 \\text{{ at }}({sensitivity_latitude},{sensitivity_longitude}), t={t0} \\right) / \\partial \\left( \\text{{2.5m }} \\theta_0 \\text{{ across map}}, t={t1} \\right)$')
@@ -207,6 +217,6 @@ def plot(t0,t1, magn, grid_size, draw_corr=False, manual_path = None):
 #for t0 in range(t_start, t_end):
 #    print(t0)
 #    plot(t0,t_end)
-manual_path = 'sensitivity_arrays/adjoint_sensitivity_matrix_in_ch154_out_ch76_t=0,2.npy'
-manual_path = 'chunk_sensitivity_ch0_t8-10.npy'
+manual_path = 'sensitivity_arrays/adjoint_sensitivity_matrix_in_ch154_out_ch76_t=0,10.npy'
+manual_path = 'chunk_sensitivity_ch157_t0-10.npy'
 plot(t_start, t_end, magnitude, perturb_grid_size, draw_corr=False, manual_path=manual_path)

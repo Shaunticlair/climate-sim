@@ -28,12 +28,12 @@ initial_time = 0        # Starting time step
 final_time = 10         # Ending time step 
 
 # Define regions of interest in the ocean: latitude and longitude indices
-lat_slice = slice(0,180)    # A chunk around latitude 90
-lon_slice = slice(0,360)  # A chunk around longitude 180
+lat_slice = slice(0,180) #slice(106,156)    # A chunk around latitude 90
+lon_slice = slice(0,360) #slice(264,314)  # A chunk around longitude 180
 
 # Define the final latitude and longitude for the output: the coords we want to study the sensitivity wrt to
-final_lat = 90
-final_lon = 180
+final_lat = 131
+final_lon = 289
 
 # Model choice
 hist = 1
@@ -46,7 +46,7 @@ boundary_vars_config = "3D_all_hfds_anom"
 batch = 0
 batch_slice = slice(batch, batch+1)
 initial_channels = [76,153,154,155,156,157]
-final_channel = 0
+final_channel = 76
 
 
 ### SETUP STAGE ###
