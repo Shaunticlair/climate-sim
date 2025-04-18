@@ -551,8 +551,6 @@ class SamudraAdjoint(model.Samudra):
         list of torch.Tensor
             A list of tensors, one per output element, containing the sensitivities
             of that output element with respect to each chunk of input elements.
-        chunk_info : dict
-            A dictionary mapping each time step to the chunk specifications used.
         """
         # Make sure we're in evaluation mode
         self.eval()
@@ -658,8 +656,5 @@ class SamudraAdjoint(model.Samudra):
                 timer.checkpoint("Gathered sensitivity for output element")
         
         timer.checkpoint("Finished computing sensitivity matrix (includes backward pass)")
-
-        # Create a dictionary to store chunk info for reference
-        chunk_info = {time: in_chunks_dict[time] for time in in_chunks_dict}
         
-        return sensitivity_results, chunk_info
+        return sensitivity_results

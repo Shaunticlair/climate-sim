@@ -128,10 +128,16 @@ def compute_chunked_sensitivity(initial_time, final_time):
 
     # Print the results
     print(f"Computed sensitivity results: {len(sensitivity_results)} output points")
+
     for i, sens_list in enumerate(sensitivity_results):
         print(f"  Output point {i}: {len(sens_list)} sensitivity tensors")
         for j, sens_tensor in enumerate(sens_list):
-            print(f"    Sensitivity tensor {j} shape: {sens_tensor.shape}")
+            # Check if it's a tensor before trying to access shape
+            if isinstance(sens_tensor, torch.Tensor):
+                print(f"    Sensitivity tensor {j} shape: {sens_tensor.shape}")
+            else:
+                print(f"    Sensitivity tensor {j} is not a tensor, but a {type(sens_tensor)}")
+    
 
     # Save the sensitivity results to a file
     # We'll save the first sensitivity tensor for the first output point
