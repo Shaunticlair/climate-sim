@@ -26,11 +26,12 @@ INPUT_VARS_LEV = {
 
 #print(INPUT_VARS_LEV["3D_thermo_dynamic_all"])
 
-arr = []
+var_list = []
 
 for t in range(2):
+    label = "odd" if t == 0 else "even"
     for i in INPUT_VARS_LEV["3D_thermo_dynamic_all"]:
-        arr.append(i + f"_t={t}")
+        var_list.append(i + f"({label})")
 
 
 
@@ -39,16 +40,17 @@ BOUNDARY_VARS = {
 }
 #print(BOUNDARY_VARS["3D_all_hfds_anom"])
 
-arr += BOUNDARY_VARS["3D_all_hfds_anom"]
+var_list += BOUNDARY_VARS["3D_all_hfds_anom"]
 
-print(arr)
+# Turn into a dictionary
+var_dict = {var: i for i, var in enumerate(var_list)}
 
-arr = np.array(arr)
+var_arr = np.array(var_list)
 
-print(np.where(arr == 'zos_t=0'))
-print(np.where(arr == 'zos_t=1'))
-print(np.where(arr == 'tauuo'))
-print(np.where(arr == 'tauvo'))
-print(np.where(arr == 'hfds'))
-print(np.where(arr == 'hfds_anomalies'))
+#print(np.where(arr == 'zos_t=0'))
+#print(np.where(arr == 'zos_t=1'))
+#print(np.where(arr == 'tauuo'))
+#print(np.where(arr == 'tauvo'))
+#print(np.where(arr == 'hfds'))
+#print(np.where(arr == 'hfds_anomalies'))
 

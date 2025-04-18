@@ -25,7 +25,9 @@ timer = setup.Timer()
 
 # Time steps for sensitivity analysis
 initial_time = 0        # Starting time step
-final_time = 10         # Ending time step 
+final_time = 73         # Ending time step 
+
+#73
 
 # Define regions of interest in the ocean: latitude and longitude indices
 lat_slice = slice(0,180) #slice(106,156)    # A chunk around latitude 90
@@ -96,9 +98,11 @@ print(f"Our data has the shape {test_data[0][0].shape}")
 #        ],
 #}
 
+times = [initial_time]
+
 in_chunks_dict = {
     t: [(batch_slice, slice(ch_num, ch_num+1), lat_slice, lon_slice) for ch_num in initial_channels]
-    for t in range(initial_time, final_time)
+    for t in times
 }
 
 # Define output indices to compute sensitivity for
