@@ -1,4 +1,4 @@
-Job 22047030.pbspl1.nas.nasa.gov started on Thu Apr 17 16:55:34 PDT 2025
+Job 22047079.pbspl1.nas.nasa.gov started on Thu Apr 17 17:13:55 PDT 2025
 The job requested the following resources:
     ncpus=40
     place=scatter:excl
@@ -12,55 +12,106 @@ On r135i7n23:
 Warning: no access to tty (Inappropriate ioctl for device).
 Thus no job control in this shell.
 Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
-Starting Samudra model run at Thu Apr 17 16:55:37 PDT 2025
+Starting Samudra model run at Thu Apr 17 17:13:58 PDT 2025
 /nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
   return data.astype(dtype, **kwargs)
 Using CPU
 Using 80 CPU cores for computation
 Number of input channels: 158
 Number of output channels: 154
-Section 'Environment configured' took 0.0195 seconds
-Total elapsed time: 0.0195 seconds
+Section 'Environment configured' took 0.0206 seconds
+Total elapsed time: 0.0206 seconds
 ----------------------------------------
-Section 'Data loaded' took 3.3914 seconds
-Total elapsed time: 3.4110 seconds
+Section 'Data loaded' took 8.4230 seconds
+Total elapsed time: 8.4436 seconds
 ----------------------------------------
-Section 'Model loaded' took 2.8128 seconds
-Total elapsed time: 6.2237 seconds
+Section 'Model loaded' took 2.8940 seconds
+Total elapsed time: 11.3376 seconds
 ----------------------------------------
 Out:  [[2 3]] Our data has the shape torch.Size([1, 158, 180, 360])
 Final point for sensitivity: [(0, 0, 90, 180, 10)]
 Computing sensitivity with batch 0, initial channel 0,       lat slice slice(0, 180, None), lon slice slice(0, 360, None)
-Section 'Setup complete' took 9.9084 seconds
-Total elapsed time: 16.1321 seconds
+Section 'Setup complete' took 29.9187 seconds
+Total elapsed time: 41.2563 seconds
 ----------------------------------------
-Out:  [[2 3]] Processing time step: 0
-Out:  [[4 5]] Processing time step: 1
-Out:  [[6 7]] Processing time step: 2
-Out:  [[8 9]] Processing time step: 3
-Out:  [[10 11]] Processing time step: 4
-Out:  [[12 13]] Processing time step: 5
-Section 'Finished computing chunked sensitivity' took 57.9967 seconds
-Total elapsed time: 74.1289 seconds
+Out:  [[2 3]] Section 'Finished setting up model input' took 3.5584 seconds
+Total elapsed time: 44.8147 seconds
+----------------------------------------
+Section 'Finished setting up chunk tracking' took 0.1061 seconds
+Total elapsed time: 44.9207 seconds
+----------------------------------------
+Processing time step: 0
+Section 'Ran model forward for model iteration 0' took 2.3465 seconds
+Total elapsed time: 47.2673 seconds
+----------------------------------------
+Out:  [[4 5]] Section 'Added gradient tracking for model iteration 1' took 3.4829 seconds
+Total elapsed time: 50.7502 seconds
+----------------------------------------
+Processing time step: 1
+Section 'Ran model forward for model iteration 1' took 1.2008 seconds
+Total elapsed time: 51.9510 seconds
+----------------------------------------
+Out:  [[6 7]] Section 'Added gradient tracking for model iteration 2' took 3.5582 seconds
+Total elapsed time: 55.5092 seconds
+----------------------------------------
+Processing time step: 2
+Section 'Ran model forward for model iteration 2' took 1.2029 seconds
+Total elapsed time: 56.7121 seconds
+----------------------------------------
+Out:  [[8 9]] Section 'Added gradient tracking for model iteration 3' took 3.5734 seconds
+Total elapsed time: 60.2854 seconds
+----------------------------------------
+Processing time step: 3
+Section 'Ran model forward for model iteration 3' took 1.2116 seconds
+Total elapsed time: 61.4971 seconds
+----------------------------------------
+Out:  [[10 11]] Section 'Added gradient tracking for model iteration 4' took 3.6585 seconds
+Total elapsed time: 65.1556 seconds
+----------------------------------------
+Processing time step: 4
+Section 'Ran model forward for model iteration 4' took 1.2014 seconds
+Total elapsed time: 66.3570 seconds
+----------------------------------------
+Out:  [[12 13]] Section 'Added gradient tracking for model iteration 5' took 3.3576 seconds
+Total elapsed time: 69.7146 seconds
+----------------------------------------
+Processing time step: 5
+Section 'Ran model forward for model iteration 5' took 1.1901 seconds
+Total elapsed time: 70.9047 seconds
+----------------------------------------
+Section 'Cleared gradients before backward pass' took 0.0186 seconds
+Total elapsed time: 70.9233 seconds
+----------------------------------------
+Section 'Backwards pass complete' took 20.1456 seconds
+Total elapsed time: 91.0689 seconds
+----------------------------------------
+Section 'Gathered sensitivity for output element' took 0.0002 seconds
+Total elapsed time: 91.0691 seconds
+----------------------------------------
+Section 'Finished computing sensitivity matrix (includes backward pass)' took 0.0000 seconds
+Total elapsed time: 91.0691 seconds
+----------------------------------------
+Section 'Finished computing chunked sensitivity' took 0.0232 seconds
+Total elapsed time: 91.0923 seconds
 ----------------------------------------
 Computed sensitivity results: 1 output points
   Output point 0: 1 sensitivity tensors
     Sensitivity tensor 0 shape: torch.Size([1, 1, 180, 360])
 Saved sensitivity tensor to chunk_sensitivity_ch0_t0-10.npy
-Section 'Finished saving sensitivity results' took 0.0394 seconds
-Total elapsed time: 74.1683 seconds
+Section 'Finished saving sensitivity results' took 0.0057 seconds
+Total elapsed time: 91.0980 seconds
 ----------------------------------------
 ============================================
     Chunked Sensitivity Analysis Done       
 ============================================
-Finished Samudra model run at Thu Apr 17 16:57:30 PDT 2025
+Finished Samudra model run at Thu Apr 17 17:17:21 PDT 2025
 
 ____________________________________________________________________
-Job Resource Usage Summary for 22047030.pbspl1.nas.nasa.gov
+Job Resource Usage Summary for 22047079.pbspl1.nas.nasa.gov
 
-    CPU Time Used            : 00:37:42
-    Real Memory Used         : 2935144kb
-    Walltime Used            : 00:01:54
+    CPU Time Used            : 00:36:48
+    Real Memory Used         : 9318624kb
+    Walltime Used            : 00:03:24
     Exit Status              : 0
 
     Number of CPUs Requested : 40
@@ -69,5 +120,5 @@ Job Resource Usage Summary for 22047030.pbspl1.nas.nasa.gov
     Execution Queue          : R21940709
     Charged To               : g26113
 
-    Job Stopped              : Thu Apr 17 16:57:33 2025
+    Job Stopped              : Thu Apr 17 17:17:24 2025
 ____________________________________________________________________
