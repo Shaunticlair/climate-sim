@@ -1,4 +1,4 @@
-Job 22047289.pbspl1.nas.nasa.gov started on Thu Apr 17 18:12:41 PDT 2025
+Job 22050269.pbspl1.nas.nasa.gov started on Fri Apr 18 08:34:32 PDT 2025
 The job requested the following resources:
     ncpus=40
     place=scatter:excl
@@ -12,86 +12,86 @@ On r135i7n23:
 Warning: no access to tty (Inappropriate ioctl for device).
 Thus no job control in this shell.
 Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
-Starting Samudra model run at Thu Apr 17 18:12:44 PDT 2025
+Starting Samudra model run at Fri Apr 18 08:34:36 PDT 2025
 /nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
   return data.astype(dtype, **kwargs)
 Using CPU
 Using 80 CPU cores for computation
 Number of input channels: 158
 Number of output channels: 154
-Section 'Environment configured' took 0.0084 seconds
-Total elapsed time: 0.0084 seconds
+Section 'Environment configured' took 0.0515 seconds
+Total elapsed time: 0.0515 seconds
 ----------------------------------------
-Section 'Data loaded' took 3.6366 seconds
-Total elapsed time: 3.6450 seconds
+Section 'Data loaded' took 17.8697 seconds
+Total elapsed time: 17.9213 seconds
 ----------------------------------------
-Section 'Model loaded' took 2.6859 seconds
-Total elapsed time: 6.3309 seconds
+Section 'Model loaded' took 4.3689 seconds
+Total elapsed time: 22.2902 seconds
 ----------------------------------------
 Out:  [[2 3]] Our data has the shape torch.Size([1, 158, 180, 360])
 Final point for sensitivity: [(0, 0, 90, 180, 10)]
-Computing sensitivity with batch 0, initial channel 0,       lat slice slice(0, 180, None), lon slice slice(0, 360, None)
-Section 'Setup complete' took 10.1672 seconds
-Total elapsed time: 16.4981 seconds
+Computing sensitivity with batch 0, initial channels [76, 153, 154, 155, 156, 157],       lat slice slice(0, 180, None), lon slice slice(0, 360, None)
+Section 'Setup complete' took 35.2063 seconds
+Total elapsed time: 57.4965 seconds
 ----------------------------------------
-Out:  [[2 3]] Section 'Finished setting up model input' took 3.3877 seconds
-Total elapsed time: 19.8858 seconds
+Out:  [[2 3]] Section 'Finished setting up model input' took 3.1780 seconds
+Total elapsed time: 60.6745 seconds
 ----------------------------------------
-Section 'Finished setting up chunk tracking' took 0.0604 seconds
-Total elapsed time: 19.9462 seconds
+Section 'Finished setting up chunk tracking' took 0.0634 seconds
+Total elapsed time: 60.7379 seconds
 ----------------------------------------
 Processing time step: 0
-Section 'Ran model forward for model iteration 0' took 2.0432 seconds
-Total elapsed time: 21.9894 seconds
+Section 'Ran model forward for model iteration 0' took 2.1081 seconds
+Total elapsed time: 62.8461 seconds
 ----------------------------------------
-Out:  [[4 5]] Section 'Added gradient tracking for model iteration 1' took 3.1750 seconds
-Total elapsed time: 25.1644 seconds
+Out:  [[4 5]] Section 'Added gradient tracking for model iteration 1' took 3.5026 seconds
+Total elapsed time: 66.3487 seconds
 ----------------------------------------
 Processing time step: 1
-Section 'Ran model forward for model iteration 1' took 1.1936 seconds
-Total elapsed time: 26.3580 seconds
+Section 'Ran model forward for model iteration 1' took 1.1995 seconds
+Total elapsed time: 67.5482 seconds
 ----------------------------------------
-Out:  [[6 7]] Section 'Added gradient tracking for model iteration 2' took 3.0810 seconds
-Total elapsed time: 29.4390 seconds
+Out:  [[6 7]] Section 'Added gradient tracking for model iteration 2' took 3.5215 seconds
+Total elapsed time: 71.0697 seconds
 ----------------------------------------
 Processing time step: 2
-Section 'Ran model forward for model iteration 2' took 1.1909 seconds
-Total elapsed time: 30.6299 seconds
+Section 'Ran model forward for model iteration 2' took 1.2131 seconds
+Total elapsed time: 72.2827 seconds
 ----------------------------------------
-Out:  [[8 9]] Section 'Added gradient tracking for model iteration 3' took 3.1468 seconds
-Total elapsed time: 33.7767 seconds
+Out:  [[8 9]] Section 'Added gradient tracking for model iteration 3' took 3.4762 seconds
+Total elapsed time: 75.7589 seconds
 ----------------------------------------
 Processing time step: 3
-Section 'Ran model forward for model iteration 3' took 1.1644 seconds
-Total elapsed time: 34.9410 seconds
+Section 'Ran model forward for model iteration 3' took 1.2032 seconds
+Total elapsed time: 76.9621 seconds
 ----------------------------------------
-Out:  [[10 11]] Section 'Added gradient tracking for model iteration 4' took 3.2402 seconds
-Total elapsed time: 38.1812 seconds
+Out:  [[10 11]] Section 'Added gradient tracking for model iteration 4' took 3.8178 seconds
+Total elapsed time: 80.7800 seconds
 ----------------------------------------
 Processing time step: 4
-Section 'Ran model forward for model iteration 4' took 1.1948 seconds
-Total elapsed time: 39.3760 seconds
+Section 'Ran model forward for model iteration 4' took 1.1929 seconds
+Total elapsed time: 81.9728 seconds
 ----------------------------------------
-Out:  [[12 13]] Section 'Added gradient tracking for model iteration 5' took 3.2049 seconds
-Total elapsed time: 42.5809 seconds
+Out:  [[12 13]] Section 'Added gradient tracking for model iteration 5' took 3.7358 seconds
+Total elapsed time: 85.7087 seconds
 ----------------------------------------
-Section 'Cleared gradients before backward pass' took 0.0182 seconds
-Total elapsed time: 42.5992 seconds
+Section 'Cleared gradients before backward pass' took 0.0189 seconds
+Total elapsed time: 85.7276 seconds
 ----------------------------------------
-Section 'Backwards pass complete' took 20.3187 seconds
-Total elapsed time: 62.9179 seconds
+Section 'Backwards pass complete' took 21.0890 seconds
+Total elapsed time: 106.8165 seconds
 ----------------------------------------
-Section 'Gathered sensitivity for output element' took 0.0007 seconds
-Total elapsed time: 62.9185 seconds
+Section 'Gathered sensitivity for output element' took 0.0034 seconds
+Total elapsed time: 106.8199 seconds
 ----------------------------------------
 Section 'Finished computing sensitivity matrix (includes backward pass)' took 0.0000 seconds
-Total elapsed time: 62.9185 seconds
+Total elapsed time: 106.8199 seconds
 ----------------------------------------
-Section 'Finished computing chunked sensitivity' took 0.0189 seconds
-Total elapsed time: 62.9374 seconds
+Section 'Finished computing chunked sensitivity' took 0.0170 seconds
+Total elapsed time: 106.8369 seconds
 ----------------------------------------
 Computed sensitivity results: 1 output points
-  Output point 0: 10 sensitivity tensors
+  Output point 0: 60 sensitivity tensors
     Sensitivity tensor 0 shape: torch.Size([1, 1, 180, 360])
     Sensitivity tensor 1 shape: torch.Size([1, 1, 180, 360])
     Sensitivity tensor 2 shape: torch.Size([1, 1, 180, 360])
@@ -102,30 +102,130 @@ Computed sensitivity results: 1 output points
     Sensitivity tensor 7 shape: torch.Size([1, 1, 180, 360])
     Sensitivity tensor 8 shape: torch.Size([1, 1, 180, 360])
     Sensitivity tensor 9 shape: torch.Size([1, 1, 180, 360])
-Saved sensitivity tensor for timestep 0 to chunk_sensitivity_ch0_t0-10.npy
-Saved sensitivity tensor for timestep 1 to chunk_sensitivity_ch0_t1-10.npy
-Saved sensitivity tensor for timestep 2 to chunk_sensitivity_ch0_t2-10.npy
-Saved sensitivity tensor for timestep 3 to chunk_sensitivity_ch0_t3-10.npy
-Saved sensitivity tensor for timestep 4 to chunk_sensitivity_ch0_t4-10.npy
-Saved sensitivity tensor for timestep 5 to chunk_sensitivity_ch0_t5-10.npy
-Saved sensitivity tensor for timestep 6 to chunk_sensitivity_ch0_t6-10.npy
-Saved sensitivity tensor for timestep 7 to chunk_sensitivity_ch0_t7-10.npy
-Saved sensitivity tensor for timestep 8 to chunk_sensitivity_ch0_t8-10.npy
-Saved sensitivity tensor for timestep 9 to chunk_sensitivity_ch0_t9-10.npy
-Section 'Finished saving sensitivity results' took 0.0559 seconds
-Total elapsed time: 62.9933 seconds
+    Sensitivity tensor 10 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 11 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 12 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 13 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 14 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 15 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 16 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 17 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 18 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 19 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 20 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 21 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 22 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 23 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 24 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 25 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 26 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 27 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 28 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 29 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 30 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 31 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 32 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 33 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 34 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 35 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 36 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 37 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 38 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 39 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 40 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 41 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 42 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 43 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 44 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 45 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 46 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 47 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 48 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 49 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 50 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 51 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 52 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 53 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 54 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 55 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 56 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 57 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 58 shape: torch.Size([1, 1, 180, 360])
+    Sensitivity tensor 59 shape: torch.Size([1, 1, 180, 360])
+Saved sensitivity tensor for channel 76, timestep 0 to chunk_sensitivity_ch76_t0-10.npy
+Saved sensitivity tensor for channel 153, timestep 0 to chunk_sensitivity_ch153_t0-10.npy
+Saved sensitivity tensor for channel 154, timestep 0 to chunk_sensitivity_ch154_t0-10.npy
+Saved sensitivity tensor for channel 155, timestep 0 to chunk_sensitivity_ch155_t0-10.npy
+Saved sensitivity tensor for channel 156, timestep 0 to chunk_sensitivity_ch156_t0-10.npy
+Saved sensitivity tensor for channel 157, timestep 0 to chunk_sensitivity_ch157_t0-10.npy
+Saved sensitivity tensor for channel 76, timestep 1 to chunk_sensitivity_ch76_t1-10.npy
+Saved sensitivity tensor for channel 153, timestep 1 to chunk_sensitivity_ch153_t1-10.npy
+Saved sensitivity tensor for channel 154, timestep 1 to chunk_sensitivity_ch154_t1-10.npy
+Saved sensitivity tensor for channel 155, timestep 1 to chunk_sensitivity_ch155_t1-10.npy
+Saved sensitivity tensor for channel 156, timestep 1 to chunk_sensitivity_ch156_t1-10.npy
+Saved sensitivity tensor for channel 157, timestep 1 to chunk_sensitivity_ch157_t1-10.npy
+Saved sensitivity tensor for channel 76, timestep 2 to chunk_sensitivity_ch76_t2-10.npy
+Saved sensitivity tensor for channel 153, timestep 2 to chunk_sensitivity_ch153_t2-10.npy
+Saved sensitivity tensor for channel 154, timestep 2 to chunk_sensitivity_ch154_t2-10.npy
+Saved sensitivity tensor for channel 155, timestep 2 to chunk_sensitivity_ch155_t2-10.npy
+Saved sensitivity tensor for channel 156, timestep 2 to chunk_sensitivity_ch156_t2-10.npy
+Saved sensitivity tensor for channel 157, timestep 2 to chunk_sensitivity_ch157_t2-10.npy
+Saved sensitivity tensor for channel 76, timestep 3 to chunk_sensitivity_ch76_t3-10.npy
+Saved sensitivity tensor for channel 153, timestep 3 to chunk_sensitivity_ch153_t3-10.npy
+Saved sensitivity tensor for channel 154, timestep 3 to chunk_sensitivity_ch154_t3-10.npy
+Saved sensitivity tensor for channel 155, timestep 3 to chunk_sensitivity_ch155_t3-10.npy
+Saved sensitivity tensor for channel 156, timestep 3 to chunk_sensitivity_ch156_t3-10.npy
+Saved sensitivity tensor for channel 157, timestep 3 to chunk_sensitivity_ch157_t3-10.npy
+Saved sensitivity tensor for channel 76, timestep 4 to chunk_sensitivity_ch76_t4-10.npy
+Saved sensitivity tensor for channel 153, timestep 4 to chunk_sensitivity_ch153_t4-10.npy
+Saved sensitivity tensor for channel 154, timestep 4 to chunk_sensitivity_ch154_t4-10.npy
+Saved sensitivity tensor for channel 155, timestep 4 to chunk_sensitivity_ch155_t4-10.npy
+Saved sensitivity tensor for channel 156, timestep 4 to chunk_sensitivity_ch156_t4-10.npy
+Saved sensitivity tensor for channel 157, timestep 4 to chunk_sensitivity_ch157_t4-10.npy
+Saved sensitivity tensor for channel 76, timestep 5 to chunk_sensitivity_ch76_t5-10.npy
+Saved sensitivity tensor for channel 153, timestep 5 to chunk_sensitivity_ch153_t5-10.npy
+Saved sensitivity tensor for channel 154, timestep 5 to chunk_sensitivity_ch154_t5-10.npy
+Saved sensitivity tensor for channel 155, timestep 5 to chunk_sensitivity_ch155_t5-10.npy
+Saved sensitivity tensor for channel 156, timestep 5 to chunk_sensitivity_ch156_t5-10.npy
+Saved sensitivity tensor for channel 157, timestep 5 to chunk_sensitivity_ch157_t5-10.npy
+Saved sensitivity tensor for channel 76, timestep 6 to chunk_sensitivity_ch76_t6-10.npy
+Saved sensitivity tensor for channel 153, timestep 6 to chunk_sensitivity_ch153_t6-10.npy
+Saved sensitivity tensor for channel 154, timestep 6 to chunk_sensitivity_ch154_t6-10.npy
+Saved sensitivity tensor for channel 155, timestep 6 to chunk_sensitivity_ch155_t6-10.npy
+Saved sensitivity tensor for channel 156, timestep 6 to chunk_sensitivity_ch156_t6-10.npy
+Saved sensitivity tensor for channel 157, timestep 6 to chunk_sensitivity_ch157_t6-10.npy
+Saved sensitivity tensor for channel 76, timestep 7 to chunk_sensitivity_ch76_t7-10.npy
+Saved sensitivity tensor for channel 153, timestep 7 to chunk_sensitivity_ch153_t7-10.npy
+Saved sensitivity tensor for channel 154, timestep 7 to chunk_sensitivity_ch154_t7-10.npy
+Saved sensitivity tensor for channel 155, timestep 7 to chunk_sensitivity_ch155_t7-10.npy
+Saved sensitivity tensor for channel 156, timestep 7 to chunk_sensitivity_ch156_t7-10.npy
+Saved sensitivity tensor for channel 157, timestep 7 to chunk_sensitivity_ch157_t7-10.npy
+Saved sensitivity tensor for channel 76, timestep 8 to chunk_sensitivity_ch76_t8-10.npy
+Saved sensitivity tensor for channel 153, timestep 8 to chunk_sensitivity_ch153_t8-10.npy
+Saved sensitivity tensor for channel 154, timestep 8 to chunk_sensitivity_ch154_t8-10.npy
+Saved sensitivity tensor for channel 155, timestep 8 to chunk_sensitivity_ch155_t8-10.npy
+Saved sensitivity tensor for channel 156, timestep 8 to chunk_sensitivity_ch156_t8-10.npy
+Saved sensitivity tensor for channel 157, timestep 8 to chunk_sensitivity_ch157_t8-10.npy
+Saved sensitivity tensor for channel 76, timestep 9 to chunk_sensitivity_ch76_t9-10.npy
+Saved sensitivity tensor for channel 153, timestep 9 to chunk_sensitivity_ch153_t9-10.npy
+Saved sensitivity tensor for channel 154, timestep 9 to chunk_sensitivity_ch154_t9-10.npy
+Saved sensitivity tensor for channel 155, timestep 9 to chunk_sensitivity_ch155_t9-10.npy
+Saved sensitivity tensor for channel 156, timestep 9 to chunk_sensitivity_ch156_t9-10.npy
+Saved sensitivity tensor for channel 157, timestep 9 to chunk_sensitivity_ch157_t9-10.npy
+Section 'Finished saving sensitivity results' took 0.3055 seconds
+Total elapsed time: 107.1424 seconds
 ----------------------------------------
 ============================================
     Chunked Sensitivity Analysis Done       
 ============================================
-Finished Samudra model run at Thu Apr 17 18:14:16 PDT 2025
+Finished Samudra model run at Fri Apr 18 08:38:36 PDT 2025
 
 ____________________________________________________________________
-Job Resource Usage Summary for 22047289.pbspl1.nas.nasa.gov
+Job Resource Usage Summary for 22050269.pbspl1.nas.nasa.gov
 
-    CPU Time Used            : 00:35:40
-    Real Memory Used         : 6284724kb
-    Walltime Used            : 00:01:34
+    CPU Time Used            : 00:36:25
+    Real Memory Used         : 1994380kb
+    Walltime Used            : 00:04:02
     Exit Status              : 0
 
     Number of CPUs Requested : 40
@@ -134,5 +234,5 @@ Job Resource Usage Summary for 22047289.pbspl1.nas.nasa.gov
     Execution Queue          : R21940709
     Charged To               : g26113
 
-    Job Stopped              : Thu Apr 17 18:14:19 2025
+    Job Stopped              : Fri Apr 18 08:38:39 2025
 ____________________________________________________________________
