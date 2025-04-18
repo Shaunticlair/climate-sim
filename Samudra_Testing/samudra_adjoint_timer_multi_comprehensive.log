@@ -1,0 +1,113 @@
+Job 22036056.pbspl1.nas.nasa.gov started on Wed Apr 16 15:40:24 PDT 2025
+The job requested the following resources:
+    ncpus=40
+    place=scatter:excl
+    walltime=01:00:00
+
+PBS set the following environment variables:
+        FORT_BUFFERED = 1
+                   TZ = PST8PDT
+
+On r133i6n12:
+Warning: no access to tty (Inappropriate ioctl for device).
+Thus no job control in this shell.
+Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
+Starting Samudra model run at Wed Apr 16 15:40:27 PDT 2025
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
+  return data.astype(dtype, **kwargs)
+Using CPU
+Using 80 CPU cores for computation
+Number of input channels: 158
+Number of output channels: 154
+Section 'Environment configured' took 0.0587 seconds
+Total elapsed time: 0.0587 seconds
+----------------------------------------
+Section 'Data loaded' took 10.4046 seconds
+Total elapsed time: 10.4633 seconds
+----------------------------------------
+Section 'Model loaded' took 4.0093 seconds
+Total elapsed time: 14.4726 seconds
+----------------------------------------
+Out:  [[2 3]] Our data has the shape torch.Size([1, 158, 180, 360])
+Final point for sensitivity: [[0, 0, 90, 180]]
+Computing sensitivity matrix for 64800 initial points and 1 final points
+Section 'Finished setting up' took 20.5239 seconds
+Total elapsed time: 34.9965 seconds
+----------------------------------------
+Out:  [[2 3]] Section 'Finished setting up model input' took 3.6729 seconds
+Total elapsed time: 38.6694 seconds
+----------------------------------------
+Section 'Finished setting up element tracking (maybe expensive?)' took 2.8313 seconds
+Total elapsed time: 41.5007 seconds
+----------------------------------------
+Processing time step: 0
+Section 'Ran model forward for model iteration 0' took 2.0444 seconds
+Total elapsed time: 43.5451 seconds
+----------------------------------------
+Out:  [[4 5]] Section 'Added gradient tracking for model iteration 1 (maybe expensive?)' took 5.9792 seconds
+Total elapsed time: 49.5243 seconds
+----------------------------------------
+Processing time step: 1
+Section 'Ran model forward for model iteration 1' took 1.2004 seconds
+Total elapsed time: 50.7247 seconds
+----------------------------------------
+Out:  [[6 7]] Section 'Added gradient tracking for model iteration 2 (maybe expensive?)' took 5.8681 seconds
+Total elapsed time: 56.5928 seconds
+----------------------------------------
+Processing time step: 2
+Section 'Ran model forward for model iteration 2' took 1.1593 seconds
+Total elapsed time: 57.7521 seconds
+----------------------------------------
+Out:  [[8 9]] Section 'Added gradient tracking for model iteration 3 (maybe expensive?)' took 5.9610 seconds
+Total elapsed time: 63.7131 seconds
+----------------------------------------
+Processing time step: 3
+Section 'Ran model forward for model iteration 3' took 1.1525 seconds
+Total elapsed time: 64.8656 seconds
+----------------------------------------
+Out:  [[10 11]] Section 'Added gradient tracking for model iteration 4 (maybe expensive?)' took 6.1853 seconds
+Total elapsed time: 71.0509 seconds
+----------------------------------------
+Processing time step: 4
+Section 'Ran model forward for model iteration 4' took 1.1566 seconds
+Total elapsed time: 72.2075 seconds
+----------------------------------------
+Out:  [[12 13]] Section 'Added gradient tracking for model iteration 5 (maybe expensive?)' took 4.6871 seconds
+Total elapsed time: 76.8946 seconds
+----------------------------------------
+Processing time step: 5
+Section 'Ran model forward for model iteration 5' took 1.1606 seconds
+Total elapsed time: 78.0552 seconds
+----------------------------------------
+Section 'Added gradient tracking for model iteration 6 (maybe expensive?)' took 0.0000 seconds
+Total elapsed time: 78.0553 seconds
+----------------------------------------
+Backwards run initiated
+Section 'Finished computing sensitivity matrix (includes backward pass)' took 1685.9645 seconds
+Total elapsed time: 1764.0197 seconds
+----------------------------------------
+Computed sensitivity matrix shape: torch.Size([712800, 1])
+Section 'Finished saving sensitivity matrices' took 3.8150 seconds
+Total elapsed time: 1767.8347 seconds
+----------------------------------------
+============================================
+          Sensitivity Analysis Done         
+============================================
+Finished Samudra model run at Wed Apr 16 16:11:30 PDT 2025
+
+____________________________________________________________________
+Job Resource Usage Summary for 22036056.pbspl1.nas.nasa.gov
+
+    CPU Time Used            : 36:57:00
+    Real Memory Used         : 12859872kb
+    Walltime Used            : 00:31:04
+    Exit Status              : 0
+
+    Number of CPUs Requested : 40
+    Walltime Requested       : 01:00:00
+
+    Execution Queue          : R21940709
+    Charged To               : g26113
+
+    Job Stopped              : Wed Apr 16 16:12:19 2025
+____________________________________________________________________

@@ -1,0 +1,73 @@
+Job 22047030.pbspl1.nas.nasa.gov started on Thu Apr 17 16:55:34 PDT 2025
+The job requested the following resources:
+    ncpus=40
+    place=scatter:excl
+    walltime=01:00:00
+
+PBS set the following environment variables:
+        FORT_BUFFERED = 1
+                   TZ = PST8PDT
+
+On r135i7n23:
+Warning: no access to tty (Inappropriate ioctl for device).
+Thus no job control in this shell.
+Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
+Starting Samudra model run at Thu Apr 17 16:55:37 PDT 2025
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
+  return data.astype(dtype, **kwargs)
+Using CPU
+Using 80 CPU cores for computation
+Number of input channels: 158
+Number of output channels: 154
+Section 'Environment configured' took 0.0195 seconds
+Total elapsed time: 0.0195 seconds
+----------------------------------------
+Section 'Data loaded' took 3.3914 seconds
+Total elapsed time: 3.4110 seconds
+----------------------------------------
+Section 'Model loaded' took 2.8128 seconds
+Total elapsed time: 6.2237 seconds
+----------------------------------------
+Out:  [[2 3]] Our data has the shape torch.Size([1, 158, 180, 360])
+Final point for sensitivity: [(0, 0, 90, 180, 10)]
+Computing sensitivity with batch 0, initial channel 0,       lat slice slice(0, 180, None), lon slice slice(0, 360, None)
+Section 'Setup complete' took 9.9084 seconds
+Total elapsed time: 16.1321 seconds
+----------------------------------------
+Out:  [[2 3]] Processing time step: 0
+Out:  [[4 5]] Processing time step: 1
+Out:  [[6 7]] Processing time step: 2
+Out:  [[8 9]] Processing time step: 3
+Out:  [[10 11]] Processing time step: 4
+Out:  [[12 13]] Processing time step: 5
+Section 'Finished computing chunked sensitivity' took 57.9967 seconds
+Total elapsed time: 74.1289 seconds
+----------------------------------------
+Computed sensitivity results: 1 output points
+  Output point 0: 1 sensitivity tensors
+    Sensitivity tensor 0 shape: torch.Size([1, 1, 180, 360])
+Saved sensitivity tensor to chunk_sensitivity_ch0_t0-10.npy
+Section 'Finished saving sensitivity results' took 0.0394 seconds
+Total elapsed time: 74.1683 seconds
+----------------------------------------
+============================================
+    Chunked Sensitivity Analysis Done       
+============================================
+Finished Samudra model run at Thu Apr 17 16:57:30 PDT 2025
+
+____________________________________________________________________
+Job Resource Usage Summary for 22047030.pbspl1.nas.nasa.gov
+
+    CPU Time Used            : 00:37:42
+    Real Memory Used         : 2935144kb
+    Walltime Used            : 00:01:54
+    Exit Status              : 0
+
+    Number of CPUs Requested : 40
+    Walltime Requested       : 01:00:00
+
+    Execution Queue          : R21940709
+    Charged To               : g26113
+
+    Job Stopped              : Thu Apr 17 16:57:33 2025
+____________________________________________________________________
