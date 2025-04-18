@@ -136,13 +136,15 @@ def compute_chunked_sensitivity(initial_time, final_time):
 
     # Save the sensitivity results to a file
     # We'll save the first sensitivity tensor for the first output point
-    if len(sensitivity_results) > 0 and len(sensitivity_results[0]) > 0:
-        sensitivity_np = sensitivity_results[0][0].cpu().numpy()
-        # Use str representation of the channel to avoid formatting issues with slice objects
-        channel_str = str(initial_channel).replace(' ', '_')
-        filename = f'chunk_sensitivity_ch{channel_str}_t{initial_time}-{final_time}.npy'
-        np.save(filename, sensitivity_np)
-        print(f"Saved sensitivity tensor to {filename}")
+    # Save all sensitivity tensors for the first output point
+    if len(sensitivity_results) > 0:
+        for t, sens_tensor in enumerate(sensitivity_results[0]):
+            sensitivity_np = sens_tensor.cpu().numpy()
+            # Use str representation of the channel to avoid formatting issues with slice objects
+            channel_str = str(initial_channel).replace(' ', '_')
+            filename = f'chunk_sensitivity_ch{channel_str}_t{t+initial_time}-{final_time}.npy'
+            np.save(filename, sensitivity_np)
+            print(f"Saved sensitivity tensor for timestep {t+initial_time} to {filename}")
 
     return sensitivity_results, chunk_info
 
