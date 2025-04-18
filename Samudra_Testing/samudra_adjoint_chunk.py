@@ -116,7 +116,8 @@ def compute_chunked_sensitivity(initial_time, final_time):
         in_chunks_dict=in_chunks_dict,
         out_indices=out_indices,
         device=device,
-        use_checkpointing=True  # Set to True for larger computation
+        use_checkpointing=True,  # Set to True for larger computation
+        timer=timer,  # Pass the timer for profiling
     )
 
     timer.checkpoint("Finished computing chunked sensitivity")
