@@ -45,7 +45,10 @@ print(arr)
 
 arr = np.array(arr)
 
-
+print(np.where(arr == 'zos_t=0'))
+print(np.where(arr == 'zos_t=1'))
 print(np.where(arr == 'tauuo'))
 print(np.where(arr == 'tauvo'))
-print(np.where(arr == 'zos_t=0'))
+print(np.where(arr == 'hfds'))
+print(np.where(arr == 'hfds_anomalies'))
+

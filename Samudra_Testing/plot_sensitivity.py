@@ -208,5 +208,5 @@ def plot(t0,t1, magn, grid_size, draw_corr=False, manual_path = None):
 #    print(t0)
 #    plot(t0,t_end)
 manual_path = 'sensitivity_arrays/adjoint_sensitivity_matrix_in_ch154_out_ch76_t=0,2.npy'
-manual_path = 'chunk_sensitivity_ch0_t0-10.npy'
+manual_path = 'chunk_sensitivity_ch0_t8-10.npy'
 plot(t_start, t_end, magnitude, perturb_grid_size, draw_corr=False, manual_path=manual_path)
