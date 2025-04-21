@@ -98,7 +98,7 @@ print(f"Our data has the shape {test_data[0][0].shape}")
 #        ],
 #}
 
-times = [initial_time]
+times = [0,24,48]
 
 in_chunks_dict = {
     t: [(batch_slice, slice(ch_num, ch_num+1), lat_slice, lon_slice) for ch_num in initial_channels]
