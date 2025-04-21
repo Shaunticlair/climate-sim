@@ -223,9 +223,10 @@ class SamudraAdjoint(model.Samudra):
         
         # Run the autoregressive rollout
         current_input = model_input
-        outputs = {min_time: current_input}  # Store inputs/outputs by time step
+        outputs = {min_time: current_input,
+                   min_time+1: current_input}  # Store inputs/outputs by time step
         
-        for it in range(initial_iter, max_time // 2 + 1):
+        for it in range(initial_iter, max_time // 2 ):
             print(f"Processing time step: {it}")
             
             # Forward pass
@@ -236,17 +237,16 @@ class SamudraAdjoint(model.Samudra):
             
             timer.checkpoint(f"Ran model forward for model iteration {it}")
             # Store output for this time step
-            time_step = it * 2 + 1
+            time_step = it * 2 + 2
             outputs[time_step] = output
+            next_time = time_step + 1  # This will be the next odd timestep
+            outputs[next_time] = output
             
             # Prepare for next time step if needed
             if it < max_time // 2:
                 boundary = inputs[it+1][0][:, self.output_channels:].to(device)
                 current_input = torch.cat([output, boundary], dim=1)
-                
-            # Store the even timestep
-            next_time = (it + 1) * 2
-            outputs[next_time] = current_input
+
             
             # Check both the even and odd timesteps for the next iteration
             # Even timestep (first part of next state vector)
@@ -491,7 +491,7 @@ class SamudraAdjoint(model.Samudra):
         chunks_dict : dict
             Dictionary mapping timesteps to lists of chunk specifications.
         timestep : int
-            Current timestep to check for chunks.
+            Current timestep to check for chunks. Should be even (if not, we will subtract one to make it even).
         max_time : int
             Maximum time to consider.
         tracked_chunks : dict
@@ -504,6 +504,8 @@ class SamudraAdjoint(model.Samudra):
         torch.Tensor
             The augmented state tensor with gradient tracking.
         """
+        timestep = (timestep // 2) * 2  # Ensure we are working with even timesteps
+
         # Track gradients for the current timestep if specified
         if timestep in chunks_dict:
             state_tensor, chunks = self.grad_track_chunked(
@@ -578,7 +580,7 @@ class SamudraAdjoint(model.Samudra):
         # Dictionary to store tracked elements for each time step and chunk
         tracked_chunks = {}
         
-        # Add gradient tracking for initial timesteps
+        # Add gradient tracking for initial timesteps: even and odd
         model_input = self.track_gradients_for_timestep(
             model_input, in_chunks_dict, min_time, max_time, tracked_chunks, device
         )
@@ -587,7 +589,8 @@ class SamudraAdjoint(model.Samudra):
         
         # Run the autoregressive rollout
         current_input = model_input
-        outputs = {min_time: current_input}  # Store inputs/outputs by time step
+        outputs = {min_time: current_input,
+                   min_time+1: current_input}  # Store inputs/outputs by time step
         
         for it in range(initial_iter, max_time // 2 ):
             print(f"Processing time step: {it}")
@@ -601,21 +604,19 @@ class SamudraAdjoint(model.Samudra):
             timer.checkpoint(f"Ran model forward for model iteration {it}")
             
             # Store output for this time step
-            time_step = it * 2 + 1
-            outputs[time_step] = output
+            next_even_time = it * 2 + 2
+            outputs[next_even_time] = output
+            next_odd_time = next_even_time + 1  
+            outputs[next_odd_time] = output
             
             # Prepare for next time step if needed
             if it < max_time // 2:
                 boundary = inputs[it+1][0][:, self.output_channels:].to(device)
                 current_input = torch.cat([output, boundary], dim=1)
                 
-                # Store the even timestep
-                next_time = (it + 1) * 2
-                outputs[next_time] = current_input
-                
                 # Add gradient tracking for next timesteps
                 current_input = self.track_gradients_for_timestep(
-                    current_input, in_chunks_dict, next_time, max_time, tracked_chunks, device
+                    current_input, in_chunks_dict, next_even_time, max_time, tracked_chunks, device
                 )
 
                 timer.checkpoint(f"Added gradient tracking for model iteration {it+1}")
