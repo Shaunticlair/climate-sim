@@ -23,9 +23,21 @@ timer = setup.Timer()
 
 ### PARAMETERS ###
 
+#t=0 is the start of 2014
+# We want t_end to be December 2015
+t_start = 0 
+# 699 days between January 2014 and December 2015: 700/5=140
+t_end = 140
+
+t_2year =   0 # A little less than 2 years from t_end
+t_1year =   140 - 73 # 1 year back from t_end
+t_6months = 140 - 36 # 6 months back from t_end
+t_1month =  140 - 6 # 1 month back from t_end
+
+
 # Time steps for sensitivity analysis
 initial_time = 0        # Starting time step
-final_time = 73         # Ending time step 
+final_time = 140         # Ending time step 
 
 #73
 
@@ -98,7 +110,9 @@ print(f"Our data has the shape {test_data[0][0].shape}")
 #        ],
 #}
 
-times = [0,24,48]
+
+
+times = [t_2year, t_1year, t_6months, t_1month] # Times to compute sensitivity wrt to
 
 in_chunks_dict = {
     t: [(batch_slice, slice(ch_num, ch_num+1), lat_slice, lon_slice) for ch_num in initial_channels]

@@ -93,6 +93,7 @@ def plot(path, map_dims, #Variables used to make the graph
     plt.tight_layout()
 
     name = f'Plots/adjoint_map_{view_name}_chout[{output_var}]_chin[{input_var}]_t[{t0},{t1}].png'
+    print(name)
     plt.savefig(name, dpi=300, bbox_inches='tight')
 
     plt.close('all')
@@ -110,10 +111,12 @@ var_out = 'zos(even)'
 ch_in = var_dict[var_in]
 ch_out = var_dict[var_out]
 
-t_start,t_end = 9, 10
+
+
+t_start,t_end = 0,73
 plot_path = Path(f"chunk_sensitivity_ch{ch_out}_t{t_start}-{t_end}.npy")
 
 map_dims = center_bounds([20,20], 131, 289) # [xmin, xmax, ymin, ymax]
-
+map_dims = [111, 152+20, 269, 310+20]
 plot(plot_path, map_dims=map_dims, t0=t_start, t1=t_end, 
      output_pixel=(131, 298), output_var=var_out, input_var=var_in)
