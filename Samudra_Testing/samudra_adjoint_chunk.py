@@ -115,7 +115,7 @@ def __getitem__(self, idx):
     data_in = (
         (data_in - self.inputs_no_extra_mean) / self.inputs_no_extra_std
     ).fillna(0)
-    print("data_in:" list(data_in.variables))
+    print("data_in:", list(data_in.variables))
     print("data_in axes:", data_in.dims)
     shaunticlair_temp_array = data_in.to_array().transpose("window_dim", "time", "variable", "y", "x")
     print("data_in to_array:", list(shaunticlair_temp_array.variables))
