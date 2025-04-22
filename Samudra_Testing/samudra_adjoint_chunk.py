@@ -27,17 +27,12 @@ timer = setup.Timer()
 # We want t_end to be December 2015
 t_start = 0 
 # 699 days between January 2014 and December 2015: 700/5=140
-t_end = 140
+t_end = 10 #140
 
 t_2year =   0 # A little less than 2 years from t_end
 t_1year =   140 - 73 # 1 year back from t_end
 t_6months = 140 - 36 # 6 months back from t_end
 t_1month =  140 - 6 # 1 month back from t_end
-
-
-# Time steps for sensitivity analysis
-initial_time = 0        # Starting time step
-final_time = 140         # Ending time step 
 
 #73
 
@@ -101,27 +96,25 @@ timer.checkpoint("Model loaded")
 
 print(f"Our data has the shape {test_data[0][0].shape}")
 
-# Define chunks for gradient tracking
-# For this example, we're tracking a region of the grid at initial_channel
-# Using slices for all dimensions to maintain proper dimensionality
-#in_chunks_dict = {
-#    initial_time: [
-#        (batch_slice, initial_channel_slice, lat_slice, lon_slice)
-#        ],
-#}
 
+### Choosing which sensitivities to take ###
 
+#times = [t_2year, t_1year, t_6months, t_1month] # Times to compute sensitivity wrt to
 
-times = [t_2year, t_1year, t_6months, t_1month] # Times to compute sensitivity wrt to
+# Temp debug version
+times = [t_start]
+initial_channels = [0]
+final_channel = 0
 
 in_chunks_dict = {
-    t: [(batch_slice, slice(ch_num, ch_num+1), lat_slice, lon_slice) for ch_num in initial_channels]
+    t: [(batch_slice, slice(ch_num, ch_num+1), lat_slice, lon_slice) 
+        for ch_num in initial_channels]
     for t in times
 }
 
 # Define output indices to compute sensitivity for
-out_indices = [(0, final_channel, final_lat, final_lon, final_time)]
-print(f"Final point for sensitivity: {out_indices}")
+out_indices_dict = {t_end: [(0, final_channel, final_lat, final_lon)]}
+print(f"Final point for sensitivity: {out_indices_dict}")
 
 print(f"Computing sensitivity with batch {batch}, initial channels {initial_channels}, \
       lat slice {lat_slice}, lon slice {lon_slice}")
@@ -129,76 +122,55 @@ print(f"Computing sensitivity with batch {batch}, initial channels {initial_chan
 
 ### COMPUTE CHUNKED SENSITIVITY AND SAVE RESULTS ###
 
-def compute_chunked_sensitivity(initial_time, final_time):
+def save_sensitivity_results(in_chunks_dict, out_indices_dict, sensitivity_results):
     """
     Compute sensitivity between a chunk at initial_time and a point at final_time
     """
-    sensitivity_results = adjoint_model.compute_state_sensitivity_chunked(
+    # Print the results
+    print(f"Computed sensitivity results: {len(sensitivity_results)} output points")
+    
+    for out_time, out_idx_list in out_indices_dict.items():
+        for out_idx in out_idx_list:
+            for in_time, in_slice_list in in_chunks_dict.items():
+                for in_slice in in_slice_list:
+
+                    index = (out_time, out_idx, in_time, in_slice)
+                    if index in sensitivity_results:
+                        _, chin, _, _ = in_slice
+                        _, chout, _, _ = out_idx
+                        chin = chin.start if isinstance(chin, slice) else chin
+
+                        sensitivity_tensor = sensitivity_results[index]
+                        sensitivity_nparray = sensitivity_tensor.cpu().numpy()
+                        # Save the tensor to a file
+                        filename = f'chunk_sensitivity_chout[{chout}]_chin[{chin}]_t[{in_time},{out_time}].npy'
+
+                        np.save(filename, sensitivity_nparray)
+                        print(f"Saved sensitivity tensor for {filename} to {filename}")
+                    else:
+                        print(f"No sensitivity data for index {index}")
+
+
+
+timer.checkpoint("Setup complete")
+
+sensitivity_results = adjoint_model.compute_state_sensitivity_chunked(
         test_data,
         in_chunks_dict=in_chunks_dict,
-        out_indices=out_indices,
+        out_indices_dict=out_indices_dict,
         device=device,
         use_checkpointing=True,  # Set to True for larger computation
         timer=timer,  # Pass the timer for profiling
     )
 
-    timer.checkpoint("Finished computing chunked sensitivity")
-
-    # Print the results
-    print(f"Computed sensitivity results: {len(sensitivity_results)} output points")
-
-    for i, sens_list in enumerate(sensitivity_results):
-        print(f"  Output point {i}: {len(sens_list)} sensitivity tensors")
-        for j, sens_tensor in enumerate(sens_list):
-            # Check if it's a tensor before trying to access shape
-            if isinstance(sens_tensor, torch.Tensor):
-                print(f"    Sensitivity tensor {j} shape: {sens_tensor.shape}")
-            else:
-                print(f"    Sensitivity tensor {j} is not a tensor, but a {type(sens_tensor)}")
-    
-
-    # Save the sensitivity results to a file
-    # We'll save the first sensitivity tensor for the first output point
-    # Save all sensitivity tensors for the first output point
-    # Save the sensitivity results to a file
-    if len(sensitivity_results) > 0:
-        # Access the first output point's sensitivity tensors
-        sens_list = sensitivity_results[0]
-        
-        # Create a counter to track which tensor we're on
-        tensor_idx = 0
-        
-        # For each time in our defined chunks
-        for t in sorted(in_chunks_dict.keys()):
-            # For each chunk at this time (which corresponds to different channels)
-            for chunk_idx, chunk_spec in enumerate(in_chunks_dict[t]):
-                if tensor_idx < len(sens_list):
-                    # Extract channel from the chunk specification
-                    _, channel_slice, _, _ = chunk_spec
-                    # Get channel number from slice
-                    if isinstance(channel_slice, slice):
-                        ch_num = channel_slice.start
-                    else:
-                        ch_num = channel_slice
-                    
-                    # Get the sensitivity tensor for this time-channel combination
-                    sens_tensor = sens_list[tensor_idx]
-                    sensitivity_np = sens_tensor.cpu().numpy()
-                    
-                    # Create filename with channel information
-                    filename = f'chunk_sensitivity_ch{ch_num}_t{t}-{final_time}.npy'
-                    np.save(filename, sensitivity_np)
-                    print(f"Saved sensitivity tensor for channel {ch_num}, timestep {t} to {filename}")
-                    
-                    tensor_idx += 1
-
-    return sensitivity_results
-
-
-timer.checkpoint("Setup complete")
+timer.checkpoint("Finished computing chunked sensitivity")
 
 # Run the sensitivity computation
-sensitivity_results = compute_chunked_sensitivity(initial_time, final_time)
+sensitivity_results = save_sensitivity_results(
+    in_chunks_dict=in_chunks_dict,
+    out_indices_dict=out_indices_dict,
+    sensitivity_results=sensitivity_results
+)
 
 timer.checkpoint("Finished saving sensitivity results")
 

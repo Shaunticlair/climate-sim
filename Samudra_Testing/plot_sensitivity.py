@@ -101,22 +101,41 @@ def plot(path, map_dims, #Variables used to make the graph
 
     
 
+#t=0 is the start of 2014
+# We want t_end to be December 2015
+t_start = 0 
+# 699 days between January 2014 and December 2015: 700/5=140
+t_end = 140
 
+t_2year =   0 # A little less than 2 years from t_end
+t_1year =   140 - 73 # 1 year back from t_end
+t_6months = 140 - 36 # 6 months back from t_end
+t_1month =  140 - 6 # 1 month back from t_end
+
+
+# Time steps for sensitivity analysis
+initial_time = 0        # Starting time step
+final_time = 140         # Ending time step 
 
 from misc import var_dict
 
-var_in = 'hfds'
-var_out = 'zos(even)'
+var_in = 'hfds_anomalies'
+var_out = 'tauvo'
 
 ch_in = var_dict[var_in]
 ch_out = var_dict[var_out]
 
 
-
-t_start,t_end = 0,73
-plot_path = Path(f"chunk_sensitivity_ch{ch_out}_t{t_start}-{t_end}.npy")
-
 map_dims = center_bounds([20,20], 131, 289) # [xmin, xmax, ymin, ymax]
 map_dims = [111, 152+20, 269, 310+20]
-plot(plot_path, map_dims=map_dims, t0=t_start, t1=t_end, 
-     output_pixel=(131, 298), output_var=var_out, input_var=var_in)
+#plot(plot_path, map_dims=map_dims, t0=t_start, t1=t_end, 
+#     output_pixel=(131, 298), output_var=var_out, input_var=var_in)
+initial_times = [t_1month, t_6months, t_1year]
+
+for initial_time in initial_times:
+    t_start, t_end = initial_time, final_time
+    plot_path = Path(f"chunk_sensitivity_ch{ch_in}_t{t_start}-{t_end}.npy")
+
+    plot(plot_path, map_dims=map_dims, t0=t_start, t1=t_end, 
+         output_pixel=(131, 289), output_var=var_out, input_var=var_in)
+    print(f"Plot saved for initial time {initial_time} with output variable {var_out} and input variable {var_in}.")

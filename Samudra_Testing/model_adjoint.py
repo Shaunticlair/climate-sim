@@ -13,6 +13,16 @@ import setup
 
 null_timer = setup.NullTimer() # Timer class that does nothing, used as default
 
+def check_slice_size(slice_obj, min_dim, max_dim):
+    """
+    Check size of a slice object.
+    Returns the size of the slice as an integer.
+    """
+    if isinstance(slice_obj, slice):
+        start = slice_obj.start if slice_obj.start is not None else 0
+        stop = slice_obj.stop if slice_obj.stop is not None else max_dim
+        step = slice_obj.step if slice_obj.step is not None else 1
+        size = (stop - start + step - 1) // step
 
 class SamudraAdjoint(model.Samudra):
     """
@@ -84,31 +94,6 @@ class SamudraAdjoint(model.Samudra):
 
         return state_tensor, input_element   
     
-    def grad_track_multiple_elements_DEFUNCT(self, state_tensor, 
-                                     initial_indices,
-                                     device="cuda"):
-        """
-        Utility function to track the gradient of multiple elements in the output with respect to multiple input elements.
-        """
-        state_tensor = state_tensor.clone().detach().to(device)
-
-        # Create a tensor to hold the gradients for each of the specified elements
-        input_elements = []
-        for initial_index in initial_indices:
-            # Retrieve the value of the specific element
-            initial_index = tuple(initial_index)  # Ensure it's a tuple
-            element_value = state_tensor[initial_index].item()  # Get the value of the element at the specified index
-            # Create a tensor with requires_grad=True for this element
-            input_element = torch.tensor([element_value], requires_grad=True, device=device)
-
-            # Inject the input element into the state tensor
-            state_tensor[initial_index] = input_element
-
-            input_elements.append(input_element)
-
-        # Return the modified state tensor and the list of input elements
-        return state_tensor, input_elements
-
     def grad_track_multiple_elements(self, state_tensor, 
                                      initial_indices,
                                      device="cuda"):
@@ -419,7 +404,7 @@ class SamudraAdjoint(model.Samudra):
         
         return sensitivity_matrix
 
-    def grad_track_chunked(self, state_tensor, slices_list, device="cuda"):
+    def track_gradients_for_chunk(self, state_tensor, slices_list, device="cuda"):
         """
         Utility function to track the gradient of chunks of elements in the state tensor.
         This implementation uses slicing to efficiently track gradients for regions of interest.
@@ -438,49 +423,31 @@ class SamudraAdjoint(model.Samudra):
         --------
         augmented_tensor : torch.Tensor
             The state tensor with gradient tracking added for the specified chunks.
-        tracked_elements : list
-            A list of tensors with requires_grad=True for the specified chunks.
+        tracked_elements : dict
+            A dictionary mapping each slice tuple to the corresponding gradient tensor.
+
         """
         state_tensor = state_tensor.clone().to(device)  # Clone but don't detach to preserve the computational graph
         
         # Create a list to track the tensor elements with gradients
-        tracked_elements = []
+        tracked_dict_in_time = {}
         
         for slice_tuple in slices_list:
             batch_slice, channel_slice, height_slice, width_slice = slice_tuple
             
-            # Get the shape of this slice
-            if isinstance(batch_slice, slice):
-                batch_size = (batch_slice.stop or state_tensor.shape[0]) - (batch_slice.start or 0)
-            else:
-                batch_size = 1
-                
-            if isinstance(channel_slice, slice):
-                channel_size = (channel_slice.stop or state_tensor.shape[1]) - (channel_slice.start or 0)
-            else:
-                channel_size = 1
-                
-            if isinstance(height_slice, slice):
-                height_size = (height_slice.stop or state_tensor.shape[2]) - (height_slice.start or 0)
-            else:
-                height_size = 1
-                
-            if isinstance(width_slice, slice):
-                width_size = (width_slice.stop or state_tensor.shape[3]) - (width_slice.start or 0)
-            else:
-                width_size = 1
-            
-            # Create a zeroed tensor with the shape of this slice
-            chunk_shape = (batch_size, channel_size, height_size, width_size)
+            chunk_example = state_tensor[batch_slice, channel_slice, height_slice, width_slice]
+            # Get the sizes of each dimension from the example slice
+            chunk_shape = chunk_example.shape
+
             grad_chunk = torch.zeros(chunk_shape, device=device, requires_grad=True)
-            tracked_elements.append(grad_chunk)
+            tracked_dict_in_time[slice_tuple] = grad_chunk  # Store the chunk for later use
             
             # Add the grad_chunk to the corresponding slice of state_tensor
             state_tensor[batch_slice, channel_slice, height_slice, width_slice] += grad_chunk
         
-        return state_tensor, tracked_elements
+        return state_tensor, tracked_dict_in_time
 
-    def track_gradients_for_timestep(self, state_tensor, chunks_dict, timestep, max_time, tracked_chunks, device="cuda"):
+    def track_gradients_for_timestep(self, state_tensor, in_chunks_dict, timestep, max_time, tracked_dict, device="cuda"):
         """
         Adds gradient tracking for chunks specified for a given timestep and the next timestep if present.
         
@@ -488,14 +455,22 @@ class SamudraAdjoint(model.Samudra):
         -----------
         state_tensor : torch.Tensor
             The state tensor to augment with gradient tracking.
-        chunks_dict : dict
-            Dictionary mapping timesteps to lists of chunk specifications.
+        in_chunks_dict : dict
+            Dictionary mapping timesteps to lists of tuples of slices.
+            Each tuple contains (batch_slice, channel_slice, height_slice, width_slice) indicating a 
+            region of the state tensor to track gradients for. The timestep indicates which time step
+            the chunks correspond to.
         timestep : int
             Current timestep to check for chunks. Should be even (if not, we will subtract one to make it even).
         max_time : int
             Maximum time to consider.
-        tracked_chunks : dict
-            Dictionary to store the tracked chunks, will be updated in-place.
+        tracked_dict : dict of dict of torch.Tensor
+            A dictionary to store tracked elements for each timestep.
+            Dictionary with timestep as keys and dictionaries of tracked chunks as values.
+                These dictionaries have keys as spatial indices (b, c, h, w) for each input chunk
+                and values as sensitivity tensors (gradients) for that input chunk.
+            {in_time: {in_slice: sensitivity_tensor}}
+            
         device : str
             The device to use for computation.
             
@@ -507,25 +482,25 @@ class SamudraAdjoint(model.Samudra):
         timestep = (timestep // 2) * 2  # Ensure we are working with even timesteps
 
         # Track gradients for the current timestep if specified
-        if timestep in chunks_dict:
-            state_tensor, chunks = self.grad_track_chunked(
-                state_tensor, chunks_dict[timestep], device=device
+        if timestep in in_chunks_dict:
+            state_tensor, tracked_dict_in_time = self.track_gradients_for_chunk(
+                state_tensor, in_chunks_dict[timestep], device=device
             )
-            tracked_chunks[timestep] = chunks
+            tracked_dict[timestep] = tracked_dict_in_time
         
         # Track gradients for the next timestep if it's within range and specified
         next_timestep = timestep + 1
-        if next_timestep in chunks_dict and next_timestep <= max_time:
-            state_tensor, next_chunks = self.grad_track_chunked(
-                state_tensor, chunks_dict[next_timestep], device=device
+        if next_timestep in in_chunks_dict and next_timestep <= max_time:
+            state_tensor, tracked_dict_in_time = self.track_gradients_for_chunk(
+                state_tensor, in_chunks_dict[next_timestep], device=device
             )
-            tracked_chunks[next_timestep] = next_chunks
+            tracked_dict[next_timestep] = tracked_dict_in_time
         
         return state_tensor
 
     def compute_state_sensitivity_chunked(self, inputs,
                     in_chunks_dict,
-                    out_indices,
+                    out_indices_dict,
                     device="cuda",
                     use_checkpointing=True,
                     timer=null_timer):
@@ -538,11 +513,15 @@ class SamudraAdjoint(model.Samudra):
         inputs : list of tensors
             The input tensors for each time step in the sequence.
         in_chunks_dict : dict
-            A dictionary mapping time steps to lists of slice tuples 
-            (batch_slice, channel_slice, height_slice, width_slice) for gradient tracking.
-        out_indices : list of tuples
-            A list of tuples (b, c, h, w, t) indicating the batch, channel, height, width
-            indices, and time step of the output elements to compute sensitivities for.
+            Dictionary mapping timesteps to lists of tuples of slices.
+            Each tuple contains (batch_slice, channel_slice, height_slice, width_slice) indicating a 
+            region of the state tensor to track gradients for. The timestep indicates which time step
+            the chunks correspond to.
+        out_indices_dict : dict
+            A dictionary mapping time steps to lists of tuples
+            Each tuple contains (b, c, h, w) indicating a region of the output state tensor
+            we will be computing sensitivities for. The timestep indicates which time step
+            the output corresponds to.
         device : str
             The device to run the computation on ('cuda' or 'cpu').
         use_checkpointing : bool
@@ -550,26 +529,27 @@ class SamudraAdjoint(model.Samudra):
                 
         Returns:
         --------
-        list of torch.Tensor
-            A list of tensors, one per output element, containing the sensitivities
-            of that output element with respect to each chunk of input elements.
+        dict of torch.Tensor
+            Each key is a tuple (out_time, out_idx, in_time, in_slice) where:
+                out_time : int
+                    The time step of the output element.
+                out_idx : tuple (b, c, h, w)
+                    The spatial indices of the output element.
+                in_time : int
+                    The time step of the input chunk.
+                in_slice : slice tuple (b, c, h, w)
+                    The spatial indices of the input chunk.
+            
+
         """
         # Make sure we're in evaluation mode
         self.eval()
 
         # Determine the time range we need to process
         in_times = list(in_chunks_dict.keys())
-        out_times = [idx[4] for idx in out_indices]
+        out_times = out_indices_dict.keys()
         min_time = min(min(in_times), min(out_times))
         max_time = max(out_times)
-        
-        # Create mapping for output indices
-        out_indices_by_time = {}
-        for i, idx in enumerate(out_indices):
-            time = idx[4]
-            if time not in out_indices_by_time:
-                out_indices_by_time[time] = []
-            out_indices_by_time[time].append((i, idx[:4]))
         
         # Initialize the model input for the minimum time step
         initial_iter = min_time // 2
@@ -578,11 +558,11 @@ class SamudraAdjoint(model.Samudra):
         timer.checkpoint("Finished setting up model input")
         
         # Dictionary to store tracked elements for each time step and chunk
-        tracked_chunks = {}
+        tracked_dict = {}
         
         # Add gradient tracking for initial timesteps: even and odd
         model_input = self.track_gradients_for_timestep(
-            model_input, in_chunks_dict, min_time, max_time, tracked_chunks, device
+            model_input, in_chunks_dict, min_time, max_time, tracked_dict, device
         )
 
         timer.checkpoint("Finished setting up chunk tracking")
@@ -616,26 +596,26 @@ class SamudraAdjoint(model.Samudra):
                 
                 # Add gradient tracking for next timesteps
                 current_input = self.track_gradients_for_timestep(
-                    current_input, in_chunks_dict, next_even_time, max_time, tracked_chunks, device
+                    current_input, in_chunks_dict, next_even_time, max_time, tracked_dict, device
                 )
 
                 timer.checkpoint(f"Added gradient tracking for model iteration {it+1}")
         
-        # List to store sensitivity tensors for each output element
-        sensitivity_results = []
+        # Dict to store sensitivity tensors for each output element
+        sensitivity_results = {}
         
         # For each output time step and indices
-        for out_time, out_idx_list in out_indices_by_time.items():
+        for out_time, out_list_idx in out_indices_dict.items():   #### LOOP OVER OUTPUT TIME STEP
             output_tensor = outputs[out_time]
-            
+
             # Extract the output elements we're interested in
-            for orig_idx, spatial_idx in out_idx_list:
-                b, c, h, w = spatial_idx
+            for out_idx in out_list_idx:                          ### LOOP OVER OUTPUT INDICES
+                b, c, h, w = out_idx
                 output_element = output_tensor[b, c, h, w]
                 
                 # Clear gradients before backward pass
-                for time_chunks in tracked_chunks.values():
-                    for chunk in time_chunks:
+                for tracked_dict_in_time in tracked_dict.values(): #Each time step has its own tracked chunks
+                    for chunk in tracked_dict_in_time.values(): # Each chunk is a tensor
                         if chunk.grad is not None:
                             chunk.grad.zero_()
                 
@@ -646,15 +626,20 @@ class SamudraAdjoint(model.Samudra):
                 timer.checkpoint("Backwards pass complete")
                 
                 # Gather sensitivity tensors for this output element
-                sensitivity_for_element = []
-                for time in sorted(tracked_chunks.keys()):
-                    time_chunks = tracked_chunks[time]
-                    for chunk in time_chunks:
-                        sensitivity_for_element.append(chunk.grad.clone() if chunk.grad is not None else torch.zeros_like(chunk))
-                
-                sensitivity_results.append(sensitivity_for_element)
+                for in_time, tracked_dict_in_time in tracked_dict.items(): ## LOOP OVER INPUT TIME STEPS
+                    for in_slice, chunk in tracked_dict_in_time.items(): # LOOP OVER INPUT SLICES
+                        # Get the gradient for this chunk
+                        grad_chunk = chunk.grad.clone() if chunk.grad is not None else torch.zeros_like(chunk)
+
+                        # Store the sensitivity tensor in the results dict
+                        index = (out_time, out_idx, in_time, in_slice)
+                        sensitivity_results[index] = grad_chunk
+                        
 
                 timer.checkpoint("Gathered sensitivity for output element")
+
+
+                
         
         timer.checkpoint("Finished computing sensitivity matrix (includes backward pass)")
         
