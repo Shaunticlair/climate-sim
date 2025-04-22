@@ -36,7 +36,7 @@ for t in range(2):
 
 
 BOUNDARY_VARS = {
-    "3D_all_hfds_anom": ["tauuo", "tauvo", "hfds", "hfds_anomalies"]
+    "3D_all_hfds_anom": ["hfds", "hfds_anomalies","tauuo", "tauvo"]
 }
 #print(BOUNDARY_VARS["3D_all_hfds_anom"])
 
@@ -46,7 +46,7 @@ var_list += BOUNDARY_VARS["3D_all_hfds_anom"]
 var_dict = {var: i for i, var in enumerate(var_list)}
 
 var_arr = np.array(var_list)
-#print(var_arr)
+print(var_arr)
 
 #print(np.where(arr == 'zos_t=0'))
 #print(np.where(arr == 'zos_t=1'))

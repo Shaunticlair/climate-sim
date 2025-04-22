@@ -5,8 +5,6 @@ from scipy import stats
 
 ### PARAMETERS ###
 
-
-
 def center_bounds(view_size, centerx, centery):
     if view_size == "tiny":
         # Define the region of interest in the matrix for cropping
@@ -21,12 +19,11 @@ def center_bounds(view_size, centerx, centery):
         xmin, xmax = 0, 180
         ymin, ymax = 0, 360
 
-    if type(view_size) == list: #Manual mode
+    if isinstance(view_size, list): #Manual mode
         deltax, deltay = view_size
         # Define the region of interest in the matrix for cropping
         xmin, xmax = centerx-deltax, centerx+deltax+1
         ymin, ymax = centery-deltay, centery+deltay+1
-
 
     return xmin, xmax, ymin, ymax
 
@@ -34,7 +31,7 @@ def center_bounds(view_size, centerx, centery):
 def plot(path, map_dims, #Variables used to make the graph
          t0, t1, output_pixel, 
          output_var, input_var, # Pixels used to label the graph
-         xticks = 20, yticks = 20, #Variables used to add ticks to the graph
+         xticks=20, yticks=20, #Variables used to add ticks to the graph
     ):
 
     ### PRE-PROCESSING ###
@@ -70,7 +67,11 @@ def plot(path, map_dims, #Variables used to make the graph
     vmin, vmax = -abs_max, abs_max
     print(f"Using symmetric color limits: [{vmin}, {vmax}]")
 
-    im = plt.imshow(masked_sensitivity, cmap='RdBu_r', aspect='auto', origin='lower', 
+    # Create a custom colormap based on RdBu_r with black for masked values
+    cmap = plt.cm.RdBu_r.copy()
+    cmap.set_bad('black', 0.5)
+    
+    im = plt.imshow(masked_sensitivity, cmap=cmap, aspect='auto', origin='lower', 
                     vmin=vmin, vmax=vmax)
 
     # Get the row and column indices for the cropped region
@@ -81,9 +82,20 @@ def plot(path, map_dims, #Variables used to make the graph
     y_positions = np.arange(cropped_sensitivity.shape[0])
     x_positions = np.arange(cropped_sensitivity.shape[1])
 
+    # Calculate tick positions and labels that match in length
+    x_tick_positions = x_positions[::xticks]
+    x_tick_labels = col_indices[::xticks]
+    
+    y_tick_positions = y_positions[::yticks]
+    y_tick_labels = row_indices[::yticks]
+    
+    # Make sure we have the same number of positions and labels
+    min_x_len = min(len(x_tick_positions), len(x_tick_labels))
+    min_y_len = min(len(y_tick_positions), len(y_tick_labels))
+    
     # Display actual matrix indices on the axes
-    plt.xticks(x_positions[::20], col_indices[::20])  # Show every 36th index for readability
-    plt.yticks(y_positions[::20], row_indices[::20])  # Show every 18th index for readability
+    plt.xticks(x_tick_positions[:min_x_len], x_tick_labels[:min_x_len])
+    plt.yticks(y_tick_positions[:min_y_len], y_tick_labels[:min_y_len])
 
     plt.colorbar(label='Sensitivity Value')
     output_var = output_var.replace('(odd)','').replace('(even)','')
@@ -101,14 +113,16 @@ def plot(path, map_dims, #Variables used to make the graph
     plt.grid(False)
     plt.tight_layout()
 
+    # Create Plots directory if it doesn't exist
+    Path("Plots").mkdir(exist_ok=True)
+    
     name = f'Plots/adjoint_map_{view_name}_chin[{input_var}]_chout[{output_var}]_t[{t0},{t1}].png'
-    print(name)
+    print(f"Saving plot to: {name}")
     plt.savefig(name, dpi=300, bbox_inches='tight')
 
     plt.close('all')
-    print("Plots saved with symmetric color scale around zero.")
+    print("Plot saved with symmetric color scale around zero.")
 
-    
 
 #t=0 is the start of 2014
 # We want t_end to be December 2015
@@ -122,32 +136,36 @@ t_6months = 140 - 36 # 6 months back from t_end
 t_1month =  140 - 6 # 1 month back from t_end
 
 
-# Time steps for sensitivity analysis
-initial_time = 0        # Starting time step
-final_time = 10         # Ending time step 
-
-from misc import var_dict
+# Import var_dict from misc if it exists, otherwise define it here
+try:
+    from misc import var_dict
+except ImportError:
+    # Define a basic var_dict if the import fails
+    var_dict = {
+        'hfds_anomalies': 157,
+        'zos(even)': 76,
+    }
 
 #var_in = 'hfds_anomalies'
-#var_out = 'tauvo'
-var_in = 'thetao_lev_2_5(even)'
-var_out = 'thetao_lev_2_5(even)'
+var_in = 'tauuo'
+var_out = 'zos(even)' #Nantucket observation
 
 ch_in = var_dict[var_in]
 ch_out = var_dict[var_out]
 
-
-map_dims = center_bounds([20,20], 131, 289) # [xmin, xmax, ymin, ymax]
-map_dims = [111, 152+20, 269, 310+20]
-#plot(plot_path, map_dims=map_dims, t0=t_start, t1=t_end, 
-#     output_pixel=(131, 298), output_var=var_out, input_var=var_in)
+# center: (131, 289) corresponds to Nantucket
+# Explicitly define map dimensions
+map_dims = [111, 152+20, 269, 310+50]  # [xmin, xmax, ymin, ymax]
 initial_times = [t_1month, t_6months, t_1year]
-initial_times = [0]
 
 for initial_time in initial_times:
-    in_time, out_time = initial_time, final_time
-    plot_path = Path(f"chunk_sensitivity_chin[{ch_in}]_chout[{ch_out}]_t[{in_time},{out_time}].npy")
-
-    plot(plot_path, map_dims=map_dims, t0=in_time, t1=out_time, 
-         output_pixel=(131, 289), output_var=var_out, input_var=var_in)
-    print(f"Plot saved for initial time {initial_time} with output variable {var_out} and input variable {var_in}.")
+    in_time, out_time = initial_time, t_end
+    plot_path = Path(f'chunk_sensitivity_chout[{ch_out}]_chin[{ch_in}]_t[{in_time},{out_time}].npy')
+    
+    if plot_path.exists():
+        plot(plot_path, map_dims=map_dims, t0=in_time, t1=out_time, 
+             output_pixel=(131, 289), output_var=var_out, input_var=var_in,
+             xticks=10, yticks=10)
+        print(f"Plot saved for initial time {initial_time} with output variable {var_out} and input variable {var_in}.")
+    else:
+        print(f"File not found: {plot_path}")

@@ -138,7 +138,8 @@ def save_sensitivity_results(in_chunks_dict, out_indices_dict, sensitivity_resul
                         sensitivity_tensor = sensitivity_results[index]
                         sensitivity_nparray = sensitivity_tensor.cpu().numpy()
                         # Save the tensor to a file
-                        filename = f'chunk_sensitivity_chout[{chout}]_chin[{chin}]_t[{in_time},{out_time}].npy'
+                        #filename = f'chunk_sensitivity_chout[{chout}]_chin[{chin}]_t[{in_time},{out_time}].npy'
+                        filename = f'chunk_sensitivity_chin[{chin}]_chout[{chout}]_t[{in_time},{out_time}].npy'
 
                         np.save(filename, sensitivity_nparray)
                         print(f"Saved sensitivity tensor for {filename} to {filename}")
