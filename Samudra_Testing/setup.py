@@ -233,9 +233,9 @@ def load_data(s_test, e_test, N_test,
     class VisibleTest(data_loaders.Test):
         def __getitem__(self, idx):
 
-            print("Input axes:", self.inputs.dims)
-            print("Input vars:", list(self.inputs.variables))
-            print("Inputs no extra", self.inputs_no_extra.variables)
+            print("Input axes:", list(self.inputs.dims))
+            print("Input vars:", list(self.inputs.data_vars))
+            print("Inputs no extra", list(self.inputs_no_extra.data_vars))
                 
             if type(idx) == slice:
                 if idx.start == None and idx.stop == None:
@@ -258,15 +258,16 @@ def load_data(s_test, e_test, N_test,
             data_in = (
                 (data_in - self.inputs_no_extra_mean) / self.inputs_no_extra_std
             ).fillna(0)
-            print("data_in:", list(data_in.variables))
-            print("data_in axes:", data_in.dims)
+            print("data_in:", list(data_in.data_vars))
+            print("data_in axes:", list(data_in.dims))
             shaunticlair_temp_array = data_in.to_array().transpose("window_dim", "time", "variable", "y", "x")
-            print("data_in to_array:", list(shaunticlair_temp_array.variables))
+            print("data_in to_array:", list(shaunticlair_temp_array.coords["variable"].values))
             print("data_in shape:", shaunticlair_temp_array.shape)
 
             shaunticlair_transposed_array = rearrange(
                 shaunticlair_temp_array, "window_dim time variable y x -> window_dim (time variable) y x"
             )
+            print(shaunticlair_transposed_array)
             print("data_in time variable", shaunticlair_transposed_array.coords['time variable'])
             raise Exception
             data_in = (

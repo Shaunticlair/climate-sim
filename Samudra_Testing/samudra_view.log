@@ -1,0 +1,144 @@
+Job 22069960.pbspl1.nas.nasa.gov started on Tue Apr 22 13:22:50 PDT 2025
+The job requested the following resources:
+    ncpus=40
+    place=scatter:excl
+    walltime=01:00:00
+
+PBS set the following environment variables:
+        FORT_BUFFERED = 1
+                   TZ = PST8PDT
+
+On r139i3n9:
+Warning: no access to tty (Inappropriate ioctl for device).
+Thus no job control in this shell.
+Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
+Starting Samudra model run at Tue Apr 22 13:23:41 PDT 2025
+Using CPU
+Using 80 CPU cores for computation
+Loading data...
+
+=== Original Variables ===
+Variables: ['hfds', 'hfds_anomalies', 'so_lev_1050_0', 'so_lev_105_0', 'so_lev_10_0', 'so_lev_1400_0', 'so_lev_165_0', 'so_lev_1850_0', 'so_lev_22_5', 'so_lev_2400_0', 'so_lev_250_0', 'so_lev_2_5', 'so_lev_3100_0', 'so_lev_375_0', 'so_lev_4000_0', 'so_lev_40_0', 'so_lev_5000_0', 'so_lev_550_0', 'so_lev_6000_0', 'so_lev_65_0', 'so_lev_775_0', 'tauuo', 'tauvo', 'thetao_lev_1050_0', 'thetao_lev_105_0', 'thetao_lev_10_0', 'thetao_lev_1400_0', 'thetao_lev_165_0', 'thetao_lev_1850_0', 'thetao_lev_22_5', 'thetao_lev_2400_0', 'thetao_lev_250_0', 'thetao_lev_2_5', 'thetao_lev_3100_0', 'thetao_lev_375_0', 'thetao_lev_4000_0', 'thetao_lev_40_0', 'thetao_lev_5000_0', 'thetao_lev_550_0', 'thetao_lev_6000_0', 'thetao_lev_65_0', 'thetao_lev_775_0', 'uo_lev_1050_0', 'uo_lev_105_0', 'uo_lev_10_0', 'uo_lev_1400_0', 'uo_lev_165_0', 'uo_lev_1850_0', 'uo_lev_22_5', 'uo_lev_2400_0', 'uo_lev_250_0', 'uo_lev_2_5', 'uo_lev_3100_0', 'uo_lev_375_0', 'uo_lev_4000_0', 'uo_lev_40_0', 'uo_lev_5000_0', 'uo_lev_550_0', 'uo_lev_6000_0', 'uo_lev_65_0', 'uo_lev_775_0', 'vo_lev_1050_0', 'vo_lev_105_0', 'vo_lev_10_0', 'vo_lev_1400_0', 'vo_lev_165_0', 'vo_lev_1850_0', 'vo_lev_22_5', 'vo_lev_2400_0', 'vo_lev_250_0', 'vo_lev_2_5', 'vo_lev_3100_0', 'vo_lev_375_0', 'vo_lev_4000_0', 'vo_lev_40_0', 'vo_lev_5000_0', 'vo_lev_550_0', 'vo_lev_6000_0', 'vo_lev_65_0', 'vo_lev_775_0', 'zos']
+
+=== Variable Structure ===
+
+so variables:
+  so_lev_2_5
+  so_lev_10_0
+  so_lev_22_5
+  so_lev_40_0
+  so_lev_65_0
+  so_lev_105_0
+  so_lev_165_0
+  so_lev_250_0
+  so_lev_375_0
+  so_lev_550_0
+  so_lev_775_0
+  so_lev_1050_0
+  so_lev_1400_0
+  so_lev_1850_0
+  so_lev_2400_0
+  so_lev_3100_0
+  so_lev_4000_0
+  so_lev_5000_0
+  so_lev_6000_0
+
+thetao variables:
+  thetao_lev_2_5
+  thetao_lev_10_0
+  thetao_lev_22_5
+  thetao_lev_40_0
+  thetao_lev_65_0
+  thetao_lev_105_0
+  thetao_lev_165_0
+  thetao_lev_250_0
+  thetao_lev_375_0
+  thetao_lev_550_0
+  thetao_lev_775_0
+  thetao_lev_1050_0
+  thetao_lev_1400_0
+  thetao_lev_1850_0
+  thetao_lev_2400_0
+  thetao_lev_3100_0
+  thetao_lev_4000_0
+  thetao_lev_5000_0
+  thetao_lev_6000_0
+
+uo variables:
+  uo_lev_2_5
+  uo_lev_10_0
+  uo_lev_22_5
+  uo_lev_40_0
+  uo_lev_65_0
+  uo_lev_105_0
+  uo_lev_165_0
+  uo_lev_250_0
+  uo_lev_375_0
+  uo_lev_550_0
+  uo_lev_775_0
+  uo_lev_1050_0
+  uo_lev_1400_0
+  uo_lev_1850_0
+  uo_lev_2400_0
+  uo_lev_3100_0
+  uo_lev_4000_0
+  uo_lev_5000_0
+  uo_lev_6000_0
+
+vo variables:
+  vo_lev_2_5
+  vo_lev_10_0
+  vo_lev_22_5
+  vo_lev_40_0
+  vo_lev_65_0
+  vo_lev_105_0
+  vo_lev_165_0
+  vo_lev_250_0
+  vo_lev_375_0
+  vo_lev_550_0
+  vo_lev_775_0
+  vo_lev_1050_0
+  vo_lev_1400_0
+  vo_lev_1850_0
+  vo_lev_2400_0
+  vo_lev_3100_0
+  vo_lev_4000_0
+  vo_lev_5000_0
+  vo_lev_6000_0
+
+Other variables:
+  hfds
+  hfds_anomalies
+  tauuo
+  tauvo
+  zos
+
+=== After convert_train_data ===
+Variables: ['hfds', 'hfds_anomalies', 'tauuo', 'tauvo', 'zos', 'vo', 'thetao', 'uo', 'so']
+
+=== Level Values ===
+[2.50e+00 1.00e+01 2.25e+01 4.00e+01 6.50e+01 1.05e+02 1.65e+02 2.50e+02
+ 3.75e+02 5.50e+02 7.75e+02 1.05e+03 1.40e+03 1.85e+03 2.40e+03 3.10e+03
+ 4.00e+03 5.00e+03 6.00e+03]
+
+=== First Variable: hfds ===
+Shape: (602, 180, 360)
+Dimensions: ('time', 'y', 'x')
+Finished Samudra model run at Tue Apr 22 13:26:29 PDT 2025
+
+____________________________________________________________________
+Job Resource Usage Summary for 22069960.pbspl1.nas.nasa.gov
+
+    CPU Time Used            : 00:00:15
+    Real Memory Used         : 355444kb
+    Walltime Used            : 00:03:35
+    Exit Status              : 0
+
+    Number of CPUs Requested : 40
+    Walltime Requested       : 01:00:00
+
+    Execution Queue          : normal
+    Charged To               : g26113
+
+    Job Stopped              : Tue Apr 22 13:26:31 2025
+____________________________________________________________________
