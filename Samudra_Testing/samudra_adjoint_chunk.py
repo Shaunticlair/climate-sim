@@ -82,6 +82,92 @@ test_data, wet, data_mean, data_std = setup.load_data(s_test, e_test, N_test,
 
 timer.checkpoint("Data loaded")
 
+print(list(test_data.inputs.variables))
+# Also print all the axes of test_data.inputs xarray object
+print(f"Test data inputs axes: {test_data.inputs.dims}")
+
+from einops import rearrange
+
+def __getitem__(self, idx):
+
+    print("Input axes:", self.inputs.dims)
+    print("Input vars:", list(self.inputs.variables))
+    print("Inputs no extra", self.inputs_no_extra.variables)
+        
+    if type(idx) == slice:
+        if idx.start == None and idx.stop == None:
+            idx = slice(0, self.size, idx.step)
+        elif idx.start == None:
+            idx = slice(0, idx.stop, idx.step)
+        elif idx.stop == None:
+            idx = slice(idx.start, self.size, idx.step)
+    elif type(idx) == int:
+        idx = slice(idx, idx + 1, 1)
+
+    rolling_idx = self.rolling_indices.isel(window_dim=idx)
+    x_index = xr.Variable(
+        ["window_dim", "time"], rolling_idx
+    )
+    print("Out: ", (self.ind_start + x_index.isel(time=slice(self.hist + 1, None))).values, end=' ')
+    data_in = self.inputs_no_extra.isel(time=x_index).isel(
+        time=slice(None, self.hist + 1)
+    )
+    data_in = (
+        (data_in - self.inputs_no_extra_mean) / self.inputs_no_extra_std
+    ).fillna(0)
+    print("data_in:" list(data_in.variables))
+    print("data_in axes:", data_in.dims)
+    shaunticlair_temp_array = data_in.to_array().transpose("window_dim", "time", "variable", "y", "x")
+    print("data_in to_array:", list(shaunticlair_temp_array.variables))
+    print("data_in shape:", shaunticlair_temp_array.shape)
+
+    shaunticlair_transposed_array = rearrange(
+        shaunticlair_temp_array, "window_dim time variable y x -> window_dim (time variable) y x"
+    )
+    print("data_in time variable", shaunticlair_transposed_array.coords['time variable'])
+    raise Exception
+    data_in = (
+        data_in.to_array()
+        .transpose("window_dim", "time", "variable", "y", "x")
+        .to_numpy()
+    )
+    data_in = rearrange(
+        data_in, "window_dim time variable y x -> window_dim (time variable) y x"
+    )
+    print()
+    if len(self.extras.variables) != 0:
+        data_in_boundary = self.extras.isel(time=x_index).isel(time=self.hist)
+        data_in_boundary = (
+            (data_in_boundary - self.extras_mean) / self.extras_std
+        ).fillna(0)
+        data_in_boundary = (
+            data_in_boundary.to_array()
+            .transpose("window_dim", "variable", "y", "x")
+            .to_numpy()
+        )
+        data_in = np.concatenate((data_in, data_in_boundary), axis=1)
+
+    label = self.outputs.isel(time=x_index).isel(time=slice(self.hist + 1, None))
+    label = ((label - self.out_mean) / self.out_std).fillna(0)
+    label = (
+        label.to_array()
+        .transpose("window_dim", "time", "variable", "y", "x")
+        .to_numpy()
+    )
+    label = rearrange(
+        label, "window_dim time variable y x -> window_dim (time variable) y x"
+    )
+
+    items = (torch.from_numpy(data_in).float(), torch.from_numpy(label).float())
+
+    return items
+
+
+
+__getitem__(test_data.inputs, 0)
+
+raise Exception
+
 # Initialize SamudraAdjoint with the same parameters as the original model
 adjoint_model = model_adjoint.SamudraAdjoint(
     wet=wet.to(device),
