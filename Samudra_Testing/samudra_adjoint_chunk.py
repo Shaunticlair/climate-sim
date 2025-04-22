@@ -134,7 +134,7 @@ def save_sensitivity_results(in_chunks_dict, out_indices_dict, sensitivity_resul
             for in_time, in_slice_list in in_chunks_dict.items():
                 for in_slice in in_slice_list:
 
-                    index = (out_time, out_idx, in_time, in_slice)
+                    index = (out_time, out_idx, in_time, str(in_slice)) # Slice is not hashable
                     if index in sensitivity_results:
                         _, chin, _, _ = in_slice
                         _, chout, _, _ = out_idx

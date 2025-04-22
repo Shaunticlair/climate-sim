@@ -440,7 +440,7 @@ class SamudraAdjoint(model.Samudra):
             chunk_shape = chunk_example.shape
 
             grad_chunk = torch.zeros(chunk_shape, device=device, requires_grad=True)
-            tracked_dict_in_time[slice_tuple] = grad_chunk  # Store the chunk for later use
+            tracked_dict_in_time[str(slice_tuple)] = grad_chunk  # Store the chunk for later use
             
             # Add the grad_chunk to the corresponding slice of state_tensor
             state_tensor[batch_slice, channel_slice, height_slice, width_slice] += grad_chunk
@@ -632,7 +632,7 @@ class SamudraAdjoint(model.Samudra):
                         grad_chunk = chunk.grad.clone() if chunk.grad is not None else torch.zeros_like(chunk)
 
                         # Store the sensitivity tensor in the results dict
-                        index = (out_time, out_idx, in_time, in_slice)
+                        index = (out_time, out_idx, in_time, str(in_slice))
                         sensitivity_results[index] = grad_chunk
                         
 
