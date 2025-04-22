@@ -27,17 +27,17 @@ timer = setup.Timer()
 # We want t_end to be December 2015
 t_start = 0 
 # 699 days between January 2014 and December 2015: 700/5=140
-t_end = 10 #140
+t_end = 140
 
 t_2year =   0 # A little less than 2 years from t_end
 t_1year =   140 - 73 # 1 year back from t_end
 t_6months = 140 - 36 # 6 months back from t_end
 t_1month =  140 - 6 # 1 month back from t_end
 
-#73
+#73 is one year
 
 # Define regions of interest in the ocean: latitude and longitude indices
-lat_slice = slice(0,180) #slice(106,156)    # A chunk around latitude 90
+lat_slice = slice(0,180) #slice(106,156)  # A chunk around latitude 90
 lon_slice = slice(0,360) #slice(264,314)  # A chunk around longitude 180
 
 # Define the final latitude and longitude for the output: the coords we want to study the sensitivity wrt to
@@ -99,12 +99,7 @@ print(f"Our data has the shape {test_data[0][0].shape}")
 
 ### Choosing which sensitivities to take ###
 
-#times = [t_2year, t_1year, t_6months, t_1month] # Times to compute sensitivity wrt to
-
-# Temp debug version
-times = [t_start]
-initial_channels = [0]
-final_channel = 0
+times = [t_2year, t_1year, t_6months, t_1month] # Times to compute sensitivity wrt to
 
 in_chunks_dict = {
     t: [(batch_slice, slice(ch_num, ch_num+1), lat_slice, lon_slice) 

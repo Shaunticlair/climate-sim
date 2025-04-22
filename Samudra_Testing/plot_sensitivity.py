@@ -86,13 +86,22 @@ def plot(path, map_dims, #Variables used to make the graph
     plt.yticks(y_positions[::20], row_indices[::20])  # Show every 18th index for readability
 
     plt.colorbar(label='Sensitivity Value')
-    plt.title(f'$\\partial \\left( {output_var} \\text{{ at }}({output_lat},{output_lon}), t={t1} \\right) / \\partial \\left( {input_var} \\text{{ across map}}, t={t0} \\right)$')
+    output_var = output_var.replace('(odd)','').replace('(even)','')
+    input_var = input_var.replace('(odd)','').replace('(even)','')
+
+    output_latex = output_var.replace('_', '\\_')
+    input_latex = input_var.replace('_', '\\_')
+    
+    numerator = f'\\partial \\left( {output_latex} \\text{{ at }}({output_lat},{output_lon}), t={t1} \\right)'
+    denominator = f'\\partial \\left( {input_latex} \\text{{ across map}}, t={t0} \\right)'
+    plt.title(f'${numerator} / {denominator}$')
+
     plt.xlabel('Longitude Index')
     plt.ylabel('Latitude Index')
     plt.grid(False)
     plt.tight_layout()
 
-    name = f'Plots/adjoint_map_{view_name}_chout[{output_var}]_chin[{input_var}]_t[{t0},{t1}].png'
+    name = f'Plots/adjoint_map_{view_name}_chin[{input_var}]_chout[{output_var}]_t[{t0},{t1}].png'
     print(name)
     plt.savefig(name, dpi=300, bbox_inches='tight')
 
@@ -115,12 +124,14 @@ t_1month =  140 - 6 # 1 month back from t_end
 
 # Time steps for sensitivity analysis
 initial_time = 0        # Starting time step
-final_time = 140         # Ending time step 
+final_time = 10         # Ending time step 
 
 from misc import var_dict
 
-var_in = 'hfds_anomalies'
-var_out = 'tauvo'
+#var_in = 'hfds_anomalies'
+#var_out = 'tauvo'
+var_in = 'thetao_lev_2_5(even)'
+var_out = 'thetao_lev_2_5(even)'
 
 ch_in = var_dict[var_in]
 ch_out = var_dict[var_out]
@@ -131,11 +142,12 @@ map_dims = [111, 152+20, 269, 310+20]
 #plot(plot_path, map_dims=map_dims, t0=t_start, t1=t_end, 
 #     output_pixel=(131, 298), output_var=var_out, input_var=var_in)
 initial_times = [t_1month, t_6months, t_1year]
+initial_times = [0]
 
 for initial_time in initial_times:
-    t_start, t_end = initial_time, final_time
-    plot_path = Path(f"chunk_sensitivity_ch{ch_in}_t{t_start}-{t_end}.npy")
+    in_time, out_time = initial_time, final_time
+    plot_path = Path(f"chunk_sensitivity_chin[{ch_in}]_chout[{ch_out}]_t[{in_time},{out_time}].npy")
 
-    plot(plot_path, map_dims=map_dims, t0=t_start, t1=t_end, 
+    plot(plot_path, map_dims=map_dims, t0=in_time, t1=out_time, 
          output_pixel=(131, 289), output_var=var_out, input_var=var_in)
     print(f"Plot saved for initial time {initial_time} with output variable {var_out} and input variable {var_in}.")
