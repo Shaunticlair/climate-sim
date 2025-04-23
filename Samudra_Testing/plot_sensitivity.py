@@ -31,6 +31,7 @@ def center_bounds(view_size, centerx, centery):
 def plot(path, map_dims, #Variables used to make the graph
          t0, t1, output_pixel, 
          output_var, input_var, # Pixels used to label the graph
+         circle_coords=None, circle_radius=3, circle_color='lime', # Circle parameters
          xticks=20, yticks=20, #Variables used to add ticks to the graph
     ):
 
@@ -71,7 +72,7 @@ def plot(path, map_dims, #Variables used to make the graph
     cmap = plt.cm.RdBu_r.copy()
     cmap.set_bad('black', 0.5)
     
-    im = plt.imshow(masked_sensitivity, cmap=cmap, aspect='auto', origin='lower', 
+    im = plt.imshow(masked_sensitivity, cmap=cmap, aspect='equal', origin='lower', 
                     vmin=vmin, vmax=vmax)
 
     # Get the row and column indices for the cropped region
@@ -96,6 +97,22 @@ def plot(path, map_dims, #Variables used to make the graph
     # Display actual matrix indices on the axes
     plt.xticks(x_tick_positions[:min_x_len], x_tick_labels[:min_x_len])
     plt.yticks(y_tick_positions[:min_y_len], y_tick_labels[:min_y_len])
+
+    # After plotting the main sensitivity matrix but before saving
+    if circle_coords is not None:
+        # Convert from global to cropped coordinates
+        circle_y, circle_x = circle_coords
+        # Adjust for cropping
+        circle_y_adj = circle_y - xmin
+        circle_x_adj = circle_x - ymin
+        
+        # Only draw the circle if it's within the cropped region
+        if (0 <= circle_y_adj < cropped_sensitivity.shape[0] and 
+            0 <= circle_x_adj < cropped_sensitivity.shape[1]):
+            # Create circle
+            circle = plt.Circle((circle_x_adj, circle_y_adj), circle_radius, 
+                            color=circle_color, fill=False, linewidth=2)
+            plt.gca().add_patch(circle)
 
     plt.colorbar(label='Sensitivity Value')
     output_var = output_var.replace('(odd)','').replace('(even)','')
@@ -137,26 +154,24 @@ t_1month =  140 - 6 # 1 month back from t_end
 
 
 # Import var_dict from misc if it exists, otherwise define it here
-try:
-    from misc import var_dict
-except ImportError:
-    # Define a basic var_dict if the import fails
-    var_dict = {
-        'hfds_anomalies': 157,
-        'zos(even)': 76,
-    }
+from misc import var_dict
 
-#var_in = 'hfds_anomalies'
-var_in = 'tauuo'
+#var_in = 'hfds'
+#var_in = 'tauuo'
+var_in = 'zos(even)'
 var_out = 'zos(even)' #Nantucket observation
 
 ch_in = var_dict[var_in]
 ch_out = var_dict[var_out]
 
-# center: (131, 289) corresponds to Nantucket
+# center: (131, 289) corresponds to Nantucket #[111, 152+20, 269, 310+50]
+# center: (90,180) corresponds to equatorial Pacific 
 # Explicitly define map dimensions
-map_dims = [111, 152+20, 269, 310+50]  # [xmin, xmax, ymin, ymax]
-initial_times = [t_1month, t_6months, t_1year]
+map_dims =  [0,180,0,360] # [xmin, xmax, ymin, ymax]
+tau_initial_times = [t_1month, t_6months, t_1year]
+hfds_initial_times = [t_1year, t_2year]
+zos_initial_times = [t_1month, t_6months, t_1year, t_2year]
+initial_times = zos_initial_times
 
 for initial_time in initial_times:
     in_time, out_time = initial_time, t_end
@@ -165,6 +180,7 @@ for initial_time in initial_times:
     if plot_path.exists():
         plot(plot_path, map_dims=map_dims, t0=in_time, t1=out_time, 
              output_pixel=(131, 289), output_var=var_out, input_var=var_in,
+             circle_coords=(131, 289), circle_radius=2, circle_color='black',
              xticks=10, yticks=10)
         print(f"Plot saved for initial time {initial_time} with output variable {var_out} and input variable {var_in}.")
     else:
