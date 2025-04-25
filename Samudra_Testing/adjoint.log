@@ -1,4 +1,4 @@
-Job 22077266.pbspl1.nas.nasa.gov started on Wed Apr 23 16:18:43 PDT 2025
+Job 22095831.pbspl1.nas.nasa.gov started on Fri Apr 25 14:29:42 PDT 2025
 The job requested the following resources:
     ncpus=40
     place=scatter:excl
@@ -8,582 +8,103 @@ PBS set the following environment variables:
         FORT_BUFFERED = 1
                    TZ = PST8PDT
 
-On r135i4n29:
+On r133i5n30:
 Warning: no access to tty (Inappropriate ioctl for device).
 Thus no job control in this shell.
 Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
-Starting Samudra model run at Wed Apr 23 16:19:35 PDT 2025
+Starting Samudra model run at Fri Apr 25 14:31:09 PDT 2025
 /nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
   return data.astype(dtype, **kwargs)
 Using CPU
 Using 80 CPU cores for computation
 Number of input channels: 158
 Number of output channels: 154
-Section 'Environment configured' took 0.0236 seconds
-Total elapsed time: 0.0236 seconds
+Section 'Environment configured' took 0.0982 seconds
+Total elapsed time: 0.0982 seconds
 ----------------------------------------
-Section 'Data loaded' took 21.0908 seconds
-Total elapsed time: 21.1144 seconds
+Section 'Data loaded' took 23.1519 seconds
+Total elapsed time: 23.2502 seconds
 ----------------------------------------
-Section 'Model loaded' took 4.9578 seconds
-Total elapsed time: 26.0722 seconds
+Section 'Model loaded' took 4.4869 seconds
+Total elapsed time: 27.7370 seconds
 ----------------------------------------
 Out:  [[2 3]] Our data has the shape torch.Size([1, 158, 180, 360])
-Final point for sensitivity: {140: [(0, 76, 90, 180)]}
-Computing sensitivity with batch 0, initial channels [76, 153, 154, 155, 156, 157],       lat slice slice(0, 180, None), lon slice slice(0, 360, None)
-Section 'Setup complete' took 48.8313 seconds
-Total elapsed time: 74.9035 seconds
+Computing sensitivity with batch 0, initial channels [76],       lat slice slice(0, 180, None), lon slice slice(0, 360, None)
+Section 'Setup complete' took 56.9049 seconds
+Total elapsed time: 84.6419 seconds
 ----------------------------------------
-Out:  [[2 3]] Section 'Finished setting up model input' took 3.2946 seconds
-Total elapsed time: 78.1981 seconds
+Out:  [[2 3]] Section 'Finished setting up model input' took 3.5822 seconds
+Total elapsed time: 88.2241 seconds
 ----------------------------------------
-Section 'Finished setting up chunk tracking' took 0.4089 seconds
-Total elapsed time: 78.6070 seconds
+Section 'Finished setting up chunk tracking' took 0.0971 seconds
+Total elapsed time: 88.3211 seconds
 ----------------------------------------
 Processing time step: 0
-Section 'Ran model forward for model iteration 0' took 5.3713 seconds
-Total elapsed time: 83.9783 seconds
+Section 'Ran model forward for model iteration 0' took 2.2357 seconds
+Total elapsed time: 90.5568 seconds
 ----------------------------------------
-Out:  [[4 5]] Section 'Added gradient tracking for model iteration 1' took 3.2459 seconds
-Total elapsed time: 87.2241 seconds
+Out:  [[4 5]] Section 'Added gradient tracking for model iteration 1' took 3.5441 seconds
+Total elapsed time: 94.1009 seconds
 ----------------------------------------
 Processing time step: 1
-Section 'Ran model forward for model iteration 1' took 1.1876 seconds
-Total elapsed time: 88.4117 seconds
+Section 'Ran model forward for model iteration 1' took 1.1505 seconds
+Total elapsed time: 95.2514 seconds
 ----------------------------------------
-Out:  [[6 7]] Section 'Added gradient tracking for model iteration 2' took 3.2065 seconds
-Total elapsed time: 91.6182 seconds
+Out:  [[6 7]] Section 'Added gradient tracking for model iteration 2' took 3.4087 seconds
+Total elapsed time: 98.6601 seconds
 ----------------------------------------
 Processing time step: 2
-Section 'Ran model forward for model iteration 2' took 1.1822 seconds
-Total elapsed time: 92.8004 seconds
+Section 'Ran model forward for model iteration 2' took 1.1799 seconds
+Total elapsed time: 99.8400 seconds
 ----------------------------------------
-Out:  [[8 9]] Section 'Added gradient tracking for model iteration 3' took 3.2396 seconds
-Total elapsed time: 96.0400 seconds
+Out:  [[8 9]] Section 'Added gradient tracking for model iteration 3' took 3.5673 seconds
+Total elapsed time: 103.4073 seconds
 ----------------------------------------
 Processing time step: 3
-Section 'Ran model forward for model iteration 3' took 1.1848 seconds
-Total elapsed time: 97.2248 seconds
+Section 'Ran model forward for model iteration 3' took 1.1510 seconds
+Total elapsed time: 104.5582 seconds
 ----------------------------------------
-Out:  [[10 11]] Section 'Added gradient tracking for model iteration 4' took 3.4405 seconds
-Total elapsed time: 100.6653 seconds
+Out:  [[10 11]] Section 'Added gradient tracking for model iteration 4' took 3.9569 seconds
+Total elapsed time: 108.5151 seconds
 ----------------------------------------
 Processing time step: 4
-Section 'Ran model forward for model iteration 4' took 1.1745 seconds
-Total elapsed time: 101.8399 seconds
+Section 'Ran model forward for model iteration 4' took 1.1495 seconds
+Total elapsed time: 109.6647 seconds
 ----------------------------------------
-Out:  [[12 13]] Section 'Added gradient tracking for model iteration 5' took 3.3814 seconds
-Total elapsed time: 105.2213 seconds
+Out:  [[12 13]] Section 'Added gradient tracking for model iteration 5' took 4.2383 seconds
+Total elapsed time: 113.9030 seconds
 ----------------------------------------
-Processing time step: 5
-Section 'Ran model forward for model iteration 5' took 1.1818 seconds
-Total elapsed time: 106.4031 seconds
+Section 'Cleared gradients before backward pass' took 0.0339 seconds
+Total elapsed time: 113.9369 seconds
 ----------------------------------------
-Out:  [[14 15]] Section 'Added gradient tracking for model iteration 6' took 3.2960 seconds
-Total elapsed time: 109.6991 seconds
+Section 'Backwards pass complete' took 23.1183 seconds
+Total elapsed time: 137.0552 seconds
 ----------------------------------------
-Processing time step: 6
-Section 'Ran model forward for model iteration 6' took 1.1725 seconds
-Total elapsed time: 110.8716 seconds
-----------------------------------------
-Out:  [[16 17]] Section 'Added gradient tracking for model iteration 7' took 3.2061 seconds
-Total elapsed time: 114.0777 seconds
-----------------------------------------
-Processing time step: 7
-Section 'Ran model forward for model iteration 7' took 1.1902 seconds
-Total elapsed time: 115.2678 seconds
-----------------------------------------
-Out:  [[18 19]] Section 'Added gradient tracking for model iteration 8' took 3.2732 seconds
-Total elapsed time: 118.5411 seconds
-----------------------------------------
-Processing time step: 8
-Section 'Ran model forward for model iteration 8' took 1.1871 seconds
-Total elapsed time: 119.7281 seconds
-----------------------------------------
-Out:  [[20 21]] Section 'Added gradient tracking for model iteration 9' took 3.3167 seconds
-Total elapsed time: 123.0448 seconds
-----------------------------------------
-Processing time step: 9
-Section 'Ran model forward for model iteration 9' took 1.1805 seconds
-Total elapsed time: 124.2253 seconds
-----------------------------------------
-Out:  [[22 23]] Section 'Added gradient tracking for model iteration 10' took 3.2849 seconds
-Total elapsed time: 127.5102 seconds
-----------------------------------------
-Processing time step: 10
-Section 'Ran model forward for model iteration 10' took 1.1907 seconds
-Total elapsed time: 128.7008 seconds
-----------------------------------------
-Out:  [[24 25]] Section 'Added gradient tracking for model iteration 11' took 3.2239 seconds
-Total elapsed time: 131.9247 seconds
-----------------------------------------
-Processing time step: 11
-Section 'Ran model forward for model iteration 11' took 1.1878 seconds
-Total elapsed time: 133.1125 seconds
-----------------------------------------
-Out:  [[26 27]] Section 'Added gradient tracking for model iteration 12' took 3.2865 seconds
-Total elapsed time: 136.3990 seconds
-----------------------------------------
-Processing time step: 12
-Section 'Ran model forward for model iteration 12' took 1.1861 seconds
-Total elapsed time: 137.5851 seconds
-----------------------------------------
-Out:  [[28 29]] Section 'Added gradient tracking for model iteration 13' took 3.1061 seconds
-Total elapsed time: 140.6913 seconds
-----------------------------------------
-Processing time step: 13
-Section 'Ran model forward for model iteration 13' took 1.1843 seconds
-Total elapsed time: 141.8756 seconds
-----------------------------------------
-Out:  [[30 31]] Section 'Added gradient tracking for model iteration 14' took 3.2214 seconds
-Total elapsed time: 145.0969 seconds
-----------------------------------------
-Processing time step: 14
-Section 'Ran model forward for model iteration 14' took 1.1883 seconds
-Total elapsed time: 146.2852 seconds
-----------------------------------------
-Out:  [[32 33]] Section 'Added gradient tracking for model iteration 15' took 3.3138 seconds
-Total elapsed time: 149.5990 seconds
-----------------------------------------
-Processing time step: 15
-Section 'Ran model forward for model iteration 15' took 1.1865 seconds
-Total elapsed time: 150.7855 seconds
-----------------------------------------
-Out:  [[34 35]] Section 'Added gradient tracking for model iteration 16' took 3.3160 seconds
-Total elapsed time: 154.1015 seconds
-----------------------------------------
-Processing time step: 16
-Section 'Ran model forward for model iteration 16' took 1.1911 seconds
-Total elapsed time: 155.2926 seconds
-----------------------------------------
-Out:  [[36 37]] Section 'Added gradient tracking for model iteration 17' took 3.2712 seconds
-Total elapsed time: 158.5638 seconds
-----------------------------------------
-Processing time step: 17
-Section 'Ran model forward for model iteration 17' took 1.1945 seconds
-Total elapsed time: 159.7583 seconds
-----------------------------------------
-Out:  [[38 39]] Section 'Added gradient tracking for model iteration 18' took 3.2704 seconds
-Total elapsed time: 163.0287 seconds
-----------------------------------------
-Processing time step: 18
-Section 'Ran model forward for model iteration 18' took 1.1797 seconds
-Total elapsed time: 164.2083 seconds
-----------------------------------------
-Out:  [[40 41]] Section 'Added gradient tracking for model iteration 19' took 3.2162 seconds
-Total elapsed time: 167.4245 seconds
-----------------------------------------
-Processing time step: 19
-Section 'Ran model forward for model iteration 19' took 1.1698 seconds
-Total elapsed time: 168.5944 seconds
-----------------------------------------
-Out:  [[42 43]] Section 'Added gradient tracking for model iteration 20' took 3.1653 seconds
-Total elapsed time: 171.7596 seconds
-----------------------------------------
-Processing time step: 20
-Section 'Ran model forward for model iteration 20' took 1.1711 seconds
-Total elapsed time: 172.9308 seconds
-----------------------------------------
-Out:  [[44 45]] Section 'Added gradient tracking for model iteration 21' took 3.1959 seconds
-Total elapsed time: 176.1266 seconds
-----------------------------------------
-Processing time step: 21
-Section 'Ran model forward for model iteration 21' took 1.1786 seconds
-Total elapsed time: 177.3052 seconds
-----------------------------------------
-Out:  [[46 47]] Section 'Added gradient tracking for model iteration 22' took 3.2193 seconds
-Total elapsed time: 180.5245 seconds
-----------------------------------------
-Processing time step: 22
-Section 'Ran model forward for model iteration 22' took 1.1762 seconds
-Total elapsed time: 181.7007 seconds
-----------------------------------------
-Out:  [[48 49]] Section 'Added gradient tracking for model iteration 23' took 3.0813 seconds
-Total elapsed time: 184.7820 seconds
-----------------------------------------
-Processing time step: 23
-Section 'Ran model forward for model iteration 23' took 1.1803 seconds
-Total elapsed time: 185.9622 seconds
-----------------------------------------
-Out:  [[50 51]] Section 'Added gradient tracking for model iteration 24' took 3.1947 seconds
-Total elapsed time: 189.1569 seconds
-----------------------------------------
-Processing time step: 24
-Section 'Ran model forward for model iteration 24' took 1.1807 seconds
-Total elapsed time: 190.3376 seconds
-----------------------------------------
-Out:  [[52 53]] Section 'Added gradient tracking for model iteration 25' took 3.2663 seconds
-Total elapsed time: 193.6039 seconds
-----------------------------------------
-Processing time step: 25
-Section 'Ran model forward for model iteration 25' took 1.1782 seconds
-Total elapsed time: 194.7821 seconds
-----------------------------------------
-Out:  [[54 55]] Section 'Added gradient tracking for model iteration 26' took 3.1519 seconds
-Total elapsed time: 197.9340 seconds
-----------------------------------------
-Processing time step: 26
-Section 'Ran model forward for model iteration 26' took 1.1706 seconds
-Total elapsed time: 199.1046 seconds
-----------------------------------------
-Out:  [[56 57]] Section 'Added gradient tracking for model iteration 27' took 3.2508 seconds
-Total elapsed time: 202.3553 seconds
-----------------------------------------
-Processing time step: 27
-Section 'Ran model forward for model iteration 27' took 1.1921 seconds
-Total elapsed time: 203.5474 seconds
-----------------------------------------
-Out:  [[58 59]] Section 'Added gradient tracking for model iteration 28' took 3.0292 seconds
-Total elapsed time: 206.5766 seconds
-----------------------------------------
-Processing time step: 28
-Section 'Ran model forward for model iteration 28' took 1.1813 seconds
-Total elapsed time: 207.7579 seconds
-----------------------------------------
-Out:  [[60 61]] Section 'Added gradient tracking for model iteration 29' took 3.1654 seconds
-Total elapsed time: 210.9233 seconds
-----------------------------------------
-Processing time step: 29
-Section 'Ran model forward for model iteration 29' took 1.1789 seconds
-Total elapsed time: 212.1023 seconds
-----------------------------------------
-Out:  [[62 63]] Section 'Added gradient tracking for model iteration 30' took 3.2443 seconds
-Total elapsed time: 215.3466 seconds
-----------------------------------------
-Processing time step: 30
-Section 'Ran model forward for model iteration 30' took 1.1815 seconds
-Total elapsed time: 216.5281 seconds
-----------------------------------------
-Out:  [[64 65]] Section 'Added gradient tracking for model iteration 31' took 3.1788 seconds
-Total elapsed time: 219.7069 seconds
-----------------------------------------
-Processing time step: 31
-Section 'Ran model forward for model iteration 31' took 1.1828 seconds
-Total elapsed time: 220.8896 seconds
-----------------------------------------
-Out:  [[66 67]] Section 'Added gradient tracking for model iteration 32' took 3.2128 seconds
-Total elapsed time: 224.1024 seconds
-----------------------------------------
-Processing time step: 32
-Section 'Ran model forward for model iteration 32' took 1.1810 seconds
-Total elapsed time: 225.2834 seconds
-----------------------------------------
-Out:  [[68 69]] Section 'Added gradient tracking for model iteration 33' took 3.1050 seconds
-Total elapsed time: 228.3884 seconds
-----------------------------------------
-Processing time step: 33
-Section 'Ran model forward for model iteration 33' took 1.1812 seconds
-Total elapsed time: 229.5696 seconds
-----------------------------------------
-Out:  [[70 71]] Section 'Added gradient tracking for model iteration 34' took 3.3381 seconds
-Total elapsed time: 232.9076 seconds
-----------------------------------------
-Processing time step: 34
-Section 'Ran model forward for model iteration 34' took 1.1832 seconds
-Total elapsed time: 234.0908 seconds
-----------------------------------------
-Out:  [[72 73]] Section 'Added gradient tracking for model iteration 35' took 3.2362 seconds
-Total elapsed time: 237.3270 seconds
-----------------------------------------
-Processing time step: 35
-Section 'Ran model forward for model iteration 35' took 1.1845 seconds
-Total elapsed time: 238.5115 seconds
-----------------------------------------
-Out:  [[74 75]] Section 'Added gradient tracking for model iteration 36' took 3.3312 seconds
-Total elapsed time: 241.8427 seconds
-----------------------------------------
-Processing time step: 36
-Section 'Ran model forward for model iteration 36' took 1.1847 seconds
-Total elapsed time: 243.0273 seconds
-----------------------------------------
-Out:  [[76 77]] Section 'Added gradient tracking for model iteration 37' took 3.2713 seconds
-Total elapsed time: 246.2987 seconds
-----------------------------------------
-Processing time step: 37
-Section 'Ran model forward for model iteration 37' took 1.1861 seconds
-Total elapsed time: 247.4848 seconds
-----------------------------------------
-Out:  [[78 79]] Section 'Added gradient tracking for model iteration 38' took 3.0355 seconds
-Total elapsed time: 250.5203 seconds
-----------------------------------------
-Processing time step: 38
-Section 'Ran model forward for model iteration 38' took 1.1718 seconds
-Total elapsed time: 251.6921 seconds
-----------------------------------------
-Out:  [[80 81]] Section 'Added gradient tracking for model iteration 39' took 3.2549 seconds
-Total elapsed time: 254.9470 seconds
-----------------------------------------
-Processing time step: 39
-Section 'Ran model forward for model iteration 39' took 1.1755 seconds
-Total elapsed time: 256.1225 seconds
-----------------------------------------
-Out:  [[82 83]] Section 'Added gradient tracking for model iteration 40' took 3.1171 seconds
-Total elapsed time: 259.2396 seconds
-----------------------------------------
-Processing time step: 40
-Section 'Ran model forward for model iteration 40' took 1.1877 seconds
-Total elapsed time: 260.4273 seconds
-----------------------------------------
-Out:  [[84 85]] Section 'Added gradient tracking for model iteration 41' took 3.2088 seconds
-Total elapsed time: 263.6361 seconds
-----------------------------------------
-Processing time step: 41
-Section 'Ran model forward for model iteration 41' took 1.1804 seconds
-Total elapsed time: 264.8164 seconds
-----------------------------------------
-Out:  [[86 87]] Section 'Added gradient tracking for model iteration 42' took 3.1743 seconds
-Total elapsed time: 267.9908 seconds
-----------------------------------------
-Processing time step: 42
-Section 'Ran model forward for model iteration 42' took 1.1779 seconds
-Total elapsed time: 269.1686 seconds
-----------------------------------------
-Out:  [[88 89]] Section 'Added gradient tracking for model iteration 43' took 3.2524 seconds
-Total elapsed time: 272.4210 seconds
-----------------------------------------
-Processing time step: 43
-Section 'Ran model forward for model iteration 43' took 1.3127 seconds
-Total elapsed time: 273.7337 seconds
-----------------------------------------
-Out:  [[90 91]] Section 'Added gradient tracking for model iteration 44' took 3.2064 seconds
-Total elapsed time: 276.9401 seconds
-----------------------------------------
-Processing time step: 44
-Section 'Ran model forward for model iteration 44' took 1.1873 seconds
-Total elapsed time: 278.1274 seconds
-----------------------------------------
-Out:  [[92 93]] Section 'Added gradient tracking for model iteration 45' took 3.0116 seconds
-Total elapsed time: 281.1389 seconds
-----------------------------------------
-Processing time step: 45
-Section 'Ran model forward for model iteration 45' took 1.1817 seconds
-Total elapsed time: 282.3207 seconds
-----------------------------------------
-Out:  [[94 95]] Section 'Added gradient tracking for model iteration 46' took 3.5375 seconds
-Total elapsed time: 285.8582 seconds
-----------------------------------------
-Processing time step: 46
-Section 'Ran model forward for model iteration 46' took 1.1811 seconds
-Total elapsed time: 287.0393 seconds
-----------------------------------------
-Out:  [[96 97]] Section 'Added gradient tracking for model iteration 47' took 3.2592 seconds
-Total elapsed time: 290.2985 seconds
-----------------------------------------
-Processing time step: 47
-Section 'Ran model forward for model iteration 47' took 1.1786 seconds
-Total elapsed time: 291.4771 seconds
-----------------------------------------
-Out:  [[98 99]] Section 'Added gradient tracking for model iteration 48' took 3.2172 seconds
-Total elapsed time: 294.6943 seconds
-----------------------------------------
-Processing time step: 48
-Section 'Ran model forward for model iteration 48' took 1.1770 seconds
-Total elapsed time: 295.8713 seconds
-----------------------------------------
-Out:  [[100 101]] Section 'Added gradient tracking for model iteration 49' took 3.1222 seconds
-Total elapsed time: 298.9935 seconds
-----------------------------------------
-Processing time step: 49
-Section 'Ran model forward for model iteration 49' took 1.1785 seconds
-Total elapsed time: 300.1721 seconds
-----------------------------------------
-Out:  [[102 103]] Section 'Added gradient tracking for model iteration 50' took 3.2892 seconds
-Total elapsed time: 303.4613 seconds
-----------------------------------------
-Processing time step: 50
-Section 'Ran model forward for model iteration 50' took 1.1802 seconds
-Total elapsed time: 304.6415 seconds
-----------------------------------------
-Out:  [[104 105]] Section 'Added gradient tracking for model iteration 51' took 3.2678 seconds
-Total elapsed time: 307.9092 seconds
-----------------------------------------
-Processing time step: 51
-Section 'Ran model forward for model iteration 51' took 1.1852 seconds
-Total elapsed time: 309.0944 seconds
-----------------------------------------
-Out:  [[106 107]] Section 'Added gradient tracking for model iteration 52' took 3.2865 seconds
-Total elapsed time: 312.3809 seconds
-----------------------------------------
-Processing time step: 52
-Section 'Ran model forward for model iteration 52' took 1.1808 seconds
-Total elapsed time: 313.5616 seconds
-----------------------------------------
-Out:  [[108 109]] Section 'Added gradient tracking for model iteration 53' took 3.0930 seconds
-Total elapsed time: 316.6546 seconds
-----------------------------------------
-Processing time step: 53
-Section 'Ran model forward for model iteration 53' took 1.1791 seconds
-Total elapsed time: 317.8337 seconds
-----------------------------------------
-Out:  [[110 111]] Section 'Added gradient tracking for model iteration 54' took 3.2420 seconds
-Total elapsed time: 321.0757 seconds
-----------------------------------------
-Processing time step: 54
-Section 'Ran model forward for model iteration 54' took 1.1916 seconds
-Total elapsed time: 322.2673 seconds
-----------------------------------------
-Out:  [[112 113]] Section 'Added gradient tracking for model iteration 55' took 3.3152 seconds
-Total elapsed time: 325.5825 seconds
-----------------------------------------
-Processing time step: 55
-Section 'Ran model forward for model iteration 55' took 1.1858 seconds
-Total elapsed time: 326.7683 seconds
-----------------------------------------
-Out:  [[114 115]] Section 'Added gradient tracking for model iteration 56' took 3.0896 seconds
-Total elapsed time: 329.8580 seconds
-----------------------------------------
-Processing time step: 56
-Section 'Ran model forward for model iteration 56' took 1.1796 seconds
-Total elapsed time: 331.0376 seconds
-----------------------------------------
-Out:  [[116 117]] Section 'Added gradient tracking for model iteration 57' took 3.3201 seconds
-Total elapsed time: 334.3577 seconds
-----------------------------------------
-Processing time step: 57
-Section 'Ran model forward for model iteration 57' took 1.1761 seconds
-Total elapsed time: 335.5338 seconds
-----------------------------------------
-Out:  [[118 119]] Section 'Added gradient tracking for model iteration 58' took 3.4217 seconds
-Total elapsed time: 338.9555 seconds
-----------------------------------------
-Processing time step: 58
-Section 'Ran model forward for model iteration 58' took 1.1815 seconds
-Total elapsed time: 340.1370 seconds
-----------------------------------------
-Out:  [[120 121]] Section 'Added gradient tracking for model iteration 59' took 3.4253 seconds
-Total elapsed time: 343.5624 seconds
-----------------------------------------
-Processing time step: 59
-Section 'Ran model forward for model iteration 59' took 1.1788 seconds
-Total elapsed time: 344.7412 seconds
-----------------------------------------
-Out:  [[122 123]] Section 'Added gradient tracking for model iteration 60' took 3.0014 seconds
-Total elapsed time: 347.7425 seconds
-----------------------------------------
-Processing time step: 60
-Section 'Ran model forward for model iteration 60' took 1.1771 seconds
-Total elapsed time: 348.9197 seconds
-----------------------------------------
-Out:  [[124 125]] Section 'Added gradient tracking for model iteration 61' took 3.4068 seconds
-Total elapsed time: 352.3265 seconds
-----------------------------------------
-Processing time step: 61
-Section 'Ran model forward for model iteration 61' took 1.1814 seconds
-Total elapsed time: 353.5079 seconds
-----------------------------------------
-Out:  [[126 127]] Section 'Added gradient tracking for model iteration 62' took 3.2802 seconds
-Total elapsed time: 356.7881 seconds
-----------------------------------------
-Processing time step: 62
-Section 'Ran model forward for model iteration 62' took 1.1788 seconds
-Total elapsed time: 357.9669 seconds
-----------------------------------------
-Out:  [[128 129]] Section 'Added gradient tracking for model iteration 63' took 3.2139 seconds
-Total elapsed time: 361.1808 seconds
-----------------------------------------
-Processing time step: 63
-Section 'Ran model forward for model iteration 63' took 1.1787 seconds
-Total elapsed time: 362.3595 seconds
-----------------------------------------
-Out:  [[130 131]] Section 'Added gradient tracking for model iteration 64' took 3.2256 seconds
-Total elapsed time: 365.5851 seconds
-----------------------------------------
-Processing time step: 64
-Section 'Ran model forward for model iteration 64' took 1.1819 seconds
-Total elapsed time: 366.7669 seconds
-----------------------------------------
-Out:  [[132 133]] Section 'Added gradient tracking for model iteration 65' took 3.2121 seconds
-Total elapsed time: 369.9790 seconds
-----------------------------------------
-Processing time step: 65
-Section 'Ran model forward for model iteration 65' took 1.1799 seconds
-Total elapsed time: 371.1590 seconds
-----------------------------------------
-Out:  [[134 135]] Section 'Added gradient tracking for model iteration 66' took 3.2064 seconds
-Total elapsed time: 374.3654 seconds
-----------------------------------------
-Processing time step: 66
-Section 'Ran model forward for model iteration 66' took 1.1851 seconds
-Total elapsed time: 375.5505 seconds
-----------------------------------------
-Out:  [[136 137]] Section 'Added gradient tracking for model iteration 67' took 3.1374 seconds
-Total elapsed time: 378.6879 seconds
-----------------------------------------
-Processing time step: 67
-Section 'Ran model forward for model iteration 67' took 1.1806 seconds
-Total elapsed time: 379.8685 seconds
-----------------------------------------
-Out:  [[138 139]] Section 'Added gradient tracking for model iteration 68' took 3.3027 seconds
-Total elapsed time: 383.1712 seconds
-----------------------------------------
-Processing time step: 68
-Section 'Ran model forward for model iteration 68' took 1.1888 seconds
-Total elapsed time: 384.3600 seconds
-----------------------------------------
-Out:  [[140 141]] Section 'Added gradient tracking for model iteration 69' took 3.4529 seconds
-Total elapsed time: 387.8129 seconds
-----------------------------------------
-Processing time step: 69
-Section 'Ran model forward for model iteration 69' took 1.1913 seconds
-Total elapsed time: 389.0042 seconds
-----------------------------------------
-Out:  [[142 143]] Section 'Added gradient tracking for model iteration 70' took 3.1038 seconds
-Total elapsed time: 392.1080 seconds
-----------------------------------------
-Section 'Cleared gradients before backward pass' took 0.0983 seconds
-Total elapsed time: 392.2063 seconds
-----------------------------------------
-Section 'Backwards pass complete' took 268.6153 seconds
-Total elapsed time: 660.8216 seconds
-----------------------------------------
-Section 'Gathered sensitivity for output element' took 0.0017 seconds
-Total elapsed time: 660.8233 seconds
+Section 'Gathered sensitivity for output box' took 0.0002 seconds
+Total elapsed time: 137.0554 seconds
 ----------------------------------------
 Section 'Finished computing sensitivity matrix (includes backward pass)' took 0.0000 seconds
-Total elapsed time: 660.8233 seconds
+Total elapsed time: 137.0554 seconds
 ----------------------------------------
-Section 'Finished computing chunked sensitivity' took 0.0915 seconds
-Total elapsed time: 660.9149 seconds
+Section 'Finished computing chunked sensitivity' took 0.0188 seconds
+Total elapsed time: 137.0742 seconds
 ----------------------------------------
-Computed sensitivity results: 24 output points
-Saved sensitivity tensor for chunk_sensitivity_chin[76]_chout[76]_t[0,140].npy to chunk_sensitivity_chin[76]_chout[76]_t[0,140].npy
-Saved sensitivity tensor for chunk_sensitivity_chin[153]_chout[76]_t[0,140].npy to chunk_sensitivity_chin[153]_chout[76]_t[0,140].npy
-Saved sensitivity tensor for chunk_sensitivity_chin[154]_chout[76]_t[0,140].npy to chunk_sensitivity_chin[154]_chout[76]_t[0,140].npy
-Saved sensitivity tensor for chunk_sensitivity_chin[155]_chout[76]_t[0,140].npy to chunk_sensitivity_chin[155]_chout[76]_t[0,140].npy
-Saved sensitivity tensor for chunk_sensitivity_chin[156]_chout[76]_t[0,140].npy to chunk_sensitivity_chin[156]_chout[76]_t[0,140].npy
-Saved sensitivity tensor for chunk_sensitivity_chin[157]_chout[76]_t[0,140].npy to chunk_sensitivity_chin[157]_chout[76]_t[0,140].npy
-Saved sensitivity tensor for chunk_sensitivity_chin[76]_chout[76]_t[67,140].npy to chunk_sensitivity_chin[76]_chout[76]_t[67,140].npy
-Saved sensitivity tensor for chunk_sensitivity_chin[153]_chout[76]_t[67,140].npy to chunk_sensitivity_chin[153]_chout[76]_t[67,140].npy
-Saved sensitivity tensor for chunk_sensitivity_chin[154]_chout[76]_t[67,140].npy to chunk_sensitivity_chin[154]_chout[76]_t[67,140].npy
-Saved sensitivity tensor for chunk_sensitivity_chin[155]_chout[76]_t[67,140].npy to chunk_sensitivity_chin[155]_chout[76]_t[67,140].npy
-Saved sensitivity tensor for chunk_sensitivity_chin[156]_chout[76]_t[67,140].npy to chunk_sensitivity_chin[156]_chout[76]_t[67,140].npy
-Saved sensitivity tensor for chunk_sensitivity_chin[157]_chout[76]_t[67,140].npy to chunk_sensitivity_chin[157]_chout[76]_t[67,140].npy
-Saved sensitivity tensor for chunk_sensitivity_chin[76]_chout[76]_t[104,140].npy to chunk_sensitivity_chin[76]_chout[76]_t[104,140].npy
-Saved sensitivity tensor for chunk_sensitivity_chin[153]_chout[76]_t[104,140].npy to chunk_sensitivity_chin[153]_chout[76]_t[104,140].npy
-Saved sensitivity tensor for chunk_sensitivity_chin[154]_chout[76]_t[104,140].npy to chunk_sensitivity_chin[154]_chout[76]_t[104,140].npy
-Saved sensitivity tensor for chunk_sensitivity_chin[155]_chout[76]_t[104,140].npy to chunk_sensitivity_chin[155]_chout[76]_t[104,140].npy
-Saved sensitivity tensor for chunk_sensitivity_chin[156]_chout[76]_t[104,140].npy to chunk_sensitivity_chin[156]_chout[76]_t[104,140].npy
-Saved sensitivity tensor for chunk_sensitivity_chin[157]_chout[76]_t[104,140].npy to chunk_sensitivity_chin[157]_chout[76]_t[104,140].npy
-Saved sensitivity tensor for chunk_sensitivity_chin[76]_chout[76]_t[134,140].npy to chunk_sensitivity_chin[76]_chout[76]_t[134,140].npy
-Saved sensitivity tensor for chunk_sensitivity_chin[153]_chout[76]_t[134,140].npy to chunk_sensitivity_chin[153]_chout[76]_t[134,140].npy
-Saved sensitivity tensor for chunk_sensitivity_chin[154]_chout[76]_t[134,140].npy to chunk_sensitivity_chin[154]_chout[76]_t[134,140].npy
-Saved sensitivity tensor for chunk_sensitivity_chin[155]_chout[76]_t[134,140].npy to chunk_sensitivity_chin[155]_chout[76]_t[134,140].npy
-Saved sensitivity tensor for chunk_sensitivity_chin[156]_chout[76]_t[134,140].npy to chunk_sensitivity_chin[156]_chout[76]_t[134,140].npy
-Saved sensitivity tensor for chunk_sensitivity_chin[157]_chout[76]_t[134,140].npy to chunk_sensitivity_chin[157]_chout[76]_t[134,140].npy
-Section 'Finished saving sensitivity results' took 0.1472 seconds
-Total elapsed time: 661.0621 seconds
+Computed sensitivity results: 1 output points
+Saved sensitivity tensor for chunk_sensitivity_chin[76]_chout[76]_t[0,10].npy to chunk_sensitivity_chin[76]_chout[76]_t[0,10].npy
+Section 'Finished saving sensitivity results' took 0.0224 seconds
+Total elapsed time: 137.0967 seconds
 ----------------------------------------
 ============================================
     Chunked Sensitivity Analysis Done       
 ============================================
-Finished Samudra model run at Wed Apr 23 16:33:21 PDT 2025
+Finished Samudra model run at Fri Apr 25 14:36:16 PDT 2025
 
 ____________________________________________________________________
-Job Resource Usage Summary for 22077266.pbspl1.nas.nasa.gov
+Job Resource Usage Summary for 22095831.pbspl1.nas.nasa.gov
 
-    CPU Time Used            : 07:46:19
-    Real Memory Used         : 20137152kb
-    Walltime Used            : 00:14:34
+    CPU Time Used            : 00:38:42
+    Real Memory Used         : 1289984kb
+    Walltime Used            : 00:06:11
     Exit Status              : 0
 
     Number of CPUs Requested : 40
@@ -592,5 +113,5 @@ Job Resource Usage Summary for 22077266.pbspl1.nas.nasa.gov
     Execution Queue          : R21940709
     Charged To               : g26113
 
-    Job Stopped              : Wed Apr 23 16:33:25 2025
+    Job Stopped              : Fri Apr 25 14:36:53 2025
 ____________________________________________________________________
