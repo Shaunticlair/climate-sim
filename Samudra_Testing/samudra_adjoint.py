@@ -41,8 +41,11 @@ lat_slice = slice(0,180) #slice(106,156)  # A chunk around latitude 90
 lon_slice = slice(0,360) #slice(264,314)  # A chunk around longitude 180
 
 # Define the final latitude and longitude for the output: the coords we want to study the sensitivity wrt to
-final_lat = 90
-final_lon = 180
+# final_lat = 131
+# final_lon = 289
+final_lat_slice = slice(131, 133)
+final_lon_slice = slice(289, 291)  # Nantucket 2x2
+
 
 # Model choice
 hist = 1
@@ -58,7 +61,7 @@ initial_channels = [76] #[76,153,154,155,156,157]   # Channels to compute sensit
 final_channel = 76
 
 
-in_times = [0]#[t_2year, t_1year, t_6months, t_1month] # Times to compute sensitivity wrt to
+in_times = [0] #[t_2year, t_1year, t_6months, t_1month] # Times to compute sensitivity wrt to
 
 ### SETUP STAGE ###
 
@@ -117,11 +120,10 @@ in_chunks_dict = {
 #out_indices_dict = {t_end: [(0, final_channel, final_lat, final_lon)]}
 #print(f"Final point for sensitivity: {out_indices_dict}")
 
-make_slice = lambda x: slice(x, x+1)
 
 out_boxes_dict = {
-    t_end: [(make_slice(0), make_slice(final_channel),
-              make_slice(final_lat), make_slice(final_lon))]
+    t_end: [(slice(0,1), slice(final_channel, final_channel+1),
+              final_lat_slice, final_lon_slice)]
 }
 
 print(f"Computing sensitivity with batch {batch}, initial channels {initial_channels}, \
