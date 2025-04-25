@@ -27,7 +27,7 @@ timer = setup.Timer()
 # We want t_end to be December 2015
 t_start = 0 
 # 699 days between January 2014 and December 2015: 700/5=140
-t_end = 140
+t_end = 10
 
 t_2year =   0 # A little less than 2 years from t_end
 t_1year =   140 - 73 # 1 year back from t_end
@@ -54,9 +54,11 @@ boundary_vars_config = "3D_all_hfds_anom"
 # Channel to study (0 is the first channel which is temperature at 2.5m depth)
 batch = 0
 batch_slice = slice(batch, batch+1)
-initial_channels = [76,153,154,155,156,157]
+initial_channels = [76] #[76,153,154,155,156,157]   # Channels to compute sensitivity for
 final_channel = 76
 
+
+in_times = [0]#[t_2year, t_1year, t_6months, t_1month] # Times to compute sensitivity wrt to
 
 ### SETUP STAGE ###
 
@@ -103,17 +105,24 @@ print(f"Our data has the shape {test_data[0][0].shape}")
 
 ### Choosing which sensitivities to take ###
 
-times = [t_2year, t_1year, t_6months, t_1month] # Times to compute sensitivity wrt to
+
 
 in_chunks_dict = {
     t: [(batch_slice, slice(ch_num, ch_num+1), lat_slice, lon_slice) 
         for ch_num in initial_channels]
-    for t in times
+    for t in in_times
 }
 
 # Define output indices to compute sensitivity for
-out_indices_dict = {t_end: [(0, final_channel, final_lat, final_lon)]}
-print(f"Final point for sensitivity: {out_indices_dict}")
+#out_indices_dict = {t_end: [(0, final_channel, final_lat, final_lon)]}
+#print(f"Final point for sensitivity: {out_indices_dict}")
+
+make_slice = lambda x: slice(x, x+1)
+
+out_boxes_dict = {
+    t_end: [(make_slice(0), make_slice(final_channel),
+              make_slice(final_lat), make_slice(final_lon))]
+}
 
 print(f"Computing sensitivity with batch {batch}, initial channels {initial_channels}, \
       lat slice {lat_slice}, lon slice {lon_slice}")
@@ -121,28 +130,33 @@ print(f"Computing sensitivity with batch {batch}, initial channels {initial_chan
 
 ### COMPUTE CHUNKED SENSITIVITY AND SAVE RESULTS ###
 
-def save_sensitivity_results(in_chunks_dict, out_indices_dict, sensitivity_results):
+def save_sensitivity_results(in_chunks_dict, out_boxes_dict, sensitivity_results):
     """
-    Compute sensitivity between a chunk at initial_time and a point at final_time
+    Save sensitivity results between chunks at initial_time and boxes at final_time
     """
     # Print the results
     print(f"Computed sensitivity results: {len(sensitivity_results)} output points")
     
-    for out_time, out_idx_list in out_indices_dict.items():
-        for out_idx in out_idx_list:
+    for out_time, out_box_list in out_boxes_dict.items():
+        for out_box in out_box_list:
             for in_time, in_slice_list in in_chunks_dict.items():
                 for in_slice in in_slice_list:
-
-                    index = (out_time, out_idx, in_time, str(in_slice)) # Slice is not hashable
+                    # Create index with string representations of slices
+                    index = (out_time, str(out_box), in_time, str(in_slice))
+                    
                     if index in sensitivity_results:
+                        # Extract channel information from slices
                         _, chin, _, _ = in_slice
-                        _, chout, _, _ = out_idx
+                        _, chout, _, _ = out_box
+                        
+                        # Handle both integer and slice channel indices
                         chin = chin.start if isinstance(chin, slice) else chin
+                        chout = chout.start if isinstance(chout, slice) else chout
 
                         sensitivity_tensor = sensitivity_results[index]
                         sensitivity_nparray = sensitivity_tensor.cpu().numpy()
+                        
                         # Save the tensor to a file
-                        #filename = f'chunk_sensitivity_chout[{chout}]_chin[{chin}]_t[{in_time},{out_time}].npy'
                         filename = f'chunk_sensitivity_chin[{chin}]_chout[{chout}]_t[{in_time},{out_time}].npy'
 
                         np.save(filename, sensitivity_nparray)
@@ -157,7 +171,7 @@ timer.checkpoint("Setup complete")
 sensitivity_results = adjoint_model.compute_state_sensitivity(
         test_data,
         in_chunks_dict=in_chunks_dict,
-        out_indices_dict=out_indices_dict,
+        out_boxes_dict=out_boxes_dict,
         device=device,
         use_checkpointing=True,  # Set to True for larger computation
         timer=timer,  # Pass the timer for profiling
@@ -168,7 +182,7 @@ timer.checkpoint("Finished computing chunked sensitivity")
 # Run the sensitivity computation
 sensitivity_results = save_sensitivity_results(
     in_chunks_dict=in_chunks_dict,
-    out_indices_dict=out_indices_dict,
+    out_boxes_dict=out_boxes_dict,
     sensitivity_results=sensitivity_results
 )
 

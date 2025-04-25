@@ -422,3 +422,154 @@ class SamudraAdjoint(model.Samudra):
         timer.checkpoint("Finished computing sensitivity matrix (includes backward pass)")
         
         return sensitivity_results
+    
+    def compute_state_sensitivity(self, inputs,
+                in_chunks_dict,
+                out_boxes_dict,
+                device="cuda",
+                use_checkpointing=True,
+                timer=null_timer):
+        """
+        Computes the sensitivity of sums of output elements with respect to 
+        chunks of input elements in a single backward pass, with time specified in the dictionary.
+        
+        Parameters:
+        -----------
+        inputs : list of tensors
+            The input tensors for each time step in the sequence.
+        in_chunks_dict : dict
+            Dictionary mapping timesteps to lists of tuples of slices.
+            Each tuple contains (batch_slice, channel_slice, height_slice, width_slice) indicating a 
+            region of the state tensor to track gradients for. The timestep indicates which time step
+            the chunks correspond to.
+        out_boxes_dict : dict
+            A dictionary mapping time steps to lists of tuples of slices.
+            Each tuple contains (batch_slice, channel_slice, height_slice, width_slice) indicating a 
+            region of the output state tensor to sum over. The sensitivities will be computed for
+            the sum of all elements in each box. The timestep indicates which time step
+            the output boxes correspond to.
+        device : str
+            The device to run the computation on ('cuda' or 'cpu').
+        use_checkpointing : bool
+            Whether to use gradient checkpointing for memory efficiency.
+        timer : Timer
+            Timer object for performance tracking.
+                
+        Returns:
+        --------
+        dict of torch.Tensor
+            Each key is a tuple (out_time, str(out_box), in_time, str(in_slice)) where:
+                out_time : int
+                    The time step of the output box.
+                str(out_box) : str
+                    String representation of slice tuple (batch_slice, channel_slice, height_slice, width_slice)
+                    defining the output box. String representation is used because slices are not hashable.
+                in_time : int
+                    The time step of the input chunk.
+                str(in_slice) : str
+                    String representation of slice tuple (batch_slice, channel_slice, height_slice, width_slice)
+                    defining the input chunk. String representation is used because slices are not hashable.
+            
+        """
+        # Make sure we're in evaluation mode
+        self.eval()
+
+        # Determine the time range we need to process
+        in_times = list(in_chunks_dict.keys())
+        out_times = out_boxes_dict.keys()
+        min_time = min(min(in_times), min(out_times))
+        max_time = max(out_times)
+        
+        # Initialize the model input for the minimum time step
+        initial_iter = min_time // 2
+        model_input = inputs[initial_iter][0].clone().to(device)
+        
+        timer.checkpoint("Finished setting up model input")
+        
+        # Dictionary to store tracked elements for each time step and chunk
+        tracked_dict = {}
+        
+        # Add gradient tracking for initial timesteps: even and odd
+        model_input = self.track_gradients_for_timestep(
+            model_input, in_chunks_dict, min_time, max_time, tracked_dict, device
+        )
+
+        timer.checkpoint("Finished setting up chunk tracking")
+        
+        # Run the autoregressive rollout
+        current_input = model_input
+        outputs = {min_time: current_input,
+                min_time+1: current_input}  # Store inputs/outputs by time step
+        
+        for it in range(initial_iter, max_time // 2 ):
+            print(f"Processing time step: {it}")
+            
+            # Forward pass
+            if use_checkpointing and it < max_time // 2:
+                output = self.checkpointed_forward_once(current_input)
+            else:
+                output = self.forward_once(current_input)
+            
+            timer.checkpoint(f"Ran model forward for model iteration {it}")
+            
+            # Store output for this time step
+            next_even_time = it * 2 + 2
+            outputs[next_even_time] = output
+            next_odd_time = next_even_time + 1  
+            outputs[next_odd_time] = output
+            
+            # Prepare for next time step if needed
+            if it < max_time // 2:
+                boundary = inputs[it+1][0][:, self.output_channels:].to(device)
+                current_input = torch.cat([output, boundary], dim=1)
+                
+                # Add gradient tracking for next timesteps
+                current_input = self.track_gradients_for_timestep(
+                    current_input, in_chunks_dict, next_even_time, max_time, tracked_dict, device
+                )
+
+                timer.checkpoint(f"Added gradient tracking for model iteration {it+1}")
+        
+        # Dict to store sensitivity tensors for each output element
+        sensitivity_results = {}
+        
+        # For each output time step and output boxes
+        for out_time, out_list_boxes in out_boxes_dict.items():   #### LOOP OVER OUTPUT TIME STEP
+            output_tensor = outputs[out_time]
+
+            # Process each output box
+            for out_box in out_list_boxes:                          ### LOOP OVER OUTPUT BOXES
+                batch_slice, channel_slice, height_slice, width_slice = out_box
+                
+                # Extract the output box and compute the sum of all elements
+                output_box = output_tensor[batch_slice, channel_slice, height_slice, width_slice]
+                output_sum = output_box.sum()  # Sum all elements in the box
+                
+                # Clear gradients before backward pass
+                for tracked_dict_in_time in tracked_dict.values(): #Each time step has its own tracked chunks
+                    for chunk in tracked_dict_in_time.values(): # Each chunk is a tensor
+                        if chunk.grad is not None:
+                            chunk.grad.zero_()
+                
+                timer.checkpoint("Cleared gradients before backward pass")
+                
+                # Compute gradients of the sum with respect to all inputs
+                output_sum.backward(retain_graph=True)
+
+                timer.checkpoint("Backwards pass complete")
+                
+                # Gather sensitivity tensors for this output sum
+                for in_time, tracked_dict_in_time in tracked_dict.items(): ## LOOP OVER INPUT TIME STEPS
+                    for in_slice, chunk in tracked_dict_in_time.items(): # LOOP OVER INPUT SLICES
+                        # Get the gradient for this chunk
+                        grad_chunk = chunk.grad.clone() if chunk.grad is not None else torch.zeros_like(chunk)
+
+                        # Store the sensitivity tensor in the results dict using string representation of slices
+                        index = (out_time, str(out_box), in_time, str(in_slice))
+                        sensitivity_results[index] = grad_chunk
+                        
+                timer.checkpoint("Gathered sensitivity for output box")
+        
+        timer.checkpoint("Finished computing sensitivity matrix (includes backward pass)")
+        
+        return sensitivity_results

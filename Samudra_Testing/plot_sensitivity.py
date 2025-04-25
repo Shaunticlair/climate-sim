@@ -157,9 +157,9 @@ t_1month =  140 - 6 # 1 month back from t_end
 from misc import var_dict
 
 #var_in = 'hfds'
-#var_in = 'tauuo'
-var_in = 'zos(even)'
-var_out = 'zos(even)' #Nantucket observation
+var_in = 'tauuo'
+#var_in = 'zos(even)'
+var_out = 'zos(even)' 
 
 ch_in = var_dict[var_in]
 ch_out = var_dict[var_out]
@@ -167,20 +167,25 @@ ch_out = var_dict[var_out]
 # center: (131, 289) corresponds to Nantucket #[111, 152+20, 269, 310+50]
 # center: (90,180) corresponds to equatorial Pacific 
 # Explicitly define map dimensions
-map_dims =  [0,180,0,360] # [xmin, xmax, ymin, ymax]
-tau_initial_times = [t_1month, t_6months, t_1year]
-hfds_initial_times = [t_1year, t_2year]
-zos_initial_times = [t_1month, t_6months, t_1year, t_2year]
-initial_times = zos_initial_times
+delta = 50
+map_dims =  [90-delta,90+delta,180-delta,180+delta] # [xmin, xmax, ymin, ymax]
+initial_times_dict = {'zos(even)': [t_1month, t_6months, t_1year, t_2year],
+                      'tauuo': [t_1month, t_6months, t_1year],
+                      'tauvo': [t_1month, t_6months, t_1year],
+                      'hfds': [t_1year, t_2year],
+                      'hfds_anomalies': [t_1year, t_2year],}
+initial_times = [t_1month, t_6months, t_1year]#initial_times_dict[var_in]
+
+output_pixel = (90, 180)  # Coordinates for the output pixel
 
 for initial_time in initial_times:
     in_time, out_time = initial_time, t_end
-    plot_path = Path(f'chunk_sensitivity_chout[{ch_out}]_chin[{ch_in}]_t[{in_time},{out_time}].npy')
+    plot_path = Path(f'chunk_sensitivity_chin[{ch_in}]_chout[{ch_out}]_t[{in_time},{out_time}].npy')
     
     if plot_path.exists():
         plot(plot_path, map_dims=map_dims, t0=in_time, t1=out_time, 
-             output_pixel=(131, 289), output_var=var_out, input_var=var_in,
-             circle_coords=(131, 289), circle_radius=2, circle_color='black',
+             output_pixel=output_pixel, output_var=var_out, input_var=var_in,
+             circle_coords=output_pixel, circle_radius=2, circle_color='black',
              xticks=10, yticks=10)
         print(f"Plot saved for initial time {initial_time} with output variable {var_out} and input variable {var_in}.")
     else:
