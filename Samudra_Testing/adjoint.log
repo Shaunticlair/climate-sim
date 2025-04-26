@@ -1,4 +1,4 @@
-Job 22095831.pbspl1.nas.nasa.gov started on Fri Apr 25 14:29:42 PDT 2025
+Job 22096525.pbspl1.nas.nasa.gov started on Fri Apr 25 16:35:09 PDT 2025
 The job requested the following resources:
     ncpus=40
     place=scatter:excl
@@ -8,103 +8,103 @@ PBS set the following environment variables:
         FORT_BUFFERED = 1
                    TZ = PST8PDT
 
-On r133i5n30:
+On r133i6n34:
 Warning: no access to tty (Inappropriate ioctl for device).
 Thus no job control in this shell.
 Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
-Starting Samudra model run at Fri Apr 25 14:31:09 PDT 2025
+Starting Samudra model run at Fri Apr 25 16:36:18 PDT 2025
 /nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
   return data.astype(dtype, **kwargs)
 Using CPU
 Using 80 CPU cores for computation
 Number of input channels: 158
 Number of output channels: 154
-Section 'Environment configured' took 0.0982 seconds
-Total elapsed time: 0.0982 seconds
+Section 'Environment configured' took 0.1252 seconds
+Total elapsed time: 0.1252 seconds
 ----------------------------------------
-Section 'Data loaded' took 23.1519 seconds
-Total elapsed time: 23.2502 seconds
+Section 'Data loaded' took 23.7132 seconds
+Total elapsed time: 23.8383 seconds
 ----------------------------------------
-Section 'Model loaded' took 4.4869 seconds
-Total elapsed time: 27.7370 seconds
+Section 'Model loaded' took 5.7438 seconds
+Total elapsed time: 29.5821 seconds
 ----------------------------------------
 Out:  [[2 3]] Our data has the shape torch.Size([1, 158, 180, 360])
 Computing sensitivity with batch 0, initial channels [76],       lat slice slice(0, 180, None), lon slice slice(0, 360, None)
-Section 'Setup complete' took 56.9049 seconds
-Total elapsed time: 84.6419 seconds
+Section 'Setup complete' took 62.3184 seconds
+Total elapsed time: 91.9005 seconds
 ----------------------------------------
-Out:  [[2 3]] Section 'Finished setting up model input' took 3.5822 seconds
-Total elapsed time: 88.2241 seconds
+Out:  [[2 3]] Section 'Finished setting up model input' took 3.6640 seconds
+Total elapsed time: 95.5645 seconds
 ----------------------------------------
-Section 'Finished setting up chunk tracking' took 0.0971 seconds
-Total elapsed time: 88.3211 seconds
+Section 'Finished setting up chunk tracking' took 0.4945 seconds
+Total elapsed time: 96.0590 seconds
 ----------------------------------------
 Processing time step: 0
-Section 'Ran model forward for model iteration 0' took 2.2357 seconds
-Total elapsed time: 90.5568 seconds
+Section 'Ran model forward for model iteration 0' took 5.7523 seconds
+Total elapsed time: 101.8113 seconds
 ----------------------------------------
-Out:  [[4 5]] Section 'Added gradient tracking for model iteration 1' took 3.5441 seconds
-Total elapsed time: 94.1009 seconds
+Out:  [[4 5]] Section 'Added gradient tracking for model iteration 1' took 3.4709 seconds
+Total elapsed time: 105.2822 seconds
 ----------------------------------------
 Processing time step: 1
-Section 'Ran model forward for model iteration 1' took 1.1505 seconds
-Total elapsed time: 95.2514 seconds
+Section 'Ran model forward for model iteration 1' took 1.2650 seconds
+Total elapsed time: 106.5471 seconds
 ----------------------------------------
-Out:  [[6 7]] Section 'Added gradient tracking for model iteration 2' took 3.4087 seconds
-Total elapsed time: 98.6601 seconds
+Out:  [[6 7]] Section 'Added gradient tracking for model iteration 2' took 3.6766 seconds
+Total elapsed time: 110.2237 seconds
 ----------------------------------------
 Processing time step: 2
-Section 'Ran model forward for model iteration 2' took 1.1799 seconds
-Total elapsed time: 99.8400 seconds
+Section 'Ran model forward for model iteration 2' took 1.2036 seconds
+Total elapsed time: 111.4273 seconds
 ----------------------------------------
-Out:  [[8 9]] Section 'Added gradient tracking for model iteration 3' took 3.5673 seconds
-Total elapsed time: 103.4073 seconds
+Out:  [[8 9]] Section 'Added gradient tracking for model iteration 3' took 3.5513 seconds
+Total elapsed time: 114.9786 seconds
 ----------------------------------------
 Processing time step: 3
-Section 'Ran model forward for model iteration 3' took 1.1510 seconds
-Total elapsed time: 104.5582 seconds
+Section 'Ran model forward for model iteration 3' took 1.2012 seconds
+Total elapsed time: 116.1798 seconds
 ----------------------------------------
-Out:  [[10 11]] Section 'Added gradient tracking for model iteration 4' took 3.9569 seconds
-Total elapsed time: 108.5151 seconds
+Out:  [[10 11]] Section 'Added gradient tracking for model iteration 4' took 3.6116 seconds
+Total elapsed time: 119.7914 seconds
 ----------------------------------------
 Processing time step: 4
-Section 'Ran model forward for model iteration 4' took 1.1495 seconds
-Total elapsed time: 109.6647 seconds
+Section 'Ran model forward for model iteration 4' took 1.2185 seconds
+Total elapsed time: 121.0099 seconds
 ----------------------------------------
-Out:  [[12 13]] Section 'Added gradient tracking for model iteration 5' took 4.2383 seconds
-Total elapsed time: 113.9030 seconds
+Out:  [[12 13]] Section 'Added gradient tracking for model iteration 5' took 3.5556 seconds
+Total elapsed time: 124.5654 seconds
 ----------------------------------------
-Section 'Cleared gradients before backward pass' took 0.0339 seconds
-Total elapsed time: 113.9369 seconds
+Section 'Cleared gradients before backward pass' took 0.1373 seconds
+Total elapsed time: 124.7027 seconds
 ----------------------------------------
-Section 'Backwards pass complete' took 23.1183 seconds
-Total elapsed time: 137.0552 seconds
+Section 'Backwards pass complete' took 23.0601 seconds
+Total elapsed time: 147.7628 seconds
 ----------------------------------------
-Section 'Gathered sensitivity for output box' took 0.0002 seconds
-Total elapsed time: 137.0554 seconds
+Section 'Gathered sensitivity for output box' took 0.0004 seconds
+Total elapsed time: 147.7632 seconds
 ----------------------------------------
 Section 'Finished computing sensitivity matrix (includes backward pass)' took 0.0000 seconds
-Total elapsed time: 137.0554 seconds
+Total elapsed time: 147.7632 seconds
 ----------------------------------------
-Section 'Finished computing chunked sensitivity' took 0.0188 seconds
-Total elapsed time: 137.0742 seconds
+Section 'Finished computing chunked sensitivity' took 0.0250 seconds
+Total elapsed time: 147.7882 seconds
 ----------------------------------------
 Computed sensitivity results: 1 output points
 Saved sensitivity tensor for chunk_sensitivity_chin[76]_chout[76]_t[0,10].npy to chunk_sensitivity_chin[76]_chout[76]_t[0,10].npy
-Section 'Finished saving sensitivity results' took 0.0224 seconds
-Total elapsed time: 137.0967 seconds
+Section 'Finished saving sensitivity results' took 0.0140 seconds
+Total elapsed time: 147.8022 seconds
 ----------------------------------------
 ============================================
     Chunked Sensitivity Analysis Done       
 ============================================
-Finished Samudra model run at Fri Apr 25 14:36:16 PDT 2025
+Finished Samudra model run at Fri Apr 25 16:42:02 PDT 2025
 
 ____________________________________________________________________
-Job Resource Usage Summary for 22095831.pbspl1.nas.nasa.gov
+Job Resource Usage Summary for 22096525.pbspl1.nas.nasa.gov
 
-    CPU Time Used            : 00:38:42
-    Real Memory Used         : 1289984kb
-    Walltime Used            : 00:06:11
+    CPU Time Used            : 00:35:41
+    Real Memory Used         : 4772580kb
+    Walltime Used            : 00:06:28
     Exit Status              : 0
 
     Number of CPUs Requested : 40
@@ -113,5 +113,5 @@ Job Resource Usage Summary for 22095831.pbspl1.nas.nasa.gov
     Execution Queue          : R21940709
     Charged To               : g26113
 
-    Job Stopped              : Fri Apr 25 14:36:53 2025
+    Job Stopped              : Fri Apr 25 16:42:44 2025
 ____________________________________________________________________
