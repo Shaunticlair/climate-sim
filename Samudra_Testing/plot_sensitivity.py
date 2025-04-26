@@ -145,7 +145,7 @@ def plot(path, map_dims, #Variables used to make the graph
 # We want t_end to be December 2015
 t_start = 0 
 # 699 days between January 2014 and December 2015: 700/5=140
-t_end = 140
+t_end = 10
 
 t_2year =   0 # A little less than 2 years from t_end
 t_1year =   140 - 73 # 1 year back from t_end
@@ -157,8 +157,8 @@ t_1month =  140 - 6 # 1 month back from t_end
 from misc import var_dict
 
 #var_in = 'hfds'
-var_in = 'tauuo'
-#var_in = 'zos(even)'
+#var_in = 'tauuo'
+var_in = 'zos(even)'
 var_out = 'zos(even)' 
 
 ch_in = var_dict[var_in]
@@ -167,16 +167,17 @@ ch_out = var_dict[var_out]
 # center: (131, 289) corresponds to Nantucket #[111, 152+20, 269, 310+50]
 # center: (90,180) corresponds to equatorial Pacific 
 # Explicitly define map dimensions
-delta = 50
-map_dims =  [90-delta,90+delta,180-delta,180+delta] # [xmin, xmax, ymin, ymax]
+delta = 20
+#map_dims =  [90-delta,90+delta,180-delta,180+delta] # [xmin, xmax, ymin, ymax]
+map_dims = [131-delta, 131+delta, 289-delta, 289+delta]  # Full global map
 initial_times_dict = {'zos(even)': [t_1month, t_6months, t_1year, t_2year],
                       'tauuo': [t_1month, t_6months, t_1year],
                       'tauvo': [t_1month, t_6months, t_1year],
                       'hfds': [t_1year, t_2year],
                       'hfds_anomalies': [t_1year, t_2year],}
-initial_times = [t_1month, t_6months, t_1year]#initial_times_dict[var_in]
+initial_times = [0]#[t_1month, t_6months, t_1year]#initial_times_dict[var_in]
 
-output_pixel = (90, 180)  # Coordinates for the output pixel
+output_pixel = (131,289)#(90, 180)  # Coordinates for the output pixel
 
 for initial_time in initial_times:
     in_time, out_time = initial_time, t_end

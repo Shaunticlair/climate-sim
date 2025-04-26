@@ -27,7 +27,7 @@ timer = setup.Timer()
 # We want t_end to be December 2015
 t_start = 0 
 # 699 days between January 2014 and December 2015: 700/5=140
-t_end = 10
+t_end = 140
 
 t_2year =   0 # A little less than 2 years from t_end
 t_1year =   140 - 73 # 1 year back from t_end
@@ -57,11 +57,11 @@ boundary_vars_config = "3D_all_hfds_anom"
 # Channel to study (0 is the first channel which is temperature at 2.5m depth)
 batch = 0
 batch_slice = slice(batch, batch+1)
-initial_channels = [76] #[76,153,154,155,156,157]   # Channels to compute sensitivity for
+initial_channels = [76,153,154,155,156,157]  #[76]  # Channels to compute sensitivity for
 final_channel = 76
 
 
-in_times = [0] #[t_2year, t_1year, t_6months, t_1month] # Times to compute sensitivity wrt to
+in_times = [t_2year, t_1year, t_6months, t_1month] #[0] # Times to compute sensitivity wrt to
 
 ### SETUP STAGE ###
 
