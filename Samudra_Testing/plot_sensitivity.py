@@ -120,8 +120,8 @@ def plot(path, map_dims, #Variables used to make the graph
 
     output_latex = output_var.replace('_', '\\_')
     input_latex = input_var.replace('_', '\\_')
-    
-    numerator = f'\\partial \\left( {output_latex} \\text{{ at }}({output_lat},{output_lon}), t={t1} \\right)'
+    # in a 2x2 with top-left at
+    numerator = f'\\partial \\left( {output_latex} \\text{{ in a 2x2 with top-left at }}({output_lat},{output_lon}), t={t1} \\right)'
     denominator = f'\\partial \\left( {input_latex} \\text{{ across map}}, t={t0} \\right)'
     plt.title(f'${numerator} / {denominator}$')
 
@@ -133,7 +133,7 @@ def plot(path, map_dims, #Variables used to make the graph
     # Create Plots directory if it doesn't exist
     Path("Plots").mkdir(exist_ok=True)
     
-    name = f'Plots/adjoint_map_{view_name}_chin[{input_var}]_chout[{output_var}]_t[{t0},{t1}].png'
+    name = f'Plots/adjoint_map_{view_name}_chin[{input_var}]_2x2chout[{output_var}]_t[{t0},{t1}].png'
     print(f"Saving plot to: {name}")
     plt.savefig(name, dpi=300, bbox_inches='tight')
 
@@ -145,7 +145,7 @@ def plot(path, map_dims, #Variables used to make the graph
 # We want t_end to be December 2015
 t_start = 0 
 # 699 days between January 2014 and December 2015: 700/5=140
-t_end = 10
+t_end = 140
 
 t_2year =   0 # A little less than 2 years from t_end
 t_1year =   140 - 73 # 1 year back from t_end
@@ -156,26 +156,30 @@ t_1month =  140 - 6 # 1 month back from t_end
 # Import var_dict from misc if it exists, otherwise define it here
 from misc import var_dict
 
-#var_in = 'hfds'
+var_in = 'hfds'
+#var_in = 'hfds_anomalies'
 #var_in = 'tauuo'
-var_in = 'zos(even)'
+#var_in = 'tauvo'
+#var_in = 'zos(even)'
 var_out = 'zos(even)' 
 
 ch_in = var_dict[var_in]
 ch_out = var_dict[var_out]
 
-# center: (131, 289) corresponds to Nantucket #[111, 152+20, 269, 310+50]
+# center: (131, 289) corresponds to Nantucket #
 # center: (90,180) corresponds to equatorial Pacific 
 # Explicitly define map dimensions
-delta = 20
+delta = 30
 #map_dims =  [90-delta,90+delta,180-delta,180+delta] # [xmin, xmax, ymin, ymax]
-map_dims = [131-delta, 131+delta, 289-delta, 289+delta]  # Full global map
+#map_dims = [131-delta, 131+delta, 289-delta, 289+delta]  # Full global map
+map_dims = [111, 152+20, 269, 310+50]
 initial_times_dict = {'zos(even)': [t_1month, t_6months, t_1year, t_2year],
                       'tauuo': [t_1month, t_6months, t_1year],
                       'tauvo': [t_1month, t_6months, t_1year],
                       'hfds': [t_1year, t_2year],
                       'hfds_anomalies': [t_1year, t_2year],}
-initial_times = [0]#[t_1month, t_6months, t_1year]#initial_times_dict[var_in]
+
+initial_times = initial_times_dict[var_in] # [t_1month, t_6months, t_1year]#
 
 output_pixel = (131,289)#(90, 180)  # Coordinates for the output pixel
 

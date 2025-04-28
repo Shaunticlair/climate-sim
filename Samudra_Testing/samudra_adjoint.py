@@ -27,13 +27,15 @@ timer = setup.Timer()
 # We want t_end to be December 2015
 t_start = 0 
 # 699 days between January 2014 and December 2015: 700/5=140
-t_end = 140
+#t_end = 146
+#t_2year =   0 # A little less than 2 years from t_end
+#t_1year =   t_end - 73 # 1 year back from t_end
+#t_6months = t_end - 36 # 6 months back from t_end
+#t_1month =  t_end - 6 # 1 month back from t_end
 
-t_2year =   0 # A little less than 2 years from t_end
-t_1year =   140 - 73 # 1 year back from t_end
-t_6months = 140 - 36 # 6 months back from t_end
-t_1month =  140 - 6 # 1 month back from t_end
-
+t_end = 72 # Approximately a year (73 might be more accurate, but doesn't divide into 12 months nicely)
+t_months = [t_end - 6*i for i in range(12)]  # Months in a year
+print("Months in a year:", t_months)
 #73 is one year
 
 # Define regions of interest in the ocean: latitude and longitude indices
@@ -43,8 +45,10 @@ lon_slice = slice(0,360) #slice(264,314)  # A chunk around longitude 180
 # Define the final latitude and longitude for the output: the coords we want to study the sensitivity wrt to
 # final_lat = 131
 # final_lon = 289
-final_lat_slice = slice(131, 133)
-final_lon_slice = slice(289, 291)  # Nantucket 2x2
+final_lat = 90
+final_lon = 180
+final_lat_slice = slice(final_lat, final_lat+1)#slice(131, 133)
+final_lon_slice = slice(final_lon, final_lon+1)#slice(289, 291)  # Nantucket 2x2
 
 
 # Model choice
@@ -61,7 +65,7 @@ initial_channels = [76,153,154,155,156,157]  #[76]  # Channels to compute sensit
 final_channel = 76
 
 
-in_times = [t_2year, t_1year, t_6months, t_1month] #[0] # Times to compute sensitivity wrt to
+in_times = t_months #[t_2year, t_1year, t_6months, t_1month] #[0] # Times to compute sensitivity wrt to
 
 ### SETUP STAGE ###
 
