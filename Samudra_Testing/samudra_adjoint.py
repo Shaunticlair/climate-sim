@@ -34,7 +34,7 @@ t_start = 0
 #t_1month =  t_end - 6 # 1 month back from t_end
 
 t_end = 72 # Approximately a year (73 might be more accurate, but doesn't divide into 12 months nicely)
-t_months = [t_end - 6*i for i in range(12)]  # Months in a year
+t_months = [t_end - 6*i for i in range(1,13)]  # Months in a year
 print("Months in a year:", t_months)
 #73 is one year
 
