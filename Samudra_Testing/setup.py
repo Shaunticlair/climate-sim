@@ -401,6 +401,7 @@ def load_data_for_correlation_analysis(reference_point=(90, 180),
         else:
             output_list_str.append(field_var)
     
+    print("Set up")
     # Load data using existing function with "analysis" suffix to avoid overwriting
     data, wet, data_mean, data_std = load_data_raw( #If this is the first time, we load data from end of training
         2850-600, # 600 timesteps before the end of training data
@@ -410,9 +411,12 @@ def load_data_for_correlation_analysis(reference_point=(90, 180),
         hist=1,
         device=device
     )
+    print("Finished loading")
 
     # Slice into the specific time window for analysis
     data = data.isel(time=slice(analysis_start, analysis_end))
+
+    print("Finished slicing")
     
     # Extract reference variable data
     reference_data = {}
@@ -495,6 +499,7 @@ def load_data_for_correlation_analysis(reference_point=(90, 180),
     
     return result
 
+print("Running...")
 # Load data for the first time
 output_list_str = []
 data, wet, data_mean, data_std = load_data_raw( #If this is the first time, we load data from end of training
@@ -504,3 +509,4 @@ data, wet, data_mean, data_std = load_data_raw( #If this is the first time, we l
         suffix="_analysis",
         hist=1
     )
+print("Done")
