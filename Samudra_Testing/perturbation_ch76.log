@@ -1,4 +1,4 @@
-Job 22123471.pbspl1.nas.nasa.gov started on Mon Apr 28 22:05:49 PDT 2025
+Job 22123530.pbspl1.nas.nasa.gov started on Mon Apr 28 22:31:43 PDT 2025
 The job requested the following resources:
     ncpus=40
     place=scatter:excl
@@ -8,22 +8,73 @@ PBS set the following environment variables:
         FORT_BUFFERED = 1
                    TZ = PST8PDT
 
-On r137i0n20:
+On r135i4n29:
 Warning: no access to tty (Inappropriate ioctl for device).
 Thus no job control in this shell.
 Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
-Starting Samudra model run for channel 76 at Mon Apr 28 22:05:52 PDT 2025
+Starting Samudra model run for channel 76 at Mon Apr 28 22:31:46 PDT 2025
 /nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
   return data.astype(dtype, **kwargs)
-Terminated
+Months in a year: [0]
+Using CPU
+Using 80 CPU cores for computation
+Number of input channels: 158
+Number of output channels: 154
+Section 'Environment configured' took 0.0369 seconds
+Total elapsed time: 0.0369 seconds
+----------------------------------------
+Section 'Data loaded' took 14.8605 seconds
+Total elapsed time: 14.8974 seconds
+----------------------------------------
+Section 'Model loaded' took 5.5260 seconds
+Total elapsed time: 20.4233 seconds
+----------------------------------------
+Out:  [[2 3]] Our data has the shape torch.Size([1, 158, 180, 360])
+Computing sensitivity from sources at times [0]
+Computing sensitivity to targets at times [72]
+Section 'Setup complete' took 32.8438 seconds
+Total elapsed time: 53.2671 seconds
+----------------------------------------
+Section 'Starting finite difference sensitivity calculation' took 0.0005 seconds
+Total elapsed time: 53.2677 seconds
+----------------------------------------
+Computing baseline outputs...
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Out:  [[24 25]] Out:  [[26 27]] Out:  [[28 29]] Out:  [[30 31]] Out:  [[32 33]] Out:  [[34 35]] Out:  [[36 37]] Out:  [[38 39]] Out:  [[40 41]] Out:  [[42 43]] Out:  [[44 45]] Out:  [[46 47]] Out:  [[48 49]] Out:  [[50 51]] Out:  [[52 53]] Out:  [[54 55]] Out:  [[56 57]] Out:  [[58 59]] Out:  [[60 61]] Out:  [[62 63]] Out:  [[64 65]] Out:  [[66 67]] Out:  [[68 69]] Out:  [[70 71]] Out:  [[72 73]] Out:  [[74 75]] Section 'Baseline model run complete' took 169.4049 seconds
+Total elapsed time: 222.6726 seconds
+----------------------------------------
+Processing source 1/1 at time 0
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Out:  [[24 25]] Out:  [[26 27]] Out:  [[28 29]] Out:  [[30 31]] Out:  [[32 33]] Out:  [[34 35]] Out:  [[36 37]] Out:  [[38 39]] Out:  [[40 41]] Out:  [[42 43]] Out:  [[44 45]] Out:  [[46 47]] Out:  [[48 49]] Out:  [[50 51]] Out:  [[52 53]] Out:  [[54 55]] Out:  [[56 57]] Out:  [[58 59]] Out:  [[60 61]] Out:  [[62 63]] Out:  [[64 65]] Out:  [[66 67]] Out:  [[68 69]] Out:  [[70 71]] Out:  [[72 73]] Out:  [[74 75]] Section 'Forward pass with perturbation at time 0, coord (0, 76, 90, 180)' took 166.5216 seconds
+Total elapsed time: 389.1942 seconds
+----------------------------------------
+Section 'Computed sensitivities for source at time 0, coord (0, 76, 90, 180)' took 0.0165 seconds
+Total elapsed time: 389.2107 seconds
+----------------------------------------
+Section 'Finished computing finite difference sensitivity matrix' took 0.0000 seconds
+Total elapsed time: 389.2107 seconds
+----------------------------------------
+Section 'Finished computing perturbation sensitivity' took 0.1225 seconds
+Total elapsed time: 389.3332 seconds
+----------------------------------------
+Saving sensitivity results: 1 sensitivities
+Saved 2D sensitivity grid to perturbation_grid_chin[76]_chout[76]_t[0,72].npy
+
+Sensitivity Grid (1x1) from time 0 to 72:
+-1.192093e-03
+Section 'Finished saving sensitivity results' took 0.0058 seconds
+Total elapsed time: 389.3391 seconds
+----------------------------------------
+============================================
+    Perturbation Sensitivity Analysis Done  
+============================================
+Finished Samudra model run for channel 76 at Mon Apr 28 22:40:04 PDT 2025
 
 ____________________________________________________________________
-Job Resource Usage Summary for 22123471.pbspl1.nas.nasa.gov
+Job Resource Usage Summary for 22123530.pbspl1.nas.nasa.gov
 
-    CPU Time Used            : 00:36:48
-    Real Memory Used         : 5760520kb
-    Walltime Used            : 00:03:07
-    Exit Status              : 143
+    CPU Time Used            : 02:04:17
+    Real Memory Used         : 17708636kb
+    Walltime Used            : 00:08:19
+    Exit Status              : 0
 
     Number of CPUs Requested : 40
     Walltime Requested       : 12:00:00
@@ -31,5 +82,5 @@ Job Resource Usage Summary for 22123471.pbspl1.nas.nasa.gov
     Execution Queue          : R21940709
     Charged To               : g26113
 
-    Job Stopped              : Mon Apr 28 22:09:01 2025
+    Job Stopped              : Mon Apr 28 22:40:08 2025
 ____________________________________________________________________
