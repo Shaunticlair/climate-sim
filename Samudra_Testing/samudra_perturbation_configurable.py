@@ -20,8 +20,6 @@ import model_adjoint
 
 if __name__ == "__main__":
 
-
-
     timer = setup.Timer()
 
     ### PARAMETERS ###
@@ -31,15 +29,18 @@ if __name__ == "__main__":
     t_start = 0 
     t_end = 72 # Approximately a year
     #t_months = [t_end - 6*i for i in range(1,13)]  # Months in a year
-    t_months = [0,18,36,54] # Every 3 months from the start
+    t_months = [0] # Every 3 months from the start #,18,36,54
     print("Months in a year:", t_months)
 
     # Define the final latitude and longitude for the output
     final_lat = 90
     final_lon = 180
-
-    in_lats = list(range(90-2, 90+2+1 ))
-    in_lons = list(range(180-2, 180+2+1 ))
+    
+    center_lat, center_lon = final_lat, final_lon
+    grid_size = 1 #5
+    half_grid = grid_size // 2
+    in_lats = list(range(center_lat-half_grid, center_lat+half_grid+1))
+    in_lons = list(range(center_lon-half_grid, center_lon+half_grid+1))
     # Model choice
     hist = 1
     N_test = 40  # Timesteps to use for testing
@@ -102,9 +103,10 @@ if __name__ == "__main__":
     source_coords_dict = {}
     for t in in_times:
         source_coords_list = []
-        for ch_num in initial_channels:
-            # For each source time and channel, we'll compute sensitivities for specific points
-            source_coords_list.append((batch, ch_num, final_lat, final_lon))
+        for lat in in_lats:
+            for lon in in_lons:
+                # For each source time, channel, latitude, and longitude, we'll compute sensitivities
+                source_coords_list.append((batch, initial_channels[0], lat, lon))
         source_coords_dict[t] = source_coords_list
 
     # Structure target coordinates as a dictionary mapping timesteps to list of coordinates
@@ -119,34 +121,53 @@ if __name__ == "__main__":
 
     def save_sensitivity_results(source_coords_dict, target_coords_dict, sensitivity_results):
         """
-        Save sensitivity results between source coordinates and target coordinates
+        Save sensitivity results between source coordinates and target coordinates,
+        reshaping them into a 2D lat-lon map before saving.
         """
         print(f"Saving sensitivity results: {len(sensitivity_results)} sensitivities")
         
         for target_time, target_coords_list in target_coords_dict.items():
             for target_coord in target_coords_list:
+                _, target_ch, target_lat, target_lon = target_coord
+                
                 for source_time, source_coords_list in source_coords_dict.items():
+                    # Get the source channel (should be the same for all source coords in our grid)
+                    source_ch = initial_channels[0]
+                    
+                    # Create a 2D grid to store the reshaped sensitivity values
+                    lat_size = len(in_lats)
+                    lon_size = len(in_lons)
+                    sensitivity_grid = np.zeros((lat_size, lon_size))
+                    sensitivity_grid.fill(np.nan)  # Fill with NaN for positions outside bounds
+                    
+                    # Populate the grid with sensitivity values
                     for source_coord in source_coords_list:
+                        _, sc, source_lat, source_lon = source_coord
                         index = (target_time, target_coord, source_time, source_coord)
                         
                         if index in sensitivity_results:
-                            _, target_ch, target_lat, target_lon = target_coord
-                            _, source_ch, source_lat, source_lon = source_coord
-                            
                             sensitivity_value = sensitivity_results[index]
                             
-                            # Convert to NumPy array if it's a tensor
+                            # Convert to NumPy float if it's a tensor
                             if isinstance(sensitivity_value, torch.Tensor):
-                                sensitivity_nparray = sensitivity_value.cpu().numpy()
-                            else:
-                                sensitivity_nparray = np.array([sensitivity_value])
+                                sensitivity_value = sensitivity_value.cpu().item()
                             
-                            # Save the sensitivity to a file
-                            filename = f'perturbation_sensitivity_chin[{source_ch}]_chout[{target_ch}]_t[{source_time},{target_time}].npy'
-                            np.save(filename, sensitivity_nparray)
-                            print(f"Saved sensitivity for {filename}: {sensitivity_nparray.item():.6e}")
-                        else:
-                            print(f"No sensitivity data for index {index}")
+                            # Find the position in our grid
+                            lat_idx = in_lats.index(source_lat)
+                            lon_idx = in_lons.index(source_lon)
+                            
+                            # Store the sensitivity value in the grid
+                            sensitivity_grid[lat_idx, lon_idx] = sensitivity_value
+                    
+                    # Save the 2D sensitivity grid
+                    filename = f'perturbation_grid_chin[{source_ch}]_chout[{target_ch}]_t[{source_time},{target_time}].npy'
+                    np.save(filename, sensitivity_grid)
+                    print(f"Saved 2D sensitivity grid to {filename}")
+                    
+                    # Print the grid for visual inspection
+                    print(f"\nSensitivity Grid ({lat_size}x{lon_size}) from time {source_time} to {target_time}:")
+                    for row in sensitivity_grid:
+                        print(" ".join([f"{x:.6e}" if not np.isnan(x) else "N/A" for x in row]))
 
     timer.checkpoint("Setup complete")
 
@@ -163,7 +184,7 @@ if __name__ == "__main__":
 
     timer.checkpoint("Finished computing perturbation sensitivity")
 
-    # Save the sensitivity results
+    # Save the sensitivity results as 2D grids
     save_sensitivity_results(
         source_coords_dict=source_coords_dict,
         target_coords_dict=target_coords_dict,
