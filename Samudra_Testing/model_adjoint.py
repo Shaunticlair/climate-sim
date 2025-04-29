@@ -182,6 +182,159 @@ class SamudraAdjoint(model.Samudra):
         
         return sensitivity_matrix
 
+    def compute_fd_sensitivity(self, inputs, 
+                            source_coords_dict, 
+                            target_coords_dict, 
+                            perturbation_size=1e-4,
+                            device="cuda",
+                            use_checkpointing=True,
+                            timer=null_timer):
+        """
+        Computes finite difference sensitivity between source coordinates and target coordinates,
+        structured similarly to compute_state_sensitivity.
+        
+        Parameters:
+        -----------
+        inputs : list of tensors
+            The input tensors for each time step in the sequence.
+        source_coords_dict : dict
+            Dictionary mapping timesteps to lists of tuples.
+            Each tuple contains (b, c, h, w) indicating the batch, channel, height, width
+            indices of the input elements to perturb at the specified timestep.
+        target_coords_dict : dict
+            Dictionary mapping timesteps to lists of tuples.
+            Each tuple contains (b, c, h, w) indicating the batch, channel, height, width
+            indices of the output elements to measure at the specified timestep.
+        perturbation_size : float
+            Size of perturbation to apply for finite difference calculation.
+        device : str
+            The device to run the computation on ('cuda' or 'cpu').
+        use_checkpointing : bool
+            Whether to use gradient checkpointing for memory efficiency.
+        timer : Timer
+            Timer object for performance tracking.
+                
+        Returns:
+        --------
+        dict
+            A dictionary where each key is a tuple (target_time, target_coord, source_time, source_coord)
+            and each value is the sensitivity of the target with respect to the source.
+        """
+        # Make sure we're in evaluation mode
+        self.eval()
+        
+        # Determine the time range
+        source_times = list(source_coords_dict.keys())
+        target_times = list(target_coords_dict.keys())
+        min_time = min(min(source_times), min(target_times))
+        max_time = max(max(source_times), max(target_times))
+        
+        # Process the initial time step
+        initial_iter = min_time // 2
+        
+        timer.checkpoint("Starting finite difference sensitivity calculation")
+        
+        # Dictionary to store sensitivity results
+        sensitivity_results = {}
+        
+        # First get baseline outputs
+        print("Computing baseline outputs...")
+        baseline_outputs = {}
+        
+        # Run the baseline model once to get reference values
+        current_input = inputs[initial_iter][0].clone().to(device)
+        baseline_outputs[min_time] = current_input
+        
+        # Forward pass without any perturbation to establish baseline
+        for it in range(initial_iter, max_time // 2 + 1):
+            # Forward pass
+            if use_checkpointing and it < max_time // 2:
+                output = self.checkpointed_forward_once(current_input)
+            else:
+                output = self.forward_once(current_input)
+            
+            # Store output for this time step
+            time_step = it * 2 + 1
+            baseline_outputs[time_step] = output
+            
+            # Prepare for next time step if needed
+            if it < max_time // 2:
+                boundary = inputs[it+1][0][:, self.output_channels:].to(device)
+                current_input = torch.cat([output, boundary], dim=1)
+                baseline_outputs[it * 2 + 2] = current_input
+        
+        timer.checkpoint("Baseline model run complete")
+        
+        # For each source time and source coordinates
+        total_sources = sum(len(coords) for coords in source_coords_dict.values())
+        source_count = 0
+        
+        for source_time, source_coords_list in source_coords_dict.items():
+            for source_coord in source_coords_list:
+                source_count += 1
+                print(f"Processing source {source_count}/{total_sources} at time {source_time}")
+                
+                # Reset for this perturbation
+                current_input = inputs[initial_iter][0].clone().to(device)
+                perturbed_outputs = {min_time: current_input}
+                
+                # Apply perturbation if this is the starting time step
+                if source_time == min_time:
+                    b, c, h, w = source_coord
+                    current_input[b, c, h, w] += perturbation_size
+                
+                # Forward pass with perturbation
+                for it in range(initial_iter, max_time // 2 + 1):
+                    # Forward pass
+                    if use_checkpointing and it < max_time // 2:
+                        output = self.checkpointed_forward_once(current_input)
+                    else:
+                        output = self.forward_once(current_input)
+                    
+                    # Store output for this time step
+                    time_step = it * 2 + 1
+                    perturbed_outputs[time_step] = output
+                    
+                    # Prepare for next time step if needed
+                    if it < max_time // 2:
+                        boundary = inputs[it+1][0][:, self.output_channels:].to(device)
+                        current_input = torch.cat([output, boundary], dim=1)
+                        
+                        # Apply perturbation if this is the right timestep
+                        if it * 2 + 2 == source_time:
+                            b, c, h, w = source_coord
+                            current_input[b, c, h, w] += perturbation_size
+                        
+                        perturbed_outputs[it * 2 + 2] = current_input
+                
+                timer.checkpoint(f"Forward pass with perturbation at time {source_time}, coord {source_coord}")
+                
+                # For each target time and target coordinate, compute sensitivity
+                for target_time, target_coords_list in target_coords_dict.items():
+                    # Skip if target time is before source time (no causality)
+                    if target_time < source_time:
+                        continue
+                    
+                    for target_coord in target_coords_list:
+                        b_t, c_t, h_t, w_t = target_coord
+                        
+                        # Get baseline and perturbed values at target point
+                        baseline_value = baseline_outputs[target_time][b_t, c_t, h_t, w_t].item()
+                        perturbed_value = perturbed_outputs[target_time][b_t, c_t, h_t, w_t].item()
+                        
+                        # Calculate sensitivity
+                        sensitivity = (perturbed_value - baseline_value) / perturbation_size
+                        
+                        # Store result
+                        index = (target_time, target_coord, source_time, source_coord)
+                        sensitivity_results[index] = torch.tensor(sensitivity, device=device)
+                
+                timer.checkpoint(f"Computed sensitivities for source at time {source_time}, coord {source_coord}")
+        
+        timer.checkpoint("Finished computing finite difference sensitivity matrix")
+        
+        return sensitivity_results
+
     def track_gradients_for_chunk(self, state_tensor, slices_list, device="cuda"):
         """
         Utility function to track the gradient of chunks of elements in the state tensor.
@@ -276,153 +429,6 @@ class SamudraAdjoint(model.Samudra):
         
         return state_tensor
 
-    def compute_state_sensitivity(self, inputs,
-                    in_chunks_dict,
-                    out_indices_dict,
-                    device="cuda",
-                    use_checkpointing=True,
-                    timer=null_timer):
-        """
-        Computes the sensitivity of output elements with respect to 
-        chunks of input elements in a single backward pass, with time specified in the dictionary.
-        
-        Parameters:
-        -----------
-        inputs : list of tensors
-            The input tensors for each time step in the sequence.
-        in_chunks_dict : dict
-            Dictionary mapping timesteps to lists of tuples of slices.
-            Each tuple contains (batch_slice, channel_slice, height_slice, width_slice) indicating a 
-            region of the state tensor to track gradients for. The timestep indicates which time step
-            the chunks correspond to.
-        out_indices_dict : dict
-            A dictionary mapping time steps to lists of tuples
-            Each tuple contains (b, c, h, w) indicating a region of the output state tensor
-            we will be computing sensitivities for. The timestep indicates which time step
-            the output corresponds to.
-        device : str
-            The device to run the computation on ('cuda' or 'cpu').
-        use_checkpointing : bool
-            Whether to use gradient checkpointing for memory efficiency.
-                
-        Returns:
-        --------
-        dict of torch.Tensor
-            Each key is a tuple (out_time, out_idx, in_time, in_slice) where:
-                out_time : int
-                    The time step of the output element.
-                out_idx : tuple (b, c, h, w)
-                    The spatial indices of the output element.
-                in_time : int
-                    The time step of the input chunk.
-                in_slice : slice tuple (b, c, h, w)
-                    The spatial indices of the input chunk.
-            
-
-        """
-        # Make sure we're in evaluation mode
-        self.eval()
-
-        # Determine the time range we need to process
-        in_times = list(in_chunks_dict.keys())
-        out_times = out_indices_dict.keys()
-        min_time = min(min(in_times), min(out_times))
-        max_time = max(out_times)
-        
-        # Initialize the model input for the minimum time step
-        initial_iter = min_time // 2
-        model_input = inputs[initial_iter][0].clone().to(device)
-        
-        timer.checkpoint("Finished setting up model input")
-        
-        # Dictionary to store tracked elements for each time step and chunk
-        tracked_dict = {}
-        
-        # Add gradient tracking for initial timesteps: even and odd
-        model_input = self.track_gradients_for_timestep(
-            model_input, in_chunks_dict, min_time, max_time, tracked_dict, device
-        )
-
-        timer.checkpoint("Finished setting up chunk tracking")
-        
-        # Run the autoregressive rollout
-        current_input = model_input
-        outputs = {min_time: current_input,
-                   min_time+1: current_input}  # Store inputs/outputs by time step
-        
-        for it in range(initial_iter, max_time // 2 ):
-            print(f"Processing time step: {it}")
-            
-            # Forward pass
-            if use_checkpointing and it < max_time // 2:
-                output = self.checkpointed_forward_once(current_input)
-            else:
-                output = self.forward_once(current_input)
-            
-            timer.checkpoint(f"Ran model forward for model iteration {it}")
-            
-            # Store output for this time step
-            next_even_time = it * 2 + 2
-            outputs[next_even_time] = output
-            next_odd_time = next_even_time + 1  
-            outputs[next_odd_time] = output
-            
-            # Prepare for next time step if needed
-            if it < max_time // 2:
-                boundary = inputs[it+1][0][:, self.output_channels:].to(device)
-                current_input = torch.cat([output, boundary], dim=1)
-                
-                # Add gradient tracking for next timesteps
-                current_input = self.track_gradients_for_timestep(
-                    current_input, in_chunks_dict, next_even_time, max_time, tracked_dict, device
-                )
-
-                timer.checkpoint(f"Added gradient tracking for model iteration {it+1}")
-        
-        # Dict to store sensitivity tensors for each output element
-        sensitivity_results = {}
-        
-        # For each output time step and indices
-        for out_time, out_list_idx in out_indices_dict.items():   #### LOOP OVER OUTPUT TIME STEP
-            output_tensor = outputs[out_time]
-
-            # Extract the output elements we're interested in
-            for out_idx in out_list_idx:                          ### LOOP OVER OUTPUT INDICES
-                b, c, h, w = out_idx
-                output_element = output_tensor[b, c, h, w]
-                
-                # Clear gradients before backward pass
-                for tracked_dict_in_time in tracked_dict.values(): #Each time step has its own tracked chunks
-                    for chunk in tracked_dict_in_time.values(): # Each chunk is a tensor
-                        if chunk.grad is not None:
-                            chunk.grad.zero_()
-                
-                timer.checkpoint("Cleared gradients before backward pass")
-                # Compute gradients
-                output_element.backward(retain_graph=True)
-
-                timer.checkpoint("Backwards pass complete")
-                
-                # Gather sensitivity tensors for this output element
-                for in_time, tracked_dict_in_time in tracked_dict.items(): ## LOOP OVER INPUT TIME STEPS
-                    for in_slice, chunk in tracked_dict_in_time.items(): # LOOP OVER INPUT SLICES
-                        # Get the gradient for this chunk
-                        grad_chunk = chunk.grad.clone() if chunk.grad is not None else torch.zeros_like(chunk)
-
-                        # Store the sensitivity tensor in the results dict
-                        index = (out_time, out_idx, in_time, str(in_slice))
-                        sensitivity_results[index] = grad_chunk
-                        
-
-                timer.checkpoint("Gathered sensitivity for output element")
-
-
-                
-        
-        timer.checkpoint("Finished computing sensitivity matrix (includes backward pass)")
-        
-        return sensitivity_results
-    
     def compute_state_sensitivity(self, inputs,
                 in_chunks_dict,
                 out_boxes_dict,
