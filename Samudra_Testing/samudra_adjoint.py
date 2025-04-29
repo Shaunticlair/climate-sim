@@ -33,7 +33,7 @@ t_start = 0
 #t_6months = t_end - 36 # 6 months back from t_end
 #t_1month =  t_end - 6 # 1 month back from t_end
 
-t_end = 2#72 # Approximately a year (73 might be more accurate, but doesn't divide into 12 months nicely)
+t_end = 10#72 # Approximately a year (73 might be more accurate, but doesn't divide into 12 months nicely)
 t_months = [t_end - 6*i for i in range(1,13)]  # Months in a year
 print("Months in a year:", t_months)
 #73 is one year
@@ -61,11 +61,11 @@ boundary_vars_config = "3D_all_hfds_anom"
 # Channel to study (0 is the first channel which is temperature at 2.5m depth)
 batch = 0
 batch_slice = slice(batch, batch+1)
-initial_channels = [0]#[76,153,154,155,156,157]  #[76]  # Channels to compute sensitivity for
-final_channel = 0#76
+initial_channels = [76]#[76,153,154,155,156,157]  #[76]  # Channels to compute sensitivity for
+final_channel = 76
 
 
-in_times = [0]#t_months #[t_2year, t_1year, t_6months, t_1month] #[0] # Times to compute sensitivity wrt to
+in_times = [0,2,4,6,8]#t_months #[t_2year, t_1year, t_6months, t_1month] #[0] # Times to compute sensitivity wrt to
 
 ### SETUP STAGE ###
 
