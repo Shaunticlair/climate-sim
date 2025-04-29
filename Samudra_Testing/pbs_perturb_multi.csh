@@ -4,7 +4,7 @@
 #PBS -l select=6:ncpus=40:model=sky_ele
 #PBS -l walltime=12:00:00
 #PBS -j oe
-#PBS -o ./perturbation_${PBS_ARRAY_INDEX}.log
+#PBS -o ./perturbation_%I.log
 #PBS -m bea
 #PBS -r n
 #PBS -J 1-6

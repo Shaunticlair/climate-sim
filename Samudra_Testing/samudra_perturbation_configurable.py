@@ -49,7 +49,7 @@ if __name__ == "__main__":
 
     # Batch and channels to study
     batch = 0
-    initial_channels = [sys.argv[1]]#76, 153, 154, 155, 156, 157]
+    initial_channels = [int(sys.argv[1])]#76, 153, 154, 155, 156, 157]
     final_channel = 76
 
     # Times to compute sensitivity for
