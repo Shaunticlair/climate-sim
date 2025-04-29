@@ -6,7 +6,6 @@
 #PBS -j oe
 #PBS -o ./perturbation_%I.log
 #PBS -m bea
-#PBS -r n
 #PBS -J 1-6
 
 # The last PBS line tells us not to re-run a script that's failed
