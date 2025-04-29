@@ -27,13 +27,15 @@ timer = setup.Timer()
 t_start = 0 
 t_end = 72 # Approximately a year
 #t_months = [t_end - 6*i for i in range(1,13)]  # Months in a year
-t_months = [0]
+t_months = [0,18,36,54] # Every 3 months from the start
 print("Months in a year:", t_months)
 
 # Define the final latitude and longitude for the output
 final_lat = 90
 final_lon = 180
 
+in_lats = list(range(90-2, 90+2+1 ))
+in_lons = list(range(180-2, 180+2+1 ))
 # Model choice
 hist = 1
 N_test = 40  # Timesteps to use for testing
