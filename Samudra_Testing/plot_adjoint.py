@@ -121,7 +121,7 @@ def plot(path, map_dims, #Variables used to make the graph
     output_latex = output_var.replace('_', '\\_')
     input_latex = input_var.replace('_', '\\_')
     # in a 2x2 with top-left at
-    numerator = f'\\partial \\left( {output_latex} \\text{{ in a 2x2 with top-left at }}({output_lat},{output_lon}), t={t1} \\right)'
+    numerator = f'\\partial \\left( {output_latex} \\text{{ at }}({output_lat},{output_lon}), t={t1} \\right)'
     denominator = f'\\partial \\left( {input_latex} \\text{{ across map}}, t={t0} \\right)'
     plt.title(f'${numerator} / {denominator}$')
 
@@ -133,7 +133,7 @@ def plot(path, map_dims, #Variables used to make the graph
     # Create Plots directory if it doesn't exist
     Path("Plots").mkdir(exist_ok=True)
     
-    name = f'Plots/adjoint_map_{view_name}_chin[{input_var}]_2x2chout[{output_var}]_t[{t0},{t1}].png'
+    name = f'Plots/adjoint_map_{view_name}_chin[{input_var}]_chout[{output_var}]_t[{t0},{t1}].png'
     print(f"Saving plot to: {name}")
     plt.savefig(name, dpi=300, bbox_inches='tight')
 
@@ -145,7 +145,7 @@ def plot(path, map_dims, #Variables used to make the graph
 # We want t_end to be December 2015
 t_start = 0 
 # 699 days between January 2014 and December 2015: 700/5=140
-t_end = 140
+t_end = 72
 
 t_2year =   0 # A little less than 2 years from t_end
 t_1year =   140 - 73 # 1 year back from t_end
@@ -156,11 +156,11 @@ t_1month =  140 - 6 # 1 month back from t_end
 # Import var_dict from misc if it exists, otherwise define it here
 from misc import var_dict
 
-var_in = 'hfds'
+#var_in = 'hfds'
 #var_in = 'hfds_anomalies'
 #var_in = 'tauuo'
 #var_in = 'tauvo'
-#var_in = 'zos(even)'
+var_in = 'zos(even)'
 var_out = 'zos(even)' 
 
 ch_in = var_dict[var_in]
@@ -169,28 +169,31 @@ ch_out = var_dict[var_out]
 # center: (131, 289) corresponds to Nantucket #
 # center: (90,180) corresponds to equatorial Pacific 
 # Explicitly define map dimensions
-delta = 30
-#map_dims =  [90-delta,90+delta,180-delta,180+delta] # [xmin, xmax, ymin, ymax]
+delta = 2
+map_dims =  [90-delta,90+delta+1,180-delta,180+delta+1] # [xmin, xmax, ymin, ymax]
 #map_dims = [131-delta, 131+delta, 289-delta, 289+delta]  # Full global map
-map_dims = [111, 152+20, 269, 310+50]
+#map_dims = [111, 152+20, 269, 310+50]
 initial_times_dict = {'zos(even)': [t_1month, t_6months, t_1year, t_2year],
                       'tauuo': [t_1month, t_6months, t_1year],
                       'tauvo': [t_1month, t_6months, t_1year],
                       'hfds': [t_1year, t_2year],
                       'hfds_anomalies': [t_1year, t_2year],}
 
-initial_times = initial_times_dict[var_in] # [t_1month, t_6months, t_1year]#
+#initial_times = initial_times_dict[var_in] # [t_1month, t_6months, t_1year]#
+initial_times = [54]
 
-output_pixel = (131,289)#(90, 180)  # Coordinates for the output pixel
+
+output_pixel = (90, 180)#(131,289)#  # Coordinates for the output pixel
 
 for initial_time in initial_times:
     in_time, out_time = initial_time, t_end
-    plot_path = Path(f'chunk_sensitivity_chin[{ch_in}]_chout[{ch_out}]_t[{in_time},{out_time}].npy')
+    #plot_path = Path(f'chunk_sensitivity_chin[{ch_in}]_chout[{ch_out}]_t[{in_time},{out_time}].npy')
+    plot_path = Path(f'sensitivity_arrays/Equatorial_Pacific/chunk_sensitivity_chin[{ch_in}]_chout[{ch_out}]_t[{in_time},{out_time}].npy')
     
     if plot_path.exists():
         plot(plot_path, map_dims=map_dims, t0=in_time, t1=out_time, 
              output_pixel=output_pixel, output_var=var_out, input_var=var_in,
-             circle_coords=output_pixel, circle_radius=2, circle_color='black',
+             circle_coords=None, circle_radius=2, circle_color='black',
              xticks=10, yticks=10)
         print(f"Plot saved for initial time {initial_time} with output variable {var_out} and input variable {var_in}.")
     else:

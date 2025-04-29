@@ -160,11 +160,11 @@ t_1month =  140 - 6 # 1 month back from t_end
 # Import var_dict from misc if it exists, otherwise define it here
 from misc import var_dict
 
-#var_in = 'hfds'
+var_in = 'hfds'
 #var_in = 'hfds_anomalies'
 #var_in = 'tauuo'
 #var_in = 'tauvo'
-var_in = 'zos(even)'
+#var_in = 'zos(even)'
 var_out = 'zos(even)' 
 
 ch_in = var_dict[var_in]
@@ -173,7 +173,7 @@ ch_out = var_dict[var_out]
 # center: (131, 289) corresponds to Nantucket #
 # center: (90,180) corresponds to equatorial Pacific 
 # Explicitly define map dimensions
-delta = 0
+delta = 2
 map_dims =  [90-delta,90+delta+1,180-delta,180+delta+1] # [xmin, xmax, ymin, ymax]
 #map_dims = [131-delta, 131+delta, 289-delta, 289+delta]  # Full global map
 #map_dims = [111, 152+20, 269, 310+50]
@@ -183,7 +183,7 @@ initial_times_dict = {'zos(even)': [t_1month, t_6months, t_1year, t_2year],
                       'hfds': [t_1year, t_2year],
                       'hfds_anomalies': [t_1year, t_2year],}
 
-initial_times = [0]#,18,36,54] # [t_1month, t_6months, t_1year]#
+initial_times = [54]#,18,36,54] # [t_1month, t_6months, t_1year]#
 
 output_pixel = (90,180)#(90, 180)  # Coordinates for the output pixel
 
@@ -196,7 +196,7 @@ for initial_time in initial_times:
     if plot_path.exists():
         plot(plot_path, map_dims=map_dims, t0=in_time, t1=out_time, 
              output_pixel=output_pixel, output_var=var_out, input_var=var_in,
-             circle_coords=output_pixel, circle_radius=2, circle_color='black',
+             circle_coords=None, circle_radius=2, circle_color='black',
              xticks=10, yticks=10)
         print(f"Plot saved for initial time {initial_time} with output variable {var_out} and input variable {var_in}.")
     else:

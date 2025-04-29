@@ -239,14 +239,14 @@ class SamudraAdjoint(model.Samudra):
         
         # First get baseline outputs
         print("Computing baseline outputs...")
-        baseline_outputs = {}
         
         # Run the baseline model once to get reference values
         current_input = inputs[initial_iter][0].clone().to(device)
-        baseline_outputs[min_time] = current_input
+        baseline_outputs = {min_time: current_input,
+                            min_time+1: current_input}
         
         # Forward pass without any perturbation to establish baseline
-        for it in range(initial_iter, max_time // 2 + 1):
+        for it in range(initial_iter, max_time // 2):
             # Forward pass
             if use_checkpointing and it < max_time // 2:
                 output = self.checkpointed_forward_once(current_input)
@@ -254,8 +254,10 @@ class SamudraAdjoint(model.Samudra):
                 output = self.forward_once(current_input)
             
             # Store output for this time step
-            time_step = it * 2 + 1
+            time_step = it * 2 + 2
             baseline_outputs[time_step] = output
+            next_odd_time = time_step + 1
+            baseline_outputs[next_odd_time] = output
             
             # Prepare for next time step if needed
             if it < max_time // 2:
@@ -276,15 +278,17 @@ class SamudraAdjoint(model.Samudra):
                 
                 # Reset for this perturbation
                 current_input = inputs[initial_iter][0].clone().to(device)
-                perturbed_outputs = {min_time: current_input}
+                perturbed_outputs = {min_time: current_input,
+                                     min_time+1: current_input}  # Store perturbed inputs/outputs by time step
                 
                 # Apply perturbation if this is the starting time step
                 if source_time == min_time:
                     b, c, h, w = source_coord
                     current_input[b, c, h, w] += perturbation_size
-                
+
+
                 # Forward pass with perturbation
-                for it in range(initial_iter, max_time // 2 + 1):
+                for it in range(initial_iter, max_time // 2 ):
                     # Forward pass
                     if use_checkpointing and it < max_time // 2:
                         output = self.checkpointed_forward_once(current_input)
@@ -292,8 +296,10 @@ class SamudraAdjoint(model.Samudra):
                         output = self.forward_once(current_input)
                     
                     # Store output for this time step
-                    time_step = it * 2 + 1
+                    time_step = it * 2 + 2
                     perturbed_outputs[time_step] = output
+                    next_odd_time = time_step + 1
+                    perturbed_outputs[next_odd_time] = output
                     
                     # Prepare for next time step if needed
                     if it < max_time // 2:
@@ -304,8 +310,7 @@ class SamudraAdjoint(model.Samudra):
                         if it * 2 + 2 == source_time:
                             b, c, h, w = source_coord
                             current_input[b, c, h, w] += perturbation_size
-                        
-                        perturbed_outputs[it * 2 + 2] = current_input
+
                 
                 timer.checkpoint(f"Forward pass with perturbation at time {source_time}, coord {source_coord}")
                 
@@ -505,7 +510,7 @@ class SamudraAdjoint(model.Samudra):
         # Run the autoregressive rollout
         current_input = model_input
         outputs = {min_time: current_input,
-                min_time+1: current_input}  # Store inputs/outputs by time step
+                   min_time+1: current_input}  # Store inputs/outputs by time step
         
         for it in range(initial_iter, max_time // 2 ):
             print(f"Processing time step: {it}")

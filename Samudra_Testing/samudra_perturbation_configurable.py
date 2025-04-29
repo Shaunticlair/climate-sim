@@ -27,7 +27,7 @@ if __name__ == "__main__":
     # t=0 is the start of 2014
     # We want t_end to be December 2015
     t_start = 0 
-    t_end = 72 # Approximately a year
+    t_end = 2#72 # Approximately a year
     #t_months = [t_end - 6*i for i in range(1,13)]  # Months in a year
     t_months = [0,18,36,54] # Every 3 months from the start #,18,36,54
     print("Months in a year:", t_months)
@@ -51,13 +51,13 @@ if __name__ == "__main__":
     # Batch and channels to study
     batch = 0
     initial_channels = [int(sys.argv[1])]#76, 153, 154, 155, 156, 157]
-    final_channel = 76
+    final_channel = 0 #76
 
     # Times to compute sensitivity for
-    in_times = t_months
+    in_times = [0]#t_months
 
     # Perturbation size for finite difference calculation
-    perturbation_size = 1e-4
+    perturbation_size = 1e-3
 
     ### SETUP STAGE ###
 
