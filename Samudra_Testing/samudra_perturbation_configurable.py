@@ -29,7 +29,7 @@ if __name__ == "__main__":
     t_start = 0 
     t_end = 72 # Approximately a year
     #t_months = [t_end - 6*i for i in range(1,13)]  # Months in a year
-    t_months = [0] # Every 3 months from the start #,18,36,54
+    t_months = [0,18,36,54] # Every 3 months from the start #,18,36,54
     print("Months in a year:", t_months)
 
     # Define the final latitude and longitude for the output
@@ -37,7 +37,7 @@ if __name__ == "__main__":
     final_lon = 180
     
     center_lat, center_lon = final_lat, final_lon
-    grid_size = 1
+    grid_size = 5
     half_grid = grid_size // 2
     in_lats = list(range(center_lat-half_grid, center_lat+half_grid+1))
     in_lons = list(range(center_lon-half_grid, center_lon+half_grid+1))

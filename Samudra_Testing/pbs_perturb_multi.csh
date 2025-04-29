@@ -32,7 +32,7 @@ set channels = (76 153 154 155 156 157)
 
 # PBS array jobs are 1-indexed
 set idx = $PBS_ARRAY_INDEX
-@ idx = $idx - 1
+@ idx = $idx 
 
 # Get the channel for this array job
 set channel = $channels[$idx]
