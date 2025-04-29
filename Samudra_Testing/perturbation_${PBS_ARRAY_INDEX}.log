@@ -1,0 +1,69 @@
+Job 22123384[2].pbspl1.nas.nasa.gov started on Mon Apr 28 21:27:29 PDT 2025
+The job requested the following resources:
+    ncpus=240
+    place=scatter:excl
+    walltime=12:00:00
+
+PBS set the following environment variables:
+        FORT_BUFFERED = 1
+                   TZ = PST8PDT
+
+On r137i0n20:
+Warning: no access to tty (Inappropriate ioctl for device).
+Thus no job control in this shell.
+Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
+Starting Samudra model run for channel 76 at Mon Apr 28 21:29:18 PDT 2025
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
+  return data.astype(dtype, **kwargs)
+Months in a year: [0, 18, 36, 54]
+Using CPU
+Using 80 CPU cores for computation
+Number of input channels: 158
+Number of output channels: 154
+Section 'Environment configured' took 0.0137 seconds
+Total elapsed time: 0.0137 seconds
+----------------------------------------
+Section 'Data loaded' took 19.7659 seconds
+Total elapsed time: 19.7796 seconds
+----------------------------------------
+Section 'Model loaded' took 4.1874 seconds
+Total elapsed time: 23.9669 seconds
+----------------------------------------
+Out:  [[2 3]] Our data has the shape torch.Size([1, 158, 180, 360])
+Computing sensitivity from sources at times [0, 18, 36, 54]
+Computing sensitivity to targets at times [72]
+Section 'Setup complete' took 57.1621 seconds
+Total elapsed time: 81.1290 seconds
+----------------------------------------
+Section 'Starting finite difference sensitivity calculation' took 0.0006 seconds
+Total elapsed time: 81.1296 seconds
+----------------------------------------
+Computing baseline outputs...
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Out:  [[14 15]] Out:  [[16 17]] Out:  [[18 19]] Out:  [[20 21]] Out:  [[22 23]] Out:  [[24 25]] Out:  [[26 27]] Out:  [[28 29]] Out:  [[30 31]] Out:  [[32 33]] Out:  [[34 35]] Out:  [[36 37]] Out:  [[38 39]] Out:  [[40 41]] Out:  [[42 43]] Out:  [[44 45]] Out:  [[46 47]] Out:  [[48 49]] Out:  [[50 51]] Out:  [[52 53]] Out:  [[54 55]] Out:  [[56 57]] Out:  [[58 59]] Out:  [[60 61]] Out:  [[62 63]] Out:  [[64 65]] Out:  [[66 67]] Out:  [[68 69]] Out:  [[70 71]] Out:  [[72 73]] Out:  [[74 75]] Section 'Baseline model run complete' took 166.2085 seconds
+Total elapsed time: 247.3381 seconds
+----------------------------------------
+Processing source 1/4 at time 0
+Out:  [[2 3]] Traceback (most recent call last):
+  File "/nobackupp28/sruiz5/climate-sim/Samudra_Testing/samudra_perturbation_configurable.py", line 154, in <module>
+    sensitivity_results = adjoint_model.compute_fd_sensitivity(
+  File "/nobackupp28/sruiz5/climate-sim/Samudra_Testing/model_adjoint.py", line 284, in compute_fd_sensitivity
+    current_input[b, c, h, w] += perturbation_size
+TypeError: new(): invalid data type 'str'
+Finished Samudra model run for channel 76 at Mon Apr 28 21:34:51 PDT 2025
+
+____________________________________________________________________
+Job Resource Usage Summary for 22123384[2].pbspl1.nas.nasa.gov
+
+    CPU Time Used            : 01:02:00
+    Real Memory Used         : 7201328kb
+    Walltime Used            : 00:05:50
+    Exit Status              : 0
+
+    Number of CPUs Requested : 240
+    Walltime Requested       : 12:00:00
+
+    Execution Queue          : R21940709
+    Charged To               : g26113
+
+    Job Stopped              : Mon Apr 28 21:37:06 2025
+____________________________________________________________________
