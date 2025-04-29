@@ -29,7 +29,7 @@ cd ${basedir}
 
 # Run the samudra rollout script
 echo "Starting Samudra model run at `date`"
-${CONDA_PYTHON} time_lag.py
+${CONDA_PYTHON} setup.py #time_lag.py
 #${CONDA_PYTHON} samudra_rollout.py
 echo "Finished Samudra model run at `date`"
 
