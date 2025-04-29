@@ -43,11 +43,13 @@ def plot(path, map_dims, #Variables used to make the graph
 
     # Load the sensitivity matrix
     sensitivity_matrix = np.load(path)
-    print(sensitivity_matrix)
-    print(sensitivity_matrix.shape)
-    sensitivity_matrix = sensitivity_matrix.reshape(180, 360)
+    print("Shape:", sensitivity_matrix.shape)
+    cropped_sensitivity = sensitivity_matrix # Not scaling down
+    #print(sensitivity_matrix)
+    #print(sensitivity_matrix.shape)
+    #sensitivity_matrix = sensitivity_matrix.reshape(180, 360)
 
-    cropped_sensitivity = sensitivity_matrix[xmin:xmax, ymin:ymax]
+    #cropped_sensitivity = sensitivity_matrix[xmin:xmax, ymin:ymax]
 
     drymask_path = 'drymask.npy'
     drymask = np.load(drymask_path)
@@ -123,7 +125,7 @@ def plot(path, map_dims, #Variables used to make the graph
     output_latex = output_var.replace('_', '\\_')
     input_latex = input_var.replace('_', '\\_')
     # in a 2x2 with top-left at
-    numerator = f'\\partial \\left( {output_latex} \\text{{ in a 2x2 with top-left at }}({output_lat},{output_lon}), t={t1} \\right)'
+    numerator = f'\\partial \\left( {output_latex} \\text{{ at }}({output_lat},{output_lon}), t={t1} \\right)'
     denominator = f'\\partial \\left( {input_latex} \\text{{ across map}}, t={t0} \\right)'
     plt.title(f'${numerator} / {denominator}$')
 
@@ -158,11 +160,11 @@ t_1month =  140 - 6 # 1 month back from t_end
 # Import var_dict from misc if it exists, otherwise define it here
 from misc import var_dict
 
-var_in = 'hfds'
+#var_in = 'hfds'
 #var_in = 'hfds_anomalies'
 #var_in = 'tauuo'
 #var_in = 'tauvo'
-#var_in = 'zos(even)'
+var_in = 'zos(even)'
 var_out = 'zos(even)' 
 
 ch_in = var_dict[var_in]
@@ -171,7 +173,7 @@ ch_out = var_dict[var_out]
 # center: (131, 289) corresponds to Nantucket #
 # center: (90,180) corresponds to equatorial Pacific 
 # Explicitly define map dimensions
-delta = 2
+delta = 0
 map_dims =  [90-delta,90+delta+1,180-delta,180+delta+1] # [xmin, xmax, ymin, ymax]
 #map_dims = [131-delta, 131+delta, 289-delta, 289+delta]  # Full global map
 #map_dims = [111, 152+20, 269, 310+50]
@@ -181,13 +183,15 @@ initial_times_dict = {'zos(even)': [t_1month, t_6months, t_1year, t_2year],
                       'hfds': [t_1year, t_2year],
                       'hfds_anomalies': [t_1year, t_2year],}
 
-initial_times = [0,18,36,54] # [t_1month, t_6months, t_1year]#
+initial_times = [0]#,18,36,54] # [t_1month, t_6months, t_1year]#
 
 output_pixel = (90,180)#(90, 180)  # Coordinates for the output pixel
 
 for initial_time in initial_times:
     in_time, out_time = initial_time, t_end
-    plot_path = Path(f'perturbation_sensitivity_chin[{ch_in}]_chout[{ch_out}]_t[{in_time},{out_time}].npy')
+    plot_path = Path(f'perturbation_grid_chin[{ch_in}]_chout[{ch_out}]_t[{in_time},{out_time}].npy')
+
+    print(plot_path)
     
     if plot_path.exists():
         plot(plot_path, map_dims=map_dims, t0=in_time, t1=out_time, 

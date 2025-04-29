@@ -37,7 +37,7 @@ if __name__ == "__main__":
     final_lon = 180
     
     center_lat, center_lon = final_lat, final_lon
-    grid_size = 1 #5
+    grid_size = 5
     half_grid = grid_size // 2
     in_lats = list(range(center_lat-half_grid, center_lat+half_grid+1))
     in_lons = list(range(center_lon-half_grid, center_lon+half_grid+1))
