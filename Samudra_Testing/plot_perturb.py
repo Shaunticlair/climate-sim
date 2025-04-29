@@ -147,9 +147,9 @@ def plot(path, map_dims, #Variables used to make the graph
 
 #t=0 is the start of 2014
 # We want t_end to be December 2015
-t_start = 0 
+t_start = 0
 # 699 days between January 2014 and December 2015: 700/5=140
-t_end = 2
+t_end = 10
 
 t_2year =   0 # A little less than 2 years from t_end
 t_1year =   140 - 73 # 1 year back from t_end
@@ -171,7 +171,7 @@ ch_in = var_dict[var_in]
 ch_out = var_dict[var_out]
 var_in, var_out='test', 'test'  # For testing purposes, set to dummy values
 
-ch_in,ch_out=0,0
+ch_in,ch_out=76,76
 
 # center: (131, 289) corresponds to Nantucket #
 # center: (90,180) corresponds to equatorial Pacific 
@@ -186,7 +186,7 @@ initial_times_dict = {'zos(even)': [t_1month, t_6months, t_1year, t_2year],
                       'hfds': [t_1year, t_2year],
                       'hfds_anomalies': [t_1year, t_2year],}
 
-initial_times = [0]#,18,36,54] # [t_1month, t_6months, t_1year]#
+initial_times = [0,2,4,6,8]#,18,36,54] # [t_1month, t_6months, t_1year]#
 
 output_pixel = (90,180)#(90, 180)  # Coordinates for the output pixel
 

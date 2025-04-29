@@ -176,8 +176,8 @@ def choose_model(state_in_vars_config="3D_thermo_dynamic_all", boundary_vars_con
 
 N_samples = 2850  # Used for train
 N_val = 50        # Used for validation
-N_test = 20       # Number of time steps to use for testing
-def compute_indices(hist, N_samples=2850, N_val=50, N_test=20):
+N_test = 600       # Number of time steps to use for testing
+def compute_indices(hist, N_samples=2850, N_val=50, N_test=600):
     s_train = hist
     e_train = s_train + N_samples
     s_test = e_train + N_val
@@ -188,25 +188,25 @@ def compute_indices(hist, N_samples=2850, N_val=50, N_test=20):
 # ## Load Data
 # Load the necessary data for the model
 
-def load_data(s_test, e_test, N_test,
-                   input_list_str, boundary_list_str, output_list_str,
-                   hist=1, device="cuda"):
+def load_data_raw(start_idx, end_idx, output_list_str, suffix= '',
+                     hist=1):
     """
-    Load data, mean, and std from zarr files for testing. Process data into Test object.
+    Load data, mean, and std from zarr files for testing.
 
     Parameters:
     --------
-    - s_test: start index for test samples
-    - e_test: end index for test samples
-    - outputs_str: list of output variables for model
+    - start_idx: start index for time samples
+    - end_idx: end index for time samples
+    - output_list_str: list of output variables for model
+    - suffix: suffix for the zarr files (default: empty string)
     - hist: history length
     """
     from pathlib import Path
 
     # Replace these local zarr paths if required
-    data_mean_file = "./data_mean.zarr"
-    data_std_file = "./data_std.zarr"
-    data_file = "./data.zarr"
+    data_mean_file = "./data_mean" + suffix + ".zarr"
+    data_std_file = "./data_std" + suffix + ".zarr"
+    data_file = "./data" + suffix + ".zarr"
 
     if not Path(data_mean_file).exists():
         data_mean = xr.open_dataset("https://nyu1.osn.mghpcc.org/m2lines-pubs/Samudra/OM4_means", engine='zarr', chunks={})
@@ -221,7 +221,7 @@ def load_data(s_test, e_test, N_test,
 
     if not Path(data_file).exists():
         data = xr.open_dataset("https://nyu1.osn.mghpcc.org/m2lines-pubs/Samudra/OM4", engine='zarr', chunks={})
-        data = data.isel(time=slice(s_test, e_test)) # We only require the data in the test period
+        data = data.isel(time=slice(start_idx, end_idx)) # We only require the data in the test period
         data.to_zarr(data_file, mode="w")
     data = xr.open_zarr(data_file)
 
@@ -229,6 +229,26 @@ def load_data(s_test, e_test, N_test,
     
     wet_zarr = data.wetmask
     wet = utils.extract_wet(wet_zarr, output_list_str, hist)
+
+    return data, wet, data_mean, data_std
+
+def load_data(s_test, e_test, N_test,
+                   input_list_str, boundary_list_str, output_list_str,
+                   hist=1, device="cuda"):
+    """
+    Load data, mean, and std from zarr files for testing. Process data into Test object.
+
+    Parameters:
+    --------
+    - s_test: start index for test samples
+    - e_test: end index for test samples
+    - outputs_str: list of output variables for model
+    - hist: history length
+    """
+    data, wet, data_mean, data_std = load_data_raw(
+        s_test, e_test, output_list_str,
+        hist=hist
+    )
 
     test_data = data_loaders.Test(
         data,
@@ -285,7 +305,7 @@ def load_weights(model, state_out_vars_config,
 # ## Data 
 # The data is available from 1975 to the 2022, at 5-day temporal resolution. The variables in the data is arranged in the following format:
 # 
-# 
+# THIS ORDERING IS WRONG :(
 # ```
 # thetao_lev_2_5
 # thetao_lev_10_0
@@ -318,3 +338,169 @@ def load_weights(model, state_out_vars_config,
 # tauuo
 # tauvo
 # ```
+
+
+def load_data_for_correlation_analysis(reference_point=(90, 180), 
+                                       spatial_slice=(slice(50, 130), slice(110, 250)),
+                                       reference_var='zos', 
+                                       field_vars=['hfds', 'tauuo', 'tauvo', 'hfds_anomalies'],
+                                       reference_depth='2_5',  # Default surface level
+                                       time_window=600,  
+                                       device='cuda'):
+    """
+    Load and preprocess the data for spatial correlation analysis.
+    
+    This function loads the dataset with specific time window for analyzing spatial 
+    correlations between a reference variable at a fixed point and field variables
+    across a spatial domain with various time lags.
+    
+    Parameters:
+    -----------
+    reference_point : tuple, optional
+        (lat, lon) coordinates of the reference point, default (90, 180)
+    spatial_slice : tuple, optional
+        (lat_slice, lon_slice) defining the spatial region for correlation analysis
+    reference_var : str, optional
+        Name of the reference variable, default 'zos'
+    field_vars : list, optional
+        List of field variables to correlate with
+    reference_depth : str, optional
+        Depth level for the reference variable if applicable, default '2_5'
+    time_window : int, optional
+        Number of time steps to include (default: 73, approximately 1 year)
+    device : str, optional
+        Device to load data on ('cpu' or 'cuda')
+        
+    Returns:
+    --------
+    dict
+        Dictionary containing:
+        - 'reference_series': Time series of the reference variable at the reference point
+        - 'field_series': Dictionary of time series for each field variable
+        - 'wetmask': Binary mask for water/land points
+        - 'data_info': Additional metadata (time coordinates, normalization factors, etc.)
+    """
+    # Calculate time indices
+    
+    # We have the last 600 timesteps of training to use for analysis
+    analysis_start = 600 - time_window
+    analysis_end = 600
+    
+    print(f"Loading data from time index {analysis_start} to {analysis_end}")
+    
+    # Construct a list of variables we need
+    output_list_str = []
+    if reference_var in ['thetao', 'so', 'uo', 'vo']:
+        output_list_str.append(f"{reference_var}_lev_{reference_depth}")
+    else:
+        output_list_str.append(reference_var)
+    
+    for field_var in field_vars:
+        if field_var in ['thetao', 'so', 'uo', 'vo']:
+            output_list_str.append(f"{field_var}_lev_{reference_depth}")
+        else:
+            output_list_str.append(field_var)
+    
+    # Load data using existing function with "analysis" suffix to avoid overwriting
+    data, wet, data_mean, data_std = load_data_raw( #If this is the first time, we load data from end of training
+        2850-600, # 600 timesteps before the end of training data
+        2850+2, # This is the last time step in the training data
+        output_list_str,
+        suffix="_analysis",
+        hist=1,
+        device=device
+    )
+
+    # Slice into the specific time window for analysis
+    data = data.isel(time=slice(analysis_start, analysis_end))
+    
+    # Extract reference variable data
+    reference_data = {}
+    ref_lat, ref_lon = reference_point
+    
+    # Handle reference variable with depth if needed
+    if reference_var in ['thetao', 'so', 'uo', 'vo']:
+        # Variable with depth levels
+        ref_var_name = f"{reference_var}_lev_{reference_depth}"
+    else:
+        # Variable without depth (e.g., zos)
+        ref_var_name = reference_var
+    
+    # Extract the raw and normalized reference data
+    reference_raw = data[ref_var_name].sel(y=ref_lat, x=ref_lon, method='nearest')
+    
+    # The data is already normalized when loaded through load_data_raw
+    # However, we need to use mean and std for potential future use
+    reference_mean = data_mean[ref_var_name].sel(y=ref_lat, x=ref_lon, method='nearest')
+    reference_std = data_std[ref_var_name].sel(y=ref_lat, x=ref_lon, method='nearest')
+    
+    # Store reference data
+    reference_data['raw'] = reference_raw.compute()
+    reference_data['mean'] = reference_mean.compute()
+    reference_data['std'] = reference_std.compute()
+    
+    # Extract field variables data for the spatial slice
+    field_data = {}
+    lat_slice, lon_slice = spatial_slice
+    
+    for field_var in field_vars:
+        field_data[field_var] = {}
+        
+        # Handle field variable with depth if needed
+        if field_var in ['thetao', 'so', 'uo', 'vo']:
+            # Variable with depth levels
+            field_var_name = f"{field_var}_lev_{reference_depth}"
+        else:
+            # Variable without depth
+            field_var_name = field_var
+        
+        # Extract the raw field data
+        field_raw = data[field_var_name].sel(y=lat_slice, x=lon_slice)
+        
+        # Get mean and std for reference
+        field_mean = data_mean[field_var_name].sel(y=lat_slice, x=lon_slice)
+        field_std = data_std[field_var_name].sel(y=lat_slice, x=lon_slice)
+        
+        # Store field data
+        field_data[field_var]['raw'] = field_raw.compute()
+        field_data[field_var]['mean'] = field_mean.compute()
+        field_data[field_var]['std'] = field_std.compute()
+    
+    # Get wetmask for the spatial region
+    wetmask = data.wetmask.sel(y=lat_slice, x=lon_slice)
+    
+    # Get appropriate depth level for the wetmask
+    if reference_var in ['thetao', 'so', 'uo', 'vo']:
+        # Find the depth level index that corresponds to reference_depth
+        depth_idx = list(data.lev.values).index(float(reference_depth.replace('_', '.')))
+        wetmask = wetmask.isel(lev=depth_idx).compute()
+    else:
+        # For surface variables like zos, use the surface wetmask
+        wetmask = wetmask.isel(lev=0).compute()
+    
+    # Organize data for return
+    result = {
+        'reference_series': reference_data,
+        'field_series': field_data,
+        'wetmask': wetmask,
+        'data_info': {
+            'time': data.time.values,
+            'reference_point': reference_point,
+            'spatial_slice': spatial_slice,
+            'reference_var': reference_var,
+            'field_vars': field_vars,
+            'time_window': time_window
+        }
+    }
+    
+    return result
+
+# Load data for the first time
+output_list_str = []
+data, wet, data_mean, data_std = load_data_raw( #If this is the first time, we load data from end of training
+        2850-600, # 600 timesteps before the end of training data
+        2850+2, # This is the last time step in the training data
+        output_list_str,
+        suffix="_analysis",
+        hist=1
+    )
