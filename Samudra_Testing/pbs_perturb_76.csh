@@ -2,7 +2,7 @@
 #PBS -S /bin/csh
 #PBS -q R21940709
 #PBS -l select=1:ncpus=40:model=sky_ele
-#PBS -l walltime=12:00:00
+#PBS -l walltime=1:00:00
 #PBS -o ./perturbation_ch76.log
 #PBS -j oe
 #PBS -m bea

@@ -1,4 +1,4 @@
-Job 22127270.pbspl1.nas.nasa.gov started on Tue Apr 29 07:36:22 PDT 2025
+Job 22127547.pbspl1.nas.nasa.gov started on Tue Apr 29 08:25:31 PDT 2025
 The job requested the following resources:
     ncpus=40
     place=scatter:excl
@@ -8,76 +8,108 @@ PBS set the following environment variables:
         FORT_BUFFERED = 1
                    TZ = PST8PDT
 
-On r135i5n14:
+On r135i4n29:
 Warning: no access to tty (Inappropriate ioctl for device).
 Thus no job control in this shell.
 Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
-Starting Samudra model run at Tue Apr 29 07:37:14 PDT 2025
+Starting Samudra model run at Tue Apr 29 08:26:22 PDT 2025
 /nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
   return data.astype(dtype, **kwargs)
-Months in a year: [-4, -10, -16, -22, -28, -34, -40, -46, -52, -58, -64, -70]
+Months in a year: [4, -2, -8, -14, -20, -26, -32, -38, -44, -50, -56, -62]
 Using CPU
 Using 80 CPU cores for computation
 Number of input channels: 158
 Number of output channels: 154
-Section 'Environment configured' took 0.1074 seconds
-Total elapsed time: 0.1074 seconds
+Section 'Environment configured' took 0.0967 seconds
+Total elapsed time: 0.0967 seconds
 ----------------------------------------
-Section 'Data loaded' took 21.6851 seconds
-Total elapsed time: 21.7925 seconds
+Section 'Data loaded' took 17.4919 seconds
+Total elapsed time: 17.5887 seconds
 ----------------------------------------
-Section 'Model loaded' took 2.3681 seconds
-Total elapsed time: 24.1605 seconds
+Section 'Model loaded' took 2.3166 seconds
+Total elapsed time: 19.9052 seconds
 ----------------------------------------
 Out:  [[2 3]] Our data has the shape torch.Size([1, 158, 180, 360])
-Computing sensitivity with batch 0, initial channels [0],       lat slice slice(0, 180, None), lon slice slice(0, 360, None)
-Section 'Setup complete' took 56.9896 seconds
-Total elapsed time: 81.1501 seconds
+Computing sensitivity with batch 0, initial channels [76],       lat slice slice(0, 180, None), lon slice slice(0, 360, None)
+Section 'Setup complete' took 41.3065 seconds
+Total elapsed time: 61.2117 seconds
 ----------------------------------------
-Out:  [[2 3]] Section 'Finished setting up model input' took 2.8695 seconds
-Total elapsed time: 84.0196 seconds
+Out:  [[2 3]] Section 'Finished setting up model input' took 3.1303 seconds
+Total elapsed time: 64.3420 seconds
 ----------------------------------------
-Section 'Finished setting up chunk tracking' took 0.0647 seconds
-Total elapsed time: 84.0843 seconds
+Section 'Finished setting up chunk tracking' took 0.0735 seconds
+Total elapsed time: 64.4155 seconds
 ----------------------------------------
 Processing time step: 0
-Section 'Ran model forward for model iteration 0' took 1.9443 seconds
-Total elapsed time: 86.0286 seconds
+Section 'Ran model forward for model iteration 0' took 1.9042 seconds
+Total elapsed time: 66.3196 seconds
 ----------------------------------------
-Out:  [[4 5]] Section 'Added gradient tracking for model iteration 1' took 3.2000 seconds
-Total elapsed time: 89.2286 seconds
+Out:  [[4 5]] Section 'Added gradient tracking for model iteration 1' took 3.4267 seconds
+Total elapsed time: 69.7464 seconds
 ----------------------------------------
-Section 'Cleared gradients before backward pass' took 0.0227 seconds
-Total elapsed time: 89.2513 seconds
+Processing time step: 1
+Section 'Ran model forward for model iteration 1' took 1.1882 seconds
+Total elapsed time: 70.9346 seconds
 ----------------------------------------
-Section 'Backwards pass complete' took 4.5598 seconds
-Total elapsed time: 93.8111 seconds
+Out:  [[6 7]] Section 'Added gradient tracking for model iteration 2' took 3.2948 seconds
+Total elapsed time: 74.2294 seconds
+----------------------------------------
+Processing time step: 2
+Section 'Ran model forward for model iteration 2' took 1.1867 seconds
+Total elapsed time: 75.4161 seconds
+----------------------------------------
+Out:  [[8 9]] Section 'Added gradient tracking for model iteration 3' took 3.4516 seconds
+Total elapsed time: 78.8677 seconds
+----------------------------------------
+Processing time step: 3
+Section 'Ran model forward for model iteration 3' took 1.1828 seconds
+Total elapsed time: 80.0505 seconds
+----------------------------------------
+Out:  [[10 11]] Section 'Added gradient tracking for model iteration 4' took 3.3229 seconds
+Total elapsed time: 83.3733 seconds
+----------------------------------------
+Processing time step: 4
+Section 'Ran model forward for model iteration 4' took 1.1802 seconds
+Total elapsed time: 84.5536 seconds
+----------------------------------------
+Out:  [[12 13]] Section 'Added gradient tracking for model iteration 5' took 3.4473 seconds
+Total elapsed time: 88.0009 seconds
+----------------------------------------
+Section 'Cleared gradients before backward pass' took 0.0280 seconds
+Total elapsed time: 88.0289 seconds
+----------------------------------------
+Section 'Backwards pass complete' took 19.6674 seconds
+Total elapsed time: 107.6963 seconds
 ----------------------------------------
 Section 'Gathered sensitivity for output box' took 0.0005 seconds
-Total elapsed time: 93.8116 seconds
+Total elapsed time: 107.6968 seconds
 ----------------------------------------
 Section 'Finished computing sensitivity matrix (includes backward pass)' took 0.0000 seconds
-Total elapsed time: 93.8116 seconds
+Total elapsed time: 107.6968 seconds
 ----------------------------------------
-Section 'Finished computing chunked sensitivity' took 0.0164 seconds
-Total elapsed time: 93.8280 seconds
+Section 'Finished computing chunked sensitivity' took 0.0195 seconds
+Total elapsed time: 107.7164 seconds
 ----------------------------------------
-Computed sensitivity results: 1 output points
-Saved sensitivity tensor for chunk_sensitivity_chin[0]_chout[0]_t[0,2].npy to chunk_sensitivity_chin[0]_chout[0]_t[0,2].npy
-Section 'Finished saving sensitivity results' took 0.0100 seconds
-Total elapsed time: 93.8380 seconds
+Computed sensitivity results: 5 output points
+Saved sensitivity tensor for chunk_sensitivity_chin[76]_chout[76]_t[0,10].npy to chunk_sensitivity_chin[76]_chout[76]_t[0,10].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[76]_chout[76]_t[2,10].npy to chunk_sensitivity_chin[76]_chout[76]_t[2,10].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[76]_chout[76]_t[4,10].npy to chunk_sensitivity_chin[76]_chout[76]_t[4,10].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[76]_chout[76]_t[6,10].npy to chunk_sensitivity_chin[76]_chout[76]_t[6,10].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[76]_chout[76]_t[8,10].npy to chunk_sensitivity_chin[76]_chout[76]_t[8,10].npy
+Section 'Finished saving sensitivity results' took 0.0411 seconds
+Total elapsed time: 107.7575 seconds
 ----------------------------------------
 ============================================
     Chunked Sensitivity Analysis Done       
 ============================================
-Finished Samudra model run at Tue Apr 29 07:41:06 PDT 2025
+Finished Samudra model run at Tue Apr 29 08:30:08 PDT 2025
 
 ____________________________________________________________________
-Job Resource Usage Summary for 22127270.pbspl1.nas.nasa.gov
+Job Resource Usage Summary for 22127547.pbspl1.nas.nasa.gov
 
-    CPU Time Used            : 00:08:06
-    Real Memory Used         : 1259432kb
-    Walltime Used            : 00:04:40
+    CPU Time Used            : 00:34:40
+    Real Memory Used         : 2619704kb
+    Walltime Used            : 00:04:33
     Exit Status              : 0
 
     Number of CPUs Requested : 40
@@ -86,5 +118,5 @@ Job Resource Usage Summary for 22127270.pbspl1.nas.nasa.gov
     Execution Queue          : R21940709
     Charged To               : g26113
 
-    Job Stopped              : Tue Apr 29 07:41:09 2025
+    Job Stopped              : Tue Apr 29 08:30:12 2025
 ____________________________________________________________________
