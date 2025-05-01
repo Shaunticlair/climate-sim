@@ -510,6 +510,8 @@ data, wet, data_mean, data_std = load_data_raw( #If this is the first time, we l
         suffix="_analysis",
         hist=1
     )
+
+print(data)
 print("Done")
 
 
