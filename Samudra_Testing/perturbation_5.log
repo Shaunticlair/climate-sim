@@ -1,5 +1,5 @@
 Starting job 5
-Starting Samudra model run for channel 156 at Thu May  1 13:45:03 PDT 2025
+Starting Samudra model run for channel 156 at Thu May  1 15:01:49 PDT 2025
 /nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
   return data.astype(dtype, **kwargs)
 Loading correlation data as a test
@@ -42,954 +42,954 @@ Using CPU
 Using 80 CPU cores for computation
 Number of input channels: 158
 Number of output channels: 154
-Section 'Environment configured' took 0.0230 seconds
-Total elapsed time: 0.0230 seconds
+Section 'Environment configured' took 0.0736 seconds
+Total elapsed time: 0.0736 seconds
 ----------------------------------------
-Section 'Data loaded' took 0.2678 seconds
-Total elapsed time: 0.2907 seconds
+Section 'Data loaded' took 0.4920 seconds
+Total elapsed time: 0.5655 seconds
 ----------------------------------------
-Section 'Model loaded' took 2.2803 seconds
-Total elapsed time: 2.5711 seconds
+Section 'Model loaded' took 2.5173 seconds
+Total elapsed time: 3.0829 seconds
 ----------------------------------------
 Out:  [[2 3]] Our data has the shape torch.Size([1, 158, 180, 360])
 Computing sensitivity from sources at times [0, 2, 4, 6, 8]
 Computing sensitivity to targets at times [10]
-Section 'Setup complete' took 39.1664 seconds
-Total elapsed time: 41.7374 seconds
+Section 'Setup complete' took 26.5299 seconds
+Total elapsed time: 29.6127 seconds
 ----------------------------------------
 Section 'Starting finite difference sensitivity calculation' took 0.0005 seconds
-Total elapsed time: 41.7380 seconds
+Total elapsed time: 29.6132 seconds
 ----------------------------------------
 Computing baseline outputs...
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Baseline model run complete' took 26.8096 seconds
-Total elapsed time: 68.5476 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Baseline model run complete' took 27.8518 seconds
+Total elapsed time: 57.4650 seconds
 ----------------------------------------
 Processing source 1/125 at time 0
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 88, 178)' took 25.6983 seconds
-Total elapsed time: 94.2459 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 88, 178)' took 27.7286 seconds
+Total elapsed time: 85.1937 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 0, coord (0, 156, 88, 178)' took 0.0196 seconds
-Total elapsed time: 94.2655 seconds
+Section 'Computed sensitivities for source at time 0, coord (0, 156, 88, 178)' took 0.0177 seconds
+Total elapsed time: 85.2114 seconds
 ----------------------------------------
 Processing source 2/125 at time 0
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 88, 179)' took 25.7092 seconds
-Total elapsed time: 119.9747 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 88, 179)' took 26.1108 seconds
+Total elapsed time: 111.3222 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 0, coord (0, 156, 88, 179)' took 0.0002 seconds
-Total elapsed time: 119.9749 seconds
+Total elapsed time: 111.3224 seconds
 ----------------------------------------
 Processing source 3/125 at time 0
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 88, 180)' took 25.1030 seconds
-Total elapsed time: 145.0779 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 88, 180)' took 26.0371 seconds
+Total elapsed time: 137.3595 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 0, coord (0, 156, 88, 180)' took 0.0002 seconds
-Total elapsed time: 145.0781 seconds
+Total elapsed time: 137.3597 seconds
 ----------------------------------------
 Processing source 4/125 at time 0
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 88, 181)' took 25.1395 seconds
-Total elapsed time: 170.2175 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 88, 181)' took 26.4352 seconds
+Total elapsed time: 163.7949 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 0, coord (0, 156, 88, 181)' took 0.0002 seconds
-Total elapsed time: 170.2177 seconds
+Total elapsed time: 163.7951 seconds
 ----------------------------------------
 Processing source 5/125 at time 0
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 88, 182)' took 24.7281 seconds
-Total elapsed time: 194.9457 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 88, 182)' took 26.2494 seconds
+Total elapsed time: 190.0445 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 0, coord (0, 156, 88, 182)' took 0.0002 seconds
-Total elapsed time: 194.9459 seconds
+Total elapsed time: 190.0446 seconds
 ----------------------------------------
 Processing source 6/125 at time 0
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 89, 178)' took 25.1353 seconds
-Total elapsed time: 220.0812 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 89, 178)' took 25.9360 seconds
+Total elapsed time: 215.9806 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 0, coord (0, 156, 89, 178)' took 0.0002 seconds
-Total elapsed time: 220.0814 seconds
+Total elapsed time: 215.9808 seconds
 ----------------------------------------
 Processing source 7/125 at time 0
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 89, 179)' took 25.3108 seconds
-Total elapsed time: 245.3922 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 89, 179)' took 25.7843 seconds
+Total elapsed time: 241.7652 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 0, coord (0, 156, 89, 179)' took 0.0002 seconds
-Total elapsed time: 245.3924 seconds
+Total elapsed time: 241.7654 seconds
 ----------------------------------------
 Processing source 8/125 at time 0
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 89, 180)' took 25.1378 seconds
-Total elapsed time: 270.5302 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 89, 180)' took 25.3957 seconds
+Total elapsed time: 267.1610 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 0, coord (0, 156, 89, 180)' took 0.0002 seconds
-Total elapsed time: 270.5304 seconds
+Total elapsed time: 267.1612 seconds
 ----------------------------------------
 Processing source 9/125 at time 0
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 89, 181)' took 25.5184 seconds
-Total elapsed time: 296.0488 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 89, 181)' took 25.9588 seconds
+Total elapsed time: 293.1200 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 0, coord (0, 156, 89, 181)' took 0.0002 seconds
-Total elapsed time: 296.0490 seconds
+Total elapsed time: 293.1202 seconds
 ----------------------------------------
 Processing source 10/125 at time 0
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 89, 182)' took 25.6707 seconds
-Total elapsed time: 321.7197 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 89, 182)' took 25.7732 seconds
+Total elapsed time: 318.8935 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 0, coord (0, 156, 89, 182)' took 0.0002 seconds
-Total elapsed time: 321.7200 seconds
+Section 'Computed sensitivities for source at time 0, coord (0, 156, 89, 182)' took 0.0003 seconds
+Total elapsed time: 318.8937 seconds
 ----------------------------------------
 Processing source 11/125 at time 0
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 90, 178)' took 25.6310 seconds
-Total elapsed time: 347.3509 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 90, 178)' took 25.6107 seconds
+Total elapsed time: 344.5044 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 0, coord (0, 156, 90, 178)' took 0.0002 seconds
-Total elapsed time: 347.3511 seconds
+Total elapsed time: 344.5045 seconds
 ----------------------------------------
 Processing source 12/125 at time 0
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 90, 179)' took 25.6586 seconds
-Total elapsed time: 373.0098 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 90, 179)' took 25.5969 seconds
+Total elapsed time: 370.1015 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 0, coord (0, 156, 90, 179)' took 0.0002 seconds
-Total elapsed time: 373.0099 seconds
+Total elapsed time: 370.1016 seconds
 ----------------------------------------
 Processing source 13/125 at time 0
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 90, 180)' took 27.2596 seconds
-Total elapsed time: 400.2695 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 90, 180)' took 25.9981 seconds
+Total elapsed time: 396.0997 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 0, coord (0, 156, 90, 180)' took 0.0002 seconds
-Total elapsed time: 400.2697 seconds
+Total elapsed time: 396.0999 seconds
 ----------------------------------------
 Processing source 14/125 at time 0
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 90, 181)' took 26.5642 seconds
-Total elapsed time: 426.8339 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 90, 181)' took 25.7329 seconds
+Total elapsed time: 421.8328 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 0, coord (0, 156, 90, 181)' took 0.0002 seconds
-Total elapsed time: 426.8341 seconds
+Total elapsed time: 421.8330 seconds
 ----------------------------------------
 Processing source 15/125 at time 0
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 90, 182)' took 25.8216 seconds
-Total elapsed time: 452.6557 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 90, 182)' took 25.5891 seconds
+Total elapsed time: 447.4222 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 0, coord (0, 156, 90, 182)' took 0.0002 seconds
-Total elapsed time: 452.6558 seconds
+Total elapsed time: 447.4224 seconds
 ----------------------------------------
 Processing source 16/125 at time 0
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 91, 178)' took 25.8706 seconds
-Total elapsed time: 478.5264 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 91, 178)' took 25.6285 seconds
+Total elapsed time: 473.0509 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 0, coord (0, 156, 91, 178)' took 0.0002 seconds
-Total elapsed time: 478.5266 seconds
+Total elapsed time: 473.0511 seconds
 ----------------------------------------
 Processing source 17/125 at time 0
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 91, 179)' took 25.5363 seconds
-Total elapsed time: 504.0628 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 91, 179)' took 25.8220 seconds
+Total elapsed time: 498.8730 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 0, coord (0, 156, 91, 179)' took 0.0002 seconds
-Total elapsed time: 504.0630 seconds
+Total elapsed time: 498.8732 seconds
 ----------------------------------------
 Processing source 18/125 at time 0
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 91, 180)' took 25.6908 seconds
-Total elapsed time: 529.7538 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 91, 180)' took 25.5533 seconds
+Total elapsed time: 524.4265 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 0, coord (0, 156, 91, 180)' took 0.0002 seconds
-Total elapsed time: 529.7539 seconds
+Total elapsed time: 524.4267 seconds
 ----------------------------------------
 Processing source 19/125 at time 0
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 91, 181)' took 25.4054 seconds
-Total elapsed time: 555.1593 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 91, 181)' took 25.7534 seconds
+Total elapsed time: 550.1802 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 0, coord (0, 156, 91, 181)' took 0.0002 seconds
-Total elapsed time: 555.1595 seconds
+Total elapsed time: 550.1804 seconds
 ----------------------------------------
 Processing source 20/125 at time 0
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 91, 182)' took 25.8638 seconds
-Total elapsed time: 581.0233 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 91, 182)' took 26.3418 seconds
+Total elapsed time: 576.5222 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 0, coord (0, 156, 91, 182)' took 0.0002 seconds
-Total elapsed time: 581.0234 seconds
+Total elapsed time: 576.5224 seconds
 ----------------------------------------
 Processing source 21/125 at time 0
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 92, 178)' took 25.8162 seconds
-Total elapsed time: 606.8397 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 92, 178)' took 25.8463 seconds
+Total elapsed time: 602.3687 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 0, coord (0, 156, 92, 178)' took 0.0002 seconds
-Total elapsed time: 606.8398 seconds
+Total elapsed time: 602.3689 seconds
 ----------------------------------------
 Processing source 22/125 at time 0
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 92, 179)' took 25.8137 seconds
-Total elapsed time: 632.6535 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 92, 179)' took 25.4875 seconds
+Total elapsed time: 627.8564 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 0, coord (0, 156, 92, 179)' took 0.0002 seconds
-Total elapsed time: 632.6537 seconds
+Total elapsed time: 627.8566 seconds
 ----------------------------------------
 Processing source 23/125 at time 0
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 92, 180)' took 25.4860 seconds
-Total elapsed time: 658.1397 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 92, 180)' took 26.0106 seconds
+Total elapsed time: 653.8672 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 0, coord (0, 156, 92, 180)' took 0.0002 seconds
-Total elapsed time: 658.1398 seconds
+Total elapsed time: 653.8673 seconds
 ----------------------------------------
 Processing source 24/125 at time 0
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 92, 181)' took 25.5390 seconds
-Total elapsed time: 683.6788 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 92, 181)' took 25.7792 seconds
+Total elapsed time: 679.6465 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 0, coord (0, 156, 92, 181)' took 0.0002 seconds
-Total elapsed time: 683.6790 seconds
+Section 'Computed sensitivities for source at time 0, coord (0, 156, 92, 181)' took 0.0001 seconds
+Total elapsed time: 679.6467 seconds
 ----------------------------------------
 Processing source 25/125 at time 0
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 92, 182)' took 25.8508 seconds
-Total elapsed time: 709.5298 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 0, coord (0, 156, 92, 182)' took 25.5630 seconds
+Total elapsed time: 705.2097 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 0, coord (0, 156, 92, 182)' took 0.0002 seconds
-Total elapsed time: 709.5299 seconds
+Section 'Computed sensitivities for source at time 0, coord (0, 156, 92, 182)' took 0.0001 seconds
+Total elapsed time: 705.2098 seconds
 ----------------------------------------
 Processing source 26/125 at time 2
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 88, 178)' took 25.9434 seconds
-Total elapsed time: 735.4734 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 88, 178)' took 29.4170 seconds
+Total elapsed time: 734.6268 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 2, coord (0, 156, 88, 178)' took 0.0002 seconds
-Total elapsed time: 735.4735 seconds
+Section 'Computed sensitivities for source at time 2, coord (0, 156, 88, 178)' took 0.0001 seconds
+Total elapsed time: 734.6270 seconds
 ----------------------------------------
 Processing source 27/125 at time 2
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 88, 179)' took 25.3656 seconds
-Total elapsed time: 760.8391 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 88, 179)' took 25.2603 seconds
+Total elapsed time: 759.8872 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 2, coord (0, 156, 88, 179)' took 0.0002 seconds
-Total elapsed time: 760.8394 seconds
+Total elapsed time: 759.8875 seconds
 ----------------------------------------
 Processing source 28/125 at time 2
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 88, 180)' took 28.5905 seconds
-Total elapsed time: 789.4298 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 88, 180)' took 26.6103 seconds
+Total elapsed time: 786.4978 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 2, coord (0, 156, 88, 180)' took 0.0440 seconds
-Total elapsed time: 789.4738 seconds
+Section 'Computed sensitivities for source at time 2, coord (0, 156, 88, 180)' took 0.0001 seconds
+Total elapsed time: 786.4979 seconds
 ----------------------------------------
 Processing source 29/125 at time 2
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 88, 181)' took 27.0029 seconds
-Total elapsed time: 816.4768 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 88, 181)' took 25.5972 seconds
+Total elapsed time: 812.0951 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 2, coord (0, 156, 88, 181)' took 0.0207 seconds
-Total elapsed time: 816.4975 seconds
+Section 'Computed sensitivities for source at time 2, coord (0, 156, 88, 181)' took 0.0002 seconds
+Total elapsed time: 812.0953 seconds
 ----------------------------------------
 Processing source 30/125 at time 2
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 88, 182)' took 26.5109 seconds
-Total elapsed time: 843.0084 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 88, 182)' took 25.3662 seconds
+Total elapsed time: 837.4615 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 2, coord (0, 156, 88, 182)' took 0.0002 seconds
-Total elapsed time: 843.0086 seconds
+Total elapsed time: 837.4617 seconds
 ----------------------------------------
 Processing source 31/125 at time 2
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 89, 178)' took 25.4630 seconds
-Total elapsed time: 868.4716 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 89, 178)' took 25.5146 seconds
+Total elapsed time: 862.9763 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 2, coord (0, 156, 89, 178)' took 0.0002 seconds
-Total elapsed time: 868.4717 seconds
+Total elapsed time: 862.9765 seconds
 ----------------------------------------
 Processing source 32/125 at time 2
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 89, 179)' took 24.9996 seconds
-Total elapsed time: 893.4713 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 89, 179)' took 25.6863 seconds
+Total elapsed time: 888.6628 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 2, coord (0, 156, 89, 179)' took 0.0002 seconds
-Total elapsed time: 893.4715 seconds
+Total elapsed time: 888.6630 seconds
 ----------------------------------------
 Processing source 33/125 at time 2
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 89, 180)' took 24.8138 seconds
-Total elapsed time: 918.2853 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 89, 180)' took 25.6816 seconds
+Total elapsed time: 914.3446 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 2, coord (0, 156, 89, 180)' took 0.0002 seconds
-Total elapsed time: 918.2855 seconds
+Total elapsed time: 914.3448 seconds
 ----------------------------------------
 Processing source 34/125 at time 2
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 89, 181)' took 24.9576 seconds
-Total elapsed time: 943.2430 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 89, 181)' took 25.5578 seconds
+Total elapsed time: 939.9026 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 2, coord (0, 156, 89, 181)' took 0.0002 seconds
-Total elapsed time: 943.2432 seconds
+Total elapsed time: 939.9027 seconds
 ----------------------------------------
 Processing source 35/125 at time 2
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 89, 182)' took 24.4705 seconds
-Total elapsed time: 967.7137 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 89, 182)' took 26.5275 seconds
+Total elapsed time: 966.4303 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 2, coord (0, 156, 89, 182)' took 0.0002 seconds
-Total elapsed time: 967.7138 seconds
+Total elapsed time: 966.4305 seconds
 ----------------------------------------
 Processing source 36/125 at time 2
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 90, 178)' took 24.2836 seconds
-Total elapsed time: 991.9974 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 90, 178)' took 26.1396 seconds
+Total elapsed time: 992.5701 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 2, coord (0, 156, 90, 178)' took 0.0002 seconds
-Total elapsed time: 991.9976 seconds
+Total elapsed time: 992.5703 seconds
 ----------------------------------------
 Processing source 37/125 at time 2
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 90, 179)' took 24.7696 seconds
-Total elapsed time: 1016.7672 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 90, 179)' took 26.8073 seconds
+Total elapsed time: 1019.3776 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 2, coord (0, 156, 90, 179)' took 0.0002 seconds
-Total elapsed time: 1016.7673 seconds
+Total elapsed time: 1019.3778 seconds
 ----------------------------------------
 Processing source 38/125 at time 2
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 90, 180)' took 25.5250 seconds
-Total elapsed time: 1042.2923 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 90, 180)' took 25.3960 seconds
+Total elapsed time: 1044.7738 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 2, coord (0, 156, 90, 180)' took 0.0002 seconds
-Total elapsed time: 1042.2925 seconds
+Total elapsed time: 1044.7740 seconds
 ----------------------------------------
 Processing source 39/125 at time 2
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 90, 181)' took 24.9692 seconds
-Total elapsed time: 1067.2617 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 90, 181)' took 25.8376 seconds
+Total elapsed time: 1070.6116 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 2, coord (0, 156, 90, 181)' took 0.0002 seconds
-Total elapsed time: 1067.2619 seconds
+Total elapsed time: 1070.6117 seconds
 ----------------------------------------
 Processing source 40/125 at time 2
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 90, 182)' took 25.2493 seconds
-Total elapsed time: 1092.5112 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 90, 182)' took 25.8143 seconds
+Total elapsed time: 1096.4260 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 2, coord (0, 156, 90, 182)' took 0.0002 seconds
-Total elapsed time: 1092.5114 seconds
+Total elapsed time: 1096.4262 seconds
 ----------------------------------------
 Processing source 41/125 at time 2
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 91, 178)' took 25.0836 seconds
-Total elapsed time: 1117.5949 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 91, 178)' took 26.3231 seconds
+Total elapsed time: 1122.7492 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 2, coord (0, 156, 91, 178)' took 0.0002 seconds
-Total elapsed time: 1117.5951 seconds
+Total elapsed time: 1122.7494 seconds
 ----------------------------------------
 Processing source 42/125 at time 2
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 91, 179)' took 25.1292 seconds
-Total elapsed time: 1142.7243 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 91, 179)' took 27.6588 seconds
+Total elapsed time: 1150.4082 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 2, coord (0, 156, 91, 179)' took 0.0002 seconds
-Total elapsed time: 1142.7245 seconds
+Total elapsed time: 1150.4084 seconds
 ----------------------------------------
 Processing source 43/125 at time 2
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 91, 180)' took 24.7149 seconds
-Total elapsed time: 1167.4394 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 91, 180)' took 26.7331 seconds
+Total elapsed time: 1177.1415 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 2, coord (0, 156, 91, 180)' took 0.0002 seconds
-Total elapsed time: 1167.4396 seconds
+Section 'Computed sensitivities for source at time 2, coord (0, 156, 91, 180)' took 0.0001 seconds
+Total elapsed time: 1177.1417 seconds
 ----------------------------------------
 Processing source 44/125 at time 2
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 91, 181)' took 24.9632 seconds
-Total elapsed time: 1192.4028 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 91, 181)' took 26.9863 seconds
+Total elapsed time: 1204.1279 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 2, coord (0, 156, 91, 181)' took 0.0001 seconds
-Total elapsed time: 1192.4030 seconds
+Total elapsed time: 1204.1281 seconds
 ----------------------------------------
 Processing source 45/125 at time 2
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 91, 182)' took 25.5051 seconds
-Total elapsed time: 1217.9081 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 91, 182)' took 26.2343 seconds
+Total elapsed time: 1230.3624 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 2, coord (0, 156, 91, 182)' took 0.0002 seconds
-Total elapsed time: 1217.9083 seconds
+Section 'Computed sensitivities for source at time 2, coord (0, 156, 91, 182)' took 0.0001 seconds
+Total elapsed time: 1230.3625 seconds
 ----------------------------------------
 Processing source 46/125 at time 2
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 92, 178)' took 25.3549 seconds
-Total elapsed time: 1243.2631 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 92, 178)' took 26.3759 seconds
+Total elapsed time: 1256.7384 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 2, coord (0, 156, 92, 178)' took 0.0002 seconds
-Total elapsed time: 1243.2633 seconds
+Section 'Computed sensitivities for source at time 2, coord (0, 156, 92, 178)' took 0.0001 seconds
+Total elapsed time: 1256.7386 seconds
 ----------------------------------------
 Processing source 47/125 at time 2
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 92, 179)' took 25.8860 seconds
-Total elapsed time: 1269.1493 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 92, 179)' took 26.8156 seconds
+Total elapsed time: 1283.5541 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 2, coord (0, 156, 92, 179)' took 0.0002 seconds
-Total elapsed time: 1269.1495 seconds
+Total elapsed time: 1283.5543 seconds
 ----------------------------------------
 Processing source 48/125 at time 2
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 92, 180)' took 25.2323 seconds
-Total elapsed time: 1294.3817 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 92, 180)' took 26.4670 seconds
+Total elapsed time: 1310.0212 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 2, coord (0, 156, 92, 180)' took 0.0002 seconds
-Total elapsed time: 1294.3819 seconds
+Section 'Computed sensitivities for source at time 2, coord (0, 156, 92, 180)' took 0.0001 seconds
+Total elapsed time: 1310.0214 seconds
 ----------------------------------------
 Processing source 49/125 at time 2
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 92, 181)' took 25.1823 seconds
-Total elapsed time: 1319.5642 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 92, 181)' took 27.0808 seconds
+Total elapsed time: 1337.1022 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 2, coord (0, 156, 92, 181)' took 0.0002 seconds
-Total elapsed time: 1319.5643 seconds
+Total elapsed time: 1337.1023 seconds
 ----------------------------------------
 Processing source 50/125 at time 2
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 92, 182)' took 25.3671 seconds
-Total elapsed time: 1344.9314 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 2, coord (0, 156, 92, 182)' took 26.5693 seconds
+Total elapsed time: 1363.6716 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 2, coord (0, 156, 92, 182)' took 0.0002 seconds
-Total elapsed time: 1344.9316 seconds
+Section 'Computed sensitivities for source at time 2, coord (0, 156, 92, 182)' took 0.0001 seconds
+Total elapsed time: 1363.6717 seconds
 ----------------------------------------
 Processing source 51/125 at time 4
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 88, 178)' took 26.0496 seconds
-Total elapsed time: 1370.9812 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 88, 178)' took 26.9911 seconds
+Total elapsed time: 1390.6628 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 4, coord (0, 156, 88, 178)' took 0.0002 seconds
-Total elapsed time: 1370.9814 seconds
+Section 'Computed sensitivities for source at time 4, coord (0, 156, 88, 178)' took 0.0001 seconds
+Total elapsed time: 1390.6629 seconds
 ----------------------------------------
 Processing source 52/125 at time 4
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 88, 179)' took 25.6239 seconds
-Total elapsed time: 1396.6052 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 88, 179)' took 26.2330 seconds
+Total elapsed time: 1416.8959 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 4, coord (0, 156, 88, 179)' took 0.0001 seconds
-Total elapsed time: 1396.6054 seconds
+Total elapsed time: 1416.8961 seconds
 ----------------------------------------
 Processing source 53/125 at time 4
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 88, 180)' took 25.6374 seconds
-Total elapsed time: 1422.2427 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 88, 180)' took 26.9490 seconds
+Total elapsed time: 1443.8451 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 4, coord (0, 156, 88, 180)' took 0.0002 seconds
-Total elapsed time: 1422.2429 seconds
+Total elapsed time: 1443.8452 seconds
 ----------------------------------------
 Processing source 54/125 at time 4
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 88, 181)' took 26.4017 seconds
-Total elapsed time: 1448.6446 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 88, 181)' took 26.7018 seconds
+Total elapsed time: 1470.5470 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 4, coord (0, 156, 88, 181)' took 0.0002 seconds
-Total elapsed time: 1448.6448 seconds
+Section 'Computed sensitivities for source at time 4, coord (0, 156, 88, 181)' took 0.0001 seconds
+Total elapsed time: 1470.5471 seconds
 ----------------------------------------
 Processing source 55/125 at time 4
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 88, 182)' took 24.8002 seconds
-Total elapsed time: 1473.4450 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 88, 182)' took 26.7094 seconds
+Total elapsed time: 1497.2565 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 4, coord (0, 156, 88, 182)' took 0.0002 seconds
-Total elapsed time: 1473.4452 seconds
+Section 'Computed sensitivities for source at time 4, coord (0, 156, 88, 182)' took 0.0001 seconds
+Total elapsed time: 1497.2567 seconds
 ----------------------------------------
 Processing source 56/125 at time 4
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 89, 178)' took 24.5993 seconds
-Total elapsed time: 1498.0445 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 89, 178)' took 26.0652 seconds
+Total elapsed time: 1523.3219 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 4, coord (0, 156, 89, 178)' took 0.0002 seconds
-Total elapsed time: 1498.0447 seconds
+Section 'Computed sensitivities for source at time 4, coord (0, 156, 89, 178)' took 0.0001 seconds
+Total elapsed time: 1523.3220 seconds
 ----------------------------------------
 Processing source 57/125 at time 4
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 89, 179)' took 26.6308 seconds
-Total elapsed time: 1524.6755 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 89, 179)' took 26.0557 seconds
+Total elapsed time: 1549.3778 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 4, coord (0, 156, 89, 179)' took 0.0002 seconds
-Total elapsed time: 1524.6756 seconds
+Section 'Computed sensitivities for source at time 4, coord (0, 156, 89, 179)' took 0.0001 seconds
+Total elapsed time: 1549.3779 seconds
 ----------------------------------------
 Processing source 58/125 at time 4
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 89, 180)' took 25.2702 seconds
-Total elapsed time: 1549.9458 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 89, 180)' took 26.0625 seconds
+Total elapsed time: 1575.4404 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 4, coord (0, 156, 89, 180)' took 0.0002 seconds
-Total elapsed time: 1549.9459 seconds
+Section 'Computed sensitivities for source at time 4, coord (0, 156, 89, 180)' took 0.0001 seconds
+Total elapsed time: 1575.4406 seconds
 ----------------------------------------
 Processing source 59/125 at time 4
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 89, 181)' took 24.9945 seconds
-Total elapsed time: 1574.9404 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 89, 181)' took 26.3429 seconds
+Total elapsed time: 1601.7835 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 4, coord (0, 156, 89, 181)' took 0.0002 seconds
-Total elapsed time: 1574.9406 seconds
+Section 'Computed sensitivities for source at time 4, coord (0, 156, 89, 181)' took 0.0001 seconds
+Total elapsed time: 1601.7836 seconds
 ----------------------------------------
 Processing source 60/125 at time 4
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 89, 182)' took 25.4333 seconds
-Total elapsed time: 1600.3739 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 89, 182)' took 26.3065 seconds
+Total elapsed time: 1628.0901 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 4, coord (0, 156, 89, 182)' took 0.0002 seconds
-Total elapsed time: 1600.3741 seconds
+Total elapsed time: 1628.0903 seconds
 ----------------------------------------
 Processing source 61/125 at time 4
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 90, 178)' took 25.2318 seconds
-Total elapsed time: 1625.6059 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 90, 178)' took 26.0952 seconds
+Total elapsed time: 1654.1855 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 4, coord (0, 156, 90, 178)' took 0.0002 seconds
-Total elapsed time: 1625.6061 seconds
+Section 'Computed sensitivities for source at time 4, coord (0, 156, 90, 178)' took 0.0001 seconds
+Total elapsed time: 1654.1856 seconds
 ----------------------------------------
 Processing source 62/125 at time 4
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 90, 179)' took 26.4280 seconds
-Total elapsed time: 1652.0340 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 90, 179)' took 26.0232 seconds
+Total elapsed time: 1680.2088 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 4, coord (0, 156, 90, 179)' took 0.0002 seconds
-Total elapsed time: 1652.0342 seconds
+Total elapsed time: 1680.2090 seconds
 ----------------------------------------
 Processing source 63/125 at time 4
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 90, 180)' took 25.2018 seconds
-Total elapsed time: 1677.2360 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 90, 180)' took 25.7895 seconds
+Total elapsed time: 1705.9985 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 4, coord (0, 156, 90, 180)' took 0.0002 seconds
-Total elapsed time: 1677.2362 seconds
+Total elapsed time: 1705.9987 seconds
 ----------------------------------------
 Processing source 64/125 at time 4
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 90, 181)' took 26.3429 seconds
-Total elapsed time: 1703.5791 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 90, 181)' took 29.1733 seconds
+Total elapsed time: 1735.1720 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 4, coord (0, 156, 90, 181)' took 0.0002 seconds
-Total elapsed time: 1703.5793 seconds
+Section 'Computed sensitivities for source at time 4, coord (0, 156, 90, 181)' took 0.0455 seconds
+Total elapsed time: 1735.2175 seconds
 ----------------------------------------
 Processing source 65/125 at time 4
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 90, 182)' took 24.9115 seconds
-Total elapsed time: 1728.4908 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 90, 182)' took 27.3297 seconds
+Total elapsed time: 1762.5472 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 4, coord (0, 156, 90, 182)' took 0.0002 seconds
-Total elapsed time: 1728.4910 seconds
+Section 'Computed sensitivities for source at time 4, coord (0, 156, 90, 182)' took 0.0180 seconds
+Total elapsed time: 1762.5651 seconds
 ----------------------------------------
 Processing source 66/125 at time 4
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 91, 178)' took 25.2722 seconds
-Total elapsed time: 1753.7632 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 91, 178)' took 25.8670 seconds
+Total elapsed time: 1788.4322 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 4, coord (0, 156, 91, 178)' took 0.0002 seconds
-Total elapsed time: 1753.7633 seconds
+Total elapsed time: 1788.4323 seconds
 ----------------------------------------
 Processing source 67/125 at time 4
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 91, 179)' took 25.1997 seconds
-Total elapsed time: 1778.9631 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 91, 179)' took 26.2377 seconds
+Total elapsed time: 1814.6700 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 4, coord (0, 156, 91, 179)' took 0.0002 seconds
-Total elapsed time: 1778.9633 seconds
+Total elapsed time: 1814.6702 seconds
 ----------------------------------------
 Processing source 68/125 at time 4
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 91, 180)' took 24.6187 seconds
-Total elapsed time: 1803.5820 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 91, 180)' took 25.6815 seconds
+Total elapsed time: 1840.3517 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 4, coord (0, 156, 91, 180)' took 0.0002 seconds
-Total elapsed time: 1803.5822 seconds
+Total elapsed time: 1840.3519 seconds
 ----------------------------------------
 Processing source 69/125 at time 4
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 91, 181)' took 25.6625 seconds
-Total elapsed time: 1829.2447 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 91, 181)' took 26.1665 seconds
+Total elapsed time: 1866.5184 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 4, coord (0, 156, 91, 181)' took 0.0002 seconds
-Total elapsed time: 1829.2448 seconds
+Total elapsed time: 1866.5186 seconds
 ----------------------------------------
 Processing source 70/125 at time 4
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 91, 182)' took 25.2144 seconds
-Total elapsed time: 1854.4593 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 91, 182)' took 26.4526 seconds
+Total elapsed time: 1892.9712 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 4, coord (0, 156, 91, 182)' took 0.0002 seconds
-Total elapsed time: 1854.4594 seconds
+Total elapsed time: 1892.9713 seconds
 ----------------------------------------
 Processing source 71/125 at time 4
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 92, 178)' took 26.0825 seconds
-Total elapsed time: 1880.5420 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 92, 178)' took 26.7613 seconds
+Total elapsed time: 1919.7326 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 4, coord (0, 156, 92, 178)' took 0.0002 seconds
-Total elapsed time: 1880.5421 seconds
+Total elapsed time: 1919.7328 seconds
 ----------------------------------------
 Processing source 72/125 at time 4
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 92, 179)' took 25.0528 seconds
-Total elapsed time: 1905.5950 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 92, 179)' took 33.8803 seconds
+Total elapsed time: 1953.6130 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 4, coord (0, 156, 92, 179)' took 0.0002 seconds
-Total elapsed time: 1905.5952 seconds
+Total elapsed time: 1953.6132 seconds
 ----------------------------------------
 Processing source 73/125 at time 4
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 92, 180)' took 25.1021 seconds
-Total elapsed time: 1930.6973 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 92, 180)' took 27.7229 seconds
+Total elapsed time: 1981.3361 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 4, coord (0, 156, 92, 180)' took 0.0001 seconds
-Total elapsed time: 1930.6974 seconds
+Section 'Computed sensitivities for source at time 4, coord (0, 156, 92, 180)' took 0.0002 seconds
+Total elapsed time: 1981.3363 seconds
 ----------------------------------------
 Processing source 74/125 at time 4
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 92, 181)' took 25.9717 seconds
-Total elapsed time: 1956.6691 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 92, 181)' took 26.6231 seconds
+Total elapsed time: 2007.9594 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 4, coord (0, 156, 92, 181)' took 0.0002 seconds
-Total elapsed time: 1956.6693 seconds
+Total elapsed time: 2007.9596 seconds
 ----------------------------------------
 Processing source 75/125 at time 4
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 92, 182)' took 25.1234 seconds
-Total elapsed time: 1981.7926 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 4, coord (0, 156, 92, 182)' took 27.4292 seconds
+Total elapsed time: 2035.3888 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 4, coord (0, 156, 92, 182)' took 0.0002 seconds
-Total elapsed time: 1981.7928 seconds
+Total elapsed time: 2035.3889 seconds
 ----------------------------------------
 Processing source 76/125 at time 6
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 88, 178)' took 25.4069 seconds
-Total elapsed time: 2007.1997 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 88, 178)' took 26.7066 seconds
+Total elapsed time: 2062.0955 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 6, coord (0, 156, 88, 178)' took 0.0002 seconds
-Total elapsed time: 2007.1999 seconds
+Total elapsed time: 2062.0957 seconds
 ----------------------------------------
 Processing source 77/125 at time 6
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 88, 179)' took 24.5409 seconds
-Total elapsed time: 2031.7408 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 88, 179)' took 25.6952 seconds
+Total elapsed time: 2087.7909 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 6, coord (0, 156, 88, 179)' took 0.0001 seconds
-Total elapsed time: 2031.7410 seconds
+Section 'Computed sensitivities for source at time 6, coord (0, 156, 88, 179)' took 0.0002 seconds
+Total elapsed time: 2087.7911 seconds
 ----------------------------------------
 Processing source 78/125 at time 6
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 88, 180)' took 25.0005 seconds
-Total elapsed time: 2056.7414 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 88, 180)' took 27.1915 seconds
+Total elapsed time: 2114.9826 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 6, coord (0, 156, 88, 180)' took 0.0002 seconds
-Total elapsed time: 2056.7416 seconds
+Section 'Computed sensitivities for source at time 6, coord (0, 156, 88, 180)' took 0.0001 seconds
+Total elapsed time: 2114.9827 seconds
 ----------------------------------------
 Processing source 79/125 at time 6
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 88, 181)' took 25.5565 seconds
-Total elapsed time: 2082.2981 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 88, 181)' took 25.7414 seconds
+Total elapsed time: 2140.7241 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 6, coord (0, 156, 88, 181)' took 0.0002 seconds
-Total elapsed time: 2082.2982 seconds
+Section 'Computed sensitivities for source at time 6, coord (0, 156, 88, 181)' took 0.0001 seconds
+Total elapsed time: 2140.7242 seconds
 ----------------------------------------
 Processing source 80/125 at time 6
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 88, 182)' took 25.2037 seconds
-Total elapsed time: 2107.5019 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 88, 182)' took 26.4140 seconds
+Total elapsed time: 2167.1381 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 6, coord (0, 156, 88, 182)' took 0.0002 seconds
-Total elapsed time: 2107.5021 seconds
+Section 'Computed sensitivities for source at time 6, coord (0, 156, 88, 182)' took 0.0001 seconds
+Total elapsed time: 2167.1383 seconds
 ----------------------------------------
 Processing source 81/125 at time 6
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 89, 178)' took 27.3556 seconds
-Total elapsed time: 2134.8577 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 89, 178)' took 28.5715 seconds
+Total elapsed time: 2195.7098 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 6, coord (0, 156, 89, 178)' took 0.0002 seconds
-Total elapsed time: 2134.8579 seconds
+Total elapsed time: 2195.7099 seconds
 ----------------------------------------
 Processing source 82/125 at time 6
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 89, 179)' took 27.3093 seconds
-Total elapsed time: 2162.1672 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 89, 179)' took 26.5269 seconds
+Total elapsed time: 2222.2369 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 6, coord (0, 156, 89, 179)' took 0.0002 seconds
-Total elapsed time: 2162.1673 seconds
+Total elapsed time: 2222.2370 seconds
 ----------------------------------------
 Processing source 83/125 at time 6
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 89, 180)' took 28.3726 seconds
-Total elapsed time: 2190.5399 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 89, 180)' took 26.3008 seconds
+Total elapsed time: 2248.5378 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 6, coord (0, 156, 89, 180)' took 0.0002 seconds
-Total elapsed time: 2190.5400 seconds
+Section 'Computed sensitivities for source at time 6, coord (0, 156, 89, 180)' took 0.0001 seconds
+Total elapsed time: 2248.5380 seconds
 ----------------------------------------
 Processing source 84/125 at time 6
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 89, 181)' took 27.8238 seconds
-Total elapsed time: 2218.3638 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 89, 181)' took 25.9405 seconds
+Total elapsed time: 2274.4785 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 6, coord (0, 156, 89, 181)' took 0.0002 seconds
-Total elapsed time: 2218.3640 seconds
+Total elapsed time: 2274.4787 seconds
 ----------------------------------------
 Processing source 85/125 at time 6
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 89, 182)' took 26.7290 seconds
-Total elapsed time: 2245.0930 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 89, 182)' took 26.5675 seconds
+Total elapsed time: 2301.0461 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 6, coord (0, 156, 89, 182)' took 0.0001 seconds
-Total elapsed time: 2245.0931 seconds
+Total elapsed time: 2301.0463 seconds
 ----------------------------------------
 Processing source 86/125 at time 6
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 90, 178)' took 25.7005 seconds
-Total elapsed time: 2270.7936 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 90, 178)' took 25.8760 seconds
+Total elapsed time: 2326.9223 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 6, coord (0, 156, 90, 178)' took 0.0002 seconds
-Total elapsed time: 2270.7938 seconds
+Total elapsed time: 2326.9225 seconds
 ----------------------------------------
 Processing source 87/125 at time 6
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 90, 179)' took 25.2976 seconds
-Total elapsed time: 2296.0914 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 90, 179)' took 26.9288 seconds
+Total elapsed time: 2353.8513 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 6, coord (0, 156, 90, 179)' took 0.0002 seconds
-Total elapsed time: 2296.0915 seconds
+Total elapsed time: 2353.8515 seconds
 ----------------------------------------
 Processing source 88/125 at time 6
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 90, 180)' took 26.2738 seconds
-Total elapsed time: 2322.3653 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 90, 180)' took 26.3946 seconds
+Total elapsed time: 2380.2461 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 6, coord (0, 156, 90, 180)' took 0.0002 seconds
-Total elapsed time: 2322.3654 seconds
+Total elapsed time: 2380.2463 seconds
 ----------------------------------------
 Processing source 89/125 at time 6
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 90, 181)' took 27.0053 seconds
-Total elapsed time: 2349.3707 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 90, 181)' took 26.2436 seconds
+Total elapsed time: 2406.4898 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 6, coord (0, 156, 90, 181)' took 0.0001 seconds
-Total elapsed time: 2349.3709 seconds
+Section 'Computed sensitivities for source at time 6, coord (0, 156, 90, 181)' took 0.0002 seconds
+Total elapsed time: 2406.4900 seconds
 ----------------------------------------
 Processing source 90/125 at time 6
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 90, 182)' took 27.7418 seconds
-Total elapsed time: 2377.1127 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 90, 182)' took 26.5129 seconds
+Total elapsed time: 2433.0029 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 6, coord (0, 156, 90, 182)' took 0.0002 seconds
-Total elapsed time: 2377.1128 seconds
+Total elapsed time: 2433.0031 seconds
 ----------------------------------------
 Processing source 91/125 at time 6
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 91, 178)' took 26.4868 seconds
-Total elapsed time: 2403.5996 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 91, 178)' took 26.2970 seconds
+Total elapsed time: 2459.3000 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 6, coord (0, 156, 91, 178)' took 0.0001 seconds
-Total elapsed time: 2403.5998 seconds
+Section 'Computed sensitivities for source at time 6, coord (0, 156, 91, 178)' took 0.0002 seconds
+Total elapsed time: 2459.3002 seconds
 ----------------------------------------
 Processing source 92/125 at time 6
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 91, 179)' took 27.0598 seconds
-Total elapsed time: 2430.6595 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 91, 179)' took 27.1026 seconds
+Total elapsed time: 2486.4028 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 6, coord (0, 156, 91, 179)' took 0.0002 seconds
-Total elapsed time: 2430.6597 seconds
+Total elapsed time: 2486.4030 seconds
 ----------------------------------------
 Processing source 93/125 at time 6
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 91, 180)' took 26.1631 seconds
-Total elapsed time: 2456.8228 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 91, 180)' took 26.0692 seconds
+Total elapsed time: 2512.4722 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 6, coord (0, 156, 91, 180)' took 0.0002 seconds
-Total elapsed time: 2456.8230 seconds
+Total elapsed time: 2512.4724 seconds
 ----------------------------------------
 Processing source 94/125 at time 6
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 91, 181)' took 26.5494 seconds
-Total elapsed time: 2483.3724 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 91, 181)' took 26.2043 seconds
+Total elapsed time: 2538.6767 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 6, coord (0, 156, 91, 181)' took 0.0002 seconds
-Total elapsed time: 2483.3725 seconds
+Total elapsed time: 2538.6768 seconds
 ----------------------------------------
 Processing source 95/125 at time 6
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 91, 182)' took 25.7721 seconds
-Total elapsed time: 2509.1447 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 91, 182)' took 26.1482 seconds
+Total elapsed time: 2564.8250 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 6, coord (0, 156, 91, 182)' took 0.0002 seconds
-Total elapsed time: 2509.1449 seconds
+Total elapsed time: 2564.8252 seconds
 ----------------------------------------
 Processing source 96/125 at time 6
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 92, 178)' took 25.0532 seconds
-Total elapsed time: 2534.1980 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 92, 178)' took 26.1418 seconds
+Total elapsed time: 2590.9670 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 6, coord (0, 156, 92, 178)' took 0.0002 seconds
-Total elapsed time: 2534.1982 seconds
+Total elapsed time: 2590.9672 seconds
 ----------------------------------------
 Processing source 97/125 at time 6
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 92, 179)' took 25.8738 seconds
-Total elapsed time: 2560.0720 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 92, 179)' took 26.2137 seconds
+Total elapsed time: 2617.1808 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 6, coord (0, 156, 92, 179)' took 0.0002 seconds
-Total elapsed time: 2560.0722 seconds
+Total elapsed time: 2617.1810 seconds
 ----------------------------------------
 Processing source 98/125 at time 6
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 92, 180)' took 25.1793 seconds
-Total elapsed time: 2585.2515 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 92, 180)' took 26.1818 seconds
+Total elapsed time: 2643.3628 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 6, coord (0, 156, 92, 180)' took 0.0002 seconds
-Total elapsed time: 2585.2517 seconds
+Total elapsed time: 2643.3630 seconds
 ----------------------------------------
 Processing source 99/125 at time 6
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 92, 181)' took 24.3486 seconds
-Total elapsed time: 2609.6003 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 92, 181)' took 25.5217 seconds
+Total elapsed time: 2668.8847 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 6, coord (0, 156, 92, 181)' took 0.0001 seconds
-Total elapsed time: 2609.6004 seconds
+Total elapsed time: 2668.8848 seconds
 ----------------------------------------
 Processing source 100/125 at time 6
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 92, 182)' took 24.6229 seconds
-Total elapsed time: 2634.2233 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 6, coord (0, 156, 92, 182)' took 26.1465 seconds
+Total elapsed time: 2695.0313 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 6, coord (0, 156, 92, 182)' took 0.0002 seconds
-Total elapsed time: 2634.2235 seconds
+Total elapsed time: 2695.0315 seconds
 ----------------------------------------
 Processing source 101/125 at time 8
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 88, 178)' took 24.8580 seconds
-Total elapsed time: 2659.0815 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 88, 178)' took 26.2784 seconds
+Total elapsed time: 2721.3099 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 8, coord (0, 156, 88, 178)' took 0.0002 seconds
-Total elapsed time: 2659.0816 seconds
+Total elapsed time: 2721.3101 seconds
 ----------------------------------------
 Processing source 102/125 at time 8
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 88, 179)' took 24.9710 seconds
-Total elapsed time: 2684.0526 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 88, 179)' took 26.4737 seconds
+Total elapsed time: 2747.7837 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 8, coord (0, 156, 88, 179)' took 0.0002 seconds
-Total elapsed time: 2684.0528 seconds
+Total elapsed time: 2747.7839 seconds
 ----------------------------------------
 Processing source 103/125 at time 8
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 88, 180)' took 24.9548 seconds
-Total elapsed time: 2709.0076 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 88, 180)' took 26.6207 seconds
+Total elapsed time: 2774.4046 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 8, coord (0, 156, 88, 180)' took 0.0002 seconds
-Total elapsed time: 2709.0078 seconds
+Total elapsed time: 2774.4048 seconds
 ----------------------------------------
 Processing source 104/125 at time 8
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 88, 181)' took 26.0473 seconds
-Total elapsed time: 2735.0551 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 88, 181)' took 26.1039 seconds
+Total elapsed time: 2800.5087 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 8, coord (0, 156, 88, 181)' took 0.0002 seconds
-Total elapsed time: 2735.0553 seconds
+Total elapsed time: 2800.5089 seconds
 ----------------------------------------
 Processing source 105/125 at time 8
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 88, 182)' took 28.8215 seconds
-Total elapsed time: 2763.8767 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 88, 182)' took 26.1918 seconds
+Total elapsed time: 2826.7006 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 8, coord (0, 156, 88, 182)' took 0.0212 seconds
-Total elapsed time: 2763.8980 seconds
+Section 'Computed sensitivities for source at time 8, coord (0, 156, 88, 182)' took 0.0002 seconds
+Total elapsed time: 2826.7008 seconds
 ----------------------------------------
 Processing source 106/125 at time 8
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 89, 178)' took 25.1282 seconds
-Total elapsed time: 2789.0262 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 89, 178)' took 26.5191 seconds
+Total elapsed time: 2853.2200 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 8, coord (0, 156, 89, 178)' took 0.0002 seconds
-Total elapsed time: 2789.0263 seconds
+Total elapsed time: 2853.2201 seconds
 ----------------------------------------
 Processing source 107/125 at time 8
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 89, 179)' took 25.1473 seconds
-Total elapsed time: 2814.1736 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 89, 179)' took 25.9502 seconds
+Total elapsed time: 2879.1703 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 8, coord (0, 156, 89, 179)' took 0.0002 seconds
-Total elapsed time: 2814.1738 seconds
+Total elapsed time: 2879.1705 seconds
 ----------------------------------------
 Processing source 108/125 at time 8
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 89, 180)' took 24.9387 seconds
-Total elapsed time: 2839.1125 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 89, 180)' took 26.1611 seconds
+Total elapsed time: 2905.3316 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 8, coord (0, 156, 89, 180)' took 0.0002 seconds
-Total elapsed time: 2839.1126 seconds
+Section 'Computed sensitivities for source at time 8, coord (0, 156, 89, 180)' took 0.0001 seconds
+Total elapsed time: 2905.3317 seconds
 ----------------------------------------
 Processing source 109/125 at time 8
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 89, 181)' took 24.0706 seconds
-Total elapsed time: 2863.1832 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 89, 181)' took 26.3281 seconds
+Total elapsed time: 2931.6598 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 8, coord (0, 156, 89, 181)' took 0.0002 seconds
-Total elapsed time: 2863.1834 seconds
+Total elapsed time: 2931.6600 seconds
 ----------------------------------------
 Processing source 110/125 at time 8
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 89, 182)' took 24.6826 seconds
-Total elapsed time: 2887.8660 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 89, 182)' took 26.7881 seconds
+Total elapsed time: 2958.4481 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 8, coord (0, 156, 89, 182)' took 0.0001 seconds
-Total elapsed time: 2887.8661 seconds
+Section 'Computed sensitivities for source at time 8, coord (0, 156, 89, 182)' took 0.0002 seconds
+Total elapsed time: 2958.4483 seconds
 ----------------------------------------
 Processing source 111/125 at time 8
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 90, 178)' took 24.9087 seconds
-Total elapsed time: 2912.7749 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 90, 178)' took 27.2695 seconds
+Total elapsed time: 2985.7177 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 8, coord (0, 156, 90, 178)' took 0.0002 seconds
-Total elapsed time: 2912.7750 seconds
+Total elapsed time: 2985.7179 seconds
 ----------------------------------------
 Processing source 112/125 at time 8
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 90, 179)' took 25.0131 seconds
-Total elapsed time: 2937.7881 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 90, 179)' took 27.0098 seconds
+Total elapsed time: 3012.7277 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 8, coord (0, 156, 90, 179)' took 0.0002 seconds
-Total elapsed time: 2937.7883 seconds
+Total elapsed time: 3012.7279 seconds
 ----------------------------------------
 Processing source 113/125 at time 8
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 90, 180)' took 24.4213 seconds
-Total elapsed time: 2962.2096 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 90, 180)' took 26.8506 seconds
+Total elapsed time: 3039.5785 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 8, coord (0, 156, 90, 180)' took 0.0002 seconds
-Total elapsed time: 2962.2097 seconds
+Total elapsed time: 3039.5786 seconds
 ----------------------------------------
 Processing source 114/125 at time 8
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 90, 181)' took 25.8338 seconds
-Total elapsed time: 2988.0435 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 90, 181)' took 26.5425 seconds
+Total elapsed time: 3066.1211 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 8, coord (0, 156, 90, 181)' took 0.0002 seconds
-Total elapsed time: 2988.0437 seconds
+Total elapsed time: 3066.1213 seconds
 ----------------------------------------
 Processing source 115/125 at time 8
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 90, 182)' took 24.8154 seconds
-Total elapsed time: 3012.8590 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 90, 182)' took 26.4532 seconds
+Total elapsed time: 3092.5745 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 8, coord (0, 156, 90, 182)' took 0.0002 seconds
-Total elapsed time: 3012.8592 seconds
+Total elapsed time: 3092.5747 seconds
 ----------------------------------------
 Processing source 116/125 at time 8
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 91, 178)' took 25.0216 seconds
-Total elapsed time: 3037.8808 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 91, 178)' took 27.2590 seconds
+Total elapsed time: 3119.8337 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 8, coord (0, 156, 91, 178)' took 0.0002 seconds
-Total elapsed time: 3037.8810 seconds
+Total elapsed time: 3119.8339 seconds
 ----------------------------------------
 Processing source 117/125 at time 8
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 91, 179)' took 24.6151 seconds
-Total elapsed time: 3062.4961 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 91, 179)' took 26.3949 seconds
+Total elapsed time: 3146.2287 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 8, coord (0, 156, 91, 179)' took 0.0002 seconds
-Total elapsed time: 3062.4962 seconds
+Total elapsed time: 3146.2289 seconds
 ----------------------------------------
 Processing source 118/125 at time 8
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 91, 180)' took 24.7352 seconds
-Total elapsed time: 3087.2315 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 91, 180)' took 26.4051 seconds
+Total elapsed time: 3172.6340 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 8, coord (0, 156, 91, 180)' took 0.0002 seconds
-Total elapsed time: 3087.2316 seconds
+Total elapsed time: 3172.6342 seconds
 ----------------------------------------
 Processing source 119/125 at time 8
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 91, 181)' took 24.7237 seconds
-Total elapsed time: 3111.9553 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 91, 181)' took 26.3210 seconds
+Total elapsed time: 3198.9552 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 8, coord (0, 156, 91, 181)' took 0.0002 seconds
-Total elapsed time: 3111.9554 seconds
+Total elapsed time: 3198.9554 seconds
 ----------------------------------------
 Processing source 120/125 at time 8
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 91, 182)' took 24.7394 seconds
-Total elapsed time: 3136.6948 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 91, 182)' took 26.5433 seconds
+Total elapsed time: 3225.4986 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 8, coord (0, 156, 91, 182)' took 0.0002 seconds
-Total elapsed time: 3136.6950 seconds
+Total elapsed time: 3225.4988 seconds
 ----------------------------------------
 Processing source 121/125 at time 8
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 92, 178)' took 25.3658 seconds
-Total elapsed time: 3162.0608 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 92, 178)' took 26.8331 seconds
+Total elapsed time: 3252.3319 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 8, coord (0, 156, 92, 178)' took 0.0002 seconds
-Total elapsed time: 3162.0609 seconds
+Total elapsed time: 3252.3321 seconds
 ----------------------------------------
 Processing source 122/125 at time 8
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 92, 179)' took 25.2304 seconds
-Total elapsed time: 3187.2914 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 92, 179)' took 26.5351 seconds
+Total elapsed time: 3278.8672 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 8, coord (0, 156, 92, 179)' took 0.0002 seconds
-Total elapsed time: 3187.2915 seconds
+Total elapsed time: 3278.8673 seconds
 ----------------------------------------
 Processing source 123/125 at time 8
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 92, 180)' took 24.6258 seconds
-Total elapsed time: 3211.9174 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 92, 180)' took 26.5971 seconds
+Total elapsed time: 3305.4645 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 8, coord (0, 156, 92, 180)' took 0.0002 seconds
-Total elapsed time: 3211.9175 seconds
+Section 'Computed sensitivities for source at time 8, coord (0, 156, 92, 180)' took 0.0001 seconds
+Total elapsed time: 3305.4646 seconds
 ----------------------------------------
 Processing source 124/125 at time 8
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 92, 181)' took 25.3759 seconds
-Total elapsed time: 3237.2935 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 92, 181)' took 26.5403 seconds
+Total elapsed time: 3332.0049 seconds
 ----------------------------------------
-Section 'Computed sensitivities for source at time 8, coord (0, 156, 92, 181)' took 0.0001 seconds
-Total elapsed time: 3237.2936 seconds
+Section 'Computed sensitivities for source at time 8, coord (0, 156, 92, 181)' took 0.0002 seconds
+Total elapsed time: 3332.0050 seconds
 ----------------------------------------
 Processing source 125/125 at time 8
-Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 92, 182)' took 25.3534 seconds
-Total elapsed time: 3262.6470 seconds
+Out:  [[2 3]] Out:  [[4 5]] Out:  [[6 7]] Out:  [[8 9]] Out:  [[10 11]] Out:  [[12 13]] Section 'Forward pass with perturbation at time 8, coord (0, 156, 92, 182)' took 25.7951 seconds
+Total elapsed time: 3357.8001 seconds
 ----------------------------------------
 Section 'Computed sensitivities for source at time 8, coord (0, 156, 92, 182)' took 0.0001 seconds
-Total elapsed time: 3262.6471 seconds
+Total elapsed time: 3357.8002 seconds
 ----------------------------------------
 Section 'Finished computing finite difference sensitivity matrix' took 0.0000 seconds
-Total elapsed time: 3262.6472 seconds
+Total elapsed time: 3357.8002 seconds
 ----------------------------------------
-Section 'Finished computing perturbation sensitivity' took 0.0112 seconds
-Total elapsed time: 3262.6583 seconds
+Section 'Finished computing perturbation sensitivity' took 0.0117 seconds
+Total elapsed time: 3357.8119 seconds
 ----------------------------------------
 Saving sensitivity results: 125 sensitivities
-Saved 2D sensitivity grid to perturbation_grid_chin[156]_chout[76]_t[0,10]_1e-2.npy
+Saved 2D sensitivity grid to perturbation_grid_chin[156]_chout[76]_t[0,10]_1e-4.npy
 
 Sensitivity Grid (5x5) from time 0 to 10:
-1.192093e-05 -1.192093e-05 5.960464e-05 1.072884e-04 0.000000e+00
-0.000000e+00 -7.152557e-05 2.384186e-05 1.311302e-04 -5.960464e-05
-7.152557e-05 -3.576279e-05 1.192093e-04 1.192093e-04 -1.072884e-04
-1.072884e-04 0.000000e+00 3.576279e-05 1.192093e-04 -2.026558e-04
-8.344650e-05 -1.192093e-05 -7.152557e-05 -9.536743e-05 -1.430511e-04
-Saved 2D sensitivity grid to perturbation_grid_chin[156]_chout[76]_t[2,10]_1e-2.npy
+1.192093e-03 -1.192093e-03 1.192093e-03 0.000000e+00 1.192093e-03
+-1.192093e-03 -3.576279e-03 0.000000e+00 -2.384186e-03 -2.384186e-03
+1.192093e-03 0.000000e+00 0.000000e+00 -1.192093e-03 -2.384186e-03
+-2.384186e-03 -1.192093e-03 0.000000e+00 -1.192093e-03 -2.384186e-03
+-1.192093e-03 0.000000e+00 0.000000e+00 0.000000e+00 -1.192093e-03
+Saved 2D sensitivity grid to perturbation_grid_chin[156]_chout[76]_t[2,10]_1e-4.npy
 
 Sensitivity Grid (5x5) from time 2 to 10:
--2.384186e-05 -4.768372e-05 -7.152557e-05 1.430511e-04 -1.072884e-04
-0.000000e+00 -7.152557e-05 -3.576279e-05 2.026558e-04 -8.344650e-05
-9.536743e-05 -9.536743e-05 8.344650e-05 8.344650e-05 -1.192093e-04
-1.311302e-04 -1.907349e-04 -2.503395e-04 2.384186e-05 -1.788139e-04
-7.152557e-05 -5.960464e-05 -1.192093e-04 -2.145767e-04 -8.344650e-05
-Saved 2D sensitivity grid to perturbation_grid_chin[156]_chout[76]_t[4,10]_1e-2.npy
+-1.192093e-03 -3.576279e-03 0.000000e+00 -2.384186e-03 -1.192093e-03
+0.000000e+00 0.000000e+00 0.000000e+00 -3.576279e-03 0.000000e+00
+2.384186e-03 -2.384186e-03 0.000000e+00 1.192093e-03 -1.192093e-03
+0.000000e+00 0.000000e+00 0.000000e+00 -2.384186e-03 -1.192093e-03
+0.000000e+00 0.000000e+00 -2.384186e-03 1.192093e-03 0.000000e+00
+Saved 2D sensitivity grid to perturbation_grid_chin[156]_chout[76]_t[4,10]_1e-4.npy
 
 Sensitivity Grid (5x5) from time 4 to 10:
-5.960464e-05 -1.192093e-05 -9.536743e-05 3.218651e-04 -2.145767e-04
-0.000000e+00 -9.536743e-05 4.768372e-05 1.668930e-04 -2.384186e-04
--2.145767e-04 -2.622604e-04 5.960464e-05 1.430511e-04 1.192093e-05
-1.192093e-04 -2.384186e-04 -9.536743e-05 3.099442e-04 -4.768372e-05
-1.192093e-05 -1.668930e-04 -1.668930e-04 1.192093e-05 1.668930e-04
-Saved 2D sensitivity grid to perturbation_grid_chin[156]_chout[76]_t[6,10]_1e-2.npy
+1.192093e-03 3.576279e-03 -1.192093e-03 1.192093e-03 1.192093e-03
+1.192093e-03 0.000000e+00 0.000000e+00 3.576279e-03 -2.384186e-03
+-1.192093e-03 2.384186e-03 -1.192093e-03 2.384186e-03 0.000000e+00
+-2.384186e-03 1.192093e-03 0.000000e+00 0.000000e+00 3.576279e-03
+0.000000e+00 -1.192093e-03 -2.384186e-03 -1.192093e-03 1.192093e-03
+Saved 2D sensitivity grid to perturbation_grid_chin[156]_chout[76]_t[6,10]_1e-4.npy
 
 Sensitivity Grid (5x5) from time 6 to 10:
-7.629395e-04 -6.794930e-04 2.384186e-05 4.291534e-04 -3.814697e-04
-7.152557e-05 -2.145767e-04 4.172325e-04 -4.768372e-05 -1.907349e-04
-3.337860e-04 -1.120567e-03 -4.291534e-04 -1.430511e-04 1.311302e-04
--2.384186e-05 2.861023e-04 -7.152557e-04 9.655952e-04 -3.695488e-04
-2.503395e-04 -3.576279e-04 2.861023e-04 -5.960464e-05 3.576279e-05
-Saved 2D sensitivity grid to perturbation_grid_chin[156]_chout[76]_t[8,10]_1e-2.npy
+0.000000e+00 -1.192093e-03 1.192093e-03 0.000000e+00 0.000000e+00
+1.192093e-03 -1.192093e-03 0.000000e+00 1.192093e-03 -1.192093e-03
+1.192093e-03 2.384186e-03 0.000000e+00 1.192093e-03 -2.384186e-03
+-2.384186e-03 0.000000e+00 -1.192093e-03 2.384186e-03 -2.384186e-03
+-2.384186e-03 1.192093e-03 0.000000e+00 -3.576279e-03 2.384186e-03
+Saved 2D sensitivity grid to perturbation_grid_chin[156]_chout[76]_t[8,10]_1e-4.npy
 
 Sensitivity Grid (5x5) from time 8 to 10:
--9.298325e-04 1.251698e-03 8.702278e-04 -8.821487e-04 2.741814e-04
-1.192093e-05 -5.960464e-04 -1.013279e-03 1.072884e-03 2.384186e-04
-3.576279e-04 -1.084805e-03 -3.087521e-03 -2.348423e-03 1.943111e-03
--4.649162e-04 -1.311302e-04 2.729893e-03 -1.442432e-03 -9.179115e-04
--3.457069e-04 5.960464e-04 -6.198883e-04 1.227856e-03 4.768372e-05
-Section 'Finished saving sensitivity results' took 0.0332 seconds
-Total elapsed time: 3262.6915 seconds
+-2.384186e-03 0.000000e+00 0.000000e+00 -3.576279e-03 -2.384186e-03
+0.000000e+00 -1.192093e-03 -2.384186e-03 0.000000e+00 -3.576279e-03
+-3.576279e-03 -1.192093e-03 -4.768372e-03 -4.768372e-03 1.192093e-03
+-3.576279e-03 -1.192093e-03 4.768372e-03 -4.768372e-03 -3.576279e-03
+-3.576279e-03 0.000000e+00 0.000000e+00 -1.192093e-03 -3.576279e-03
+Section 'Finished saving sensitivity results' took 0.0527 seconds
+Total elapsed time: 3357.8646 seconds
 ----------------------------------------
 ============================================
     Perturbation Sensitivity Analysis Done  
 ============================================
-Finished Samudra model run for channel 156 at Thu May  1 14:40:21 PDT 2025
+Finished Samudra model run for channel 156 at Thu May  1 15:59:28 PDT 2025
