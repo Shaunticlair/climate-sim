@@ -52,7 +52,7 @@ def load_and_crop_sensitivity(path, map_dims):
     
     return masked_sensitivity
 
-def plot_sensitivity_monthly(t_months, t_end, map_dims, output_pixel, var_in, var_out, ch_in, ch_out):
+def plot_sensitivity_monthly(t_months, t_end, map_dims, output_pixel, var_in, var_out, ch_in, ch_out, folder = '.'):
     """
     Create a 3x4 grid of monthly sensitivity plots, each with its own color scale
     
@@ -92,7 +92,7 @@ def plot_sensitivity_monthly(t_months, t_end, map_dims, output_pixel, var_in, va
     # First, load all data
     for i, month in enumerate(t_months):
         in_time, out_time = month, t_end
-        plot_path = Path(f'chunk_sensitivity_chin[{ch_in}]_chout[{ch_out}]_t[{in_time},{out_time}].npy')
+        plot_path = Path(f'{folder}/chunk_sensitivity_chin[{ch_in}]_chout[{ch_out}]_t[{in_time},{out_time}].npy')
         
         if plot_path.exists():
             masked_sensitivity = load_and_crop_sensitivity(plot_path, map_dims)
@@ -217,13 +217,15 @@ if __name__ == "__main__":
     t_end = 72  # End time (approx. a year)
     t_months = [t_end - 6*i for i in range(1, 13)]  # 12 months back
     
+    x_out, y_out = 126, 324  # North Atlantic
+    #x_out, y_out = 90,180   # Equatorial Pacific
     # Define output pixel (center of interest)
-    output_pixel = (90, 180)  # Center coordinates (lat, lon)
+    output_pixel = (x_out,y_out)  # Center coordinates (lat, lon)
     
     # Define map dimensions - adjust as needed
-    delta = 70
-    map_dims = [90-delta +30, 90+delta -30, 180-delta , 180+delta ]  # [xmin, xmax, ymin, ymax]
-    
+    delta = 20
+    map_dims = [x_out-delta , x_out+delta, y_out-delta , y_out+delta ]  # [xmin, xmax, ymin, ymax]
+    #map_dims = [0, 180, 0, 360]  # Global view for now
     # Import variable dictionary from misc if it exists
     try:
         from misc import var_dict
@@ -238,17 +240,18 @@ if __name__ == "__main__":
         }
     
     # Choose variables to plot
-    var_in = 'hfds'  # Input variable
+    #var_in = 'hfds'  # Input variable
     #var_in = 'hfds_anomalies'  # Input variable
     #var_in = 'zos(even)'
     #var_in = 'tauuo'  # Input variable
-    #var_in = 'tauvo'  # Input variable
+    var_in = 'tauvo'  # Input variable
     var_out = 'zos(even)'  # Output variable
     
     # Get channel numbers from dictionary
     ch_in = var_dict[var_in]
     ch_out = var_dict[var_out]
-    
+    folder = 'adjoint_arrays/North_Atlantic'#'
+
     # Create the monthly sensitivity grid plot
     plot_sensitivity_monthly(t_months, t_end, map_dims, output_pixel, 
-                           var_in, var_out, ch_in, ch_out)
+                           var_in, var_out, ch_in, ch_out, folder=folder)

@@ -57,7 +57,8 @@ if __name__ == "__main__":
     in_times = [0,2,4,6,8]#t_months
 
     # Perturbation size for finite difference calculation
-    perturbation_size = 1e-3
+    perturbation_size = float(sys.argv[2]) if len(sys.argv) > 2 else 1e-3
+    order_of_magn = int(np.log10(perturbation_size))
 
     ### SETUP STAGE ###
 
@@ -160,7 +161,7 @@ if __name__ == "__main__":
                             sensitivity_grid[lat_idx, lon_idx] = sensitivity_value
                     
                     # Save the 2D sensitivity grid
-                    filename = f'perturbation_grid_chin[{source_ch}]_chout[{target_ch}]_t[{source_time},{target_time}].npy'
+                    filename = f'perturbation_grid_chin[{source_ch}]_chout[{target_ch}]_t[{source_time},{target_time}]_1e{order_of_magn}.npy'
                     np.save(filename, sensitivity_grid)
                     print(f"Saved 2D sensitivity grid to {filename}")
                     
