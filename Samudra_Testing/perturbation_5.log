@@ -1,0 +1,4 @@
+Starting job 5
+Starting Samudra model run for channel 156 at Thu May  1 13:45:03 PDT 2025
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
+  return data.astype(dtype, **kwargs)
