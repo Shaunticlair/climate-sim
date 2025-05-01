@@ -1,0 +1,119 @@
+Job 22134053.pbspl1.nas.nasa.gov started on Tue Apr 29 17:19:38 PDT 2025
+The job requested the following resources:
+    ncpus=40
+    place=scatter:excl
+    walltime=01:00:00
+
+PBS set the following environment variables:
+        FORT_BUFFERED = 1
+                   TZ = PST8PDT
+
+On r135i4n29:
+Warning: no access to tty (Inappropriate ioctl for device).
+Thus no job control in this shell.
+Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
+Starting Samudra model run at Tue Apr 29 17:19:41 PDT 2025
+Traceback (most recent call last):
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/aiohttp/connector.py", line 992, in _wrap_create_connection
+    return await self._loop.create_connection(*args, **kwargs)
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/asyncio/base_events.py", line 1076, in create_connection
+    raise exceptions[0]
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/asyncio/base_events.py", line 1060, in create_connection
+    sock = await self._connect_sock(
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/asyncio/base_events.py", line 969, in _connect_sock
+    await self.sock_connect(sock, address)
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/asyncio/selector_events.py", line 501, in sock_connect
+    return await fut
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/asyncio/selector_events.py", line 541, in _sock_connect_cb
+    raise OSError(err, f'Connect call failed {address}')
+OSError: [Errno 113] Connect call failed ('192.69.103.235', 443)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/zarr/storage.py", line 1428, in __getitem__
+    return self.map[key]
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/fsspec/mapping.py", line 155, in __getitem__
+    result = self.fs.cat(k)
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/fsspec/asyn.py", line 118, in wrapper
+    return sync(self.loop, func, *args, **kwargs)
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/fsspec/asyn.py", line 103, in sync
+    raise return_result
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/fsspec/asyn.py", line 56, in _runner
+    result[0] = await coro
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/fsspec/asyn.py", line 465, in _cat
+    raise ex
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/fsspec/asyn.py", line 245, in _run_coro
+    return await asyncio.wait_for(coro, timeout=timeout), i
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/asyncio/tasks.py", line 408, in wait_for
+    return await fut
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/fsspec/implementations/http.py", line 234, in _cat_file
+    async with session.get(self.encode_url(url), **kw) as r:
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/aiohttp/client.py", line 1194, in __aenter__
+    self._resp = await self._coro
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/aiohttp/client.py", line 578, in _request
+    conn = await self._connector.connect(
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/aiohttp/connector.py", line 544, in connect
+    proto = await self._create_connection(req, traces, timeout)
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/aiohttp/connector.py", line 911, in _create_connection
+    _, proto = await self._create_direct_connection(req, traces, timeout)
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/aiohttp/connector.py", line 1235, in _create_direct_connection
+    raise last_exc
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/aiohttp/connector.py", line 1204, in _create_direct_connection
+    transp, proto = await self._wrap_create_connection(
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/aiohttp/connector.py", line 1000, in _wrap_create_connection
+    raise client_error(req.connection_key, exc) from exc
+aiohttp.client_exceptions.ClientConnectorError: Cannot connect to host nyu1.osn.mghpcc.org:443 ssl:default [Connect call failed ('192.69.103.235', 443)]
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/backends/zarr.py", line 427, in open_group
+    zarr_group = zarr.open_consolidated(store, **open_kwargs)
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/zarr/convenience.py", line 1351, in open_consolidated
+    meta_store = ConsolidatedStoreClass(store, metadata_key=metadata_key)
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/zarr/storage.py", line 2947, in __init__
+    meta = json_loads(self.store[metadata_key])
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/zarr/storage.py", line 1430, in __getitem__
+    raise KeyError(key) from e
+KeyError: '.zmetadata'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/backends/zarr.py", line 430, in open_group
+    zarr_group = zarr.open_group(store, **open_kwargs)
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/zarr/hierarchy.py", line 1532, in open_group
+    raise GroupNotFoundError(path)
+zarr.errors.GroupNotFoundError: group not found at path ''
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/nobackupp28/sruiz5/climate-sim/Samudra_Testing/test.py", line 11, in <module>
+    data_mean = xr.open_dataset("https://nyu1.osn.mghpcc.org/m2lines-pubs/Samudra/OM4_means", engine='zarr', chunks={})
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/backends/api.py", line 570, in open_dataset
+    backend_ds = backend.open_dataset(
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/backends/zarr.py", line 934, in open_dataset
+    store = ZarrStore.open_group(
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/backends/zarr.py", line 447, in open_group
+    raise FileNotFoundError(f"No such file or directory: '{store}'")
+FileNotFoundError: No such file or directory: 'https://nyu1.osn.mghpcc.org/m2lines-pubs/Samudra/OM4_means'
+Finished Samudra model run at Tue Apr 29 17:20:46 PDT 2025
+
+____________________________________________________________________
+Job Resource Usage Summary for 22134053.pbspl1.nas.nasa.gov
+
+    CPU Time Used            : 00:00:04
+    Real Memory Used         : 76200kb
+    Walltime Used            : 00:01:06
+    Exit Status              : 0
+
+    Number of CPUs Requested : 40
+    Walltime Requested       : 01:00:00
+
+    Execution Queue          : R21940709
+    Charged To               : g26113
+
+    Job Stopped              : Tue Apr 29 17:20:49 2025
+____________________________________________________________________

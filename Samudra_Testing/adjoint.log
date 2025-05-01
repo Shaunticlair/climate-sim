@@ -1,4 +1,4 @@
-Job 22127547.pbspl1.nas.nasa.gov started on Tue Apr 29 08:25:31 PDT 2025
+Job 22148503.pbspl1.nas.nasa.gov started on Thu May 01 11:47:23 PDT 2025
 The job requested the following resources:
     ncpus=40
     place=scatter:excl
@@ -12,104 +12,422 @@ On r135i4n29:
 Warning: no access to tty (Inappropriate ioctl for device).
 Thus no job control in this shell.
 Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
-Starting Samudra model run at Tue Apr 29 08:26:22 PDT 2025
+Starting Samudra model run at Thu May  1 11:47:28 PDT 2025
 /nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
   return data.astype(dtype, **kwargs)
-Months in a year: [4, -2, -8, -14, -20, -26, -32, -38, -44, -50, -56, -62]
+Loading correlation data as a test
+<xarray.Dataset>
+Dimensions:            (y: 180, x: 360, lev: 19, time: 602, y_b: 181, x_b: 361)
+Coordinates:
+    areacello          (y, x) float64 dask.array<chunksize=(90, 360), meta=np.ndarray>
+    dz                 (lev) int64 dask.array<chunksize=(19,), meta=np.ndarray>
+    lat                (y, x) float64 dask.array<chunksize=(90, 360), meta=np.ndarray>
+    lat_b              (y_b, x_b) float64 dask.array<chunksize=(91, 361), meta=np.ndarray>
+  * lev                (lev) float64 2.5 10.0 22.5 40.0 ... 4e+03 5e+03 6e+03
+    lon                (y, x) float64 dask.array<chunksize=(90, 360), meta=np.ndarray>
+    lon_b              (y_b, x_b) float64 dask.array<chunksize=(91, 361), meta=np.ndarray>
+    ocean_fraction     (lev, y, x) float64 dask.array<chunksize=(19, 180, 360), meta=np.ndarray>
+  * time               (time) object 2005-10-30 12:00:00 ... 2014-01-23 12:00:00
+    wetmask            (lev, y, x) bool dask.array<chunksize=(10, 90, 360), meta=np.ndarray>
+  * x                  (x) float64 0.5 1.5 2.5 3.5 ... 356.5 357.5 358.5 359.5
+  * y                  (y) float64 -89.24 -88.25 -87.25 ... 87.25 88.25 89.24
+Dimensions without coordinates: y_b, x_b
+Data variables: (12/81)
+    hfds               (time, y, x) float32 dask.array<chunksize=(1, 180, 360), meta=np.ndarray>
+    hfds_anomalies     (time, y, x) float32 dask.array<chunksize=(1, 180, 360), meta=np.ndarray>
+    so_lev_1050_0      (time, y, x) float32 dask.array<chunksize=(1, 180, 360), meta=np.ndarray>
+    so_lev_105_0       (time, y, x) float32 dask.array<chunksize=(1, 180, 360), meta=np.ndarray>
+    so_lev_10_0        (time, y, x) float32 dask.array<chunksize=(1, 180, 360), meta=np.ndarray>
+    so_lev_1400_0      (time, y, x) float32 dask.array<chunksize=(1, 180, 360), meta=np.ndarray>
+    ...                 ...
+    vo_lev_5000_0      (time, y, x) float32 dask.array<chunksize=(1, 180, 360), meta=np.ndarray>
+    vo_lev_550_0       (time, y, x) float32 dask.array<chunksize=(1, 180, 360), meta=np.ndarray>
+    vo_lev_6000_0      (time, y, x) float32 dask.array<chunksize=(1, 180, 360), meta=np.ndarray>
+    vo_lev_65_0        (time, y, x) float32 dask.array<chunksize=(1, 180, 360), meta=np.ndarray>
+    vo_lev_775_0       (time, y, x) float32 dask.array<chunksize=(1, 180, 360), meta=np.ndarray>
+    zos                (time, y, x) float32 dask.array<chunksize=(1, 180, 360), meta=np.ndarray>
+Attributes:
+    m2lines/ocean-emulators_git_hash:  https://github.com/m2lines/ocean_emula...
+    regrid_method:                     conservative
+Done
 Using CPU
 Using 80 CPU cores for computation
 Number of input channels: 158
 Number of output channels: 154
-Section 'Environment configured' took 0.0967 seconds
-Total elapsed time: 0.0967 seconds
+Section 'Environment configured' took 0.0315 seconds
+Total elapsed time: 0.0315 seconds
 ----------------------------------------
-Section 'Data loaded' took 17.4919 seconds
-Total elapsed time: 17.5887 seconds
+Section 'Data loaded' took 0.8919 seconds
+Total elapsed time: 0.9234 seconds
 ----------------------------------------
-Section 'Model loaded' took 2.3166 seconds
-Total elapsed time: 19.9052 seconds
+Section 'Model loaded' took 2.2602 seconds
+Total elapsed time: 3.1836 seconds
 ----------------------------------------
 Out:  [[2 3]] Our data has the shape torch.Size([1, 158, 180, 360])
-Computing sensitivity with batch 0, initial channels [76],       lat slice slice(0, 180, None), lon slice slice(0, 360, None)
-Section 'Setup complete' took 41.3065 seconds
-Total elapsed time: 61.2117 seconds
+Computing sensitivity with batch 0, initial channels [76, 153, 154, 155, 156, 157],       lat slice slice(0, 180, None), lon slice slice(0, 360, None)
+Section 'Setup complete' took 55.4899 seconds
+Total elapsed time: 58.6735 seconds
 ----------------------------------------
-Out:  [[2 3]] Section 'Finished setting up model input' took 3.1303 seconds
-Total elapsed time: 64.3420 seconds
+Out:  [[2 3]] Section 'Finished setting up model input' took 3.7849 seconds
+Total elapsed time: 62.4583 seconds
 ----------------------------------------
-Section 'Finished setting up chunk tracking' took 0.0735 seconds
-Total elapsed time: 64.4155 seconds
+Section 'Finished setting up chunk tracking' took 0.0742 seconds
+Total elapsed time: 62.5325 seconds
 ----------------------------------------
 Processing time step: 0
-Section 'Ran model forward for model iteration 0' took 1.9042 seconds
-Total elapsed time: 66.3196 seconds
+Section 'Ran model forward for model iteration 0' took 2.1508 seconds
+Total elapsed time: 64.6833 seconds
 ----------------------------------------
-Out:  [[4 5]] Section 'Added gradient tracking for model iteration 1' took 3.4267 seconds
-Total elapsed time: 69.7464 seconds
+Out:  [[4 5]] Section 'Added gradient tracking for model iteration 1' took 4.0370 seconds
+Total elapsed time: 68.7202 seconds
 ----------------------------------------
 Processing time step: 1
-Section 'Ran model forward for model iteration 1' took 1.1882 seconds
-Total elapsed time: 70.9346 seconds
+Section 'Ran model forward for model iteration 1' took 1.1834 seconds
+Total elapsed time: 69.9036 seconds
 ----------------------------------------
-Out:  [[6 7]] Section 'Added gradient tracking for model iteration 2' took 3.2948 seconds
-Total elapsed time: 74.2294 seconds
+Out:  [[6 7]] Section 'Added gradient tracking for model iteration 2' took 4.0578 seconds
+Total elapsed time: 73.9614 seconds
 ----------------------------------------
 Processing time step: 2
-Section 'Ran model forward for model iteration 2' took 1.1867 seconds
-Total elapsed time: 75.4161 seconds
+Section 'Ran model forward for model iteration 2' took 1.1882 seconds
+Total elapsed time: 75.1496 seconds
 ----------------------------------------
-Out:  [[8 9]] Section 'Added gradient tracking for model iteration 3' took 3.4516 seconds
-Total elapsed time: 78.8677 seconds
+Out:  [[8 9]] Section 'Added gradient tracking for model iteration 3' took 4.4038 seconds
+Total elapsed time: 79.5534 seconds
 ----------------------------------------
 Processing time step: 3
-Section 'Ran model forward for model iteration 3' took 1.1828 seconds
-Total elapsed time: 80.0505 seconds
+Section 'Ran model forward for model iteration 3' took 1.1811 seconds
+Total elapsed time: 80.7345 seconds
 ----------------------------------------
-Out:  [[10 11]] Section 'Added gradient tracking for model iteration 4' took 3.3229 seconds
-Total elapsed time: 83.3733 seconds
+Out:  [[10 11]] Section 'Added gradient tracking for model iteration 4' took 4.0595 seconds
+Total elapsed time: 84.7940 seconds
 ----------------------------------------
 Processing time step: 4
-Section 'Ran model forward for model iteration 4' took 1.1802 seconds
-Total elapsed time: 84.5536 seconds
+Section 'Ran model forward for model iteration 4' took 1.1846 seconds
+Total elapsed time: 85.9786 seconds
 ----------------------------------------
-Out:  [[12 13]] Section 'Added gradient tracking for model iteration 5' took 3.4473 seconds
-Total elapsed time: 88.0009 seconds
+Out:  [[12 13]] Section 'Added gradient tracking for model iteration 5' took 4.5354 seconds
+Total elapsed time: 90.5139 seconds
 ----------------------------------------
-Section 'Cleared gradients before backward pass' took 0.0280 seconds
-Total elapsed time: 88.0289 seconds
+Processing time step: 5
+Section 'Ran model forward for model iteration 5' took 1.1855 seconds
+Total elapsed time: 91.6994 seconds
 ----------------------------------------
-Section 'Backwards pass complete' took 19.6674 seconds
-Total elapsed time: 107.6963 seconds
+Out:  [[14 15]] Section 'Added gradient tracking for model iteration 6' took 3.8343 seconds
+Total elapsed time: 95.5337 seconds
 ----------------------------------------
-Section 'Gathered sensitivity for output box' took 0.0005 seconds
-Total elapsed time: 107.6968 seconds
+Processing time step: 6
+Section 'Ran model forward for model iteration 6' took 1.1790 seconds
+Total elapsed time: 96.7126 seconds
 ----------------------------------------
-Section 'Finished computing sensitivity matrix (includes backward pass)' took 0.0000 seconds
-Total elapsed time: 107.6968 seconds
+Out:  [[16 17]] Section 'Added gradient tracking for model iteration 7' took 3.6781 seconds
+Total elapsed time: 100.3907 seconds
 ----------------------------------------
-Section 'Finished computing chunked sensitivity' took 0.0195 seconds
-Total elapsed time: 107.7164 seconds
+Processing time step: 7
+Section 'Ran model forward for model iteration 7' took 1.1920 seconds
+Total elapsed time: 101.5828 seconds
 ----------------------------------------
-Computed sensitivity results: 5 output points
-Saved sensitivity tensor for chunk_sensitivity_chin[76]_chout[76]_t[0,10].npy to chunk_sensitivity_chin[76]_chout[76]_t[0,10].npy
-Saved sensitivity tensor for chunk_sensitivity_chin[76]_chout[76]_t[2,10].npy to chunk_sensitivity_chin[76]_chout[76]_t[2,10].npy
-Saved sensitivity tensor for chunk_sensitivity_chin[76]_chout[76]_t[4,10].npy to chunk_sensitivity_chin[76]_chout[76]_t[4,10].npy
-Saved sensitivity tensor for chunk_sensitivity_chin[76]_chout[76]_t[6,10].npy to chunk_sensitivity_chin[76]_chout[76]_t[6,10].npy
-Saved sensitivity tensor for chunk_sensitivity_chin[76]_chout[76]_t[8,10].npy to chunk_sensitivity_chin[76]_chout[76]_t[8,10].npy
-Section 'Finished saving sensitivity results' took 0.0411 seconds
-Total elapsed time: 107.7575 seconds
+Out:  [[18 19]] Section 'Added gradient tracking for model iteration 8' took 6.1258 seconds
+Total elapsed time: 107.7086 seconds
+----------------------------------------
+Processing time step: 8
+Section 'Ran model forward for model iteration 8' took 6.4861 seconds
+Total elapsed time: 114.1947 seconds
+----------------------------------------
+Out:  [[20 21]] Section 'Added gradient tracking for model iteration 9' took 4.6629 seconds
+Total elapsed time: 118.8576 seconds
+----------------------------------------
+Processing time step: 9
+Section 'Ran model forward for model iteration 9' took 1.1704 seconds
+Total elapsed time: 120.0280 seconds
+----------------------------------------
+Out:  [[22 23]] Section 'Added gradient tracking for model iteration 10' took 3.7517 seconds
+Total elapsed time: 123.7797 seconds
+----------------------------------------
+Processing time step: 10
+Section 'Ran model forward for model iteration 10' took 1.1647 seconds
+Total elapsed time: 124.9444 seconds
+----------------------------------------
+Out:  [[24 25]] Section 'Added gradient tracking for model iteration 11' took 4.3103 seconds
+Total elapsed time: 129.2546 seconds
+----------------------------------------
+Processing time step: 11
+Section 'Ran model forward for model iteration 11' took 1.1795 seconds
+Total elapsed time: 130.4342 seconds
+----------------------------------------
+Out:  [[26 27]] Section 'Added gradient tracking for model iteration 12' took 4.1232 seconds
+Total elapsed time: 134.5574 seconds
+----------------------------------------
+Processing time step: 12
+Section 'Ran model forward for model iteration 12' took 1.1686 seconds
+Total elapsed time: 135.7260 seconds
+----------------------------------------
+Out:  [[28 29]] Section 'Added gradient tracking for model iteration 13' took 3.7666 seconds
+Total elapsed time: 139.4926 seconds
+----------------------------------------
+Processing time step: 13
+Section 'Ran model forward for model iteration 13' took 1.4142 seconds
+Total elapsed time: 140.9068 seconds
+----------------------------------------
+Out:  [[30 31]] Section 'Added gradient tracking for model iteration 14' took 3.6096 seconds
+Total elapsed time: 144.5164 seconds
+----------------------------------------
+Processing time step: 14
+Section 'Ran model forward for model iteration 14' took 1.1786 seconds
+Total elapsed time: 145.6949 seconds
+----------------------------------------
+Out:  [[32 33]] Section 'Added gradient tracking for model iteration 15' took 3.2482 seconds
+Total elapsed time: 148.9431 seconds
+----------------------------------------
+Processing time step: 15
+Section 'Ran model forward for model iteration 15' took 1.1754 seconds
+Total elapsed time: 150.1185 seconds
+----------------------------------------
+Out:  [[34 35]] Section 'Added gradient tracking for model iteration 16' took 3.3462 seconds
+Total elapsed time: 153.4646 seconds
+----------------------------------------
+Processing time step: 16
+Section 'Ran model forward for model iteration 16' took 1.3780 seconds
+Total elapsed time: 154.8426 seconds
+----------------------------------------
+Out:  [[36 37]] Section 'Added gradient tracking for model iteration 17' took 3.3415 seconds
+Total elapsed time: 158.1841 seconds
+----------------------------------------
+Processing time step: 17
+Section 'Ran model forward for model iteration 17' took 1.1699 seconds
+Total elapsed time: 159.3540 seconds
+----------------------------------------
+Out:  [[38 39]] Section 'Added gradient tracking for model iteration 18' took 3.2267 seconds
+Total elapsed time: 162.5807 seconds
+----------------------------------------
+Processing time step: 18
+Section 'Ran model forward for model iteration 18' took 1.1712 seconds
+Total elapsed time: 163.7519 seconds
+----------------------------------------
+Out:  [[40 41]] Section 'Added gradient tracking for model iteration 19' took 3.3423 seconds
+Total elapsed time: 167.0942 seconds
+----------------------------------------
+Processing time step: 19
+Section 'Ran model forward for model iteration 19' took 1.5973 seconds
+Total elapsed time: 168.6915 seconds
+----------------------------------------
+Out:  [[42 43]] Section 'Added gradient tracking for model iteration 20' took 3.4103 seconds
+Total elapsed time: 172.1018 seconds
+----------------------------------------
+Processing time step: 20
+Section 'Ran model forward for model iteration 20' took 1.1706 seconds
+Total elapsed time: 173.2724 seconds
+----------------------------------------
+Out:  [[44 45]] Section 'Added gradient tracking for model iteration 21' took 3.3194 seconds
+Total elapsed time: 176.5918 seconds
+----------------------------------------
+Processing time step: 21
+Section 'Ran model forward for model iteration 21' took 1.1397 seconds
+Total elapsed time: 177.7315 seconds
+----------------------------------------
+Out:  [[46 47]] Section 'Added gradient tracking for model iteration 22' took 3.2241 seconds
+Total elapsed time: 180.9556 seconds
+----------------------------------------
+Processing time step: 22
+Section 'Ran model forward for model iteration 22' took 1.3864 seconds
+Total elapsed time: 182.3420 seconds
+----------------------------------------
+Out:  [[48 49]] Section 'Added gradient tracking for model iteration 23' took 3.3100 seconds
+Total elapsed time: 185.6520 seconds
+----------------------------------------
+Processing time step: 23
+Section 'Ran model forward for model iteration 23' took 1.1743 seconds
+Total elapsed time: 186.8263 seconds
+----------------------------------------
+Out:  [[50 51]] Section 'Added gradient tracking for model iteration 24' took 3.3550 seconds
+Total elapsed time: 190.1813 seconds
+----------------------------------------
+Processing time step: 24
+Section 'Ran model forward for model iteration 24' took 1.1701 seconds
+Total elapsed time: 191.3514 seconds
+----------------------------------------
+Out:  [[52 53]] Section 'Added gradient tracking for model iteration 25' took 3.3510 seconds
+Total elapsed time: 194.7025 seconds
+----------------------------------------
+Processing time step: 25
+Section 'Ran model forward for model iteration 25' took 1.1651 seconds
+Total elapsed time: 195.8675 seconds
+----------------------------------------
+Out:  [[54 55]] Section 'Added gradient tracking for model iteration 26' took 3.2412 seconds
+Total elapsed time: 199.1087 seconds
+----------------------------------------
+Processing time step: 26
+Section 'Ran model forward for model iteration 26' took 1.1674 seconds
+Total elapsed time: 200.2761 seconds
+----------------------------------------
+Out:  [[56 57]] Section 'Added gradient tracking for model iteration 27' took 3.5796 seconds
+Total elapsed time: 203.8557 seconds
+----------------------------------------
+Processing time step: 27
+Section 'Ran model forward for model iteration 27' took 1.1580 seconds
+Total elapsed time: 205.0136 seconds
+----------------------------------------
+Out:  [[58 59]] Section 'Added gradient tracking for model iteration 28' took 3.4526 seconds
+Total elapsed time: 208.4662 seconds
+----------------------------------------
+Processing time step: 28
+Section 'Ran model forward for model iteration 28' took 1.1762 seconds
+Total elapsed time: 209.6424 seconds
+----------------------------------------
+Out:  [[60 61]] Section 'Added gradient tracking for model iteration 29' took 3.5633 seconds
+Total elapsed time: 213.2057 seconds
+----------------------------------------
+Processing time step: 29
+Section 'Ran model forward for model iteration 29' took 1.1698 seconds
+Total elapsed time: 214.3755 seconds
+----------------------------------------
+Out:  [[62 63]] Section 'Added gradient tracking for model iteration 30' took 3.1356 seconds
+Total elapsed time: 217.5111 seconds
+----------------------------------------
+Processing time step: 30
+Section 'Ran model forward for model iteration 30' took 1.1683 seconds
+Total elapsed time: 218.6794 seconds
+----------------------------------------
+Out:  [[64 65]] Section 'Added gradient tracking for model iteration 31' took 3.4592 seconds
+Total elapsed time: 222.1386 seconds
+----------------------------------------
+Processing time step: 31
+Section 'Ran model forward for model iteration 31' took 1.1663 seconds
+Total elapsed time: 223.3049 seconds
+----------------------------------------
+Out:  [[66 67]] Section 'Added gradient tracking for model iteration 32' took 3.4663 seconds
+Total elapsed time: 226.7713 seconds
+----------------------------------------
+Processing time step: 32
+Section 'Ran model forward for model iteration 32' took 1.1879 seconds
+Total elapsed time: 227.9592 seconds
+----------------------------------------
+Out:  [[68 69]] Section 'Added gradient tracking for model iteration 33' took 3.3831 seconds
+Total elapsed time: 231.3422 seconds
+----------------------------------------
+Processing time step: 33
+Section 'Ran model forward for model iteration 33' took 1.1745 seconds
+Total elapsed time: 232.5167 seconds
+----------------------------------------
+Out:  [[70 71]] Section 'Added gradient tracking for model iteration 34' took 3.2466 seconds
+Total elapsed time: 235.7634 seconds
+----------------------------------------
+Processing time step: 34
+Section 'Ran model forward for model iteration 34' took 1.1734 seconds
+Total elapsed time: 236.9368 seconds
+----------------------------------------
+Out:  [[72 73]] Section 'Added gradient tracking for model iteration 35' took 3.2473 seconds
+Total elapsed time: 240.1841 seconds
+----------------------------------------
+Processing time step: 35
+Section 'Ran model forward for model iteration 35' took 1.5329 seconds
+Total elapsed time: 241.7169 seconds
+----------------------------------------
+Out:  [[74 75]] Section 'Added gradient tracking for model iteration 36' took 3.2744 seconds
+Total elapsed time: 244.9913 seconds
+----------------------------------------
+Section 'Cleared gradients before backward pass' took 0.2374 seconds
+Total elapsed time: 245.2287 seconds
+----------------------------------------
+Section 'Backwards pass complete' took 141.4387 seconds
+Total elapsed time: 386.6675 seconds
+----------------------------------------
+Section 'Gathered sensitivity for output box' took 0.0045 seconds
+Total elapsed time: 386.6719 seconds
+----------------------------------------
+Section 'Finished computing sensitivity matrix (includes backward pass)' took 0.0001 seconds
+Total elapsed time: 386.6720 seconds
+----------------------------------------
+Section 'Finished computing chunked sensitivity' took 0.0643 seconds
+Total elapsed time: 386.7363 seconds
+----------------------------------------
+Computed sensitivity results: 72 output points
+Saved sensitivity tensor for chunk_sensitivity_chin[76]_chout[76]_t[66,72].npy to chunk_sensitivity_chin[76]_chout[76]_t[66,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[153]_chout[76]_t[66,72].npy to chunk_sensitivity_chin[153]_chout[76]_t[66,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[154]_chout[76]_t[66,72].npy to chunk_sensitivity_chin[154]_chout[76]_t[66,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[155]_chout[76]_t[66,72].npy to chunk_sensitivity_chin[155]_chout[76]_t[66,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[156]_chout[76]_t[66,72].npy to chunk_sensitivity_chin[156]_chout[76]_t[66,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[157]_chout[76]_t[66,72].npy to chunk_sensitivity_chin[157]_chout[76]_t[66,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[76]_chout[76]_t[60,72].npy to chunk_sensitivity_chin[76]_chout[76]_t[60,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[153]_chout[76]_t[60,72].npy to chunk_sensitivity_chin[153]_chout[76]_t[60,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[154]_chout[76]_t[60,72].npy to chunk_sensitivity_chin[154]_chout[76]_t[60,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[155]_chout[76]_t[60,72].npy to chunk_sensitivity_chin[155]_chout[76]_t[60,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[156]_chout[76]_t[60,72].npy to chunk_sensitivity_chin[156]_chout[76]_t[60,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[157]_chout[76]_t[60,72].npy to chunk_sensitivity_chin[157]_chout[76]_t[60,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[76]_chout[76]_t[54,72].npy to chunk_sensitivity_chin[76]_chout[76]_t[54,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[153]_chout[76]_t[54,72].npy to chunk_sensitivity_chin[153]_chout[76]_t[54,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[154]_chout[76]_t[54,72].npy to chunk_sensitivity_chin[154]_chout[76]_t[54,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[155]_chout[76]_t[54,72].npy to chunk_sensitivity_chin[155]_chout[76]_t[54,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[156]_chout[76]_t[54,72].npy to chunk_sensitivity_chin[156]_chout[76]_t[54,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[157]_chout[76]_t[54,72].npy to chunk_sensitivity_chin[157]_chout[76]_t[54,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[76]_chout[76]_t[48,72].npy to chunk_sensitivity_chin[76]_chout[76]_t[48,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[153]_chout[76]_t[48,72].npy to chunk_sensitivity_chin[153]_chout[76]_t[48,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[154]_chout[76]_t[48,72].npy to chunk_sensitivity_chin[154]_chout[76]_t[48,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[155]_chout[76]_t[48,72].npy to chunk_sensitivity_chin[155]_chout[76]_t[48,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[156]_chout[76]_t[48,72].npy to chunk_sensitivity_chin[156]_chout[76]_t[48,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[157]_chout[76]_t[48,72].npy to chunk_sensitivity_chin[157]_chout[76]_t[48,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[76]_chout[76]_t[42,72].npy to chunk_sensitivity_chin[76]_chout[76]_t[42,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[153]_chout[76]_t[42,72].npy to chunk_sensitivity_chin[153]_chout[76]_t[42,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[154]_chout[76]_t[42,72].npy to chunk_sensitivity_chin[154]_chout[76]_t[42,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[155]_chout[76]_t[42,72].npy to chunk_sensitivity_chin[155]_chout[76]_t[42,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[156]_chout[76]_t[42,72].npy to chunk_sensitivity_chin[156]_chout[76]_t[42,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[157]_chout[76]_t[42,72].npy to chunk_sensitivity_chin[157]_chout[76]_t[42,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[76]_chout[76]_t[36,72].npy to chunk_sensitivity_chin[76]_chout[76]_t[36,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[153]_chout[76]_t[36,72].npy to chunk_sensitivity_chin[153]_chout[76]_t[36,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[154]_chout[76]_t[36,72].npy to chunk_sensitivity_chin[154]_chout[76]_t[36,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[155]_chout[76]_t[36,72].npy to chunk_sensitivity_chin[155]_chout[76]_t[36,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[156]_chout[76]_t[36,72].npy to chunk_sensitivity_chin[156]_chout[76]_t[36,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[157]_chout[76]_t[36,72].npy to chunk_sensitivity_chin[157]_chout[76]_t[36,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[76]_chout[76]_t[30,72].npy to chunk_sensitivity_chin[76]_chout[76]_t[30,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[153]_chout[76]_t[30,72].npy to chunk_sensitivity_chin[153]_chout[76]_t[30,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[154]_chout[76]_t[30,72].npy to chunk_sensitivity_chin[154]_chout[76]_t[30,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[155]_chout[76]_t[30,72].npy to chunk_sensitivity_chin[155]_chout[76]_t[30,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[156]_chout[76]_t[30,72].npy to chunk_sensitivity_chin[156]_chout[76]_t[30,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[157]_chout[76]_t[30,72].npy to chunk_sensitivity_chin[157]_chout[76]_t[30,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[76]_chout[76]_t[24,72].npy to chunk_sensitivity_chin[76]_chout[76]_t[24,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[153]_chout[76]_t[24,72].npy to chunk_sensitivity_chin[153]_chout[76]_t[24,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[154]_chout[76]_t[24,72].npy to chunk_sensitivity_chin[154]_chout[76]_t[24,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[155]_chout[76]_t[24,72].npy to chunk_sensitivity_chin[155]_chout[76]_t[24,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[156]_chout[76]_t[24,72].npy to chunk_sensitivity_chin[156]_chout[76]_t[24,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[157]_chout[76]_t[24,72].npy to chunk_sensitivity_chin[157]_chout[76]_t[24,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[76]_chout[76]_t[18,72].npy to chunk_sensitivity_chin[76]_chout[76]_t[18,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[153]_chout[76]_t[18,72].npy to chunk_sensitivity_chin[153]_chout[76]_t[18,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[154]_chout[76]_t[18,72].npy to chunk_sensitivity_chin[154]_chout[76]_t[18,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[155]_chout[76]_t[18,72].npy to chunk_sensitivity_chin[155]_chout[76]_t[18,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[156]_chout[76]_t[18,72].npy to chunk_sensitivity_chin[156]_chout[76]_t[18,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[157]_chout[76]_t[18,72].npy to chunk_sensitivity_chin[157]_chout[76]_t[18,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[76]_chout[76]_t[12,72].npy to chunk_sensitivity_chin[76]_chout[76]_t[12,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[153]_chout[76]_t[12,72].npy to chunk_sensitivity_chin[153]_chout[76]_t[12,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[154]_chout[76]_t[12,72].npy to chunk_sensitivity_chin[154]_chout[76]_t[12,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[155]_chout[76]_t[12,72].npy to chunk_sensitivity_chin[155]_chout[76]_t[12,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[156]_chout[76]_t[12,72].npy to chunk_sensitivity_chin[156]_chout[76]_t[12,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[157]_chout[76]_t[12,72].npy to chunk_sensitivity_chin[157]_chout[76]_t[12,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[76]_chout[76]_t[6,72].npy to chunk_sensitivity_chin[76]_chout[76]_t[6,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[153]_chout[76]_t[6,72].npy to chunk_sensitivity_chin[153]_chout[76]_t[6,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[154]_chout[76]_t[6,72].npy to chunk_sensitivity_chin[154]_chout[76]_t[6,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[155]_chout[76]_t[6,72].npy to chunk_sensitivity_chin[155]_chout[76]_t[6,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[156]_chout[76]_t[6,72].npy to chunk_sensitivity_chin[156]_chout[76]_t[6,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[157]_chout[76]_t[6,72].npy to chunk_sensitivity_chin[157]_chout[76]_t[6,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[76]_chout[76]_t[0,72].npy to chunk_sensitivity_chin[76]_chout[76]_t[0,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[153]_chout[76]_t[0,72].npy to chunk_sensitivity_chin[153]_chout[76]_t[0,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[154]_chout[76]_t[0,72].npy to chunk_sensitivity_chin[154]_chout[76]_t[0,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[155]_chout[76]_t[0,72].npy to chunk_sensitivity_chin[155]_chout[76]_t[0,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[156]_chout[76]_t[0,72].npy to chunk_sensitivity_chin[156]_chout[76]_t[0,72].npy
+Saved sensitivity tensor for chunk_sensitivity_chin[157]_chout[76]_t[0,72].npy to chunk_sensitivity_chin[157]_chout[76]_t[0,72].npy
+Section 'Finished saving sensitivity results' took 0.4339 seconds
+Total elapsed time: 387.1703 seconds
 ----------------------------------------
 ============================================
     Chunked Sensitivity Analysis Done       
 ============================================
-Finished Samudra model run at Tue Apr 29 08:30:08 PDT 2025
+Finished Samudra model run at Thu May  1 11:55:53 PDT 2025
 
 ____________________________________________________________________
-Job Resource Usage Summary for 22127547.pbspl1.nas.nasa.gov
+Job Resource Usage Summary for 22148503.pbspl1.nas.nasa.gov
 
-    CPU Time Used            : 00:34:40
-    Real Memory Used         : 2619704kb
-    Walltime Used            : 00:04:33
+    CPU Time Used            : 04:00:25
+    Real Memory Used         : 12174552kb
+    Walltime Used            : 00:08:26
     Exit Status              : 0
 
     Number of CPUs Requested : 40
@@ -118,5 +436,5 @@ Job Resource Usage Summary for 22127547.pbspl1.nas.nasa.gov
     Execution Queue          : R21940709
     Charged To               : g26113
 
-    Job Stopped              : Tue Apr 29 08:30:12 2025
+    Job Stopped              : Thu May  1 11:55:59 2025
 ____________________________________________________________________
