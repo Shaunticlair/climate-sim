@@ -113,8 +113,8 @@ def plot_sensitivity_monthly(t_months, t_end, map_dims, output_pixel, var_in, va
     y_pos = np.arange(sample_sensitivity.shape[0])
     
     # Calculate tick positions and labels
-    xticks = 20
-    yticks = 20
+    xticks = 5
+    yticks = 5
     
     x_tick_pos = x_pos[::xticks]
     x_tick_labs = col_indices[::xticks]
@@ -240,18 +240,22 @@ if __name__ == "__main__":
         }
     
     # Choose variables to plot
+
+    vars_in = ['hfds', 'hfds_anomalies', 'zos(even)', 'tauuo', 'tauvo']
     #var_in = 'hfds'  # Input variable
     #var_in = 'hfds_anomalies'  # Input variable
     #var_in = 'zos(even)'
     #var_in = 'tauuo'  # Input variable
-    var_in = 'tauvo'  # Input variable
+    #var_in = 'tauvo'  # Input variable
     var_out = 'zos(even)'  # Output variable
     
-    # Get channel numbers from dictionary
-    ch_in = var_dict[var_in]
-    ch_out = var_dict[var_out]
-    folder = 'adjoint_arrays/North_Atlantic'#'
+    for var_in in vars_in:
+        
+        # Get channel numbers from dictionary
+        ch_in = var_dict[var_in]
+        ch_out = var_dict[var_out]
+        folder = 'adjoint_arrays/North_Atlantic'#'
 
-    # Create the monthly sensitivity grid plot
-    plot_sensitivity_monthly(t_months, t_end, map_dims, output_pixel, 
-                           var_in, var_out, ch_in, ch_out, folder=folder)
+        # Create the monthly sensitivity grid plot
+        plot_sensitivity_monthly(t_months, t_end, map_dims, output_pixel, 
+                            var_in, var_out, ch_in, ch_out, folder=folder)
