@@ -113,8 +113,8 @@ def plot_sensitivity_monthly(t_months, t_end, map_dims, output_pixel, var_in, va
     y_pos = np.arange(sample_sensitivity.shape[0])
     
     # Calculate tick positions and labels
-    xticks = 5
-    yticks = 5
+    xticks = 20 #5
+    yticks = 20 #5
     
     x_tick_pos = x_pos[::xticks]
     x_tick_labs = col_indices[::xticks]
@@ -217,14 +217,14 @@ if __name__ == "__main__":
     t_end = 72  # End time (approx. a year)
     t_months = [t_end - 6*i for i in range(1, 13)]  # 12 months back
     
-    x_out, y_out = 126, 324  # North Atlantic
-    #x_out, y_out = 90,180   # Equatorial Pacific
+    #x_out, y_out = 126, 324  # North Atlantic
+    x_out, y_out = 90,180   # Equatorial Pacific
     # Define output pixel (center of interest)
     output_pixel = (x_out,y_out)  # Center coordinates (lat, lon)
     
     # Define map dimensions - adjust as needed
-    delta = 20
-    map_dims = [x_out-delta , x_out+delta, y_out-delta , y_out+delta ]  # [xmin, xmax, ymin, ymax]
+    delta = 50
+    map_dims = [x_out-delta+20 , x_out+delta-20, y_out-delta , y_out+delta ]  # [xmin, xmax, ymin, ymax]
     #map_dims = [0, 180, 0, 360]  # Global view for now
     # Import variable dictionary from misc if it exists
     try:
@@ -254,7 +254,7 @@ if __name__ == "__main__":
         # Get channel numbers from dictionary
         ch_in = var_dict[var_in]
         ch_out = var_dict[var_out]
-        folder = 'adjoint_arrays/North_Atlantic'#'
+        folder = '.' #'adjoint_arrays/North_Atlantic'#'
 
         # Create the monthly sensitivity grid plot
         plot_sensitivity_monthly(t_months, t_end, map_dims, output_pixel, 

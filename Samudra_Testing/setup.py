@@ -500,19 +500,19 @@ def load_data_for_correlation_analysis(reference_point=(90, 180),
     
     return result
 
-print("Loading correlation data as a test")
+#print("Loading correlation data as a test")
 # Load data for the first time
-output_list_str = []
-data, wet, data_mean, data_std = load_data_raw( #If this is the first time, we load data from end of training
-        2850-600, # 600 timesteps before the end of training data
-        2850+2, # This is the last time step in the training data
-        output_list_str,
-        suffix="_analysis",
-        hist=1
-    )
+#output_list_str = []
+#data, wet, data_mean, data_std = load_data_raw( #If this is the first time, we load data from end of training
+#        2850-600, # 600 timesteps before the end of training data
+#        2850+2, # This is the last time step in the training data
+#        output_list_str,
+#        suffix="_analysis",
+#        hist=1
+#    )
 
-print(data)
-print("Done")
+#print(data)
+#print("Done")
 
 
 def compute_cell_thickness(depth_levels):

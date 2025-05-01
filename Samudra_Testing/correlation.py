@@ -5,7 +5,7 @@ import scipy.stats as stats
 
 def compare_sensitivities(adjoint_path, perturb_path, map_dims, t0, t1, 
                           output_pixel, output_var, input_var,
-                          scatter_kwargs=None, correlation_kwargs=None):
+                          scatter_kwargs=None, correlation_kwargs=None, step_size=''):
     """
     Compare adjoint and perturbation sensitivities for the same region.
     
@@ -214,7 +214,7 @@ def compare_sensitivities(adjoint_path, perturb_path, map_dims, t0, t1,
     # Create Plots directory if it doesn't exist
     Path("Plots").mkdir(exist_ok=True)
     
-    name = f'Plots/comparison_{view_name}_chin[{input_var}]_chout[{output_var}]_t[{t0},{t1}].png'
+    name = f'Plots/comparison_{view_name}_chin[{input_var}]_chout[{output_var}]_t[{t0},{t1}]{step_size}.png'
     print(f"Saving comparison plot to: {name}")
     plt.savefig(name, dpi=300, bbox_inches='tight')
     plt.close()
@@ -233,7 +233,7 @@ if __name__ == "__main__":
     t_end = 10
     
     # Time points to analyze
-    initial_times = [0]
+    initial_times = [0,2,4,6,8]
     
     # Variables
     ch_in, ch_out = 76, 76
@@ -252,8 +252,13 @@ if __name__ == "__main__":
         in_time, out_time = initial_time, t_end
         
         # Construct file paths
+        adjoint_folder = 'adjoint_arrays/Equatorial_Pacific/'
         adjoint_path = f'chunk_sensitivity_chin[{ch_in}]_chout[{ch_out}]_t[{in_time},{out_time}].npy'
-        perturb_path = f'perturbation_grid_chin[{ch_in}]_chout[{ch_out}]_t[{in_time},{out_time}].npy'
+        adjoint_path = Path(adjoint_folder) / adjoint_path
+        step_size = '_1e-2' # 
+        perturb_folder = f'perturbation_arrays/Short_Time{step_size}/'
+        perturb_path = f'perturbation_grid_chin[{ch_in}]_chout[{ch_out}]_t[{in_time},{out_time}]{step_size}.npy'
+        perturb_path = Path(perturb_folder) / perturb_path
         
         # Check if both files exist
         if Path(adjoint_path).exists() and Path(perturb_path).exists():
@@ -263,7 +268,8 @@ if __name__ == "__main__":
                 adjoint_path, perturb_path, map_dims, in_time, out_time,
                 output_pixel, var_out, var_in,
                 scatter_kwargs={'s': 15, 'alpha': 0.7, 'c': 'blue'},
-                correlation_kwargs={'method': 'pearson'}
+                correlation_kwargs={'method': 'pearson'},
+                step_size=step_size
             )
             
             results.append(result)
