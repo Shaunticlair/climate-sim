@@ -25,7 +25,6 @@ timer = setup.Timer()
 
 #t=0 is the start of 2014
 # We want t_end to be December 2015
-t_start = 0 
 # 699 days between January 2014 and December 2015: 700/5=140
 #t_end = 146
 #t_2year =   0 # A little less than 2 years from t_end
@@ -33,20 +32,34 @@ t_start = 0
 #t_6months = t_end - 36 # 6 months back from t_end
 #t_1month =  t_end - 6 # 1 month back from t_end
 
-t_end = 10#72 # Approximately a year (73 might be more accurate, but doesn't divide into 12 months nicely)
+t_start = 0 
+t_end = 72 # Approximately a year (73 might be more accurate, but doesn't divide into 12 months nicely)
+
 t_months = [t_end - 6*i for i in range(1,13)]  # Months in a year
-print("Months in a year:", t_months)
-#73 is one year
+in_times = t_months #[0,2,4,6,8]# #[t_2year, t_1year, t_6months, t_1month] #[0] # Times to compute sensitivity wrt to
+
+# (126, 324) is the point in the middle of the North Atlantic Ocean
+final_lat = 126
+final_lon = 324
+initial_channels = [76,153,154,155,156,157]  #[76]  # Channels to compute sensitivity for
+final_channel = 76
 
 # Define regions of interest in the ocean: latitude and longitude indices
 lat_slice = slice(0,180) #slice(106,156)  # A chunk around latitude 90
 lon_slice = slice(0,360) #slice(264,314)  # A chunk around longitude 180
 
+
+
 # Define the final latitude and longitude for the output: the coords we want to study the sensitivity wrt to
+# (131, 289) is the point near Nantucket
 # final_lat = 131
 # final_lon = 289
-final_lat = 90
-final_lon = 180
+# (90, 180) is the point at the Equatorial Pacific Ocean
+#final_lat = 90
+#final_lon = 180
+
+
+
 final_lat_slice = slice(final_lat, final_lat+1)#slice(131, 133)
 final_lon_slice = slice(final_lon, final_lon+1)#slice(289, 291)  # Nantucket 2x2
 
@@ -61,11 +74,9 @@ boundary_vars_config = "3D_all_hfds_anom"
 # Channel to study (0 is the first channel which is temperature at 2.5m depth)
 batch = 0
 batch_slice = slice(batch, batch+1)
-initial_channels = [76]#[76,153,154,155,156,157]  #[76]  # Channels to compute sensitivity for
-final_channel = 76
 
 
-in_times = [0,2,4,6,8]#t_months #[t_2year, t_1year, t_6months, t_1month] #[0] # Times to compute sensitivity wrt to
+
 
 ### SETUP STAGE ###
 

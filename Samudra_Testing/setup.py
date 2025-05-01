@@ -75,6 +75,7 @@ DEPTH_LEVELS = ['2_5', '10_0', '22_5', '40_0', '65_0', '105_0', '165_0',
                 '1850_0', '2400_0', '3100_0', '4000_0', '5000_0', '6000_0']
 
 
+
 VARS = {
     "3D_thermo_dynamic_all": ['uo', 'vo', 'thetao', 'so', 'zos'],
     "3D_thermo_all": ['thetao', 'so', 'zos'],
@@ -499,7 +500,7 @@ def load_data_for_correlation_analysis(reference_point=(90, 180),
     
     return result
 
-print("Running...")
+print("Loading correlation data as a test")
 # Load data for the first time
 output_list_str = []
 data, wet, data_mean, data_std = load_data_raw( #If this is the first time, we load data from end of training
@@ -510,3 +511,75 @@ data, wet, data_mean, data_std = load_data_raw( #If this is the first time, we l
         hist=1
     )
 print("Done")
+
+
+def compute_cell_thickness(depth_levels):
+    """
+    Compute the thickness of each ocean cell based on the center depths.
+    
+    Parameters:
+    -----------
+    depth_levels : list of str
+        List of depth level strings like '2_5', '10_0', etc.
+    
+    Returns:
+    --------
+    dict
+        Dictionary mapping each depth level to its thickness in meters
+    """
+    # Convert depth level strings to float values
+    depths = [float(level.replace('_', '.')) for level in depth_levels]
+    depths.sort()  # Ensure depths are in ascending order
+    
+    # Initialize thickness dictionary
+    thickness = {}
+    
+    # Special case for the first (shallowest) layer
+    # Assuming thickness extends from surface to midpoint between first and second depth
+    if len(depths) > 1:
+        thickness[str(depths[0]).replace('.', '_')] = (depths[0] + (depths[1] - depths[0]) / 2)
+    else:
+        thickness[str(depths[0]).replace('.', '_')] = depths[0] * 2  # Arbitrary if only one depth
+    
+    # Calculate thickness for middle layers
+    # Each cell extends from midpoint between previous depth to midpoint between next depth
+    for i in range(1, len(depths) - 1):
+        half_dist_prev = (depths[i] - depths[i-1]) / 2
+        half_dist_next = (depths[i+1] - depths[i]) / 2
+        thickness[str(depths[i]).replace('.', '_')] = half_dist_prev + half_dist_next
+    
+    # Special case for the last (deepest) layer
+    # Assuming thickness extends from midpoint between last two depths to twice the distance to the bottom
+    if len(depths) > 1:
+        last_idx = len(depths) - 1
+        half_dist_prev = (depths[last_idx] - depths[last_idx-1]) / 2
+        # For the deepest layer, we assume it extends as far below as the half-distance to the
+        # previous level (this is a common approximation)
+        thickness[str(depths[last_idx]).replace('.', '_')] = half_dist_prev * 2
+    
+    return thickness
+
+# Loop the depth levels thickness
+#thickness_values = compute_cell_thickness(DEPTH_LEVELS)
+#print(thickness_values)
+
+# cell_area  =  cell_area * wetmask
+
+### For 3D, we need to compute the thickness of each cell 
+# Get initial volume
+# cell_vol = thickness * cell area 
+# Sum over all cells to get total volume
+# total_vol = sum(cell_vol.values())
+# Normalize
+# cell_norm_vol = cell_vol / total_vol
+
+### For 2D, it's simpler:
+# cell_area / sum(cell_area)
+# Multiply each square difference by its corresponding weighting 
+
+# We need to loop the volume compute over the depth levels for the channel var
+# That way, we can get the depth levels for each variable
+# Then the 2D versions
+# Then we loop through again for the second timestep
+
+# Goal: create a loss_fn that is just MSE but with the weights applied
