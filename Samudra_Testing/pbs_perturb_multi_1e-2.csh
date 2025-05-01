@@ -2,7 +2,7 @@
 #PBS -S /bin/csh
 #PBS -q R21940709
 #PBS -l select=6:ncpus=40:model=sky_ele
-#PBS -l walltime=12:00:00
+#PBS -l walltime=2:00:00
 #PBS -j oe
 #PBS -m bea
 #PBS -J 1-6
