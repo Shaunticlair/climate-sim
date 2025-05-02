@@ -448,8 +448,8 @@ def load_data_for_correlation_analysis(reference_point=(90, 180),
     print(data_std)
     # The data is already normalized when loaded through load_data_raw
     # However, we need to use mean and std for potential future use
-    reference_mean = data_mean[ref_var_name].sel(y=ref_lat, x=ref_lon, method='nearest')
-    reference_std = data_std[ref_var_name].sel(y=ref_lat, x=ref_lon, method='nearest')
+    reference_mean = data_mean[ref_var_name]
+    reference_std = data_std[ref_var_name]
     
     # Store reference data
     reference_data['raw'] = reference_raw.compute()
@@ -475,8 +475,8 @@ def load_data_for_correlation_analysis(reference_point=(90, 180),
         field_raw = data[field_var_name].sel(y=lat_slice, x=lon_slice)
         
         # Get mean and std for reference
-        field_mean = data_mean[field_var_name].sel(y=lat_slice, x=lon_slice)
-        field_std = data_std[field_var_name].sel(y=lat_slice, x=lon_slice)
+        field_mean = data_mean[field_var_name]
+        field_std = data_std[field_var_name]
         
         # Store field data
         field_data[field_var]['raw'] = field_raw.compute()
