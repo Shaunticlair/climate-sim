@@ -5,7 +5,6 @@ from pathlib import Path
 
 # Add the Samudra package to the path if needed
 path = "/path/to/samudra"  # Replace with your actual path
-path = "/nobackup/sruiz5/SAMUDRATEST/Samudra/samudra/"
 sys.path.append(path)
 
 # Define the variables we want to analyze (all state variables, not forcings)
@@ -53,12 +52,8 @@ def analyze_state_vars(config="3D_thermo_dynamic_all"):
             var_data = data[var]
             
             # Get stored mean and std
-            stored_mean = float(data_mean[var].values.flatten()[0])
-            stored_std = float(data_std[var].values.flatten()[0])
-            
-            # Manually compute mean and std for verification
-            computed_mean = float(var_data.mean().values)
-            computed_std = float(var_data.std().values)
+            mean = float(data_mean[var].values.flatten()[0])
+            std = float(data_std[var].values.flatten()[0])
             
             # Get unnormalized min and max
             raw_min = float(var_data.min().values)
@@ -78,12 +73,8 @@ def analyze_state_vars(config="3D_thermo_dynamic_all"):
                 'raw_max': raw_max,
                 'norm_min': norm_min,
                 'norm_max': norm_max,
-                'stored_mean': stored_mean,
-                'stored_std': stored_std,
-                'computed_mean': computed_mean,
-                'computed_std': computed_std,
-                'mean_diff': abs(stored_mean - computed_mean),
-                'std_diff': abs(stored_std - computed_std)
+                'mean': mean,
+                'std': std
             })
             
         except Exception as e:
@@ -91,8 +82,8 @@ def analyze_state_vars(config="3D_thermo_dynamic_all"):
     
     # Print results
     print("\n=== RESULTS FOR STATE VARIABLES ===")
-    print(f"{'Variable':<20} {'Raw Min':>10} {'Raw Max':>10} {'Norm Min':>10} {'Norm Max':>10} {'Stored Mean':>12} {'Comp. Mean':>12} {'Mean Diff':>10} {'Stored Std':>12} {'Comp. Std':>12} {'Std Diff':>10}")
-    print("="*132)
+    print(f"{'Variable':<20} {'Raw Min':>10} {'Raw Max':>10} {'Norm Min':>10} {'Norm Max':>10} {'Mean':>12} {'Std':>12}")
+    print("="*84)
     
     all_norm_mins = []
     all_norm_maxes = []
@@ -100,8 +91,7 @@ def analyze_state_vars(config="3D_thermo_dynamic_all"):
     for result in results:
         print(f"{result['variable']:<20} {result['raw_min']:>10.4f} {result['raw_max']:>10.4f} "
               f"{result['norm_min']:>10.4f} {result['norm_max']:>10.4f} "
-              f"{result['stored_mean']:>12.4f} {result['computed_mean']:>12.4f} {result['mean_diff']:>10.4e} "
-              f"{result['stored_std']:>12.4f} {result['computed_std']:>12.4f} {result['std_diff']:>10.4e}")
+              f"{result['mean']:>12.4f} {result['std']:>12.4f}")
         
         all_norm_mins.append(result['norm_min'])
         all_norm_maxes.append(result['norm_max'])
