@@ -5,7 +5,6 @@ from pathlib import Path
 
 # Add the Samudra package to the path if needed
 path = "/path/to/samudra"  # Replace with your actual path
-path = "/nobackup/sruiz5/SAMUDRATEST/Samudra/samudra/"
 sys.path.append(path)
 
 # Define the variables we want to analyze (all state variables, not forcings)
@@ -13,21 +12,25 @@ DEPTH_LEVELS = ['2_5', '10_0', '22_5', '40_0', '65_0', '105_0', '165_0',
                 '250_0', '375_0', '550_0', '775_0', '1050_0', '1400_0', 
                 '1850_0', '2400_0', '3100_0', '4000_0', '5000_0', '6000_0']
 
-# Define state variables (not forcings)
-state_vars = []
-# Temperature and salinity
-for prefix in ["thetao_lev_", "so_lev_"]:
-    for level in DEPTH_LEVELS:
-        state_vars.append(f"{prefix}{level}")
-# Velocity fields
-for prefix in ["uo_lev_", "vo_lev_"]:
-    for level in DEPTH_LEVELS:
-        state_vars.append(f"{prefix}{level}")
-# Surface height
-state_vars.append("zos")
+# Define input state variables (not forcings)
+STATE_VARS_CONFIG = {
+    "3D_thermo_dynamic_all": [
+        k + str(j)
+        for k in ["uo_lev_", "vo_lev_", "thetao_lev_", "so_lev_"]
+        for j in DEPTH_LEVELS
+    ] + ["zos"],
+    "3D_thermo_all": [
+        k + str(j)
+        for k in ["thetao_lev_", "so_lev_"]
+        for j in DEPTH_LEVELS
+    ] + ["zos"]
+}
 
-def analyze_normalized_state_vars():
+def analyze_state_vars(config="3D_thermo_dynamic_all"):
     print("Loading data...")
+    
+    # Use the state variables from the specified configuration
+    state_vars = STATE_VARS_CONFIG[config]
     
     # Load data - replace these paths with your actual paths
     data_file = "./data.zarr"
@@ -38,45 +41,79 @@ def analyze_normalized_state_vars():
     data_mean = xr.open_zarr(data_mean_file)
     data_std = xr.open_zarr(data_std_file)
     
-    # Initialize min/max values
-    all_mins = []
-    all_maxes = []
+    # Initialize result containers
+    results = []
     
-    print(f"Analyzing {len(state_vars)} state variables...")
+    print(f"Analyzing {len(state_vars)} state variables using {config} configuration...")
     
     for var in state_vars:
         try:
-            # Skip if variable doesn't exist
-            if var not in data:
-                print(f"Skipping {var} - not found in dataset")
-                continue
-                
-            # Normalize: (data - mean) / std
-            normalized = (data[var] - data_mean[var]) / data_std[var]
+            # Get raw (unnormalized) data
+            var_data = data[var]
             
-            # Get min and max, skip NaN values
-            var_min = normalized.min().values.item()
-            var_max = normalized.max().values.item()
+            # Get stored mean and std
+            stored_mean = float(data_mean[var].values.flatten()[0])
+            stored_std = float(data_std[var].values.flatten()[0])
             
-            # Add to lists
-            if not np.isnan(var_min) and not np.isnan(var_max):
-                all_mins.append(var_min)
-                all_maxes.append(var_max)
-                
-            print(f"{var}: min={var_min:.4f}, max={var_max:.4f}")
+            # Manually compute mean and std for verification
+            computed_mean = float(var_data.mean().values)
+            computed_std = float(var_data.std().values)
+            
+            # Get unnormalized min and max
+            raw_min = float(var_data.min().values)
+            raw_max = float(var_data.max().values)
+            
+            # Normalize data
+            normalized = ((var_data - data_mean[var]) / data_std[var]).fillna(0)
+            
+            # Get normalized min and max
+            norm_min = float(normalized.min().values)
+            norm_max = float(normalized.max().values)
+            
+            # Store results
+            results.append({
+                'variable': var,
+                'raw_min': raw_min,
+                'raw_max': raw_max,
+                'norm_min': norm_min,
+                'norm_max': norm_max,
+                'stored_mean': stored_mean,
+                'stored_std': stored_std,
+                'computed_mean': computed_mean,
+                'computed_std': computed_std,
+                'mean_diff': abs(stored_mean - computed_mean),
+                'std_diff': abs(stored_std - computed_std)
+            })
             
         except Exception as e:
             print(f"Error processing {var}: {e}")
     
+    # Print results
+    print("\n=== RESULTS FOR STATE VARIABLES ===")
+    print(f"{'Variable':<20} {'Raw Min':>10} {'Raw Max':>10} {'Norm Min':>10} {'Norm Max':>10} {'Stored Mean':>12} {'Comp. Mean':>12} {'Mean Diff':>10} {'Stored Std':>12} {'Comp. Std':>12} {'Std Diff':>10}")
+    print("="*132)
+    
+    all_norm_mins = []
+    all_norm_maxes = []
+    
+    for result in results:
+        print(f"{result['variable']:<20} {result['raw_min']:>10.4f} {result['raw_max']:>10.4f} "
+              f"{result['norm_min']:>10.4f} {result['norm_max']:>10.4f} "
+              f"{result['stored_mean']:>12.4f} {result['computed_mean']:>12.4f} {result['mean_diff']:>10.4e} "
+              f"{result['stored_std']:>12.4f} {result['computed_std']:>12.4f} {result['std_diff']:>10.4e}")
+        
+        all_norm_mins.append(result['norm_min'])
+        all_norm_maxes.append(result['norm_max'])
+    
     # Print overall min and max
-    overall_min = min(all_mins)
-    overall_max = max(all_maxes)
+    overall_norm_min = min(all_norm_mins)
+    overall_norm_max = max(all_norm_maxes)
     
     print("\n=== SUMMARY ===")
-    print(f"Overall min across all normalized state variables: {overall_min:.4f}")
-    print(f"Overall max across all normalized state variables: {overall_max:.4f}")
+    print(f"Overall normalized min across all state variables: {overall_norm_min:.4f}")
+    print(f"Overall normalized max across all state variables: {overall_norm_max:.4f}")
     
-    return overall_min, overall_max
+    return results
 
 if __name__ == "__main__":
-    analyze_normalized_state_vars()
+    analyze_state_vars()
