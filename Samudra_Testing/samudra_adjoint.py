@@ -131,11 +131,6 @@ in_chunks_dict = {
     for t in in_times
 }
 
-# Define output indices to compute sensitivity for
-#out_indices_dict = {t_end: [(0, final_channel, final_lat, final_lon)]}
-#print(f"Final point for sensitivity: {out_indices_dict}")
-
-
 out_boxes_dict = {
     t_end: [(slice(0,1), slice(final_channel, final_channel+1),
               final_lat_slice, final_lon_slice)]
@@ -180,8 +175,6 @@ def save_sensitivity_results(in_chunks_dict, out_boxes_dict, sensitivity_results
                         print(f"Saved sensitivity tensor for {filename} to {filename}")
                     else:
                         print(f"No sensitivity data for index {index}")
-
-
 
 timer.checkpoint("Setup complete")
 

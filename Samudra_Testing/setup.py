@@ -18,6 +18,59 @@ import utils
 import data_loaders
 from einops import rearrange
 
+### Constants and configurations
+
+# Depth levels
+DEPTH_LEVELS = ['2_5', '10_0', '22_5', '40_0', '65_0', '105_0', '165_0', 
+                '250_0', '375_0', '550_0', '775_0', '1050_0', '1400_0', 
+                '1850_0', '2400_0', '3100_0', '4000_0', '5000_0', '6000_0']
+
+VARS = {
+    "3D_thermo_dynamic_all": ['uo', 'vo', 'thetao', 'so', 'zos'],
+    "3D_thermo_all": ['thetao', 'so', 'zos'],
+}
+# Define input and output variables
+INPUT_VARS_LEV = {
+    "3D_thermo_dynamic_all": [
+        k + str(j)
+        for k in ["uo_lev_", "vo_lev_", "thetao_lev_", "so_lev_"]
+        for j in DEPTH_LEVELS
+    ] + ["zos"],
+    "3D_thermo_all": [
+        k + str(j)
+        for k in ["thetao_lev_", "so_lev_"]
+        for j in DEPTH_LEVELS
+    ] + ["zos"]
+}
+
+BOUNDARY_VARS = {
+    "3D_all_hfds_anom": ["tauuo", "tauvo", "hfds", "hfds_anomalies"]
+}
+
+OUTPUT_VARS_LEV = {
+    "3D_thermo_dynamic_all": [
+        k + str(j)
+        for k in ["uo_lev_", "vo_lev_", "thetao_lev_", "so_lev_"]
+        for j in DEPTH_LEVELS
+    ] + ["zos"],
+    "3D_thermo_all": [
+        k + str(j)
+        for k in ["thetao_lev_", "so_lev_"]
+        for j in DEPTH_LEVELS
+    ] + ["zos"]
+}
+
+MODEL_PATHS = {
+    "3D_thermo_dynamic_all": "samudra_thermo_dynamic_seed1.pt",
+    "3D_thermo_all": "samudra_thermo_seed1.pt",
+}
+
+N_samples = 2850  # Used for train
+N_val = 50        # Used for validation
+N_test = 600       # Number of time steps to use for testing
+
+### Setup functions
+
 class Timer:
     """Used for time-tracking."""
     def __init__(self):
@@ -37,7 +90,6 @@ class NullTimer(Timer):
     """Used for time-tracking."""
     def checkpoint(self, section_name):
         pass
-
 
 def torch_config_cuda_cpu_seed():
     """
@@ -68,52 +120,6 @@ def torch_config_cuda_cpu_seed():
     np.random.seed(42)
 
     return device
-
-# Depth levels
-DEPTH_LEVELS = ['2_5', '10_0', '22_5', '40_0', '65_0', '105_0', '165_0', 
-                '250_0', '375_0', '550_0', '775_0', '1050_0', '1400_0', 
-                '1850_0', '2400_0', '3100_0', '4000_0', '5000_0', '6000_0']
-
-
-
-VARS = {
-    "3D_thermo_dynamic_all": ['uo', 'vo', 'thetao', 'so', 'zos'],
-    "3D_thermo_all": ['thetao', 'so', 'zos'],
-}
-# Define input and output variables
-INPUT_VARS_LEV = {
-    "3D_thermo_dynamic_all": [
-        k + str(j)
-        for k in ["uo_lev_", "vo_lev_", "thetao_lev_", "so_lev_"]
-        for j in DEPTH_LEVELS
-    ] + ["zos"],
-    "3D_thermo_all": [
-        k + str(j)
-        for k in ["thetao_lev_", "so_lev_"]
-        for j in DEPTH_LEVELS
-    ] + ["zos"]
-}
-
-BOUNDARY_VARS = {
-    "3D_all_hfds_anom": ["tauuo", "tauvo", "hfds", "hfds_anomalies"]
-}
-OUTPUT_VARS_LEV = {
-    "3D_thermo_dynamic_all": [
-        k + str(j)
-        for k in ["uo_lev_", "vo_lev_", "thetao_lev_", "so_lev_"]
-        for j in DEPTH_LEVELS
-    ] + ["zos"],
-    "3D_thermo_all": [
-        k + str(j)
-        for k in ["thetao_lev_", "so_lev_"]
-        for j in DEPTH_LEVELS
-    ] + ["zos"]
-}
-
-MODEL_PATHS = {
-    "3D_thermo_dynamic_all": "samudra_thermo_dynamic_seed1.pt",
-    "3D_thermo_all": "samudra_thermo_seed1.pt",
-}
 
 def choose_model(state_in_vars_config="3D_thermo_dynamic_all", boundary_vars_config="3D_all_hfds_anom",
                  hist=1):
@@ -175,9 +181,6 @@ def choose_model(state_in_vars_config="3D_thermo_dynamic_all", boundary_vars_con
 
     return list_list_str, list_num_channels
 
-N_samples = 2850  # Used for train
-N_val = 50        # Used for validation
-N_test = 600       # Number of time steps to use for testing
 def compute_indices(hist, N_samples=2850, N_val=50, N_test=600):
     s_train = hist
     e_train = s_train + N_samples
@@ -307,43 +310,7 @@ def load_weights(model, state_out_vars_config,
     return model
 
 
-# ## Data 
-# The data is available from 1975 to the 2022, at 5-day temporal resolution. The variables in the data is arranged in the following format:
-# 
-# THIS ORDERING IS WRONG :(
-# ```
-# thetao_lev_2_5
-# thetao_lev_10_0
-# thetao_lev_22_5
-# ...
-# thetao_lev_6000_0
-# 
-# so_lev_2_5
-# so_lev_10_0
-# so_lev_22_5
-# ...
-# so_lev_6000_0
-# 
-# uo_lev_2_5
-# uo_lev_10_0
-# uo_lev_22_5
-# ...
-# uo_lev_6000_0
-# 
-# vo_lev_2_5
-# vo_lev_10_0
-# vo_lev_22_5
-# ...
-# vo_lev_6000_0
-# 
-# zos
-# 
-# hfds
-# hfds_anomalies
-# tauuo
-# tauvo
-# ```
-
+### This section is used to compute spatial correlations between a reference variable and field variables
 
 def load_data_for_correlation_analysis(reference_point=(90, 180), 
                                        spatial_slice=(slice(50, 130), slice(110, 250)),
@@ -512,20 +479,7 @@ def load_data_for_correlation_analysis(reference_point=(90, 180),
     
     return result
 
-#print("Loading correlation data as a test")
-# Load data for the first time
-#output_list_str = []
-#data, wet, data_mean, data_std = load_data_raw( #If this is the first time, we load data from end of training
-#        2850-600, # 600 timesteps before the end of training data
-#        2850+2, # This is the last time step in the training data
-#        output_list_str,
-#        suffix="_analysis",
-#        hist=1
-#    )
-
-#print(data)
-#print("Done")
-
+### This section is used to create a weighted loss function for the model
 
 def compute_cell_thickness(depth_levels):
     """
@@ -573,27 +527,206 @@ def compute_cell_thickness(depth_levels):
     
     return thickness
 
-# Loop the depth levels thickness
-#thickness_values = compute_cell_thickness(DEPTH_LEVELS)
-#print(thickness_values)
+def compute_zos_weights(areacello, wetmask_2d):
+    """
+    Compute the normalized weights for zos (surface height) variable.
+    
+    Parameters:
+    -----------
+    areacello : torch.Tensor or numpy array
+        Area of each ocean cell (2D array with dimensions [lat, lon])
+    wetmask_2d : torch.Tensor or numpy array
+        Binary mask indicating ocean cells (1) vs land (0)
+        For zos, this should be the surface level wetmask
+    
+    Returns:
+    --------
+    torch.Tensor
+        Normalized weights for zos (2D array with dimensions [lat, lon])
+    """
+    import torch
+    
+    # Convert to torch tensors if they are not already
+    if not isinstance(areacello, torch.Tensor):
+        areacello = torch.tensor(areacello, dtype=torch.float32)
+    if not isinstance(wetmask, torch.Tensor):
+        wetmask = torch.tensor(wetmask, dtype=torch.float32)
+    
+    # Apply wetmask to the cell area
+    masked_area = areacello * wetmask_2d
+    
+    # Calculate the total area of wet cells
+    total_area = masked_area.sum()
+    
+    # Normalize to get weights that sum to 1
+    weights = masked_area / total_area
+    
+    return weights
 
-# cell_area  =  cell_area * wetmask
+def compute_3d_weights(depth_widths, areacello, wetmask_3d):
+    """
+    Compute the normalized weights for a 3D variable (with depth dimension).
+    
+    Parameters:
+    -----------
+    depth_widths : list or array
+        Width/thickness of each depth level
+    areacello : torch.Tensor or numpy array
+        Area of each ocean cell (2D array with dimensions [lat, lon])
+    wetmask_3d : torch.Tensor or numpy array
+        3D binary mask indicating ocean cells (1) vs land (0)
+        Shape should be [depth, lat, lon]
+    
+    Returns:
+    --------
+    torch.Tensor
+        Normalized weights for the 3D variable with shape [depth, lat, lon]
+    """
+    import torch
+    import numpy as np
+    
+    # Convert to torch tensors if they are not already
+    if not isinstance(areacello, torch.Tensor):
+        areacello = torch.tensor(areacello, dtype=torch.float32)
+    if not isinstance(wetmask_3d, torch.Tensor):
+        wetmask_3d = torch.tensor(wetmask_3d, dtype=torch.float32)
+    if not isinstance(depth_widths, torch.Tensor):
+        depth_widths = torch.tensor(depth_widths, dtype=torch.float32)
+    
+    # Ensure we have the right number of depth levels
+    n_depths = len(depth_widths)
+    wetmask_sliced = wetmask_3d[:n_depths, :, :]
+    
+    # Reshape areacello to allow broadcasting across depth dimension
+    # Shape: [1, lat, lon]
+    areacello_broadcast = areacello.unsqueeze(0)
+    
+    # Apply wetmask to the cell area
+    # Shape: [depth, lat, lon]
+    masked_area = wetmask_sliced * areacello_broadcast
+    
+    # Reshape depth_widths to allow broadcasting across lat and lon dimensions
+    # Shape: [depth, 1, 1]
+    depth_widths_broadcast = depth_widths.reshape(-1, 1, 1)
+    
+    # Multiply by depth width to get cell volumes
+    # Shape: [depth, lat, lon]
+    cell_volumes = masked_area * depth_widths_broadcast
+    
+    # Calculate total volume of all wet cells
+    total_volume = cell_volumes.sum()
+    
+    # Normalize to get weights that sum to 1
+    weights = cell_volumes / total_volume
+    
+    return weights
 
-### For 3D, we need to compute the thickness of each cell 
-# Get initial volume
-# cell_vol = thickness * cell area 
-# Sum over all cells to get total volume
-# total_vol = sum(cell_vol.values())
-# Normalize
-# cell_norm_vol = cell_vol / total_vol
+def create_full_weights_tensor(variables, depth_widths, areacello, wetmask_3d):
+    """
+    Create a full weights tensor for all variables in the state array.
+    
+    Parameters:
+    -----------
+    variables : list
+        List of variable names in the state array (can include duplicates)
+    depth_widths : dict
+        Dictionary mapping depth level strings to their thickness values
+    areacello : torch.Tensor
+        Area of each ocean cell (2D array with dimensions [lat, lon])
+    wetmask_3d : torch.Tensor
+        3D binary mask indicating ocean cells (1) vs land (0)
+        Shape should be [depth, lat, lon]
+    
+    Returns:
+    --------
+    torch.Tensor
+        Full weights tensor with shape [num_channels, lat, lon]
+    """
+    import torch
+    
+    # Convert depth_widths dictionary to a list in the correct order
+    depth_levels = sorted([k for k in depth_widths.keys()], 
+                          key=lambda x: float(x.replace('_', '.')))
+    depth_width_values = [depth_widths[level] for level in depth_levels]
+    depth_width_tensor = torch.tensor(depth_width_values, dtype=torch.float32)
+    
+    # Compute the 2D weights for surface variables
+    zos_weights = compute_zos_weights(areacello, wetmask_3d[0])  # Surface level wetmask
+    
+    # Compute the 3D weights for depth-dependent variables
+    depth_weights = compute_3d_weights(depth_width_tensor, areacello, wetmask_3d)
+    
+    # List to store weights for each variable
+    all_weights = []
+    
+    # Process each variable
+    for var in variables:
+        if var == 'zos':
+            # For zos, use the 2D weights
+            all_weights.append(zos_weights.unsqueeze(0))  # Add channel dimension
+        elif var in ['uo', 'vo', 'thetao', 'so']:
+            all_weights.append(depth_weights)
+    
+    # Stack all weights along the channel dimension
+    full_weights = torch.cat(all_weights, dim=0)
+    
+    return full_weights
 
-### For 2D, it's simpler:
-# cell_area / sum(cell_area)
-# Multiply each square difference by its corresponding weighting 
+def gen_weighted_loss_fn(data, state_in_vars_config="3D_thermo_dynamic_all"):
+    variables = VARS[state_in_vars_config]
+    variables = variables + variables # Duplicate for two timesteps 
 
-# We need to loop the volume compute over the depth levels for the channel var
-# That way, we can get the depth levels for each variable
-# Then the 2D versions
-# Then we loop through again for the second timestep
+    weight_matrix = create_full_weights_tensor(
+        variables,  # Example variables
+        compute_cell_thickness(DEPTH_LEVELS),  # Thickness values
+        data.areacello,  # Area of each ocean cell
+        data.wetmask  # 3D wetmask
+    )
 
-# Goal: create a loss_fn that is just MSE but with the weights applied
+    print("Weight matrix shape:", weight_matrix.shape)
+
+    def weighted_loss_fn(prediction, targets):
+        return torch.mean(
+            (prediction - targets) ** 2 * weight_matrix.to(prediction.device)
+        )
+    
+    return weighted_loss_fn
+
+
+
+# ## Data 
+# The data is available from 1975 to the 2022, at 5-day temporal resolution. The variables in the data is arranged in the following format:
+# 
+# THIS ORDERING IS WRONG :(
+# ```
+# thetao_lev_2_5
+# thetao_lev_10_0
+# thetao_lev_22_5
+# ...
+# thetao_lev_6000_0
+# 
+# so_lev_2_5
+# so_lev_10_0
+# so_lev_22_5
+# ...
+# so_lev_6000_0
+# 
+# uo_lev_2_5
+# uo_lev_10_0
+# uo_lev_22_5
+# ...
+# uo_lev_6000_0
+# 
+# vo_lev_2_5
+# vo_lev_10_0
+# vo_lev_22_5
+# ...
+# vo_lev_6000_0
+# 
+# zos
+# 
+# hfds
+# hfds_anomalies
+# tauuo
+# tauvo
+# ```
