@@ -1,4 +1,4 @@
-Job 22151338.pbspl1.nas.nasa.gov started on Thu May 01 15:57:09 PDT 2025
+Job 22153590.pbspl1.nas.nasa.gov started on Thu May 01 19:50:06 PDT 2025
 The job requested the following resources:
     ncpus=40
     place=scatter:excl
@@ -8,36 +8,46 @@ PBS set the following environment variables:
         FORT_BUFFERED = 1
                    TZ = PST8PDT
 
-On r135i4n29:
+On r137i1n6:
 Warning: no access to tty (Inappropriate ioctl for device).
 Thus no job control in this shell.
 Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
-Starting Samudra model run at Thu May  1 15:57:13 PDT 2025
+Starting Samudra model run at Thu May  1 19:51:08 PDT 2025
 None
 Using CPU
 Using 80 CPU cores for computation
-Section 'Environment configured' took 0.5307 seconds
-Total elapsed time: 0.5307 seconds
+Section 'Environment configured' took 6.0493 seconds
+Total elapsed time: 6.0493 seconds
 ----------------------------------------
 Loading data for correlation analysis: zos at (90, 180) with ['zos']
 Loading data from time index 384 to 600
 Set up
+Finished loading
+Finished slicing
 Traceback (most recent call last):
   File "/nobackupp28/sruiz5/climate-sim/Samudra_Testing/time_lag.py", line 355, in <module>
     results = main( 
   File "/nobackupp28/sruiz5/climate-sim/Samudra_Testing/time_lag.py", line 289, in main
     data_dict = load_data_for_correlation_analysis(
-  File "/nobackupp28/sruiz5/climate-sim/Samudra_Testing/setup.py", line 407, in load_data_for_correlation_analysis
-    data, wet, data_mean, data_std = load_data_raw( #If this is the first time, we load data from end of training
-TypeError: load_data_raw() got an unexpected keyword argument 'device'
-Finished Samudra model run at Thu May  1 15:58:24 PDT 2025
+  File "/nobackupp28/sruiz5/climate-sim/Samudra_Testing/setup.py", line 442, in load_data_for_correlation_analysis
+    reference_mean = data_mean[ref_var_name].sel(y=ref_lat, x=ref_lon, method='nearest')
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/dataarray.py", line 1550, in sel
+    ds = self._to_temp_dataset().sel(
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/dataset.py", line 2794, in sel
+    query_results = map_index_queries(
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/indexing.py", line 182, in map_index_queries
+    grouped_indexers = group_indexers_by_index(obj, indexers, options)
+  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/indexing.py", line 146, in group_indexers_by_index
+    raise KeyError(f"{key!r} is not a valid dimension or coordinate")
+KeyError: "'y' is not a valid dimension or coordinate"
+Finished Samudra model run at Thu May  1 19:53:50 PDT 2025
 
 ____________________________________________________________________
-Job Resource Usage Summary for 22151338.pbspl1.nas.nasa.gov
+Job Resource Usage Summary for 22153590.pbspl1.nas.nasa.gov
 
-    CPU Time Used            : 00:00:14
-    Real Memory Used         : 254012kb
-    Walltime Used            : 00:01:13
+    CPU Time Used            : 00:00:20
+    Real Memory Used         : 278172kb
+    Walltime Used            : 00:03:18
     Exit Status              : 0
 
     Number of CPUs Requested : 40
@@ -46,5 +56,5 @@ Job Resource Usage Summary for 22151338.pbspl1.nas.nasa.gov
     Execution Queue          : R21940709
     Charged To               : g26113
 
-    Job Stopped              : Thu May  1 15:58:28 2025
+    Job Stopped              : Thu May  1 19:55:19 2025
 ____________________________________________________________________
