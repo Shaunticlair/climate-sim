@@ -5,6 +5,7 @@ from pathlib import Path
 
 # Add the Samudra package to the path if needed
 path = "/path/to/samudra"  # Replace with your actual path
+path = "/nobackup/sruiz5/SAMUDRATEST/Samudra/samudra/"
 sys.path.append(path)
 
 # Define the variables we want to analyze (all state variables, not forcings)

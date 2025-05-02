@@ -229,6 +229,7 @@ def load_data_raw(start_idx, end_idx, output_list_str, suffix= '',
     # Get the wetmask for the model
     
     wet_zarr = data.wetmask
+    print(output_list_str, 'zos' in output_list_str)
     wet = utils.extract_wet(wet_zarr, output_list_str, hist)
 
     return data, wet, data_mean, data_std
