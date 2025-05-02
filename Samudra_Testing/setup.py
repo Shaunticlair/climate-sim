@@ -437,6 +437,8 @@ def load_data_for_correlation_analysis(reference_point=(90, 180),
     # Extract the raw and normalized reference data
     reference_raw = data[ref_var_name].sel(y=ref_lat, x=ref_lon, method='nearest')
     
+    print(f"Available dimensions in data_mean: {list(data_mean.dims)}")
+    print(f"Available coordinates in data_mean: {list(data_mean.coords)}")
     # The data is already normalized when loaded through load_data_raw
     # However, we need to use mean and std for potential future use
     reference_mean = data_mean[ref_var_name].sel(y=ref_lat, x=ref_lon, method='nearest')
