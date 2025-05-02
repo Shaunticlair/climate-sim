@@ -1,4 +1,4 @@
-Job 22153590.pbspl1.nas.nasa.gov started on Thu May 01 19:50:06 PDT 2025
+Job 22157676.pbspl1.nas.nasa.gov started on Fri May 02 11:56:34 PDT 2025
 The job requested the following resources:
     ncpus=40
     place=scatter:excl
@@ -8,46 +8,128 @@ PBS set the following environment variables:
         FORT_BUFFERED = 1
                    TZ = PST8PDT
 
-On r137i1n6:
+On r135i4n29:
 Warning: no access to tty (Inappropriate ioctl for device).
 Thus no job control in this shell.
 Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
-Starting Samudra model run at Thu May  1 19:51:08 PDT 2025
+Starting Samudra model run at Fri May  2 11:56:38 PDT 2025
 None
 Using CPU
 Using 80 CPU cores for computation
-Section 'Environment configured' took 6.0493 seconds
-Total elapsed time: 6.0493 seconds
+Section 'Environment configured' took 0.3130 seconds
+Total elapsed time: 0.3130 seconds
 ----------------------------------------
 Loading data for correlation analysis: zos at (90, 180) with ['zos']
 Loading data from time index 384 to 600
 Set up
 Finished loading
 Finished slicing
-Traceback (most recent call last):
-  File "/nobackupp28/sruiz5/climate-sim/Samudra_Testing/time_lag.py", line 355, in <module>
-    results = main( 
-  File "/nobackupp28/sruiz5/climate-sim/Samudra_Testing/time_lag.py", line 289, in main
-    data_dict = load_data_for_correlation_analysis(
-  File "/nobackupp28/sruiz5/climate-sim/Samudra_Testing/setup.py", line 442, in load_data_for_correlation_analysis
-    reference_mean = data_mean[ref_var_name].sel(y=ref_lat, x=ref_lon, method='nearest')
-  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/dataarray.py", line 1550, in sel
-    ds = self._to_temp_dataset().sel(
-  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/dataset.py", line 2794, in sel
-    query_results = map_index_queries(
-  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/indexing.py", line 182, in map_index_queries
-    grouped_indexers = group_indexers_by_index(obj, indexers, options)
-  File "/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/indexing.py", line 146, in group_indexers_by_index
-    raise KeyError(f"{key!r} is not a valid dimension or coordinate")
-KeyError: "'y' is not a valid dimension or coordinate"
-Finished Samudra model run at Thu May  1 19:53:50 PDT 2025
+Available dimensions in data_mean: []
+Available coordinates in data_mean: []
+data
+<xarray.Dataset>
+Dimensions:            (y: 180, x: 360, lev: 19, time: 216, y_b: 181, x_b: 361)
+Coordinates:
+    areacello          (y, x) float64 dask.array<chunksize=(90, 360), meta=np.ndarray>
+    dz                 (lev) int64 dask.array<chunksize=(19,), meta=np.ndarray>
+    lat                (y, x) float64 dask.array<chunksize=(90, 360), meta=np.ndarray>
+    lat_b              (y_b, x_b) float64 dask.array<chunksize=(91, 361), meta=np.ndarray>
+  * lev                (lev) float64 2.5 10.0 22.5 40.0 ... 4e+03 5e+03 6e+03
+    lon                (y, x) float64 dask.array<chunksize=(90, 360), meta=np.ndarray>
+    lon_b              (y_b, x_b) float64 dask.array<chunksize=(91, 361), meta=np.ndarray>
+    ocean_fraction     (lev, y, x) float64 dask.array<chunksize=(19, 180, 360), meta=np.ndarray>
+  * time               (time) object 2011-02-02 12:00:00 ... 2014-01-13 12:00:00
+    wetmask            (lev, y, x) bool dask.array<chunksize=(10, 90, 360), meta=np.ndarray>
+  * x                  (x) float64 0.5 1.5 2.5 3.5 ... 356.5 357.5 358.5 359.5
+  * y                  (y) float64 -89.24 -88.25 -87.25 ... 87.25 88.25 89.24
+Dimensions without coordinates: y_b, x_b
+Data variables: (12/81)
+    hfds               (time, y, x) float32 dask.array<chunksize=(1, 180, 360), meta=np.ndarray>
+    hfds_anomalies     (time, y, x) float32 dask.array<chunksize=(1, 180, 360), meta=np.ndarray>
+    so_lev_1050_0      (time, y, x) float32 dask.array<chunksize=(1, 180, 360), meta=np.ndarray>
+    so_lev_105_0       (time, y, x) float32 dask.array<chunksize=(1, 180, 360), meta=np.ndarray>
+    so_lev_10_0        (time, y, x) float32 dask.array<chunksize=(1, 180, 360), meta=np.ndarray>
+    so_lev_1400_0      (time, y, x) float32 dask.array<chunksize=(1, 180, 360), meta=np.ndarray>
+    ...                 ...
+    vo_lev_5000_0      (time, y, x) float32 dask.array<chunksize=(1, 180, 360), meta=np.ndarray>
+    vo_lev_550_0       (time, y, x) float32 dask.array<chunksize=(1, 180, 360), meta=np.ndarray>
+    vo_lev_6000_0      (time, y, x) float32 dask.array<chunksize=(1, 180, 360), meta=np.ndarray>
+    vo_lev_65_0        (time, y, x) float32 dask.array<chunksize=(1, 180, 360), meta=np.ndarray>
+    vo_lev_775_0       (time, y, x) float32 dask.array<chunksize=(1, 180, 360), meta=np.ndarray>
+    zos                (time, y, x) float32 dask.array<chunksize=(1, 180, 360), meta=np.ndarray>
+Attributes:
+    m2lines/ocean-emulators_git_hash:  https://github.com/m2lines/ocean_emula...
+    regrid_method:                     conservative
+data_mean
+<xarray.Dataset>
+Dimensions:            ()
+Data variables: (12/81)
+    hfds               float32 ...
+    hfds_anomalies     float32 ...
+    so_lev_1050_0      float32 ...
+    so_lev_105_0       float32 ...
+    so_lev_10_0        float32 ...
+    so_lev_1400_0      float32 ...
+    ...                 ...
+    vo_lev_5000_0      float32 ...
+    vo_lev_550_0       float32 ...
+    vo_lev_6000_0      float32 ...
+    vo_lev_65_0        float32 ...
+    vo_lev_775_0       float32 ...
+    zos                float32 ...
+data_std
+<xarray.Dataset>
+Dimensions:            ()
+Data variables: (12/81)
+    hfds               float32 ...
+    hfds_anomalies     float32 ...
+    so_lev_1050_0      float32 ...
+    so_lev_105_0       float32 ...
+    so_lev_10_0        float32 ...
+    so_lev_1400_0      float32 ...
+    ...                 ...
+    vo_lev_5000_0      float32 ...
+    vo_lev_550_0       float32 ...
+    vo_lev_6000_0      float32 ...
+    vo_lev_65_0        float32 ...
+    vo_lev_775_0       float32 ...
+    zos                float32 ...
+Section 'Data loaded' took 37.4170 seconds
+Total elapsed time: 37.7300 seconds
+----------------------------------------
+Computing lagged correlations with time_window=144, max_lag=72, lag_step=6
+Section 'Correlations computed' took 8.0280 seconds
+Total elapsed time: 45.7580 seconds
+----------------------------------------
+Saved correlation map for zos to CorrelationMaps/correlation_zos_at_90_180_with_zos.npy
+Section 'Correlation maps saved' took 1.3306 seconds
+Total elapsed time: 47.0886 seconds
+----------------------------------------
+Saved correlation plot for zos at lag 0 to CorrelationPlots/correlation_plot_zos_at_90_180_with_zos_lag_0.png
+Saved correlation plot for zos at lag 6 to CorrelationPlots/correlation_plot_zos_at_90_180_with_zos_lag_6.png
+Saved correlation plot for zos at lag 12 to CorrelationPlots/correlation_plot_zos_at_90_180_with_zos_lag_12.png
+Lag index 18 out of bounds for zos. Skipping.
+Lag index 24 out of bounds for zos. Skipping.
+Lag index 30 out of bounds for zos. Skipping.
+Lag index 36 out of bounds for zos. Skipping.
+Lag index 42 out of bounds for zos. Skipping.
+Lag index 48 out of bounds for zos. Skipping.
+Lag index 54 out of bounds for zos. Skipping.
+Lag index 60 out of bounds for zos. Skipping.
+Lag index 66 out of bounds for zos. Skipping.
+Lag index 72 out of bounds for zos. Skipping.
+Section 'Plots saved' took 4.7586 seconds
+Total elapsed time: 51.8472 seconds
+----------------------------------------
+Spatial lagged correlation analysis complete!
+Finished Samudra model run at Fri May  2 12:07:14 PDT 2025
 
 ____________________________________________________________________
-Job Resource Usage Summary for 22153590.pbspl1.nas.nasa.gov
+Job Resource Usage Summary for 22157676.pbspl1.nas.nasa.gov
 
-    CPU Time Used            : 00:00:20
-    Real Memory Used         : 278172kb
-    Walltime Used            : 00:03:18
+    CPU Time Used            : 00:00:19
+    Real Memory Used         : 353040kb
+    Walltime Used            : 00:10:38
     Exit Status              : 0
 
     Number of CPUs Requested : 40
@@ -56,5 +138,5 @@ Job Resource Usage Summary for 22153590.pbspl1.nas.nasa.gov
     Execution Queue          : R21940709
     Charged To               : g26113
 
-    Job Stopped              : Thu May  1 19:55:19 2025
+    Job Stopped              : Fri May  2 12:07:17 2025
 ____________________________________________________________________
