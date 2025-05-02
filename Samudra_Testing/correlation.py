@@ -255,7 +255,7 @@ if __name__ == "__main__":
         adjoint_folder = 'adjoint_arrays/Equatorial_Pacific/'
         adjoint_path = f'chunk_sensitivity_chin[{ch_in}]_chout[{ch_out}]_t[{in_time},{out_time}].npy'
         adjoint_path = Path(adjoint_folder) / adjoint_path
-        step_size = '_1e-2' # 
+        step_size = '_1e-4' # 
         perturb_folder = f'perturbation_arrays/Short_Time{step_size}/'
         perturb_path = f'perturbation_grid_chin[{ch_in}]_chout[{ch_out}]_t[{in_time},{out_time}]{step_size}.npy'
         perturb_path = Path(perturb_folder) / perturb_path

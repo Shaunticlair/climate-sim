@@ -409,8 +409,7 @@ def load_data_for_correlation_analysis(reference_point=(90, 180),
         2850+2, # This is the last time step in the training data
         output_list_str,
         suffix="_analysis",
-        hist=1,
-        device=device
+        hist=1
     )
     print("Finished loading")
 
