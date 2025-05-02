@@ -229,7 +229,10 @@ def load_data_raw(start_idx, end_idx, output_list_str, suffix= '',
     # Get the wetmask for the model
     
     wet_zarr = data.wetmask
-    print(output_list_str, 'zos' in output_list_str)
+    #print(output_list_str, 'zos' in output_list_str)
+    
+    # Remove duplicates from output_list_str
+    output_list_str = list(set(output_list_str))  # Remove duplicates
     wet = utils.extract_wet(wet_zarr, output_list_str, hist)
 
     return data, wet, data_mean, data_std
