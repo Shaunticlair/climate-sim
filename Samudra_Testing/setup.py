@@ -545,6 +545,12 @@ def compute_zos_weights(areacello, wetmask_2d):
         Normalized weights for zos (2D array with dimensions [lat, lon])
     """
     import torch
+
+    # Convert xarray arrays to numpy arrays
+    if isinstance(areacello, xr.DataArray):
+        areacello = areacello.values
+    if isinstance(wetmask_2d, xr.DataArray):
+        wetmask_2d = wetmask_2d.values
     
     # Convert to torch tensors if they are not already
     if not isinstance(areacello, torch.Tensor):
@@ -584,6 +590,14 @@ def compute_3d_weights(depth_widths, areacello, wetmask_3d):
     """
     import torch
     import numpy as np
+
+    # Turn any xarray objects into numpy arrays
+    if isinstance(areacello, xr.DataArray):
+        areacello = areacello.values
+    if isinstance(wetmask_3d, xr.DataArray):
+        wetmask_3d = wetmask_3d.values
+    if isinstance(depth_widths, xr.DataArray):
+        depth_widths = depth_widths.values
     
     # Convert to torch tensors if they are not already
     if not isinstance(areacello, torch.Tensor):
