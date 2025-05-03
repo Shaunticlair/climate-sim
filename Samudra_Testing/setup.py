@@ -558,8 +558,8 @@ def compute_zos_weights(areacello, wetmask_2d):
     # Convert to torch tensors if they are not already
     if not isinstance(areacello, torch.Tensor):
         areacello = torch.tensor(areacello, dtype=torch.float32)
-    if not isinstance(wetmask, torch.Tensor):
-        wetmask = torch.tensor(wetmask, dtype=torch.float32)
+    if not isinstance(wetmask_2d, torch.Tensor):
+        wetmask_2d = torch.tensor(wetmask_2d, dtype=torch.float32)
     
     # Apply wetmask to the cell area
     masked_area = areacello * wetmask_2d
