@@ -434,12 +434,6 @@ def load_data_for_correlation_analysis(reference_point=(90, 180),
         field_raw = data[field_var_name].values[:, lat_slice, lon_slice]
 
         print(field_raw.shape)
-
-        raise Exception
-
-        #print("var dims",data[field_var_name].dims)
-        #print("var coords",data[field_var_name].coords)
-        #print("Freshly indexed", field_raw.shape, field_var_name, lat_slice, lon_slice)
         
         # Get mean and std for reference
         field_mean = data_mean[field_var_name]
