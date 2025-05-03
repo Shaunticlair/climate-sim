@@ -69,6 +69,8 @@ test_data, wet, data_mean, data_std = setup.load_data(s_test, e_test, N_test,
                                                      input_list_str, boundary_list_str, output_list_str,
                                                      hist=hist, device=device)
 
+raw_data, raw_wet, raw_data_mean, raw_data_std = setup.load_data_raw(s_test, e_test, output_list_str)
+
 timer.checkpoint("Data loaded")
 
 # Initialize SamudraAdjoint with the same parameters as the original model
@@ -88,7 +90,7 @@ print(f"Our data has the shape {test_data[0][0].shape}")
 ### Choosing which sensitivities to take ###
 
 # Create a weighted loss function
-loss_fn = setup.gen_weighted_loss_fn(test_data, state_in_vars_config)
+loss_fn = setup.gen_weighted_loss_fn(raw_data, state_in_vars_config)
 print("Created weighted loss function")
 
 # Define the chunks for which we want to compute sensitivity

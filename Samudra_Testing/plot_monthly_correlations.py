@@ -166,10 +166,12 @@ if __name__ == "__main__":
     reference_point = (90, 180)  # Equatorial Pacific
     
     # Define map dimensions - adjust as needed
-    delta = 20
+    delta = 200
     x_ref, y_ref = reference_point
     map_dims = [x_ref-delta, x_ref+delta+1, y_ref-delta, y_ref+delta+1]  # [xmin, xmax, ymin, ymax]
-    
+    map_dims= [0,180,0,360]
+    #(50,130)x(110,250)
+    map_dims = [50, 130, 110, 250]  # [xmin, xmax, ymin, ymax]
     # Path to correlation file
     correlation_file = "CorrelationMaps/correlation_zos_at_90_180_with_zos.npy"
     
