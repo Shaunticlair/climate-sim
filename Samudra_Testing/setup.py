@@ -439,6 +439,8 @@ def load_data_for_correlation_analysis(reference_point=(90, 180),
             field_var_name = field_var
         
         # Extract the raw field data
+        print("Data shape", data[field_var_name].values.shape)
+
         field_raw = data[field_var_name].sel(y=lat_slice, x=lon_slice)
 
         print("var dims",data[field_var_name].dims)
