@@ -409,9 +409,9 @@ def load_data_for_correlation_analysis(reference_point=(90, 180),
     reference_std = data_std[ref_var_name]
     
     # Store reference data
-    reference_data['raw'] = reference_raw.compute()
-    reference_data['mean'] = reference_mean.compute()
-    reference_data['std'] = reference_std.compute()
+    reference_data['raw'] = reference_raw
+    reference_data['mean'] = reference_mean
+    reference_data['std'] = reference_std
     
     # Extract field variables data for the spatial slice
     field_data = {}
