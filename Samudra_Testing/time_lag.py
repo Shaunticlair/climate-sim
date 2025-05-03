@@ -367,7 +367,7 @@ if __name__ == "__main__":
         max_lag=72,      # Maximum lag in time steps
         lag_step=6,      # Step size for lags
         reference_var='zos',
-        field_vars=['zos'],
+        field_vars=['zos', 'hfds', 'tauuo', 'tauvo', 'hfds_anomalies'],
         save_plots=True,
         lags_to_plot=[i for i in range(13)],  
     )
