@@ -46,7 +46,7 @@ var_list += BOUNDARY_VARS["3D_all_hfds_anom"]
 var_dict = {var: i for i, var in enumerate(var_list)}
 
 var_arr = np.array(var_list)
-#print(var_arr)
+print(var_arr)
 
 # Obtained by printing directly from inside the Test class
 var_list_printed = ['uo_lev_2_5', 'uo_lev_10_0', 'uo_lev_22_5', 'uo_lev_40_0', 
@@ -75,80 +75,61 @@ var_list_printed = ['uo_lev_2_5', 'uo_lev_10_0', 'uo_lev_22_5', 'uo_lev_40_0',
 #print(np.where(arr == 'hfds'))
 #print(np.where(arr == 'hfds_anomalies'))
 
-"""
-class VisibleTest(data_loaders.Test):
-        def __getitem__(self, idx):
+def get_channel_to_var(state_in_vars_config="3D_thermo_dynamic_all", 
+                 boundary_vars_config="3D_all_hfds_anom", hist=1):
+    """
+    Get the list of variables in the Samudra vector in order. 
+    Index is the channel corresponding to the variable.
+    Order is 
+    - Input variables (state_in_vars_config), looped hist+1 times
+    - Boundary variables
+    """
+    channel_to_var = []
+    for _ in range(hist + 1):
+        channel_to_var += INPUT_VARS_LEV[state_in_vars_config]
 
-            print("Input axes:", list(self.inputs.dims))
-            print("Input vars:", list(self.inputs.data_vars))
-            print("Inputs no extra", list(self.inputs_no_extra.data_vars))
-                
-            if type(idx) == slice:
-                if idx.start == None and idx.stop == None:
-                    idx = slice(0, self.size, idx.step)
-                elif idx.start == None:
-                    idx = slice(0, idx.stop, idx.step)
-                elif idx.stop == None:
-                    idx = slice(idx.start, self.size, idx.step)
-            elif type(idx) == int:
-                idx = slice(idx, idx + 1, 1)
+    channel_to_var += BOUNDARY_VARS[boundary_vars_config]
 
-            rolling_idx = self.rolling_indices.isel(window_dim=idx)
-            x_index = xr.Variable(
-                ["window_dim", "time"], rolling_idx
-            )
-            print("Out: ", (self.ind_start + x_index.isel(time=slice(self.hist + 1, None))).values, end=' ')
-            data_in = self.inputs_no_extra.isel(time=x_index).isel(
-                time=slice(None, self.hist + 1)
-            )
-            data_in = (
-                (data_in - self.inputs_no_extra_mean) / self.inputs_no_extra_std
-            ).fillna(0)
-            print("data_in:", list(data_in.data_vars))
-            print("data_in axes:", list(data_in.dims))
-            shaunticlair_temp_array = data_in.to_array().transpose("window_dim", "time", "variable", "y", "x")
-            print("data_in to_array:", list(shaunticlair_temp_array.coords["variable"].values))
-            print("data_in shape:", shaunticlair_temp_array.shape)
+    return channel_to_var
+    
 
-            shaunticlair_transposed_array = rearrange(
-                shaunticlair_temp_array, "window_dim time variable y x -> window_dim (time variable) y x"
-            )
-            print(shaunticlair_transposed_array)
-            print("data_in time variable", shaunticlair_transposed_array.coords['time variable'])
-            raise Exception
-            data_in = (
-                data_in.to_array()
-                .transpose("window_dim", "time", "variable", "y", "x")
-                .to_numpy()
-            )
-            data_in = rearrange(
-                data_in, "window_dim time variable y x -> window_dim (time variable) y x"
-            )
-            print()
-            if len(self.extras.variables) != 0:
-                data_in_boundary = self.extras.isel(time=x_index).isel(time=self.hist)
-                data_in_boundary = (
-                    (data_in_boundary - self.extras_mean) / self.extras_std
-                ).fillna(0)
-                data_in_boundary = (
-                    data_in_boundary.to_array()
-                    .transpose("window_dim", "variable", "y", "x")
-                    .to_numpy()
-                )
-                data_in = np.concatenate((data_in, data_in_boundary), axis=1)
+### Denormalization function
 
-            label = self.outputs.isel(time=x_index).isel(time=slice(self.hist + 1, None))
-            label = ((label - self.out_mean) / self.out_std).fillna(0)
-            label = (
-                label.to_array()
-                .transpose("window_dim", "time", "variable", "y", "x")
-                .to_numpy()
-            )
-            label = rearrange(
-                label, "window_dim time variable y x -> window_dim (time variable) y x"
-            )
+def denormalize_sensitivity(sensitivity_tensor, var_out, var_in, data_std):
 
-            items = (torch.from_numpy(data_in).float(), torch.from_numpy(label).float())
-
-            return items
-"""
+    """
+    Denormalize the sensitivity tensor based on the variable configurations.
+    
+    Parameters:
+    -----------
+    sensitivity_tensor : torch.Tensor or numpy.ndarray
+        The sensitivity tensor in normalized space
+    var_out : str
+        The output variable name (e.g., 'zos', 'thetao_lev_2_5')
+    var_in : str
+        The input variable name (e.g., 'hfds', 'tauuo')
+    data_std : xarray.Dataset
+        Dataset containing standard deviations for variables
+        
+    Returns:
+    --------
+    torch.Tensor or numpy.ndarray
+        The denormalized sensitivity tensor
+    
+    Notes:
+    ------
+    Sensitivity is defined as ∂y/∂x, where y is the output and x is the input.
+    To denormalize, we need to multiply by std_y/std_x, since:
+    ∂(y/std_y)/∂(x/std_x) = (∂y/∂x) * (std_x/std_y)
+    """
+    
+    # Get standard deviations for output and input variables
+    std_out = data_std[var_out].values.item()
+    std_in = data_std[var_in].values.item()
+    
+    # Calculate the denormalization factor
+    denorm_factor = std_out / std_in
+    
+    # Apply the denormalization
+    return sensitivity_tensor * denorm_factor
+    

@@ -68,6 +68,8 @@ MODEL_PATHS = {
 N_samples = 2850  # Used for train
 N_val = 50        # Used for validation
 N_test = 600       # Number of time steps to use for testing
+hist=1
+
 
 ### Setup functions
 
@@ -216,7 +218,7 @@ def load_data_raw(start_idx, end_idx, output_list_str, suffix= '',
         data_mean = xr.open_dataset("https://nyu1.osn.mghpcc.org/m2lines-pubs/Samudra/OM4_means", engine='zarr', chunks={})
         data_mean.to_zarr(data_mean_file, mode="w")
         
-    data_mean = xr.open_zarr("./data_mean.zarr")
+    data_mean = xr.open_zarr(data_mean_file)
 
     if not Path(data_std_file).exists():
         data_std = xr.open_dataset("https://nyu1.osn.mghpcc.org/m2lines-pubs/Samudra/OM4_stds", engine='zarr', chunks={})
@@ -741,3 +743,5 @@ def gen_weighted_loss_fn(data, state_in_vars_config="3D_thermo_dynamic_all"):
 # tauuo
 # tauvo
 # ```
+
+
