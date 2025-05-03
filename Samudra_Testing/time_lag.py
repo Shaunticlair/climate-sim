@@ -358,15 +358,16 @@ def main(reference_point=(90, 180),
 if __name__ == "__main__":
     # Example usage
     print('None')
+    delta = 1
     results = main( 
         reference_point=(90, 180),
-        spatial_slice=(slice(90-1,90+1+1), slice(180-1,180+1+1)),#(slice(50, 130), slice(110, 250)),
+        spatial_slice=(slice(90-delta,90+delta+1), slice(180-delta,180+delta+1)),#(slice(50, 130), slice(110, 250)),
         time_window=72*2,  # Number of time steps for correlation
         max_lag=72,      # Maximum lag in time steps
         lag_step=6,      # Step size for lags
         reference_var='zos',
         field_vars=['zos'],
         save_plots=True,
-        lags_to_plot=[6*i for i in range(13)],  # Plot specific lags (0, 3, 6, 9, 12)
+        lags_to_plot=[i for i in range(13)],  
     )
 
