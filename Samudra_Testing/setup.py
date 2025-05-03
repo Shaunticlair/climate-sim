@@ -440,9 +440,9 @@ def load_data_for_correlation_analysis(reference_point=(90, 180),
         field_std = data_std[field_var_name]
         
         # Store field data
-        field_data[field_var]['raw'] = field_raw.compute()
-        field_data[field_var]['mean'] = field_mean.compute()
-        field_data[field_var]['std'] = field_std.compute()
+        field_data[field_var]['raw'] = field_raw
+        field_data[field_var]['mean'] = field_mean
+        field_data[field_var]['std'] = field_std
     
     # Get wetmask for the spatial region
     wetmask = data.wetmask.values[:, lat_slice, lon_slice]
