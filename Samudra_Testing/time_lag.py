@@ -358,7 +358,7 @@ def main(reference_point=(90, 180),
 if __name__ == "__main__":
     # Example usage
     print('None')
-    delta = 1
+    delta = 20
     results = main( 
         reference_point=(90, 180),
         spatial_slice=(slice(90-delta,90+delta+1), slice(180-delta,180+delta+1)),#(slice(50, 130), slice(110, 250)),
