@@ -64,6 +64,8 @@ def compute_lagged_correlations(data_dict, time_window=60, max_lag=12, lag_step=
         
         # Get dimensions
         time_dim, lat_dim, lon_dim = field_values.shape
+
+        print("field shape", field_values.shape)
         
         # Convert to tensor
         field_tensor = torch.tensor(field_values, dtype=torch.float32, device=device)
@@ -93,7 +95,11 @@ def compute_lagged_correlations(data_dict, time_window=60, max_lag=12, lag_step=
             # Compute correlation coefficient (dot product of standardized series, divided by time_window)
             # reference shape: (time_window)
             # lagged_field_standardized shape: (time_window, lat_dim*lon_dim)
-            correlation = torch.matmul(reference, lagged_field_standardized) / time_window
+            # Make reference a 2D tensor for dot product
+            reference_2d = reference.unsqueeze(0)  # New shape: (1, time_window)
+            # (1, time_window) @ (time_window, lat_dim*lon_dim) -> (1, lat_dim*lon_dim)
+            # Then reshape to (lat_dim, lon_dim)
+            correlation = torch.matmul(reference_2d, lagged_field_standardized) / time_window
             
             # Reshape back to spatial dimensions
             correlation_map = correlation.reshape(lat_dim, lon_dim)

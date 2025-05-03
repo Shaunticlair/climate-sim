@@ -476,6 +476,9 @@ def load_data_for_correlation_analysis(reference_point=(90, 180),
             'time_window': time_window
         }
     }
+
+    # Printing
+    #print( "Raw data shape", field_data[field_var]['raw'].shape)
     
     return result
 
