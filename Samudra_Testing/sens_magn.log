@@ -1,0 +1,165 @@
+Job 22162611.pbspl1.nas.nasa.gov started on Sat May 03 15:20:02 PDT 2025
+The job requested the following resources:
+    ncpus=40
+    place=scatter:excl
+    walltime=01:00:00
+
+PBS set the following environment variables:
+        FORT_BUFFERED = 1
+                   TZ = PST8PDT
+
+On r133i6n12:
+Warning: no access to tty (Inappropriate ioctl for device).
+Thus no job control in this shell.
+Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
+Starting Samudra model run at Sat May  3 15:20:37 PDT 2025
+['uo_lev_2_5(even)' 'uo_lev_10_0(even)' 'uo_lev_22_5(even)'
+ 'uo_lev_40_0(even)' 'uo_lev_65_0(even)' 'uo_lev_105_0(even)'
+ 'uo_lev_165_0(even)' 'uo_lev_250_0(even)' 'uo_lev_375_0(even)'
+ 'uo_lev_550_0(even)' 'uo_lev_775_0(even)' 'uo_lev_1050_0(even)'
+ 'uo_lev_1400_0(even)' 'uo_lev_1850_0(even)' 'uo_lev_2400_0(even)'
+ 'uo_lev_3100_0(even)' 'uo_lev_4000_0(even)' 'uo_lev_5000_0(even)'
+ 'uo_lev_6000_0(even)' 'vo_lev_2_5(even)' 'vo_lev_10_0(even)'
+ 'vo_lev_22_5(even)' 'vo_lev_40_0(even)' 'vo_lev_65_0(even)'
+ 'vo_lev_105_0(even)' 'vo_lev_165_0(even)' 'vo_lev_250_0(even)'
+ 'vo_lev_375_0(even)' 'vo_lev_550_0(even)' 'vo_lev_775_0(even)'
+ 'vo_lev_1050_0(even)' 'vo_lev_1400_0(even)' 'vo_lev_1850_0(even)'
+ 'vo_lev_2400_0(even)' 'vo_lev_3100_0(even)' 'vo_lev_4000_0(even)'
+ 'vo_lev_5000_0(even)' 'vo_lev_6000_0(even)' 'thetao_lev_2_5(even)'
+ 'thetao_lev_10_0(even)' 'thetao_lev_22_5(even)' 'thetao_lev_40_0(even)'
+ 'thetao_lev_65_0(even)' 'thetao_lev_105_0(even)' 'thetao_lev_165_0(even)'
+ 'thetao_lev_250_0(even)' 'thetao_lev_375_0(even)'
+ 'thetao_lev_550_0(even)' 'thetao_lev_775_0(even)'
+ 'thetao_lev_1050_0(even)' 'thetao_lev_1400_0(even)'
+ 'thetao_lev_1850_0(even)' 'thetao_lev_2400_0(even)'
+ 'thetao_lev_3100_0(even)' 'thetao_lev_4000_0(even)'
+ 'thetao_lev_5000_0(even)' 'thetao_lev_6000_0(even)' 'so_lev_2_5(even)'
+ 'so_lev_10_0(even)' 'so_lev_22_5(even)' 'so_lev_40_0(even)'
+ 'so_lev_65_0(even)' 'so_lev_105_0(even)' 'so_lev_165_0(even)'
+ 'so_lev_250_0(even)' 'so_lev_375_0(even)' 'so_lev_550_0(even)'
+ 'so_lev_775_0(even)' 'so_lev_1050_0(even)' 'so_lev_1400_0(even)'
+ 'so_lev_1850_0(even)' 'so_lev_2400_0(even)' 'so_lev_3100_0(even)'
+ 'so_lev_4000_0(even)' 'so_lev_5000_0(even)' 'so_lev_6000_0(even)'
+ 'zos(even)' 'uo_lev_2_5(odd)' 'uo_lev_10_0(odd)' 'uo_lev_22_5(odd)'
+ 'uo_lev_40_0(odd)' 'uo_lev_65_0(odd)' 'uo_lev_105_0(odd)'
+ 'uo_lev_165_0(odd)' 'uo_lev_250_0(odd)' 'uo_lev_375_0(odd)'
+ 'uo_lev_550_0(odd)' 'uo_lev_775_0(odd)' 'uo_lev_1050_0(odd)'
+ 'uo_lev_1400_0(odd)' 'uo_lev_1850_0(odd)' 'uo_lev_2400_0(odd)'
+ 'uo_lev_3100_0(odd)' 'uo_lev_4000_0(odd)' 'uo_lev_5000_0(odd)'
+ 'uo_lev_6000_0(odd)' 'vo_lev_2_5(odd)' 'vo_lev_10_0(odd)'
+ 'vo_lev_22_5(odd)' 'vo_lev_40_0(odd)' 'vo_lev_65_0(odd)'
+ 'vo_lev_105_0(odd)' 'vo_lev_165_0(odd)' 'vo_lev_250_0(odd)'
+ 'vo_lev_375_0(odd)' 'vo_lev_550_0(odd)' 'vo_lev_775_0(odd)'
+ 'vo_lev_1050_0(odd)' 'vo_lev_1400_0(odd)' 'vo_lev_1850_0(odd)'
+ 'vo_lev_2400_0(odd)' 'vo_lev_3100_0(odd)' 'vo_lev_4000_0(odd)'
+ 'vo_lev_5000_0(odd)' 'vo_lev_6000_0(odd)' 'thetao_lev_2_5(odd)'
+ 'thetao_lev_10_0(odd)' 'thetao_lev_22_5(odd)' 'thetao_lev_40_0(odd)'
+ 'thetao_lev_65_0(odd)' 'thetao_lev_105_0(odd)' 'thetao_lev_165_0(odd)'
+ 'thetao_lev_250_0(odd)' 'thetao_lev_375_0(odd)' 'thetao_lev_550_0(odd)'
+ 'thetao_lev_775_0(odd)' 'thetao_lev_1050_0(odd)' 'thetao_lev_1400_0(odd)'
+ 'thetao_lev_1850_0(odd)' 'thetao_lev_2400_0(odd)'
+ 'thetao_lev_3100_0(odd)' 'thetao_lev_4000_0(odd)'
+ 'thetao_lev_5000_0(odd)' 'thetao_lev_6000_0(odd)' 'so_lev_2_5(odd)'
+ 'so_lev_10_0(odd)' 'so_lev_22_5(odd)' 'so_lev_40_0(odd)'
+ 'so_lev_65_0(odd)' 'so_lev_105_0(odd)' 'so_lev_165_0(odd)'
+ 'so_lev_250_0(odd)' 'so_lev_375_0(odd)' 'so_lev_550_0(odd)'
+ 'so_lev_775_0(odd)' 'so_lev_1050_0(odd)' 'so_lev_1400_0(odd)'
+ 'so_lev_1850_0(odd)' 'so_lev_2400_0(odd)' 'so_lev_3100_0(odd)'
+ 'so_lev_4000_0(odd)' 'so_lev_5000_0(odd)' 'so_lev_6000_0(odd)' 'zos(odd)'
+ 'tauuo' 'tauvo' 'hfds' 'hfds_anomalies']
+Time 0, Delay 72: Magnitude = 3.395808e-04
+Time 6, Delay 66: Magnitude = 3.290085e-04
+Time 12, Delay 60: Magnitude = 3.190485e-04
+Time 18, Delay 54: Magnitude = 3.054301e-04
+Time 24, Delay 48: Magnitude = 3.161783e-04
+Time 30, Delay 42: Magnitude = 3.367038e-04
+Time 36, Delay 36: Magnitude = 3.752890e-04
+Time 42, Delay 30: Magnitude = 4.165116e-04
+Time 48, Delay 24: Magnitude = 4.586620e-04
+Time 54, Delay 18: Magnitude = 5.540019e-04
+Time 60, Delay 12: Magnitude = 7.994432e-04
+Time 66, Delay 6: Magnitude = 1.973630e-03
+Plot saved to Plots/sensitivity_magnitude_chin[76]_chout[76]_tend[72].png
+Time 0, Delay 72: Magnitude = 2.822769e-04
+Time 6, Delay 66: Magnitude = 2.726121e-04
+Time 12, Delay 60: Magnitude = 2.775423e-04
+Time 18, Delay 54: Magnitude = 2.857754e-04
+Time 24, Delay 48: Magnitude = 3.081138e-04
+Time 30, Delay 42: Magnitude = 3.320711e-04
+Time 36, Delay 36: Magnitude = 3.515252e-04
+Time 42, Delay 30: Magnitude = 3.911243e-04
+Time 48, Delay 24: Magnitude = 4.779936e-04
+Time 54, Delay 18: Magnitude = 5.966051e-04
+Time 60, Delay 12: Magnitude = 7.811360e-04
+Time 66, Delay 6: Magnitude = 2.174156e-03
+Plot saved to Plots/sensitivity_magnitude_chin[153]_chout[76]_tend[72].png
+Time 0, Delay 72: Magnitude = 5.450686e-03
+Time 6, Delay 66: Magnitude = 5.441040e-03
+Time 12, Delay 60: Magnitude = 5.672008e-03
+Time 18, Delay 54: Magnitude = 6.000590e-03
+Time 24, Delay 48: Magnitude = 6.375834e-03
+Time 30, Delay 42: Magnitude = 7.529906e-03
+Time 36, Delay 36: Magnitude = 8.532432e-03
+Time 42, Delay 30: Magnitude = 9.538372e-03
+Time 48, Delay 24: Magnitude = 1.227362e-02
+Time 54, Delay 18: Magnitude = 1.764459e-02
+Time 60, Delay 12: Magnitude = 2.092266e-02
+Time 66, Delay 6: Magnitude = 3.489558e-02
+Plot saved to Plots/sensitivity_magnitude_chin[154]_chout[76]_tend[72].png
+Time 0, Delay 72: Magnitude = 5.423469e-03
+Time 6, Delay 66: Magnitude = 5.307709e-03
+Time 12, Delay 60: Magnitude = 5.181022e-03
+Time 18, Delay 54: Magnitude = 4.965102e-03
+Time 24, Delay 48: Magnitude = 5.101616e-03
+Time 30, Delay 42: Magnitude = 5.571030e-03
+Time 36, Delay 36: Magnitude = 6.007809e-03
+Time 42, Delay 30: Magnitude = 6.862554e-03
+Time 48, Delay 24: Magnitude = 8.937820e-03
+Time 54, Delay 18: Magnitude = 1.518007e-02
+Time 60, Delay 12: Magnitude = 1.655572e-02
+Time 66, Delay 6: Magnitude = 2.699273e-02
+Plot saved to Plots/sensitivity_magnitude_chin[155]_chout[76]_tend[72].png
+Time 0, Delay 72: Magnitude = 2.563239e-06
+Time 6, Delay 66: Magnitude = 2.405600e-06
+Time 12, Delay 60: Magnitude = 2.340003e-06
+Time 18, Delay 54: Magnitude = 2.242733e-06
+Time 24, Delay 48: Magnitude = 2.122209e-06
+Time 30, Delay 42: Magnitude = 2.097340e-06
+Time 36, Delay 36: Magnitude = 2.215145e-06
+Time 42, Delay 30: Magnitude = 2.363236e-06
+Time 48, Delay 24: Magnitude = 2.713400e-06
+Time 54, Delay 18: Magnitude = 3.366020e-06
+Time 60, Delay 12: Magnitude = 4.333487e-06
+Time 66, Delay 6: Magnitude = 9.811916e-06
+Plot saved to Plots/sensitivity_magnitude_chin[156]_chout[76]_tend[72].png
+Time 0, Delay 72: Magnitude = 6.471143e-06
+Time 6, Delay 66: Magnitude = 6.057032e-06
+Time 12, Delay 60: Magnitude = 5.861854e-06
+Time 18, Delay 54: Magnitude = 5.672777e-06
+Time 24, Delay 48: Magnitude = 5.201007e-06
+Time 30, Delay 42: Magnitude = 4.945276e-06
+Time 36, Delay 36: Magnitude = 5.211415e-06
+Time 42, Delay 30: Magnitude = 5.317264e-06
+Time 48, Delay 24: Magnitude = 5.470327e-06
+Time 54, Delay 18: Magnitude = 6.279988e-06
+Time 60, Delay 12: Magnitude = 7.291231e-06
+Time 66, Delay 6: Magnitude = 1.550235e-05
+Plot saved to Plots/sensitivity_magnitude_chin[157]_chout[76]_tend[72].png
+Finished Samudra model run at Sat May  3 15:23:52 PDT 2025
+
+____________________________________________________________________
+Job Resource Usage Summary for 22162611.pbspl1.nas.nasa.gov
+
+    CPU Time Used            : 00:00:07
+    Real Memory Used         : 103996kb
+    Walltime Used            : 00:03:36
+    Exit Status              : 0
+
+    Number of CPUs Requested : 40
+    Walltime Requested       : 01:00:00
+
+    Execution Queue          : R21940709
+    Charged To               : g26113
+
+    Job Stopped              : Sat May  3 15:24:42 2025
+____________________________________________________________________

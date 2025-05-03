@@ -1,4 +1,4 @@
-Job 22161764.pbspl1.nas.nasa.gov started on Sat May 03 09:49:00 PDT 2025
+Job 22162609.pbspl1.nas.nasa.gov started on Sat May 03 15:18:30 PDT 2025
 The job requested the following resources:
     ncpus=40
     place=scatter:excl
@@ -12,57 +12,38 @@ On r133i6n1:
 Warning: no access to tty (Inappropriate ioctl for device).
 Thus no job control in this shell.
 Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
-Starting Samudra model run at Sat May  3 09:49:36 PDT 2025
+Starting Samudra model run at Sat May  3 15:19:15 PDT 2025
 None
 Using CPU
 Using 80 CPU cores for computation
-Section 'Environment configured' took 2.7352 seconds
-Total elapsed time: 2.7352 seconds
+Section 'Environment configured' took 2.2431 seconds
+Total elapsed time: 2.2431 seconds
 ----------------------------------------
-Loading data for correlation analysis: zos at (90, 180) with ['zos']
+Loading data for correlation analysis: zos at (90, 180) with ['zos', 'hfds', 'tauuo', 'tauvo', 'hfds_anomalies']
 Loading data from time index 96 to 600
 Set up
-Finished loading
-Finished slicing
-Data shape (504, 180, 360)
-(504, 180, 360)
-Section 'Data loaded' took 25.9424 seconds
-Total elapsed time: 28.6776 seconds
-----------------------------------------
-Computing lagged correlations with time_window=432, max_lag=72, lag_step=6
-field shape (504, 180, 360)
-Section 'Correlations computed' took 3.6524 seconds
-Total elapsed time: 32.3301 seconds
-----------------------------------------
-Saved correlation map for zos to CorrelationMaps/correlation_zos_at_90_180_with_zos.npy
-Section 'Correlation maps saved' took 0.0572 seconds
-Total elapsed time: 32.3873 seconds
-----------------------------------------
-Saved correlation plot for zos at lag 0 to CorrelationPlots/correlation_plot_zos_at_90_180_with_zos_lag_0.png
-Saved correlation plot for zos at lag 1 to CorrelationPlots/correlation_plot_zos_at_90_180_with_zos_lag_1.png
-Saved correlation plot for zos at lag 2 to CorrelationPlots/correlation_plot_zos_at_90_180_with_zos_lag_2.png
-Saved correlation plot for zos at lag 3 to CorrelationPlots/correlation_plot_zos_at_90_180_with_zos_lag_3.png
-Saved correlation plot for zos at lag 4 to CorrelationPlots/correlation_plot_zos_at_90_180_with_zos_lag_4.png
-Saved correlation plot for zos at lag 5 to CorrelationPlots/correlation_plot_zos_at_90_180_with_zos_lag_5.png
-Saved correlation plot for zos at lag 6 to CorrelationPlots/correlation_plot_zos_at_90_180_with_zos_lag_6.png
-Saved correlation plot for zos at lag 7 to CorrelationPlots/correlation_plot_zos_at_90_180_with_zos_lag_7.png
-Saved correlation plot for zos at lag 8 to CorrelationPlots/correlation_plot_zos_at_90_180_with_zos_lag_8.png
-Saved correlation plot for zos at lag 9 to CorrelationPlots/correlation_plot_zos_at_90_180_with_zos_lag_9.png
-Saved correlation plot for zos at lag 10 to CorrelationPlots/correlation_plot_zos_at_90_180_with_zos_lag_10.png
-Saved correlation plot for zos at lag 11 to CorrelationPlots/correlation_plot_zos_at_90_180_with_zos_lag_11.png
-Saved correlation plot for zos at lag 12 to CorrelationPlots/correlation_plot_zos_at_90_180_with_zos_lag_12.png
-Section 'Plots saved' took 8.6032 seconds
-Total elapsed time: 40.9905 seconds
-----------------------------------------
-Spatial lagged correlation analysis complete!
-Finished Samudra model run at Sat May  3 09:53:48 PDT 2025
+Traceback (most recent call last):
+  File "/nobackupp28/sruiz5/climate-sim/Samudra_Testing/time_lag.py", line 363, in <module>
+    results = main( 
+  File "/nobackupp28/sruiz5/climate-sim/Samudra_Testing/time_lag.py", line 295, in main
+    data_dict = load_data_for_correlation_analysis(
+  File "/nobackupp28/sruiz5/climate-sim/Samudra_Testing/setup.py", line 380, in load_data_for_correlation_analysis
+    data, wet, data_mean, data_std = load_data_raw( #If this is the first time, we load data from end of training
+  File "/nobackupp28/sruiz5/climate-sim/Samudra_Testing/setup.py", line 241, in load_data_raw
+    wet = utils.extract_wet(wet_zarr, output_list_str, hist)
+  File "/nobackup/sruiz5/SAMUDRATEST/Samudra/samudra/utils.py", line 81, in extract_wet
+    depths = [float(depth) for depth in depths]
+  File "/nobackup/sruiz5/SAMUDRATEST/Samudra/samudra/utils.py", line 81, in <listcomp>
+    depths = [float(depth) for depth in depths]
+ValueError: could not convert string to float: 'tauvo'
+Finished Samudra model run at Sat May  3 15:24:17 PDT 2025
 
 ____________________________________________________________________
-Job Resource Usage Summary for 22161764.pbspl1.nas.nasa.gov
+Job Resource Usage Summary for 22162609.pbspl1.nas.nasa.gov
 
-    CPU Time Used            : 00:01:00
-    Real Memory Used         : 589956kb
-    Walltime Used            : 00:04:26
+    CPU Time Used            : 00:00:15
+    Real Memory Used         : 401544kb
+    Walltime Used            : 00:05:25
     Exit Status              : 0
 
     Number of CPUs Requested : 40
@@ -71,5 +52,5 @@ Job Resource Usage Summary for 22161764.pbspl1.nas.nasa.gov
     Execution Queue          : R21940709
     Charged To               : g26113
 
-    Job Stopped              : Sat May  3 09:54:26 2025
+    Job Stopped              : Sat May  3 15:24:55 2025
 ____________________________________________________________________
