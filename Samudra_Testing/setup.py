@@ -402,17 +402,7 @@ def load_data_for_correlation_analysis(reference_point=(90, 180),
         ref_var_name = reference_var
     
     # Extract the raw and normalized reference data
-    reference_raw = data[ref_var_name].sel(y=ref_lat, x=ref_lon, method='nearest')
-    
-    print(f"Available dimensions in data_mean: {list(data_mean.dims)}")
-    print(f"Available coordinates in data_mean: {list(data_mean.coords)}")
-
-    print("data")
-    print(data)
-    print("data_mean")
-    print(data_mean)
-    print("data_std")
-    print(data_std)
+    reference_raw = data[ref_var_name].values[:, ref_lat, ref_lon]
     # The data is already normalized when loaded through load_data_raw
     # However, we need to use mean and std for potential future use
     reference_mean = data_mean[ref_var_name]
@@ -441,11 +431,15 @@ def load_data_for_correlation_analysis(reference_point=(90, 180),
         # Extract the raw field data
         print("Data shape", data[field_var_name].values.shape)
 
-        field_raw = data[field_var_name].sel(y=lat_slice, x=lon_slice)
+        field_raw = data[field_var_name].values[:, lat_slice, lon_slice]
 
-        print("var dims",data[field_var_name].dims)
-        print("var coords",data[field_var_name].coords)
-        print("Freshly indexed", field_raw.shape, field_var_name, lat_slice, lon_slice)
+        print(field_raw.shape)
+
+        raise Exception
+
+        #print("var dims",data[field_var_name].dims)
+        #print("var coords",data[field_var_name].coords)
+        #print("Freshly indexed", field_raw.shape, field_var_name, lat_slice, lon_slice)
         
         # Get mean and std for reference
         field_mean = data_mean[field_var_name]
@@ -457,16 +451,16 @@ def load_data_for_correlation_analysis(reference_point=(90, 180),
         field_data[field_var]['std'] = field_std.compute()
     
     # Get wetmask for the spatial region
-    wetmask = data.wetmask.sel(y=lat_slice, x=lon_slice)
+    wetmask = data.wetmask.values[:, lat_slice, lon_slice]
     
     # Get appropriate depth level for the wetmask
     if reference_var in ['thetao', 'so', 'uo', 'vo']:
         # Find the depth level index that corresponds to reference_depth
         depth_idx = list(data.lev.values).index(float(reference_depth.replace('_', '.')))
-        wetmask = wetmask.isel(lev=depth_idx).compute()
+        wetmask = wetmask[depth_idx, :, :]#.compute()  # Select the correct depth level
     else:
         # For surface variables like zos, use the surface wetmask
-        wetmask = wetmask.isel(lev=0).compute()
+        wetmask = wetmask[0, :, :]#.compute()  # Select the surface level
     
     # Organize data for return
     result = {
