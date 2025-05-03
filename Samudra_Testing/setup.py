@@ -441,6 +441,8 @@ def load_data_for_correlation_analysis(reference_point=(90, 180),
         # Extract the raw field data
         field_raw = data[field_var_name].sel(y=lat_slice, x=lon_slice)
 
+        print("var dims",data[field_var_name].dims)
+        print("var coords",data[field_var_name].coords)
         print("Freshly indexed", field_raw.shape, field_var_name, lat_slice, lon_slice)
         
         # Get mean and std for reference
