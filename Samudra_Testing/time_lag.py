@@ -36,7 +36,7 @@ def compute_lagged_correlations(data_dict, time_window=60, max_lag=12, lag_step=
         where correlation_tensor has dimensions (lag, lat, lon)
     """
     # Get the reference series for the specified point
-    reference_series = data_dict['reference_series']['raw'].values
+    reference_series = data_dict['reference_series']['raw']
     reference_series = torch.tensor(reference_series, dtype=torch.float32, device=device)
     
     # Number of time points in the data
@@ -60,7 +60,7 @@ def compute_lagged_correlations(data_dict, time_window=60, max_lag=12, lag_step=
     # Process each field variable
     for field_var, field_data in data_dict['field_series'].items():
         # Get the field values across all spatial points
-        field_values = field_data['raw'].values
+        field_values = field_data['raw']
         
         # Get dimensions
         time_dim, lat_dim, lon_dim = field_values.shape
@@ -108,7 +108,7 @@ def compute_lagged_correlations(data_dict, time_window=60, max_lag=12, lag_step=
             correlation_tensor[lag_idx] = correlation_map
         
         # Apply wetmask to mask out land points
-        wetmask = torch.tensor(data_dict['wetmask'].values, dtype=torch.float32, device=device)
+        wetmask = torch.tensor(data_dict['wetmask'], dtype=torch.float32, device=device)
         masked_correlation = correlation_tensor * wetmask
         
         # Store the result
