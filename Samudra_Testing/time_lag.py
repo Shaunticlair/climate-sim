@@ -359,9 +359,10 @@ if __name__ == "__main__":
     # Example usage
     print('None')
     delta = 20
+    # (slice(90-delta,90+delta+1), slice(180-delta,180+delta+1))
     results = main( 
         reference_point=(90, 180),
-        spatial_slice=(slice(90-delta,90+delta+1), slice(180-delta,180+delta+1)),#(slice(50, 130), slice(110, 250)),
+        spatial_slice=(slice(0,180), slice(0,360)),#(slice(50, 130), slice(110, 250)),
         time_window=72*6,  # Number of time steps for correlation
         max_lag=72,      # Maximum lag in time steps
         lag_step=6,      # Step size for lags
