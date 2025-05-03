@@ -1,4 +1,4 @@
-Job 22160588.pbspl1.nas.nasa.gov started on Fri May 02 22:15:12 PDT 2025
+Job 22160598.pbspl1.nas.nasa.gov started on Fri May 02 22:22:39 PDT 2025
 The job requested the following resources:
     ncpus=40
     place=scatter:excl
@@ -12,12 +12,12 @@ On r135i4n29:
 Warning: no access to tty (Inappropriate ioctl for device).
 Thus no job control in this shell.
 Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
-Starting Samudra model run at Fri May  2 22:15:16 PDT 2025
+Starting Samudra model run at Fri May  2 22:22:42 PDT 2025
 None
 Using CPU
 Using 80 CPU cores for computation
-Section 'Environment configured' took 0.3680 seconds
-Total elapsed time: 0.3680 seconds
+Section 'Environment configured' took 0.3247 seconds
+Total elapsed time: 0.3247 seconds
 ----------------------------------------
 Loading data for correlation analysis: zos at (90, 180) with ['zos']
 Loading data from time index 384 to 600
@@ -25,18 +25,18 @@ Set up
 Finished loading
 Finished slicing
 Data shape (216, 180, 360)
-(216, 3, 3)
-Section 'Data loaded' took 18.3360 seconds
-Total elapsed time: 18.7040 seconds
+(216, 41, 41)
+Section 'Data loaded' took 7.1506 seconds
+Total elapsed time: 7.4753 seconds
 ----------------------------------------
 Computing lagged correlations with time_window=144, max_lag=72, lag_step=6
-field shape (216, 3, 3)
-Section 'Correlations computed' took 0.3565 seconds
-Total elapsed time: 19.0604 seconds
+field shape (216, 41, 41)
+Section 'Correlations computed' took 0.3812 seconds
+Total elapsed time: 7.8565 seconds
 ----------------------------------------
 Saved correlation map for zos to CorrelationMaps/correlation_zos_at_90_180_with_zos.npy
-Section 'Correlation maps saved' took 0.0135 seconds
-Total elapsed time: 19.0739 seconds
+Section 'Correlation maps saved' took 0.0129 seconds
+Total elapsed time: 7.8694 seconds
 ----------------------------------------
 Saved correlation plot for zos at lag 0 to CorrelationPlots/correlation_plot_zos_at_90_180_with_zos_lag_0.png
 Saved correlation plot for zos at lag 1 to CorrelationPlots/correlation_plot_zos_at_90_180_with_zos_lag_1.png
@@ -51,18 +51,18 @@ Saved correlation plot for zos at lag 9 to CorrelationPlots/correlation_plot_zos
 Saved correlation plot for zos at lag 10 to CorrelationPlots/correlation_plot_zos_at_90_180_with_zos_lag_10.png
 Saved correlation plot for zos at lag 11 to CorrelationPlots/correlation_plot_zos_at_90_180_with_zos_lag_11.png
 Saved correlation plot for zos at lag 12 to CorrelationPlots/correlation_plot_zos_at_90_180_with_zos_lag_12.png
-Section 'Plots saved' took 9.5048 seconds
-Total elapsed time: 28.5788 seconds
+Section 'Plots saved' took 9.0467 seconds
+Total elapsed time: 16.9161 seconds
 ----------------------------------------
 Spatial lagged correlation analysis complete!
-Finished Samudra model run at Fri May  2 22:17:44 PDT 2025
+Finished Samudra model run at Fri May  2 22:23:51 PDT 2025
 
 ____________________________________________________________________
-Job Resource Usage Summary for 22160588.pbspl1.nas.nasa.gov
+Job Resource Usage Summary for 22160598.pbspl1.nas.nasa.gov
 
-    CPU Time Used            : 00:00:28
-    Real Memory Used         : 331540kb
-    Walltime Used            : 00:02:30
+    CPU Time Used            : 00:00:33
+    Real Memory Used         : 295556kb
+    Walltime Used            : 00:01:10
     Exit Status              : 0
 
     Number of CPUs Requested : 40
@@ -71,5 +71,5 @@ Job Resource Usage Summary for 22160588.pbspl1.nas.nasa.gov
     Execution Queue          : R21940709
     Charged To               : g26113
 
-    Job Stopped              : Fri May  2 22:17:47 2025
+    Job Stopped              : Fri May  2 22:23:54 2025
 ____________________________________________________________________
