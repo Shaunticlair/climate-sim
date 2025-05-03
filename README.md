@@ -8,3 +8,5 @@ Includes elements of:
 - Optimization
 - Pedagogy
 - Machine Learning
+
+This project was expanded during Fall 2024-Spring 2025 to include a Master's Thesis at MIT, related to studying the adjoint of Pytorch-based climate emulation models, such as Samudra.
