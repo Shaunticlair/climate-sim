@@ -130,6 +130,11 @@ output_dict = {
     t_end: [(slice(0,1), slice(final_channel, final_channel+1), final_lat_slice, final_lon_slice)]
 }
 
+#output_dict = {
+#    t_end: [(slice(0,1), slice(final_channel, final_channel+1), final_lat_slice, final_lon_slice)],
+#    t_end: [(slice(0,1), slice(final_channel, final_channel+1), final_lat_slice, final_lon_slice)]
+#}
+
 # Add this output dictionary to the list
 out_list_dict.append(output_dict)
 

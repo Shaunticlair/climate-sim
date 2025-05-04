@@ -702,7 +702,7 @@ class SamudraAdjoint(model.Samudra):
         # Create one objective for each output dictionary in out_list_dict
         for out_dict in out_list_dict:
             # Each objective is a single gradient-tracked zero tensor, one element
-            zero_tensor = torch.zeros(1, device=device, requires_grad=True)
+            zero_tensor = torch.zeros(1, device=device)
             num_elems = 0 # How many elements are we averaging over?
             for out_slices in out_dict.values():
                 for out_slice in out_slices:
