@@ -50,17 +50,6 @@ class SamudraAdjoint(model.Samudra):
             pad
         )
 
-    def checkpointed_forward_once(self, x):
-        """
-        Wrapper for forward_once that uses gradient checkpointing for memory efficiency
-        """
-        # Define a custom forward function that can be checkpointed
-        def custom_forward(*inputs):
-            return self.forward_once(inputs[0])
-        
-        # Apply checkpointing
-        return checkpoint.checkpoint(custom_forward, x, use_reentrant=False)
-    
     def compute_fd_sensitivity(self, inputs, 
                             source_coords_dict, 
                             target_coords_dict, 
@@ -219,6 +208,18 @@ class SamudraAdjoint(model.Samudra):
         
         return sensitivity_results
 
+    ### Helper functions for compute_state_sensitivity ###
+    def checkpointed_forward_once(self, x):
+        """
+        Wrapper for forward_once that uses gradient checkpointing for memory efficiency
+        """
+        # Define a custom forward function that can be checkpointed
+        def custom_forward(*inputs):
+            return self.forward_once(inputs[0])
+        
+        # Apply checkpointing
+        return checkpoint.checkpoint(custom_forward, x, use_reentrant=False)
+    
     def track_gradients_for_chunk(self, state_tensor, slices_list, device="cuda"):
         """
         Utility function to track the gradient of chunks of elements in the state tensor.
@@ -624,4 +625,272 @@ class SamudraAdjoint(model.Samudra):
         timer.checkpoint("Gathered sensitivities for all input chunks")
         
         return sensitivity_results
+
+    ### Helper functions for compute_avg_state_sensitivity ###
+    def create_grad_chunks(self, state_tensor, in_list_dict, device="cuda"):
+
+        """
+        Utility function to create gradient-tracked chunks based on in_list_dict.
+        
+        Parameters:
+        -----------
+        state_tensor : torch.Tensor
+            The state tensor from which to track the gradient.
+        in_list_dict : list of dictionaries
+            in_obj_specs : dict
+                Dictionary mapping timesteps to lists of tuples of slices.
+                Each tuple contains (batch_slice, channel_slice, height_slice, width_slice) indicating a 
+                region of the state tensor to track gradients for. The timestep indicates which time step
+                the chunks correspond to.
+
+                All slices should be of the same size.
+                Slices indicate the regions of the input tensor to average over for sensitivity computation.
+        device : str
+            The device to use for computation.
+            
+        Returns:
+        --------
+        tracked_list : list of torch.Tensor
+        """
+        
+        tracked_list = []
+        for in_dict in in_list_dict:
+            # Get the first time step from the dictionary, so we can get an arbitrary example slice
+            time = min(in_dict.keys())
+            in_slice = in_dict[time][0]  
+            batch_slice, channel_slice, height_slice, width_slice = in_slice
+            # This slice will give us the shape of grad_chunk
+            chunk_example = state_tensor[batch_slice, channel_slice, height_slice, width_slice]
+            chunk_shape = chunk_example.shape
+            grad_chunk = torch.zeros(chunk_shape, device=device, requires_grad=True)
+            # We're using the same grad_chunk for all slices in the list, so we can just append it once and move on
+            tracked_list.append(grad_chunk)
+
+        return tracked_list
+
+    def create_objectives(self, state_tensor, out_list_dict, device="cuda"):
+        """
+        Utility function to create objective functions for each output box in out_list_dict.
+        
+        Parameters:
+        -----------
+        state_tensor : torch.Tensor
+            The state tensor from which to compute the output boxes.
+        
+        out_list_dict : list of dictionaries
+            out_obj_specs : dict
+                Dictionary mapping timesteps to lists of tuples of slices.
+                Each tuple contains (batch_slice, channel_slice, height_slice, width_slice) indicating a 
+                region of the output state tensor to average over. The timestep indicates which time step
+                the output boxes correspond to.
+
+                All slices should be of the same size.
+                Slices indicate the regions of the output tensor to average over for sensitivity computation.
+
+        device : str
+            The device to use for computation.
+
+        Returns:
+        --------
+        objective_list : list of tuples
+            Each tuple contains a zero tensor and the number of elements to average over.
+            The zero tensor is used as an objective function for the backward pass.
+            The number of elements is used to average the gradients later.
+
+        """
+        objective_list = []
+        # Create one objective for each output dictionary in out_list_dict
+        for out_dict in out_list_dict:
+            # Each objective is a single gradient-tracked zero tensor, one element
+            zero_tensor = torch.zeros(1, device=device, requires_grad=True)
+            num_elems = 0 # How many elements are we averaging over?
+            for out_slices in out_dict.values():
+                for out_slice in out_slices:
+                    batch_slice, channel_slice, height_slice, width_slice = out_slice
+                    # Get the output box and compute the sum of all elements
+                    output_box = state_tensor[batch_slice, channel_slice, height_slice, width_slice]
+                    num_elems += output_box.numel()
+
+            # Num_elems will later be divided by, so we can use it to average the gradients
+
+            objective_list.append((zero_tensor, num_elems))
+        
+        return objective_list
+
+    def add_grad_tracking(self, state_tensor, timestep, in_list_dict, tracked_list, device="cuda"):
+        """
+        Add the gradient tracking for the specified timesteps.
+        """
+
+        for in_obj_idx, in_dict in enumerate(in_list_dict):
+            in_obj = tracked_list[in_obj_idx]  # Get the tracked dictionary for this object
+            for time, in_slices in in_dict.items():
+                if time != timestep: # Only add gradients for the specified timestep
+                    continue
+                for in_slice in in_slices:
+                    batch_slice, channel_slice, height_slice, width_slice = in_slice
+                    # Add the tracked object to the state tensor at the specified slice
+                    state_tensor[batch_slice, channel_slice, height_slice, width_slice] += in_obj
+
+        return state_tensor
+    
+    def add_objective_contribution(self, state_tensor, timestep, out_list_dict, objective_list, device="cuda"):
+        """
+        Add the objective contribution for the specified timesteps.
+        """
+
+        for out_obj_idx, out_dict in enumerate(out_list_dict):
+            out_obj = objective_list[out_obj_idx][0]
+
+            for time, out_slices in out_dict.items():
+                if time != timestep: # Only add to the objective for the specified timestep
+                    continue
+                for out_slice in out_slices:
+                    batch_slice, channel_slice, height_slice, width_slice = out_slice
+                    # Add the objective contribution to the state tensor at the specified slice
+                    output_box = state_tensor[batch_slice, channel_slice, height_slice, width_slice]
+                    out_obj += output_box.sum()
+
+        return out_obj
+
+    def compute_avg_state_sensitivity(self, inputs, in_list_dict, out_list_dict, device="cuda", use_checkpointing=True, timer=null_timer):
+        """
+        Parameters:
+        -----------
+        inputs : list of tensors
+            A Test dataset object
+            When indexed into, it returns a tuple (input_tensor, target_tensor) for each time step.
+        in_list_dict : list of dictionaries
+            in_obj_specs : dict
+                Dictionary mapping timesteps to lists of tuples of slices.
+                Each tuple contains (batch_slice, channel_slice, height_slice, width_slice) indicating a 
+                region of the state tensor to track gradients for. The timestep indicates which time step
+                the chunks correspond to.
+
+                All slices should be of the same size.
+                Slices indicate the regions of the input tensor to average over for sensitivity computation.
+
+        out_list_dict : list of dictionaries
+            out_obj_specs : dict
+                Dictionary mapping timesteps to lists of tuples of slices.
+                Each tuple contains (batch_slice, channel_slice, height_slice, width_slice) indicating a 
+                region of the output state tensor to average over. The timestep indicates which time step
+                the output boxes correspond to.
+
+                All slices should be of the same size.
+                Slices indicate the regions of the output tensor to average over for sensitivity computation.
+        """
+
+        # Make sure we're in evaluation mode
+        self.eval()
+
+        # Determine the time range we need to process
+        in_times = sum([list(d.keys()) for d in in_list_dict], [])
+        out_times = sum([list(d.keys()) for d in out_list_dict], [])
+        min_time = min(min(in_times), min(out_times))
+        max_time = max(max(in_times), max(out_times))
+        
+        # Initialize the model input for the minimum time step
+        initial_iter = min_time // 2
+        model_input = inputs[initial_iter][0].clone().to(device)
+        
+        timer.checkpoint("Finished setting up model input")
+
+        # Create 0's tensor for each input in in_list_dict
+        tracked_list = self.create_grad_chunks(model_input, in_list_dict, device=device)
+
+        # Create 0 tensor for each output in out_list_dict: these can be treated as "objective functions".
+        objective_list = self.create_objectives(model_input, out_list_dict, device=device)
+
+        timer.checkpoint("Created gradient-tracked chunks and objectives")
+
+        # Gradient-track the first timesteps
+        model_input = self.add_grad_tracking(
+            model_input, min_time, in_list_dict, tracked_list, device
+        )
+        model_input = self.add_grad_tracking(
+            
+            model_input, min_time + 1, in_list_dict, tracked_list, device
+        )
+        
+        current_input = model_input
+
+        timer.checkpoint("Added gradient tracking for initial timesteps")
+
+        # Run the autoregressive rollout
+        for it in range(initial_iter, max_time // 2 ):
+            print(f"Processing time step: {it}")
+            
+            # Forward pass
+            if use_checkpointing and it < max_time // 2:
+                output = self.checkpointed_forward_once(current_input)
+            else:
+                output = self.forward_once(current_input)
+            
+            timer.checkpoint(f"Ran model forward for model iteration {it}")
+            
+            # Store objective contributions for this time step
+            next_even_time = it * 2 + 2
+            next_odd_time = next_even_time + 1  
+
+            self.add_objective_contribution(
+                output, next_even_time, out_list_dict, objective_list, device
+            )
+            self.add_objective_contribution(
+                output, next_odd_time, out_list_dict, objective_list, device
+            )
+            
+            # Prepare for next time step if needed
+            if it < max_time // 2:
+                boundary = inputs[it+1][0][:, self.output_channels:].to(device)
+                current_input = torch.cat([output, boundary], dim=1)
+                
+                # Add gradient tracking for next timesteps
+                self.add_grad_tracking(
+                    current_input, next_even_time, in_list_dict, tracked_list, device
+                )
+                self.add_grad_tracking(
+                    current_input, next_odd_time, in_list_dict, tracked_list, device
+                )
+
+                timer.checkpoint(f"Added gradient tracking for model iteration {it+1}")
+
+        timer.checkpoint("Forward pass complete, accumulated objectives")
+
+        sensitivity_results = {}
+
+        for out_obj_idx, out_obj in objective_list:
+            out_obj_tensor, num_elems = out_obj
+            # Clear gradients before backward pass
+            if out_obj_tensor.grad is not None:
+                out_obj_tensor.grad.zero_()
+            
+            timer.checkpoint("Cleared gradients before backward pass")
+            
+            avg_obj_tensor = out_obj_tensor / num_elems  # Average the objective tensor
+            # Compute gradients of the accumulated objective with respect to all inputs
+            avg_obj_tensor.backward(retain_graph=True)
+
+            timer.checkpoint("Backwards pass complete")
+
+            # Gather sensitivity tensors for all input chunks
+            for in_obj_idx, in_obj in enumerate(tracked_list):
+                grad_chunk = in_obj.grad.clone() if in_obj.grad is not None else torch.zeros_like(in_obj)
+
+                # Store the sensitivity tensor in the results dict
+                index = (out_obj_idx, in_obj_idx)
+                sensitivity_results[index] = grad_chunk
+
+            timer.checkpoint("Gathered sensitivities for all input chunks")
+
+        return sensitivity_results
+
+
+
+        
+                
+        
+
+            
+
 

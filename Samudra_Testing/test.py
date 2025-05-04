@@ -1,21 +1,28 @@
-import setup
+import torch
 
-# Model choice
-hist = 1
-N_test = 40  # Timesteps to use for testing 
-state_in_vars_config = "3D_thermo_dynamic_all"
-state_out_vars_config = state_in_vars_config
-boundary_vars_config = "3D_all_hfds_anom"
+def modify_tensor(tensor):
+    tensor += 1  # In-place modification
+    return tensor
 
-device = setup.torch_config_cuda_cpu_seed() 
+# Create a list of tensors
+tensor_list = [torch.tensor([1, 2, 3]), torch.tensor([4, 5, 6])]
 
-# Based on our model, we get our list of variables
-list_list_str, list_num_channels = setup.choose_model(state_in_vars_config, boundary_vars_config, hist)
+# Original state
+print("Original:", tensor_list[0])
 
-# Unpack
-input_list_str, boundary_list_str, output_list_str, vars_list_str = list_list_str
-num_input_channels, num_output_channels = list_num_channels
+# Modify through function
+x = tensor_list[0]
+modify_tensor(x)
 
-data, data_mean, data_std = setup.load_data_raw(0,2)
+# Check if modification is reflected in the original list
+print("After function call:", tensor_list[0])
 
-loss_fn = setup.gen_weighted_loss_fn(data, state_in_vars_config=state_out_vars_config)
+def modify_slice(tensor):
+    tensor[0:2] += 10  # In-place modification of a slice
+    return tensor
+
+y = tensor_list[1]  # The second tensor [4, 5, 6]
+modify_slice(y)
+
+# Check original list
+print("After slice modification:", tensor_list[1])  # Will show [14, 15, 6]

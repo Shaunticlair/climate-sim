@@ -4,7 +4,7 @@ from pathlib import Path
 import matplotlib.gridspec as gridspec
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 
-def plot_correlation_grid(correlation_file, map_dims, reference_point):
+def plot_correlation_grid(correlation_file, map_dims, reference_point, var_in, var_out):
     """
     Create a 3x4 grid of lag correlation plots
     
@@ -146,7 +146,7 @@ def plot_correlation_grid(correlation_file, map_dims, reference_point):
             ax.set_yticks([])
     
     # Add super title
-    fig.suptitle(f'Lag Correlation of ZOS at ({ref_lat},{ref_lon}) with ZOS across map', 
+    fig.suptitle(f'Lag Correlation of {var_out} at ({ref_lat},{ref_lon}) with {var_in} across map', 
                  fontsize=16, y=0.98)
     
     # Create Plots directory if it doesn't exist
@@ -154,7 +154,7 @@ def plot_correlation_grid(correlation_file, map_dims, reference_point):
     
     # Save the figure
     view_name = f"({map_dims[0]},{map_dims[1]})x({map_dims[2]},{map_dims[3]})"
-    filename = f'Plots/lag_correlation_zos_at_{ref_lat}_{ref_lon}_with_zos_{view_name}.png'
+    filename = f'Plots/lag_correlation_{var_out}_at_{ref_lat}_{ref_lon}_with_{var_in}_{view_name}.png'
     plt.savefig(filename, dpi=300, bbox_inches='tight')
     plt.close()
     
@@ -166,14 +166,16 @@ if __name__ == "__main__":
     reference_point = (90, 180)  # Equatorial Pacific
     
     # Define map dimensions - adjust as needed
-    delta = 200
+    delta = 40
     x_ref, y_ref = reference_point
     map_dims = [x_ref-delta, x_ref+delta+1, y_ref-delta, y_ref+delta+1]  # [xmin, xmax, ymin, ymax]
     map_dims= [0,180,0,360]
     #(50,130)x(110,250)
     map_dims = [50, 130, 110, 250]  # [xmin, xmax, ymin, ymax]
     # Path to correlation file
-    correlation_file = "CorrelationMaps/correlation_zos_at_90_180_with_zos.npy"
-    
-    # Create the correlation grid plot
-    plot_correlation_grid(correlation_file, map_dims, reference_point)
+    var_out = 'zos'
+    for var_in in ['zos', 'tauuo', 'tauvo', 'hfds', 'hfds_anomalies']:
+        correlation_file = f"CorrelationMaps/correlation_zos_at_90_180_with_{var_in}.npy"
+        
+        # Create the correlation grid plot
+        plot_correlation_grid(correlation_file, map_dims, reference_point, var_in, var_out)
