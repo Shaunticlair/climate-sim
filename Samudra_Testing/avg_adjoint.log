@@ -1,0 +1,130 @@
+Job 22168252.pbspl1.nas.nasa.gov started on Sun May 04 14:27:30 PDT 2025
+The job requested the following resources:
+    ncpus=40
+    place=scatter:excl
+    walltime=01:00:00
+
+PBS set the following environment variables:
+        FORT_BUFFERED = 1
+                   TZ = PST8PDT
+
+On r133i6n1:
+Redirecting to /bin/systemctl stop array.service
+Redirecting to /bin/systemctl start array.service
+Warning: no access to tty (Inappropriate ioctl for device).
+Thus no job control in this shell.
+Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
+Starting Samudra model run at Sun May  4 14:29:17 PDT 2025
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/indexing.py:1443: PerformanceWarning: Slicing with an out-of-order index is generating 19 times more chunks
+  return self.array[key]
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
+  return data.astype(dtype, **kwargs)
+/nobackupp28/sruiz5/climate-sim/Samudra_Testing/model_adjoint.py:865: UserWarning: The .grad attribute of a Tensor that is not a leaf Tensor is being accessed. Its .grad attribute won't be populated during autograd.backward(). If you indeed want the .grad field to be populated for a non-leaf Tensor, use .retain_grad() on the non-leaf Tensor. If you access the non-leaf Tensor by mistake, make sure you access the leaf Tensor instead. See github.com/pytorch/pytorch/pull/30531 for more informations. (Triggered internally at aten/src/ATen/core/TensorBody.h:489.)
+  if out_obj_tensor.grad is not None:
+Using CPU
+Using 80 CPU cores for computation
+Number of input channels: 158
+Number of output channels: 154
+Section 'Environment configured' took 0.0570 seconds
+Total elapsed time: 0.0570 seconds
+----------------------------------------
+Section 'Data loaded' took 13.4343 seconds
+Total elapsed time: 13.4913 seconds
+----------------------------------------
+Section 'Model loaded' took 2.3617 seconds
+Total elapsed time: 15.8530 seconds
+----------------------------------------
+Out:  [[2 3]] Our data has the shape torch.Size([1, 158, 180, 360])
+Computing sensitivity with batch 0, initial channels [76],       lat slice slice(0, 180, None), lon slice slice(0, 360, None)
+Section 'Setup complete' took 37.4877 seconds
+Total elapsed time: 53.3407 seconds
+----------------------------------------
+Out:  [[2 3]] Section 'Finished setting up model input' took 3.3837 seconds
+Total elapsed time: 56.7244 seconds
+----------------------------------------
+Section 'Created gradient-tracked chunks and objectives' took 0.0268 seconds
+Total elapsed time: 56.7512 seconds
+----------------------------------------
+Section 'Added gradient tracking for initial timesteps' took 0.0389 seconds
+Total elapsed time: 56.7901 seconds
+----------------------------------------
+Processing time step: 0
+Section 'Ran model forward for model iteration 0' took 1.8623 seconds
+Total elapsed time: 58.6524 seconds
+----------------------------------------
+Out:  [[4 5]] Section 'Added gradient tracking for model iteration 1' took 3.4524 seconds
+Total elapsed time: 62.1048 seconds
+----------------------------------------
+Processing time step: 1
+Section 'Ran model forward for model iteration 1' took 1.1830 seconds
+Total elapsed time: 63.2878 seconds
+----------------------------------------
+Out:  [[6 7]] Section 'Added gradient tracking for model iteration 2' took 3.2567 seconds
+Total elapsed time: 66.5445 seconds
+----------------------------------------
+Processing time step: 2
+Section 'Ran model forward for model iteration 2' took 1.1676 seconds
+Total elapsed time: 67.7121 seconds
+----------------------------------------
+Out:  [[8 9]] Section 'Added gradient tracking for model iteration 3' took 3.3890 seconds
+Total elapsed time: 71.1011 seconds
+----------------------------------------
+Processing time step: 3
+Section 'Ran model forward for model iteration 3' took 1.1770 seconds
+Total elapsed time: 72.2781 seconds
+----------------------------------------
+Out:  [[10 11]] Section 'Added gradient tracking for model iteration 4' took 3.8279 seconds
+Total elapsed time: 76.1060 seconds
+----------------------------------------
+Processing time step: 4
+Section 'Ran model forward for model iteration 4' took 1.1684 seconds
+Total elapsed time: 77.2744 seconds
+----------------------------------------
+Out:  [[12 13]] Section 'Added gradient tracking for model iteration 5' took 3.4953 seconds
+Total elapsed time: 80.7697 seconds
+----------------------------------------
+Section 'Forward pass complete, accumulated objectives' took 0.0000 seconds
+Total elapsed time: 80.7697 seconds
+----------------------------------------
+Section 'Cleared gradients before backward pass' took 0.0208 seconds
+Total elapsed time: 80.7905 seconds
+----------------------------------------
+Section 'Backwards pass complete' took 19.4841 seconds
+Total elapsed time: 100.2746 seconds
+----------------------------------------
+Section 'Gathered sensitivities for all input chunks' took 0.0002 seconds
+Total elapsed time: 100.2748 seconds
+----------------------------------------
+Section 'Finished computing average state sensitivity' took 0.0199 seconds
+Total elapsed time: 100.2947 seconds
+----------------------------------------
+Computed sensitivity results: 1 entries
+Saved sensitivity tensor for avg_sensitivity_chin[76]_chout[76]_t[0,10].npy to avg_sensitivity_chin[76]_chout[76]_t[0,10].npy
+Saved sensitivity tensor for avg_sensitivity_chin[76]_chout[76]_t[2,10].npy to avg_sensitivity_chin[76]_chout[76]_t[2,10].npy
+Saved sensitivity tensor for avg_sensitivity_chin[76]_chout[76]_t[4,10].npy to avg_sensitivity_chin[76]_chout[76]_t[4,10].npy
+Saved sensitivity tensor for avg_sensitivity_chin[76]_chout[76]_t[6,10].npy to avg_sensitivity_chin[76]_chout[76]_t[6,10].npy
+Saved sensitivity tensor for avg_sensitivity_chin[76]_chout[76]_t[8,10].npy to avg_sensitivity_chin[76]_chout[76]_t[8,10].npy
+Section 'Finished saving sensitivity results' took 0.0501 seconds
+Total elapsed time: 100.3448 seconds
+----------------------------------------
+============================================
+    Average Sensitivity Analysis Done       
+============================================
+Finished Samudra model run at Sun May  4 14:32:31 PDT 2025
+
+____________________________________________________________________
+Job Resource Usage Summary for 22168252.pbspl1.nas.nasa.gov
+
+    CPU Time Used            : 00:33:59
+    Real Memory Used         : 7232864kb
+    Walltime Used            : 00:03:26
+    Exit Status              : 0
+
+    Number of CPUs Requested : 40
+    Walltime Requested       : 01:00:00
+
+    Execution Queue          : R21940709
+    Charged To               : g26113
+
+    Job Stopped              : Sun May  4 14:33:06 2025
+____________________________________________________________________
