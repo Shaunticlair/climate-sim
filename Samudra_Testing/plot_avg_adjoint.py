@@ -163,6 +163,7 @@ from misc import var_dict
 #var_in = 'tauvo'
 var_in = 'zos(even)'
 var_out = 'zos(even)' 
+var_in,var_out='test', 'test'
 
 #ch_in = var_dict[var_in]
 #ch_out = var_dict[var_out]
@@ -195,8 +196,7 @@ output_pixel = (90, 180)#(131,289)#  # Coordinates for the output pixel
 
 for initial_time in initial_times:
     in_time, out_time = initial_time, t_end
-    plot_path = Path(f'chunk_sensitivity_chin[{ch_in}]_chout[{ch_out}]_t[{in_time},{out_time}].npy')
-    #plot_path = Path(f'loss_sensitivity_chin[{ch_in}]_t[{in_time},{out_time}].npy')
+    plot_path = Path(f'avg_sensitivity_chin[{ch_in}]_chout[{ch_out}]_t[{in_time},{out_time}].npy')
     #plot_path = Path(f'sensitivity_arrays/Equatorial_Pacific/chunk_sensitivity_chin[{ch_in}]_chout[{ch_out}]_t[{in_time},{out_time}].npy')
     
     if plot_path.exists():
