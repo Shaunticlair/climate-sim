@@ -183,7 +183,8 @@ initial_times_dict = {'zos(even)': [t_1month, t_6months, t_1year, t_2year],
                       'hfds_anomalies': [t_1year, t_2year],}
 
 #initial_times = initial_times_dict[var_in] # [t_1month, t_6months, t_1year]#
-initial_times = [0,2,4,6,8]
+initial_times = [0,2,4,6,8]#[0,2,4,6,8]
+map_dims = [0, 180, 0, 360]  # Full global map
 
 
 output_pixel = (90, 180)#(131,289)#  # Coordinates for the output pixel
@@ -191,6 +192,7 @@ output_pixel = (90, 180)#(131,289)#  # Coordinates for the output pixel
 for initial_time in initial_times:
     in_time, out_time = initial_time, t_end
     plot_path = Path(f'chunk_sensitivity_chin[{ch_in}]_chout[{ch_out}]_t[{in_time},{out_time}].npy')
+    plot_path = Path(f'loss_sensitivity_chin[{ch_in}]_t[{in_time},{out_time}].npy')
     #plot_path = Path(f'sensitivity_arrays/Equatorial_Pacific/chunk_sensitivity_chin[{ch_in}]_chout[{ch_out}]_t[{in_time},{out_time}].npy')
     
     if plot_path.exists():

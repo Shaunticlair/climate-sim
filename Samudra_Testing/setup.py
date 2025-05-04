@@ -194,7 +194,7 @@ def compute_indices(hist, N_samples=2850, N_val=50, N_test=600):
 # ## Load Data
 # Load the necessary data for the model
 
-def load_data_raw(start_idx, end_idx, output_list_str, suffix= '',
+def load_data_raw(start_idx, end_idx, suffix= '',
                      hist=1):
     """
     Load data, mean, and std from zarr files for testing.
@@ -203,7 +203,6 @@ def load_data_raw(start_idx, end_idx, output_list_str, suffix= '',
     --------
     - start_idx: start index for time samples
     - end_idx: end index for time samples
-    - output_list_str: list of output variables for model
     - suffix: suffix for the zarr files (default: empty string)
     - hist: history length
     """
@@ -231,16 +230,7 @@ def load_data_raw(start_idx, end_idx, output_list_str, suffix= '',
         data.to_zarr(data_file, mode="w")
     data = xr.open_zarr(data_file)
 
-    # Get the wetmask for the model
-    
-    wet_zarr = data.wetmask
-    #print(output_list_str, 'zos' in output_list_str)
-    
-    # Remove duplicates from output_list_str
-    output_list_str = list(set(output_list_str))  # Remove duplicates
-    wet = utils.extract_wet(wet_zarr, output_list_str, hist)
-
-    return data, wet, data_mean, data_std
+    return data, data_mean, data_std
 
 def load_data(s_test, e_test, N_test,
                    input_list_str, boundary_list_str, output_list_str,
@@ -255,10 +245,16 @@ def load_data(s_test, e_test, N_test,
     - outputs_str: list of output variables for model
     - hist: history length
     """
-    data, wet, data_mean, data_std = load_data_raw(
-        s_test, e_test, output_list_str,
+    data, data_mean, data_std = load_data_raw(
+        s_test, e_test, 
         hist=hist
     )
+
+    wet_zarr = data.wetmask
+    
+    # Remove duplicates from output_list_str
+    output_list_str = list(set(output_list_str))  # Remove duplicates
+    wet = utils.extract_wet(wet_zarr, output_list_str, hist)
 
     test_data = data_loaders.Test(
         data,
@@ -372,15 +368,16 @@ def load_data_for_correlation_analysis(reference_point=(90, 180),
     for field_var in field_vars:
         if field_var in ['thetao', 'so', 'uo', 'vo']:
             output_list_str.append(f"{field_var}_lev_{reference_depth}")
+        elif field_var in ['hfds', 'tauuo', 'tauvo', 'hfds_anomalies']:
+            pass # These variables are not 
         else:
             output_list_str.append(field_var)
     
     print("Set up")
     # Load data using existing function with "analysis" suffix to avoid overwriting
-    data, wet, data_mean, data_std = load_data_raw( #If this is the first time, we load data from end of training
+    data, data_mean, data_std = load_data_raw( #If this is the first time, we load data from end of training
         2850-600, # 600 timesteps before the end of training data
         2850+2, # This is the last time step in the training data
-        output_list_str,
         suffix="_analysis",
         hist=1
     )

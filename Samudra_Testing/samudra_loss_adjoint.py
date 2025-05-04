@@ -69,7 +69,7 @@ test_data, wet, data_mean, data_std = setup.load_data(s_test, e_test, N_test,
                                                      input_list_str, boundary_list_str, output_list_str,
                                                      hist=hist, device=device)
 
-raw_data, raw_wet, raw_data_mean, raw_data_std = setup.load_data_raw(s_test, e_test, output_list_str)
+raw_data, raw_data_mean, raw_data_std = setup.load_data_raw(s_test, e_test)
 
 timer.checkpoint("Data loaded")
 

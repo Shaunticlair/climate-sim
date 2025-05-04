@@ -16,6 +16,6 @@ list_list_str, list_num_channels = setup.choose_model(state_in_vars_config, boun
 input_list_str, boundary_list_str, output_list_str, vars_list_str = list_list_str
 num_input_channels, num_output_channels = list_num_channels
 
-data, wet, data_mean, data_std = setup.load_data_raw(0,2,output_list_str)
+data, data_mean, data_std = setup.load_data_raw(0,2)
 
 loss_fn = setup.gen_weighted_loss_fn(data, state_in_vars_config=state_out_vars_config)
