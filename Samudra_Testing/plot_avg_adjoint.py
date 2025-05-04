@@ -134,7 +134,7 @@ def plot(path, map_dims, #Variables used to make the graph
     # Create Plots directory if it doesn't exist
     Path("Plots").mkdir(exist_ok=True)
     
-    name = f'Plots/adjoint_map_{view_name}_chin[{input_var}]_chout[{output_var}]_t[{t0},{t1}].png'
+    name = f'Plots/avg_adjoint_map_{view_name}_chin[{input_var}]_chout[{output_var}]_t[{t0},{t1}].png'
     print(f"Saving plot to: {name}")
     plt.savefig(name, dpi=300, bbox_inches='tight')
 
@@ -199,6 +199,7 @@ for initial_time in initial_times:
     plot_path = Path(f'avg_sensitivity_chin[{ch_in}]_chout[{ch_out}]_t[{in_time},{out_time}].npy')
     #plot_path = Path(f'sensitivity_arrays/Equatorial_Pacific/chunk_sensitivity_chin[{ch_in}]_chout[{ch_out}]_t[{in_time},{out_time}].npy')
     
+    print("Data retrieved from:", plot_path)
     if plot_path.exists():
         plot(plot_path, map_dims=map_dims, t0=in_time, t1=out_time, 
              output_pixel=output_pixel, output_var=var_out, input_var=var_in,

@@ -29,7 +29,7 @@ t_start = 0
 #t_end = 72 # Approximately a year (73 might be more accurate, but doesn't divide into 12 months nicely)
 t_end = 10
 
-t_months = [t_end - 6*i for i in range(1,13)]  # Months in a year
+#t_months = [t_end - 6*i for i in range(1,13)]  # Months in a year
 #in_times = t_months #[t_2year, t_1year, t_6months, t_1month] #[0] # Times to compute sensitivity wrt to
 in_times = [0, 2, 4, 6, 8]  # Times to compute sensitivity wrt to
 
@@ -98,43 +98,26 @@ print(f"Our data has the shape {test_data[0][0].shape}")
 
 ### Prepare in_list_dict and out_list_dict for avg_state_sensitivity ###
 
-# Original in_chunks_dict format for reference:
-# {time: [(batch_slice, channel_slice, lat_slice, lon_slice), ...]}
-
-# We need to convert to in_list_dict format:
-# [
-#   {time: [(batch_slice, channel_slice, lat_slice, lon_slice), ...]},
-#   {time: [(batch_slice, channel_slice, lat_slice, lon_slice), ...]},
-#   ...
-# ]
-
-# Create in_list_dict by splitting the original in_chunks_dict
+# Modified approach: Create a separate dictionary for each channel-time combination
 in_list_dict = []
+channel_time_mapping = []  # To keep track of (channel, time) for each in_obj_idx
 
 for channel in initial_channels:
-    # Create a dictionary for each channel
-    channel_dict = {}
-    
     for t in in_times:
-        # For each time, create a list with just one slice tuple for this channel
-        channel_dict[t] = [(batch_slice, slice(channel, channel+1), lat_slice, lon_slice)]
-    
-    # Add this channel's dictionary to the list
-    in_list_dict.append(channel_dict)
-
-# Similarly for out_list_dict
-out_list_dict = []
+        # For each channel-time combination, create a dictionary with just that time
+        channeltime_dict = {t: [(batch_slice, slice(channel, channel+1), lat_slice, lon_slice)]}
+        
+        # Add this dictionary to the list
+        in_list_dict.append(channeltime_dict)
+        
+        # Keep track of which index corresponds to which channel-time pair
+        channel_time_mapping.append((channel, t))
 
 # Create just one output dictionary with one slice
+out_list_dict = []
 output_dict = {
     t_end: [(slice(0,1), slice(final_channel, final_channel+1), final_lat_slice, final_lon_slice)]
 }
-
-#final_channel_odd = final_channel + 1  # For the next channel, if needed
-#output_dict = {
-#    t_end: [(slice(0,1), slice(final_channel, final_channel+1),         final_lat_slice, final_lon_slice)],
-#    t_end: [(slice(0,1), slice(final_channel_odd, final_channel_odd+1), final_lat_slice, final_lon_slice)]
-#}
 
 # Add this output dictionary to the list
 out_list_dict.append(output_dict)
@@ -144,9 +127,20 @@ print(f"Computing sensitivity with batch {batch}, initial channels {initial_chan
 
 ### COMPUTE AVERAGE SENSITIVITY AND SAVE RESULTS ###
 
-def save_sensitivity_results(in_list_dict, out_list_dict, sensitivity_results):
+def save_sensitivity_results(in_list_dict, out_list_dict, sensitivity_results, channel_time_mapping):
     """
     Save sensitivity results between chunks and output points
+    
+    Parameters:
+    -----------
+    in_list_dict : list of dict
+        List of dictionaries, each mapping a time to a list of slices
+    out_list_dict : list of dict
+        List of dictionaries, each mapping a time to a list of slices
+    sensitivity_results : dict
+        Dictionary mapping (out_obj_idx, in_obj_idx) to sensitivity tensors
+    channel_time_mapping : list
+        List of (channel, time) pairs, where the index corresponds to in_obj_idx
     """
     # Print the results
     print(f"Computed sensitivity results: {len(sensitivity_results)} entries")
@@ -155,8 +149,9 @@ def save_sensitivity_results(in_list_dict, out_list_dict, sensitivity_results):
     for (out_obj_idx, in_obj_idx), sensitivity_tensor in sensitivity_results.items():
         # Get the output dictionary
         out_dict = out_list_dict[out_obj_idx]
-        # Get the input dictionary
-        in_dict = in_list_dict[in_obj_idx]
+        
+        # Get the channel and time for this input index
+        chin, in_time = channel_time_mapping[in_obj_idx]
         
         # Get the output time and slices (assuming there's only one output time)
         out_time = next(iter(out_dict.keys()))
@@ -166,22 +161,13 @@ def save_sensitivity_results(in_list_dict, out_list_dict, sensitivity_results):
         _, chout, _, _ = out_slice
         chout = chout.start if isinstance(chout, slice) else chout
         
-        # Get all input times from this input dictionary
-        for in_time in in_dict.keys():
-            # Get the input slice (assuming there's only one slice per time)
-            in_slice = in_dict[in_time][0]
-            
-            # Extract channel information from input slice
-            _, chin, _, _ = in_slice
-            chin = chin.start if isinstance(chin, slice) else chin
-            
-            # Convert the sensitivity tensor to a numpy array
-            sensitivity_nparray = sensitivity_tensor.cpu().numpy()
-            
-            # Save the tensor to a file
-            filename = f'avg_sensitivity_chin[{chin}]_chout[{chout}]_t[{in_time},{out_time}].npy'
-            np.save(filename, sensitivity_nparray)
-            print(f"Saved sensitivity tensor for {filename} to {filename}")
+        # Convert the sensitivity tensor to a numpy array
+        sensitivity_nparray = sensitivity_tensor.cpu().numpy()
+        
+        # Save the tensor to a file
+        filename = f'avg_sensitivity_chin[{chin}]_chout[{chout}]_t[{in_time},{out_time}].npy'
+        np.save(filename, sensitivity_nparray)
+        print(f"Saved sensitivity tensor for {filename} to {filename}")
 
 timer.checkpoint("Setup complete")
 
@@ -197,11 +183,12 @@ sensitivity_results = adjoint_model.compute_avg_state_sensitivity(
 
 timer.checkpoint("Finished computing average state sensitivity")
 
-# Save the sensitivity results
+# Save the sensitivity results with the channel-time mapping
 save_sensitivity_results(
     in_list_dict=in_list_dict,
     out_list_dict=out_list_dict,
-    sensitivity_results=sensitivity_results
+    sensitivity_results=sensitivity_results,
+    channel_time_mapping=channel_time_mapping
 )
 
 timer.checkpoint("Finished saving sensitivity results")
