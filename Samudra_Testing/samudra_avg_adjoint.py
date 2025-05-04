@@ -130,9 +130,10 @@ output_dict = {
     t_end: [(slice(0,1), slice(final_channel, final_channel+1), final_lat_slice, final_lon_slice)]
 }
 
+#final_channel_odd = final_channel + 1  # For the next channel, if needed
 #output_dict = {
-#    t_end: [(slice(0,1), slice(final_channel, final_channel+1), final_lat_slice, final_lon_slice)],
-#    t_end: [(slice(0,1), slice(final_channel, final_channel+1), final_lat_slice, final_lon_slice)]
+#    t_end: [(slice(0,1), slice(final_channel, final_channel+1),         final_lat_slice, final_lon_slice)],
+#    t_end: [(slice(0,1), slice(final_channel_odd, final_channel_odd+1), final_lat_slice, final_lon_slice)]
 #}
 
 # Add this output dictionary to the list

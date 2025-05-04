@@ -859,7 +859,7 @@ class SamudraAdjoint(model.Samudra):
 
         sensitivity_results = {}
 
-        for out_obj_idx, out_obj in objective_list:
+        for out_obj_idx, out_obj in enumerate(objective_list):
             out_obj_tensor, num_elems = out_obj
             # Clear gradients before backward pass
             if out_obj_tensor.grad is not None:
