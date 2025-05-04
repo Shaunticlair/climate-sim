@@ -358,21 +358,6 @@ def load_data_for_correlation_analysis(reference_point=(90, 180),
     
     print(f"Loading data from time index {analysis_start} to {analysis_end}")
     
-    # Construct a list of variables we need
-    output_list_str = []
-    if reference_var in ['thetao', 'so', 'uo', 'vo']:
-        output_list_str.append(f"{reference_var}_lev_{reference_depth}")
-    else:
-        output_list_str.append(reference_var)
-    
-    for field_var in field_vars:
-        if field_var in ['thetao', 'so', 'uo', 'vo']:
-            output_list_str.append(f"{field_var}_lev_{reference_depth}")
-        elif field_var in ['hfds', 'tauuo', 'tauvo', 'hfds_anomalies']:
-            pass # These variables are not 
-        else:
-            output_list_str.append(field_var)
-    
     print("Set up")
     # Load data using existing function with "analysis" suffix to avoid overwriting
     data, data_mean, data_std = load_data_raw( #If this is the first time, we load data from end of training
@@ -431,8 +416,6 @@ def load_data_for_correlation_analysis(reference_point=(90, 180),
         print("Data shape", data[field_var_name].values.shape)
 
         field_raw = data[field_var_name].values[:, lat_slice, lon_slice]
-
-        print(field_raw.shape)
         
         # Get mean and std for reference
         field_mean = data_mean[field_var_name]
