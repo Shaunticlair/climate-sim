@@ -214,8 +214,9 @@ def plot_sensitivity_monthly(t_months, t_end, map_dims, output_pixel, var_in, va
 
 if __name__ == "__main__":
     # Set parameters
-    t_end = 72  # End time (approx. a year)
+    t_end = 10#72  # End time (approx. a year)
     t_months = [t_end - 6*i for i in range(1, 13)]  # 12 months back
+    t_months = [0,2,4,6,8]
     
     #x_out, y_out = 126, 324  # North Atlantic
     x_out, y_out = 90,180   # Equatorial Pacific
@@ -227,21 +228,11 @@ if __name__ == "__main__":
     map_dims = [x_out-delta+20 , x_out+delta-20, y_out-delta , y_out+delta ]  # [xmin, xmax, ymin, ymax]
     #map_dims = [0, 180, 0, 360]  # Global view for now
     # Import variable dictionary from misc if it exists
-    try:
-        from misc import var_dict
-    except ImportError:
-        # Define default variable dictionary if import fails
-        var_dict = {
-            'zos(even)': 76,
-            'hfds': 153,
-            'hfds_anomalies': 154,
-            'tauuo': 155,
-            'tauvo': 156
-        }
+    from misc import var_dict
     
     # Choose variables to plot
 
-    vars_in = ['hfds', 'hfds_anomalies', 'zos(even)', 'tauuo', 'tauvo']
+    vars_in = ['zos(even)']#['hfds', 'hfds_anomalies', 'zos(even)', 'tauuo', 'tauvo']
     #var_in = 'hfds'  # Input variable
     #var_in = 'hfds_anomalies'  # Input variable
     #var_in = 'zos(even)'
@@ -254,7 +245,7 @@ if __name__ == "__main__":
         # Get channel numbers from dictionary
         ch_in = var_dict[var_in]
         ch_out = var_dict[var_out]
-        folder = '.' #'adjoint_arrays/North_Atlantic'#'
+        folder = 'adjoint_arrays/Equatorial_Pacific' #'adjoint_arrays/North_Atlantic'#'
 
         # Create the monthly sensitivity grid plot
         plot_sensitivity_monthly(t_months, t_end, map_dims, output_pixel, 

@@ -243,17 +243,7 @@ if __name__ == "__main__":
     map_dims = [x_out-delta , x_out+delta, y_out-delta , y_out+delta ]  # [xmin, xmax, ymin, ymax]
     #map_dims = [0, 180, 0, 360]  # Global view for now
     # Import variable dictionary from misc if it exists
-    try:
-        from misc import var_dict
-    except ImportError:
-        # Define default variable dictionary if import fails
-        var_dict = {
-            'zos(even)': 76,
-            'hfds': 153,
-            'hfds_anomalies': 154,
-            'tauuo': 155,
-            'tauvo': 156
-        }
+    from misc import var_dict
     
     # Choose variables to plot
 
