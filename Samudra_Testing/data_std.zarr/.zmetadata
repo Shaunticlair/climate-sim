@@ -1,0 +1,1062 @@
+{
+    "metadata": {
+        ".zattrs": {},
+        ".zgroup": {
+            "zarr_format": 2
+        },
+        "hfds/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "hfds/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "hfds_anomalies/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "hfds_anomalies/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "so_lev_1050_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "so_lev_1050_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "so_lev_105_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "so_lev_105_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "so_lev_10_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "so_lev_10_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "so_lev_1400_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "so_lev_1400_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "so_lev_165_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "so_lev_165_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "so_lev_1850_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "so_lev_1850_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "so_lev_22_5/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "so_lev_22_5/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "so_lev_2400_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "so_lev_2400_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "so_lev_250_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "so_lev_250_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "so_lev_2_5/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "so_lev_2_5/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "so_lev_3100_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "so_lev_3100_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "so_lev_375_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "so_lev_375_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "so_lev_4000_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "so_lev_4000_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "so_lev_40_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "so_lev_40_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "so_lev_5000_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "so_lev_5000_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "so_lev_550_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "so_lev_550_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "so_lev_6000_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "so_lev_6000_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "so_lev_65_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "so_lev_65_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "so_lev_775_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "so_lev_775_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "tauuo/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "tauuo/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "tauvo/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "tauvo/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "thetao_lev_1050_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "thetao_lev_1050_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "thetao_lev_105_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "thetao_lev_105_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "thetao_lev_10_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "thetao_lev_10_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "thetao_lev_1400_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "thetao_lev_1400_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "thetao_lev_165_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "thetao_lev_165_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "thetao_lev_1850_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "thetao_lev_1850_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "thetao_lev_22_5/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "thetao_lev_22_5/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "thetao_lev_2400_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "thetao_lev_2400_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "thetao_lev_250_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "thetao_lev_250_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "thetao_lev_2_5/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "thetao_lev_2_5/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "thetao_lev_3100_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "thetao_lev_3100_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "thetao_lev_375_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "thetao_lev_375_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "thetao_lev_4000_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "thetao_lev_4000_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "thetao_lev_40_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "thetao_lev_40_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "thetao_lev_5000_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "thetao_lev_5000_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "thetao_lev_550_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "thetao_lev_550_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "thetao_lev_6000_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "thetao_lev_6000_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "thetao_lev_65_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "thetao_lev_65_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "thetao_lev_775_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "thetao_lev_775_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "uo_lev_1050_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "uo_lev_1050_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "uo_lev_105_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "uo_lev_105_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "uo_lev_10_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "uo_lev_10_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "uo_lev_1400_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "uo_lev_1400_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "uo_lev_165_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "uo_lev_165_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "uo_lev_1850_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "uo_lev_1850_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "uo_lev_22_5/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "uo_lev_22_5/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "uo_lev_2400_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "uo_lev_2400_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "uo_lev_250_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "uo_lev_250_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "uo_lev_2_5/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "uo_lev_2_5/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "uo_lev_3100_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "uo_lev_3100_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "uo_lev_375_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "uo_lev_375_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "uo_lev_4000_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "uo_lev_4000_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "uo_lev_40_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "uo_lev_40_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "uo_lev_5000_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "uo_lev_5000_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "uo_lev_550_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "uo_lev_550_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "uo_lev_6000_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "uo_lev_6000_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "uo_lev_65_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "uo_lev_65_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "uo_lev_775_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "uo_lev_775_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "vo_lev_1050_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "vo_lev_1050_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "vo_lev_105_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "vo_lev_105_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "vo_lev_10_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "vo_lev_10_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "vo_lev_1400_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "vo_lev_1400_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "vo_lev_165_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "vo_lev_165_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "vo_lev_1850_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "vo_lev_1850_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "vo_lev_22_5/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "vo_lev_22_5/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "vo_lev_2400_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "vo_lev_2400_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "vo_lev_250_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "vo_lev_250_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "vo_lev_2_5/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "vo_lev_2_5/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "vo_lev_3100_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "vo_lev_3100_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "vo_lev_375_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "vo_lev_375_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "vo_lev_4000_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "vo_lev_4000_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "vo_lev_40_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "vo_lev_40_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "vo_lev_5000_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "vo_lev_5000_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "vo_lev_550_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "vo_lev_550_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "vo_lev_6000_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "vo_lev_6000_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "vo_lev_65_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "vo_lev_65_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "vo_lev_775_0/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "vo_lev_775_0/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        },
+        "zos/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "zos/.zattrs": {
+            "_ARRAY_DIMENSIONS": []
+        }
+    },
+    "zarr_consolidated_format": 1
+}
