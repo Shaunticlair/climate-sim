@@ -177,10 +177,11 @@ var_in = channel_to_var[ch_in]
 # center: (131, 289) corresponds to Nantucket #
 # center: (90,180) corresponds to equatorial Pacific 
 # Explicitly define map dimensions
-delta = 10
+delta = 50
 map_dims =  [90-delta,90+delta+1,180-delta,180+delta+1] # [xmin, xmax, ymin, ymax]
 #map_dims = [131-delta, 131+delta, 289-delta, 289+delta]  # Full global map
 #map_dims = [111, 152+20, 269, 310+50]
+map_dims = [50,130,110,250]
 initial_times_dict = {'zos(even)': [t_1month, t_6months, t_1year, t_2year],
                       'tauuo': [t_1month, t_6months, t_1year],
                       'tauvo': [t_1month, t_6months, t_1year],
