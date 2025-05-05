@@ -113,10 +113,13 @@ for channel in initial_channels:
         # Keep track of which index corresponds to which channel-time pair
         channel_time_mapping.append((channel, t))
 
-# Create just one output dictionary with one slice
+# Create just one output dictionary with two time slices
+odd_final_channel = final_channel + 77
 out_list_dict = []
 output_dict = {
-    t_end: [(slice(0,1), slice(final_channel, final_channel+1), final_lat_slice, final_lon_slice)]
+    
+    t_end: [(slice(0,1), slice(final_channel, final_channel+1), final_lat_slice, final_lon_slice)],
+    t_end + 1: [(slice(0,1), slice(odd_final_channel, odd_final_channel+1), final_lat_slice, final_lon_slice)]
 }
 
 # Add this output dictionary to the list
