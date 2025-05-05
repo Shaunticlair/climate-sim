@@ -227,7 +227,8 @@ save_sensitivity_results(
     in_list_dict=in_list_dict,
     out_list_dict=out_list_dict,
     sensitivity_results=sensitivity_results,
-    channel_time_mapping=channel_time_mapping
+    channel_time_mapping=channel_time_mapping,
+    final_coords=final_coords
 )
 
 timer.checkpoint("Finished saving sensitivity results")
