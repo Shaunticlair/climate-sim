@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from pathlib import Path
 import scipy.stats as stats
+from matplotlib.ticker import ScalarFormatter
 
 def compare_sensitivities(adjoint_path, perturb_path, map_dims, t0, t1, 
                           output_pixel, output_var, input_var,
@@ -164,6 +165,11 @@ def compare_sensitivities(adjoint_path, perturb_path, map_dims, t0, t1,
                      vmin=-abs_max, vmax=abs_max)
     ax1.set_title(f'Adjoint Sensitivity t=({t0},{t1})')
     
+    # Use scientific notation for colorbar
+    formatter = ScalarFormatter(useMathText=True)
+    formatter.set_scientific(True)
+    formatter.set_powerlimits((-2, 2))
+    
     # Plot perturbation sensitivity
     im2 = ax2.imshow(masked_perturb, cmap=cmap, aspect='equal', origin='lower',
                      vmin=-abs_max, vmax=abs_max)
@@ -183,6 +189,9 @@ def compare_sensitivities(adjoint_path, perturb_path, map_dims, t0, t1,
             slope, intercept, r_value, p_value, std_err = stats.linregress(adjoint_flat, perturb_flat)
             x_range = np.linspace(min(adjoint_flat), max(adjoint_flat), 100)
             ax3.plot(x_range, intercept + slope * x_range, 'r-', alpha=0.7)
+            
+        # Use scientific notation for scatter plot axes
+        ax3.ticklabel_format(style='sci', scilimits=(-2, 2), axis='both')
     else:
         ax3.text(0.5, 0.5, "No valid data points for comparison", 
                  ha='center', va='center', transform=ax3.transAxes)
@@ -197,9 +206,9 @@ def compare_sensitivities(adjoint_path, perturb_path, map_dims, t0, t1,
         
     ax3.grid(True, alpha=0.3)
     
-    # Add colorbar
-    plt.colorbar(im1, ax=ax1, label='Sensitivity Value')
-    plt.colorbar(im2, ax=ax2, label='Sensitivity Value')
+    # Add colorbar with scientific notation
+    cbar1 = plt.colorbar(im1, ax=ax1, label='Sensitivity Value', format=formatter)
+    cbar2 = plt.colorbar(im2, ax=ax2, label='Sensitivity Value', format=formatter)
     
     # Format variable names for title
     output_var = output_var.replace('(odd)', '').replace('(even)', '')
@@ -228,12 +237,88 @@ def compare_sensitivities(adjoint_path, perturb_path, map_dims, t0, t1,
         'variables': (input_var, output_var)
     }
 
+def plot_correlation_vs_lag(results):
+    """
+    Create a plot showing correlation vs time lag between adjoint and perturbation sensitivities.
+    Focus only on the high correlation range (0.9-1.0).
+    
+    Parameters:
+    -----------
+    results : list of dict
+        List of result dictionaries from compare_sensitivities function
+    """
+    # Extract time lags and correlations from results
+    time_lags = []
+    correlations = []
+    
+    for result in results:
+        t0, t1 = result['times']
+        time_lag = t1 - t0
+        correlation = result['correlation']
+        
+        time_lags.append(time_lag)
+        correlations.append(correlation)
+    
+    # Sort by time lag (in case they're not already in order)
+    sorted_data = sorted(zip(time_lags, correlations))
+    time_lags = [data[0] for data in sorted_data]
+    correlations = [data[1] for data in sorted_data]
+    
+    # Create a single figure focused on the high correlation range
+    fig, ax = plt.subplots(figsize=(10, 6))
+    
+    # Define the y-axis range
+    y_min = 0.9    # Lower limit (high correlation range)
+    y_max = max(1.0, max(correlations) + 0.02)  # Upper limit with a small margin
+    
+    # Plot data
+    ax.plot(time_lags, correlations, 'o-', color='#1f77b4', linewidth=2, markersize=10)
+    
+    # Add horizontal reference line at perfect correlation
+    ax.axhline(y=1.0, color='gray', linestyle='--', alpha=0.7)
+    
+    # Set y-axis limits - focus on 0.9-1.0 range
+    ax.set_ylim(y_min, y_max)
+    
+    # Adjust tick spacing for better precision in high correlation range
+    ax.yaxis.set_major_locator(plt.MultipleLocator(0.02))
+    ax.yaxis.set_minor_locator(plt.MultipleLocator(0.01))
+    
+    # Add grid
+    ax.grid(True, alpha=0.3)
+    
+    # Labels and title
+    ax.set_title('Correlation between Adjoint and Perturbation Sensitivities vs Time Lag', fontsize=14)
+    ax.set_xlabel('Time Lag (t_end - t_start)', fontsize=12)
+    ax.set_ylabel('Correlation Coefficient', fontsize=12)
+    
+    # Annotate each point with its exact correlation value
+    for x, y in zip(time_lags, correlations):
+        ax.annotate(f'{y:.3f}', 
+                    (x, y), 
+                    textcoords="offset points",
+                    xytext=(0, 10), 
+                    ha='center',
+                    fontsize=9)
+    
+    # Add summary information
+    avg_corr = sum(correlations) / len(correlations) if correlations else 0
+    plt.figtext(0.02, 0.02, f"Average correlation: {avg_corr:.3f}", fontsize=10)
+    
+    # Save the figure
+    Path("Plots").mkdir(exist_ok=True)
+    plt.savefig('Plots/correlation_vs_time_lag.png', dpi=300, bbox_inches='tight')
+    plt.close()
+    
+    print("Plot saved to Plots/correlation_vs_time_lag.png")
+    return 'Plots/correlation_vs_time_lag.png'
+
 if __name__ == "__main__":
     # Parameters from the original scripts
     t_end = 10
     
     # Time points to analyze
-    initial_times = [0,2,4,6,8]
+    initial_times = [0, 2, 4, 6, 8]
     
     # Variables
     ch_in, ch_out = 76, 76
@@ -255,7 +340,7 @@ if __name__ == "__main__":
         adjoint_folder = 'adjoint_arrays/Equatorial_Pacific/'
         adjoint_path = f'chunk_sensitivity_chin[{ch_in}]_chout[{ch_out}]_t[{in_time},{out_time}].npy'
         adjoint_path = Path(adjoint_folder) / adjoint_path
-        step_size = '_1e-4' # 
+        step_size = '_1e-2'  # Use specified step size
         perturb_folder = f'perturbation_arrays/Short_Time{step_size}/'
         perturb_path = f'perturbation_grid_chin[{ch_in}]_chout[{ch_out}]_t[{in_time},{out_time}]{step_size}.npy'
         perturb_path = Path(perturb_folder) / perturb_path
@@ -293,3 +378,7 @@ if __name__ == "__main__":
             t0, t1 = result['times']
             input_var, output_var = result['variables']
             print(f"({t0},{t1}){input_var:^15}{output_var:^15}{result['correlation']:^15.4f}{result['p_value']:^15.4e}{result['n_points']:^10}")
+        
+        # Generate the correlation vs time lag plot
+        plot_path = plot_correlation_vs_lag(results)
+        print(f"\nCorrelation vs Time Lag plot saved to: {plot_path}")

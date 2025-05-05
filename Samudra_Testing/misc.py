@@ -70,10 +70,11 @@ var_list_printed = ['uo_lev_2_5', 'uo_lev_10_0', 'uo_lev_22_5', 'uo_lev_40_0',
 
 #print(np.where(arr == 'zos_t=0'))
 #print(np.where(arr == 'zos_t=1'))
-#print(np.where(arr == 'tauuo'))
-#print(np.where(arr == 'tauvo'))
-#print(np.where(arr == 'hfds'))
+#print(np.where(var_arr == 'tauuo'))
+#print(np.where(var_arr == 'tauvo'))
+#print(np.where(var_arr == 'hfds'))
 #print(np.where(arr == 'hfds_anomalies'))
+#{"tauuo":154, "tauvo":155, "hfds":156}
 
 def get_channel_to_var(state_in_vars_config="3D_thermo_dynamic_all", 
                  boundary_vars_config="3D_all_hfds_anom", hist=1):

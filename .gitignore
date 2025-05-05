@@ -1,5 +1,11 @@
 *.h5
 __pycache__/
 *.pt
-*.zarr
+data_analysis.zarr
+data.zarr
 *.json
+NETcdf_data/
+Converted_NETcdf/
+*.zarr
+!data_std.zarr
+!data_mean.zarr

@@ -156,8 +156,18 @@ def plot_sensitivity_magnitudes(chin, chout, denormalize=False):
         
         plt.plot(sorted_delays, sorted_magnitudes, 'o-', linewidth=2, markersize=8)
         plt.xlabel('Delay (t_end - t)', fontsize=12)
-        plt.ylabel('Sensitivity Magnitude (L2 Norm)', fontsize=12)
-        plt.title(f'Sensitivity Magnitude vs. Delay for varin[{var_in}]_varout[{var_out}]_t[*,{tend}]', fontsize=14)
+
+        channel_to_units = {
+        76: "m",
+        154: "Pa",
+        155: "Pa",
+        156: "W m^{-2}",
+        }
+
+        units = f"{channel_to_units[chout] / (channel_to_units[chin])}"
+
+        plt.ylabel('Global sensitivity Magnitude (L2 Norm)', fontsize=12)
+        plt.title(f'Sensitivity Magnitude vs. Delay: {var_out} at time t wrt {var_in} at time {tend}', fontsize=14)
         plt.grid(True, alpha=0.3)
         
         # Add exponential notation for y-axis
@@ -179,5 +189,12 @@ def plot_sensitivity_magnitudes(chin, chout, denormalize=False):
 
 if __name__ == "__main__":
     chins = [76,153,154,155,156,157]
+    out_channel_units = {"tauuo":154, "tauvo":155, "hfds":156}
+    units_dict = {
+        154: "Pa",
+        155: "Pa",
+        156: "W m^{-2}",
+        }
+    
     for chin in chins:
         plot_sensitivity_magnitudes(chin,chout,denormalize)
