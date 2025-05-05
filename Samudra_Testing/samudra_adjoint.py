@@ -68,7 +68,7 @@ final_lon_slice = slice(final_lon, final_lon+1)#slice(289, 291)  # Nantucket 2x2
 
 # Model choice
 hist = 1
-N_test = 40  # Timesteps to use for testing
+N_test = 600  # Timesteps to use for testing
 state_in_vars_config = "3D_thermo_dynamic_all"
 state_out_vars_config = state_in_vars_config
 boundary_vars_config = "3D_all_hfds_anom"

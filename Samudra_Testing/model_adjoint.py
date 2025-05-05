@@ -861,9 +861,11 @@ class SamudraAdjoint(model.Samudra):
 
         for out_obj_idx, out_obj in enumerate(objective_list):
             out_obj_tensor, num_elems = out_obj
-            # Clear gradients before backward pass
-            if out_obj_tensor.grad is not None:
-                out_obj_tensor.grad.zero_()
+
+            for in_obj_idx, in_obj in enumerate(tracked_list):
+                # Clear gradients before backward pass
+                if in_obj.grad is not None:
+                    in_obj.grad.zero_()
             
             timer.checkpoint("Cleared gradients before backward pass")
             
