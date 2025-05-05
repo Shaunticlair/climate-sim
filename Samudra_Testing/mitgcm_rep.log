@@ -1,0 +1,911 @@
+Job 22169580.pbspl1.nas.nasa.gov started on Sun May 04 23:56:55 PDT 2025
+The job requested the following resources:
+    ncpus=40
+    place=scatter:excl
+    walltime=04:00:00
+
+PBS set the following environment variables:
+        FORT_BUFFERED = 1
+                   TZ = PST8PDT
+
+On r133i6n1:
+Redirecting to /bin/systemctl stop array.service
+Redirecting to /bin/systemctl start array.service
+Warning: no access to tty (Inappropriate ioctl for device).
+Thus no job control in this shell.
+Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
+Starting Samudra model run at Sun May  4 23:58:47 PDT 2025
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/indexing.py:1443: PerformanceWarning: Slicing with an out-of-order index is generating 22 times more chunks
+  return self.array[key]
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
+  return data.astype(dtype, **kwargs)
+Using CPU
+Using 80 CPU cores for computation
+Number of input channels: 158
+Number of output channels: 154
+Section 'Environment configured' took 0.0420 seconds
+Total elapsed time: 0.0420 seconds
+----------------------------------------
+Section 'Data loaded' took 12.1693 seconds
+Total elapsed time: 12.2113 seconds
+----------------------------------------
+Section 'Model loaded' took 2.5391 seconds
+Total elapsed time: 14.7504 seconds
+----------------------------------------
+Out:  [[2 3]] Our data has the shape torch.Size([1, 158, 180, 360])
+Section 'Setup complete' took 22.5035 seconds
+Total elapsed time: 37.2540 seconds
+----------------------------------------
+Out:  [[2 3]] Section 'Finished setting up model input' took 3.4561 seconds
+Total elapsed time: 40.7101 seconds
+----------------------------------------
+Section 'Created gradient-tracked chunks and objectives' took 0.0378 seconds
+Total elapsed time: 40.7479 seconds
+----------------------------------------
+Section 'Added gradient tracking for initial timesteps' took 0.0647 seconds
+Total elapsed time: 40.8126 seconds
+----------------------------------------
+Processing time step: 0
+Section 'Ran model forward for model iteration 0' took 1.9777 seconds
+Total elapsed time: 42.7903 seconds
+----------------------------------------
+Out:  [[4 5]] Section 'Added gradient tracking for model iteration 1' took 3.2690 seconds
+Total elapsed time: 46.0592 seconds
+----------------------------------------
+Processing time step: 1
+Section 'Ran model forward for model iteration 1' took 1.1701 seconds
+Total elapsed time: 47.2294 seconds
+----------------------------------------
+Out:  [[6 7]] Section 'Added gradient tracking for model iteration 2' took 3.8200 seconds
+Total elapsed time: 51.0493 seconds
+----------------------------------------
+Processing time step: 2
+Section 'Ran model forward for model iteration 2' took 1.1608 seconds
+Total elapsed time: 52.2102 seconds
+----------------------------------------
+Out:  [[8 9]] Section 'Added gradient tracking for model iteration 3' took 3.3195 seconds
+Total elapsed time: 55.5297 seconds
+----------------------------------------
+Processing time step: 3
+Section 'Ran model forward for model iteration 3' took 1.1575 seconds
+Total elapsed time: 56.6872 seconds
+----------------------------------------
+Out:  [[10 11]] Section 'Added gradient tracking for model iteration 4' took 3.4650 seconds
+Total elapsed time: 60.1522 seconds
+----------------------------------------
+Processing time step: 4
+Section 'Ran model forward for model iteration 4' took 1.1597 seconds
+Total elapsed time: 61.3119 seconds
+----------------------------------------
+Out:  [[12 13]] Section 'Added gradient tracking for model iteration 5' took 3.4952 seconds
+Total elapsed time: 64.8071 seconds
+----------------------------------------
+Processing time step: 5
+Section 'Ran model forward for model iteration 5' took 1.1603 seconds
+Total elapsed time: 65.9674 seconds
+----------------------------------------
+Out:  [[14 15]] Section 'Added gradient tracking for model iteration 6' took 3.4163 seconds
+Total elapsed time: 69.3837 seconds
+----------------------------------------
+Processing time step: 6
+Section 'Ran model forward for model iteration 6' took 1.1639 seconds
+Total elapsed time: 70.5476 seconds
+----------------------------------------
+Out:  [[16 17]] Section 'Added gradient tracking for model iteration 7' took 3.5052 seconds
+Total elapsed time: 74.0528 seconds
+----------------------------------------
+Processing time step: 7
+Section 'Ran model forward for model iteration 7' took 1.1314 seconds
+Total elapsed time: 75.1842 seconds
+----------------------------------------
+Out:  [[18 19]] Section 'Added gradient tracking for model iteration 8' took 3.6530 seconds
+Total elapsed time: 78.8371 seconds
+----------------------------------------
+Processing time step: 8
+Section 'Ran model forward for model iteration 8' took 1.5945 seconds
+Total elapsed time: 80.4316 seconds
+----------------------------------------
+Out:  [[20 21]] Section 'Added gradient tracking for model iteration 9' took 3.3346 seconds
+Total elapsed time: 83.7662 seconds
+----------------------------------------
+Processing time step: 9
+Section 'Ran model forward for model iteration 9' took 1.1505 seconds
+Total elapsed time: 84.9167 seconds
+----------------------------------------
+Out:  [[22 23]] Section 'Added gradient tracking for model iteration 10' took 3.5692 seconds
+Total elapsed time: 88.4859 seconds
+----------------------------------------
+Processing time step: 10
+Section 'Ran model forward for model iteration 10' took 1.1539 seconds
+Total elapsed time: 89.6398 seconds
+----------------------------------------
+Out:  [[24 25]] Section 'Added gradient tracking for model iteration 11' took 3.2809 seconds
+Total elapsed time: 92.9208 seconds
+----------------------------------------
+Processing time step: 11
+Section 'Ran model forward for model iteration 11' took 1.1574 seconds
+Total elapsed time: 94.0781 seconds
+----------------------------------------
+Out:  [[26 27]] Section 'Added gradient tracking for model iteration 12' took 3.4881 seconds
+Total elapsed time: 97.5662 seconds
+----------------------------------------
+Processing time step: 12
+Section 'Ran model forward for model iteration 12' took 1.1518 seconds
+Total elapsed time: 98.7180 seconds
+----------------------------------------
+Out:  [[28 29]] Section 'Added gradient tracking for model iteration 13' took 3.4160 seconds
+Total elapsed time: 102.1340 seconds
+----------------------------------------
+Processing time step: 13
+Section 'Ran model forward for model iteration 13' took 1.1546 seconds
+Total elapsed time: 103.2886 seconds
+----------------------------------------
+Out:  [[30 31]] Section 'Added gradient tracking for model iteration 14' took 3.2698 seconds
+Total elapsed time: 106.5584 seconds
+----------------------------------------
+Processing time step: 14
+Section 'Ran model forward for model iteration 14' took 1.1640 seconds
+Total elapsed time: 107.7224 seconds
+----------------------------------------
+Out:  [[32 33]] Section 'Added gradient tracking for model iteration 15' took 3.5224 seconds
+Total elapsed time: 111.2448 seconds
+----------------------------------------
+Processing time step: 15
+Section 'Ran model forward for model iteration 15' took 1.1550 seconds
+Total elapsed time: 112.3998 seconds
+----------------------------------------
+Out:  [[34 35]] Section 'Added gradient tracking for model iteration 16' took 3.6350 seconds
+Total elapsed time: 116.0348 seconds
+----------------------------------------
+Processing time step: 16
+Section 'Ran model forward for model iteration 16' took 1.1591 seconds
+Total elapsed time: 117.1939 seconds
+----------------------------------------
+Out:  [[36 37]] Section 'Added gradient tracking for model iteration 17' took 3.6520 seconds
+Total elapsed time: 120.8459 seconds
+----------------------------------------
+Processing time step: 17
+Section 'Ran model forward for model iteration 17' took 1.6399 seconds
+Total elapsed time: 122.4858 seconds
+----------------------------------------
+Out:  [[38 39]] Section 'Added gradient tracking for model iteration 18' took 3.6834 seconds
+Total elapsed time: 126.1692 seconds
+----------------------------------------
+Processing time step: 18
+Section 'Ran model forward for model iteration 18' took 1.1530 seconds
+Total elapsed time: 127.3222 seconds
+----------------------------------------
+Out:  [[40 41]] Section 'Added gradient tracking for model iteration 19' took 3.4612 seconds
+Total elapsed time: 130.7834 seconds
+----------------------------------------
+Processing time step: 19
+Section 'Ran model forward for model iteration 19' took 1.1560 seconds
+Total elapsed time: 131.9394 seconds
+----------------------------------------
+Out:  [[42 43]] Section 'Added gradient tracking for model iteration 20' took 3.3220 seconds
+Total elapsed time: 135.2614 seconds
+----------------------------------------
+Processing time step: 20
+Section 'Ran model forward for model iteration 20' took 1.1513 seconds
+Total elapsed time: 136.4127 seconds
+----------------------------------------
+Out:  [[44 45]] Section 'Added gradient tracking for model iteration 21' took 3.4699 seconds
+Total elapsed time: 139.8826 seconds
+----------------------------------------
+Processing time step: 21
+Section 'Ran model forward for model iteration 21' took 1.1527 seconds
+Total elapsed time: 141.0353 seconds
+----------------------------------------
+Out:  [[46 47]] Section 'Added gradient tracking for model iteration 22' took 3.3158 seconds
+Total elapsed time: 144.3511 seconds
+----------------------------------------
+Processing time step: 22
+Section 'Ran model forward for model iteration 22' took 1.1483 seconds
+Total elapsed time: 145.4994 seconds
+----------------------------------------
+Out:  [[48 49]] Section 'Added gradient tracking for model iteration 23' took 3.4125 seconds
+Total elapsed time: 148.9119 seconds
+----------------------------------------
+Processing time step: 23
+Section 'Ran model forward for model iteration 23' took 1.1488 seconds
+Total elapsed time: 150.0606 seconds
+----------------------------------------
+Out:  [[50 51]] Section 'Added gradient tracking for model iteration 24' took 3.3078 seconds
+Total elapsed time: 153.3685 seconds
+----------------------------------------
+Processing time step: 24
+Section 'Ran model forward for model iteration 24' took 1.1561 seconds
+Total elapsed time: 154.5246 seconds
+----------------------------------------
+Out:  [[52 53]] Section 'Added gradient tracking for model iteration 25' took 3.6268 seconds
+Total elapsed time: 158.1514 seconds
+----------------------------------------
+Processing time step: 25
+Section 'Ran model forward for model iteration 25' took 1.1561 seconds
+Total elapsed time: 159.3075 seconds
+----------------------------------------
+Out:  [[54 55]] Section 'Added gradient tracking for model iteration 26' took 3.2744 seconds
+Total elapsed time: 162.5819 seconds
+----------------------------------------
+Processing time step: 26
+Section 'Ran model forward for model iteration 26' took 1.1478 seconds
+Total elapsed time: 163.7297 seconds
+----------------------------------------
+Out:  [[56 57]] Section 'Added gradient tracking for model iteration 27' took 3.4245 seconds
+Total elapsed time: 167.1542 seconds
+----------------------------------------
+Processing time step: 27
+Section 'Ran model forward for model iteration 27' took 1.1520 seconds
+Total elapsed time: 168.3062 seconds
+----------------------------------------
+Out:  [[58 59]] Section 'Added gradient tracking for model iteration 28' took 3.6170 seconds
+Total elapsed time: 171.9232 seconds
+----------------------------------------
+Processing time step: 28
+Section 'Ran model forward for model iteration 28' took 1.1620 seconds
+Total elapsed time: 173.0852 seconds
+----------------------------------------
+Out:  [[60 61]] Section 'Added gradient tracking for model iteration 29' took 3.4694 seconds
+Total elapsed time: 176.5546 seconds
+----------------------------------------
+Processing time step: 29
+Section 'Ran model forward for model iteration 29' took 1.9102 seconds
+Total elapsed time: 178.4649 seconds
+----------------------------------------
+Out:  [[62 63]] Section 'Added gradient tracking for model iteration 30' took 3.4250 seconds
+Total elapsed time: 181.8899 seconds
+----------------------------------------
+Processing time step: 30
+Section 'Ran model forward for model iteration 30' took 1.1480 seconds
+Total elapsed time: 183.0378 seconds
+----------------------------------------
+Out:  [[64 65]] Section 'Added gradient tracking for model iteration 31' took 3.3594 seconds
+Total elapsed time: 186.3972 seconds
+----------------------------------------
+Processing time step: 31
+Section 'Ran model forward for model iteration 31' took 1.1510 seconds
+Total elapsed time: 187.5482 seconds
+----------------------------------------
+Out:  [[66 67]] Section 'Added gradient tracking for model iteration 32' took 3.7425 seconds
+Total elapsed time: 191.2907 seconds
+----------------------------------------
+Processing time step: 32
+Section 'Ran model forward for model iteration 32' took 1.1502 seconds
+Total elapsed time: 192.4408 seconds
+----------------------------------------
+Out:  [[68 69]] Section 'Added gradient tracking for model iteration 33' took 3.5124 seconds
+Total elapsed time: 195.9533 seconds
+----------------------------------------
+Processing time step: 33
+Section 'Ran model forward for model iteration 33' took 1.1487 seconds
+Total elapsed time: 197.1020 seconds
+----------------------------------------
+Out:  [[70 71]] Section 'Added gradient tracking for model iteration 34' took 3.4655 seconds
+Total elapsed time: 200.5675 seconds
+----------------------------------------
+Processing time step: 34
+Section 'Ran model forward for model iteration 34' took 1.1606 seconds
+Total elapsed time: 201.7281 seconds
+----------------------------------------
+Out:  [[72 73]] Section 'Added gradient tracking for model iteration 35' took 3.4157 seconds
+Total elapsed time: 205.1438 seconds
+----------------------------------------
+Processing time step: 35
+Section 'Ran model forward for model iteration 35' took 1.1511 seconds
+Total elapsed time: 206.2949 seconds
+----------------------------------------
+Out:  [[74 75]] Section 'Added gradient tracking for model iteration 36' took 3.5778 seconds
+Total elapsed time: 209.8728 seconds
+----------------------------------------
+Processing time step: 36
+Section 'Ran model forward for model iteration 36' took 1.1466 seconds
+Total elapsed time: 211.0194 seconds
+----------------------------------------
+Out:  [[76 77]] Section 'Added gradient tracking for model iteration 37' took 3.4635 seconds
+Total elapsed time: 214.4829 seconds
+----------------------------------------
+Processing time step: 37
+Section 'Ran model forward for model iteration 37' took 1.1490 seconds
+Total elapsed time: 215.6319 seconds
+----------------------------------------
+Out:  [[78 79]] Section 'Added gradient tracking for model iteration 38' took 3.5243 seconds
+Total elapsed time: 219.1562 seconds
+----------------------------------------
+Section 'Forward pass complete, accumulated objectives' took 0.0000 seconds
+Total elapsed time: 219.1562 seconds
+----------------------------------------
+Section 'Cleared gradients before backward pass' took 0.0001 seconds
+Total elapsed time: 219.1563 seconds
+----------------------------------------
+Section 'Backwards pass complete' took 149.9414 seconds
+Total elapsed time: 369.0977 seconds
+----------------------------------------
+Section 'Gathered sensitivities for all input chunks' took 0.0101 seconds
+Total elapsed time: 369.1078 seconds
+----------------------------------------
+Section 'Cleared gradients before backward pass' took 0.0076 seconds
+Total elapsed time: 369.1153 seconds
+----------------------------------------
+Section 'Backwards pass complete' took 142.9809 seconds
+Total elapsed time: 512.0962 seconds
+----------------------------------------
+Section 'Gathered sensitivities for all input chunks' took 0.0096 seconds
+Total elapsed time: 512.1057 seconds
+----------------------------------------
+Section 'Cleared gradients before backward pass' took 0.0071 seconds
+Total elapsed time: 512.1128 seconds
+----------------------------------------
+Section 'Backwards pass complete' took 149.0250 seconds
+Total elapsed time: 661.1378 seconds
+----------------------------------------
+Section 'Gathered sensitivities for all input chunks' took 0.0095 seconds
+Total elapsed time: 661.1473 seconds
+----------------------------------------
+Section 'Finished computing average state sensitivity' took 0.0472 seconds
+Total elapsed time: 661.1945 seconds
+----------------------------------------
+Computed sensitivity results: 540 entries
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[0,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[2,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[4,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[6,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[8,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[10,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[12,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[14,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[16,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[18,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[20,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[22,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[24,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[26,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[28,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[30,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[32,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[34,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[36,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[38,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[40,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[42,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[44,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[46,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[48,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[50,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[52,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[54,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[56,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[58,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[60,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[62,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[64,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[66,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[68,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[90,180]_t[70,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[0,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[2,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[4,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[6,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[8,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[10,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[12,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[14,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[16,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[18,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[20,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[22,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[24,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[26,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[28,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[30,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[32,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[34,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[36,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[38,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[40,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[42,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[44,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[46,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[48,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[50,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[52,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[54,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[56,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[58,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[60,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[62,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[64,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[66,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[68,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[90,180]_t[70,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[0,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[2,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[4,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[6,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[8,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[10,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[12,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[14,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[16,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[18,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[20,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[22,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[24,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[26,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[28,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[30,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[32,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[34,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[36,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[38,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[40,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[42,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[44,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[46,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[48,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[50,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[52,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[54,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[56,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[58,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[60,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[62,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[64,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[66,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[68,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[90,180]_t[70,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[0,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[2,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[4,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[6,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[8,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[10,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[12,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[14,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[16,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[18,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[20,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[22,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[24,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[26,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[28,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[30,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[32,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[34,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[36,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[38,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[40,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[42,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[44,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[46,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[48,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[50,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[52,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[54,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[56,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[58,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[60,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[62,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[64,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[66,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[68,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[90,180]_t[70,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[0,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[2,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[4,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[6,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[8,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[10,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[12,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[14,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[16,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[18,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[20,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[22,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[24,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[26,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[28,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[30,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[32,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[34,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[36,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[38,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[40,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[42,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[44,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[46,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[48,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[50,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[52,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[54,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[56,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[58,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[60,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[62,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[64,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[66,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[68,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[90,180]_t[70,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[0,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[2,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[4,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[6,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[8,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[10,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[12,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[14,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[16,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[18,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[20,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[22,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[24,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[26,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[28,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[30,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[32,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[34,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[36,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[38,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[40,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[42,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[44,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[46,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[48,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[50,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[52,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[54,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[56,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[58,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[60,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[62,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[64,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[66,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[68,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[131,289]_t[70,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[0,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[2,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[4,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[6,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[8,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[10,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[12,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[14,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[16,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[18,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[20,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[22,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[24,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[26,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[28,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[30,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[32,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[34,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[36,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[38,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[40,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[42,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[44,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[46,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[48,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[50,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[52,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[54,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[56,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[58,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[60,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[62,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[64,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[66,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[68,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[131,289]_t[70,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[0,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[2,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[4,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[6,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[8,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[10,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[12,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[14,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[16,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[18,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[20,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[22,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[24,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[26,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[28,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[30,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[32,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[34,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[36,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[38,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[40,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[42,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[44,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[46,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[48,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[50,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[52,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[54,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[56,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[58,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[60,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[62,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[64,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[66,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[68,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[131,289]_t[70,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[0,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[2,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[4,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[6,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[8,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[10,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[12,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[14,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[16,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[18,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[20,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[22,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[24,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[26,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[28,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[30,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[32,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[34,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[36,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[38,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[40,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[42,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[44,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[46,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[48,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[50,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[52,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[54,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[56,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[58,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[60,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[62,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[64,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[66,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[68,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[131,289]_t[70,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[0,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[2,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[4,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[6,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[8,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[10,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[12,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[14,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[16,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[18,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[20,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[22,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[24,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[26,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[28,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[30,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[32,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[34,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[36,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[38,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[40,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[42,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[44,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[46,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[48,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[50,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[52,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[54,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[56,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[58,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[60,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[62,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[64,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[66,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[68,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[131,289]_t[70,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[0,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[2,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[4,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[6,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[8,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[10,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[12,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[14,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[16,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[18,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[20,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[22,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[24,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[26,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[28,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[30,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[32,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[34,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[36,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[38,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[40,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[42,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[44,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[46,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[48,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[50,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[52,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[54,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[56,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[58,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[60,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[62,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[64,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[66,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[68,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[76]_chout[76]_loc[126,324]_t[70,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[0,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[2,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[4,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[6,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[8,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[10,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[12,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[14,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[16,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[18,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[20,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[22,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[24,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[26,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[28,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[30,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[32,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[34,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[36,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[38,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[40,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[42,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[44,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[46,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[48,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[50,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[52,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[54,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[56,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[58,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[60,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[62,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[64,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[66,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[68,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[154]_chout[76]_loc[126,324]_t[70,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[0,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[2,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[4,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[6,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[8,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[10,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[12,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[14,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[16,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[18,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[20,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[22,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[24,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[26,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[28,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[30,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[32,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[34,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[36,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[38,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[40,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[42,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[44,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[46,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[48,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[50,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[52,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[54,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[56,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[58,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[60,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[62,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[64,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[66,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[68,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[155]_chout[76]_loc[126,324]_t[70,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[0,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[2,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[4,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[6,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[8,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[10,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[12,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[14,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[16,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[18,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[20,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[22,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[24,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[26,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[28,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[30,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[32,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[34,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[36,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[38,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[40,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[42,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[44,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[46,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[48,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[50,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[52,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[54,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[56,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[58,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[60,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[62,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[64,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[66,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[68,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[156]_chout[76]_loc[126,324]_t[70,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[0,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[2,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[4,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[6,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[8,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[10,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[12,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[14,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[16,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[18,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[20,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[22,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[24,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[26,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[28,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[30,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[32,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[34,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[36,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[38,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[40,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[42,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[44,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[46,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[48,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[50,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[52,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[54,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[56,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[58,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[60,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[62,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[64,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[66,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[68,72-77].npy
+Saved sensitivity tensor to MITgcm_Replication/avg_sensitivity_chin[157]_chout[76]_loc[126,324]_t[70,72-77].npy
+Section 'Finished saving sensitivity results' took 3.3427 seconds
+Total elapsed time: 664.5372 seconds
+----------------------------------------
+============================================
+    Average Sensitivity Analysis Done       
+============================================
+Finished Samudra model run at Mon May  5 00:11:54 PDT 2025
+
+____________________________________________________________________
+Job Resource Usage Summary for 22169580.pbspl1.nas.nasa.gov
+
+    CPU Time Used            : 10:46:44
+    Real Memory Used         : 11333600kb
+    Walltime Used            : 00:13:20
+    Exit Status              : 0
+
+    Number of CPUs Requested : 40
+    Walltime Requested       : 04:00:00
+
+    Execution Queue          : R21940709
+    Charged To               : g26113
+
+    Job Stopped              : Mon May  5 00:12:38 2025
+____________________________________________________________________
