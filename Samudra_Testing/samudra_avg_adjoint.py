@@ -27,17 +27,17 @@ timer = setup.Timer()
 # 699 days between January 2014 and December 2015: 700/5=140
 t_start = 0 
 #t_end = 72 # Approximately a year (73 might be more accurate, but doesn't divide into 12 months nicely)
-t_end = 12#72
+t_end = 24#72
 
 t_months = [t_end - 6*i for i in range(1,13)]  # Months in a year
 in_times = t_months #[t_2year, t_1year, t_6months, t_1month] #[0] # Times to compute sensitivity wrt to
 #in_times = [0, 2, 4, 6, 8]  # Times to compute sensitivity wrt to
-in_times = [i for i in range(0,12)]
+in_times = [i for i in range(0,24)]
 
 # (126, 324) is the point in the middle of the North Atlantic Ocean
 # (90, 180) is the point at the Equatorial Pacific Ocean
 final_lat, final_lon = 90, 180
-initial_channels = [76,154,155,156,157]  #[76]  # Channels to compute sensitivity for
+initial_channels = [76]  #[76]  # Channels to compute sensitivity for
 #initial_channels = [76]
 final_channel = 76
 

@@ -30,7 +30,7 @@ def load_and_crop_sensitivity(path, map_dims):
     
     return masked_sensitivity
 
-def plot_grid_sensitivities(t_times, t_end, map_dims, output_pixel, var_in, var_out, ch_in, ch_out, folder='.'):
+def plot_grid_sensitivities(t_times, t_start, t_end, map_dims, output_pixel, var_in, var_out, ch_in, ch_out, folder='.'):
     """
     Create a 2x3 grid of sensitivity plots, each with its own color scale
     
@@ -187,7 +187,7 @@ def plot_grid_sensitivities(t_times, t_end, map_dims, output_pixel, var_in, var_
     
     # Save the figure
     view_name = f"({map_dims[0]},{map_dims[1]})x({map_dims[2]},{map_dims[3]})"
-    filename = f'Plots/grid_sensitivity_{view_name}_chin[{var_in_clean}]_chout[{var_out_clean}]_t1[{t_end}].png'
+    filename = f'Plots/grid_sensitivity_{view_name}_chin[{var_in_clean}]_chout[{var_out_clean}]_t0[{t_start}]_t1[{t_end}].png'
     plt.savefig(filename, dpi=300, bbox_inches='tight')
     plt.close()
     
@@ -197,8 +197,9 @@ if __name__ == "__main__":
     # Set parameters
     t_end = 72#12  # End time
     t_times = [12*i for i in range(0,6)]#[0, 2, 4, 6, 8, 10]  # 6 starting time points
-    t_end = 6
-    t_times = [0,1,2,3,4,5]
+    t_end = 12
+    t_times = [6, 7, 8, 9, 10, 11]  # 6 starting time points
+    t_start = min(t_times)  # Start time
     # Define output pixel (center of interest)
     output_pixel = (90, 180)  # Equatorial Pacific
     
@@ -220,5 +221,5 @@ if __name__ == "__main__":
     folder = 'adjoint_arrays/Equatorial_Pacific/'
 
     # Create the grid sensitivity plot
-    plot_grid_sensitivities(t_times, t_end, map_dims, output_pixel, 
+    plot_grid_sensitivities(t_times, t_start, t_end, map_dims, output_pixel, 
                         var_in, var_out, ch_in, ch_out, folder=folder)
