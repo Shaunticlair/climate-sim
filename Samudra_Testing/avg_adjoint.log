@@ -1,4 +1,4 @@
-Job 22169493.pbspl1.nas.nasa.gov started on Sun May 04 22:56:11 PDT 2025
+Job 22178498.pbspl1.nas.nasa.gov started on Tue May 06 11:08:30 PDT 2025
 The job requested the following resources:
     ncpus=40
     place=scatter:excl
@@ -12,16 +12,120 @@ On r133i6n1:
 Warning: no access to tty (Inappropriate ioctl for device).
 Thus no job control in this shell.
 Current directory is /nobackup/sruiz5/climate-sim/Samudra_Testing
-Starting Samudra model run at Sun May  4 22:57:05 PDT 2025
-Terminated
+Starting Samudra model run at Tue May  6 11:09:07 PDT 2025
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/indexing.py:1443: PerformanceWarning: Slicing with an out-of-order index is generating 24 times more chunks
+  return self.array[key]
+/nobackup/sruiz5/conda/envs/samudra/lib/python3.10/site-packages/xarray/core/duck_array_ops.py:188: RuntimeWarning: invalid value encountered in cast
+  return data.astype(dtype, **kwargs)
+Using CPU
+Using 80 CPU cores for computation
+Number of input channels: 158
+Number of output channels: 154
+Section 'Environment configured' took 0.0560 seconds
+Total elapsed time: 0.0560 seconds
+----------------------------------------
+Section 'Data loaded' took 16.9520 seconds
+Total elapsed time: 17.0080 seconds
+----------------------------------------
+Section 'Model loaded' took 3.0305 seconds
+Total elapsed time: 20.0385 seconds
+----------------------------------------
+Out:  [[2 3]] Our data has the shape torch.Size([1, 158, 180, 360])
+Computing sensitivity with batch 0, initial channels [76, 154, 155, 156, 157],       lat slice slice(0, 180, None), lon slice slice(0, 360, None)
+Section 'Setup complete' took 25.7247 seconds
+Total elapsed time: 45.7632 seconds
+----------------------------------------
+Out:  [[2 3]] Section 'Finished setting up model input' took 3.2882 seconds
+Total elapsed time: 49.0514 seconds
+----------------------------------------
+Section 'Created gradient-tracked chunks and objectives' took 0.1179 seconds
+Total elapsed time: 49.1693 seconds
+----------------------------------------
+Section 'Added gradient tracking for initial timesteps' took 0.5655 seconds
+Total elapsed time: 49.7348 seconds
+----------------------------------------
+Processing time step: 0
+Section 'Ran model forward for model iteration 0' took 7.4600 seconds
+Total elapsed time: 57.1948 seconds
+----------------------------------------
+Out:  [[4 5]] Section 'Added gradient tracking for model iteration 1' took 3.0884 seconds
+Total elapsed time: 60.2833 seconds
+----------------------------------------
+Processing time step: 1
+Section 'Ran model forward for model iteration 1' took 1.1572 seconds
+Total elapsed time: 61.4405 seconds
+----------------------------------------
+Out:  [[6 7]] Section 'Added gradient tracking for model iteration 2' took 3.3832 seconds
+Total elapsed time: 64.8236 seconds
+----------------------------------------
+Processing time step: 2
+Section 'Ran model forward for model iteration 2' took 1.1543 seconds
+Total elapsed time: 65.9779 seconds
+----------------------------------------
+Out:  [[8 9]] Section 'Added gradient tracking for model iteration 3' took 3.5678 seconds
+Total elapsed time: 69.5457 seconds
+----------------------------------------
+Section 'Forward pass complete, accumulated objectives' took 0.0000 seconds
+Total elapsed time: 69.5457 seconds
+----------------------------------------
+Section 'Cleared gradients before backward pass' took 0.0000 seconds
+Total elapsed time: 69.5458 seconds
+----------------------------------------
+Section 'Backwards pass complete' took 16.9135 seconds
+Total elapsed time: 86.4593 seconds
+----------------------------------------
+Section 'Gathered sensitivities for all input chunks' took 0.0014 seconds
+Total elapsed time: 86.4607 seconds
+----------------------------------------
+Section 'Finished computing average state sensitivity' took 0.0259 seconds
+Total elapsed time: 86.4866 seconds
+----------------------------------------
+Computed sensitivity results: 30 entries
+Saved sensitivity tensor for avg_sensitivity_chin[76]_chout[76]_t[0,6].npy to avg_sensitivity_chin[76]_chout[76]_t[0,6].npy
+Saved sensitivity tensor for avg_sensitivity_chin[76]_chout[76]_t[1,6].npy to avg_sensitivity_chin[76]_chout[76]_t[1,6].npy
+Saved sensitivity tensor for avg_sensitivity_chin[76]_chout[76]_t[2,6].npy to avg_sensitivity_chin[76]_chout[76]_t[2,6].npy
+Saved sensitivity tensor for avg_sensitivity_chin[76]_chout[76]_t[3,6].npy to avg_sensitivity_chin[76]_chout[76]_t[3,6].npy
+Saved sensitivity tensor for avg_sensitivity_chin[76]_chout[76]_t[4,6].npy to avg_sensitivity_chin[76]_chout[76]_t[4,6].npy
+Saved sensitivity tensor for avg_sensitivity_chin[76]_chout[76]_t[5,6].npy to avg_sensitivity_chin[76]_chout[76]_t[5,6].npy
+Saved sensitivity tensor for avg_sensitivity_chin[154]_chout[76]_t[0,6].npy to avg_sensitivity_chin[154]_chout[76]_t[0,6].npy
+Saved sensitivity tensor for avg_sensitivity_chin[154]_chout[76]_t[1,6].npy to avg_sensitivity_chin[154]_chout[76]_t[1,6].npy
+Saved sensitivity tensor for avg_sensitivity_chin[154]_chout[76]_t[2,6].npy to avg_sensitivity_chin[154]_chout[76]_t[2,6].npy
+Saved sensitivity tensor for avg_sensitivity_chin[154]_chout[76]_t[3,6].npy to avg_sensitivity_chin[154]_chout[76]_t[3,6].npy
+Saved sensitivity tensor for avg_sensitivity_chin[154]_chout[76]_t[4,6].npy to avg_sensitivity_chin[154]_chout[76]_t[4,6].npy
+Saved sensitivity tensor for avg_sensitivity_chin[154]_chout[76]_t[5,6].npy to avg_sensitivity_chin[154]_chout[76]_t[5,6].npy
+Saved sensitivity tensor for avg_sensitivity_chin[155]_chout[76]_t[0,6].npy to avg_sensitivity_chin[155]_chout[76]_t[0,6].npy
+Saved sensitivity tensor for avg_sensitivity_chin[155]_chout[76]_t[1,6].npy to avg_sensitivity_chin[155]_chout[76]_t[1,6].npy
+Saved sensitivity tensor for avg_sensitivity_chin[155]_chout[76]_t[2,6].npy to avg_sensitivity_chin[155]_chout[76]_t[2,6].npy
+Saved sensitivity tensor for avg_sensitivity_chin[155]_chout[76]_t[3,6].npy to avg_sensitivity_chin[155]_chout[76]_t[3,6].npy
+Saved sensitivity tensor for avg_sensitivity_chin[155]_chout[76]_t[4,6].npy to avg_sensitivity_chin[155]_chout[76]_t[4,6].npy
+Saved sensitivity tensor for avg_sensitivity_chin[155]_chout[76]_t[5,6].npy to avg_sensitivity_chin[155]_chout[76]_t[5,6].npy
+Saved sensitivity tensor for avg_sensitivity_chin[156]_chout[76]_t[0,6].npy to avg_sensitivity_chin[156]_chout[76]_t[0,6].npy
+Saved sensitivity tensor for avg_sensitivity_chin[156]_chout[76]_t[1,6].npy to avg_sensitivity_chin[156]_chout[76]_t[1,6].npy
+Saved sensitivity tensor for avg_sensitivity_chin[156]_chout[76]_t[2,6].npy to avg_sensitivity_chin[156]_chout[76]_t[2,6].npy
+Saved sensitivity tensor for avg_sensitivity_chin[156]_chout[76]_t[3,6].npy to avg_sensitivity_chin[156]_chout[76]_t[3,6].npy
+Saved sensitivity tensor for avg_sensitivity_chin[156]_chout[76]_t[4,6].npy to avg_sensitivity_chin[156]_chout[76]_t[4,6].npy
+Saved sensitivity tensor for avg_sensitivity_chin[156]_chout[76]_t[5,6].npy to avg_sensitivity_chin[156]_chout[76]_t[5,6].npy
+Saved sensitivity tensor for avg_sensitivity_chin[157]_chout[76]_t[0,6].npy to avg_sensitivity_chin[157]_chout[76]_t[0,6].npy
+Saved sensitivity tensor for avg_sensitivity_chin[157]_chout[76]_t[1,6].npy to avg_sensitivity_chin[157]_chout[76]_t[1,6].npy
+Saved sensitivity tensor for avg_sensitivity_chin[157]_chout[76]_t[2,6].npy to avg_sensitivity_chin[157]_chout[76]_t[2,6].npy
+Saved sensitivity tensor for avg_sensitivity_chin[157]_chout[76]_t[3,6].npy to avg_sensitivity_chin[157]_chout[76]_t[3,6].npy
+Saved sensitivity tensor for avg_sensitivity_chin[157]_chout[76]_t[4,6].npy to avg_sensitivity_chin[157]_chout[76]_t[4,6].npy
+Saved sensitivity tensor for avg_sensitivity_chin[157]_chout[76]_t[5,6].npy to avg_sensitivity_chin[157]_chout[76]_t[5,6].npy
+Section 'Finished saving sensitivity results' took 0.1717 seconds
+Total elapsed time: 86.6583 seconds
+----------------------------------------
+============================================
+    Average Sensitivity Analysis Done       
+============================================
+Finished Samudra model run at Tue May  6 11:13:14 PDT 2025
 
 ____________________________________________________________________
-Job Resource Usage Summary for 22169493.pbspl1.nas.nasa.gov
+Job Resource Usage Summary for 22178498.pbspl1.nas.nasa.gov
 
-    CPU Time Used            : 00:00:03
-    Real Memory Used         : 66608kb
-    Walltime Used            : 00:01:26
-    Exit Status              : 143
+    CPU Time Used            : 00:22:34
+    Real Memory Used         : 1735860kb
+    Walltime Used            : 00:04:18
+    Exit Status              : 0
 
     Number of CPUs Requested : 40
     Walltime Requested       : 01:00:00
@@ -29,5 +133,5 @@ Job Resource Usage Summary for 22169493.pbspl1.nas.nasa.gov
     Execution Queue          : R21940709
     Charged To               : g26113
 
-    Job Stopped              : Sun May  4 22:59:30 2025
+    Job Stopped              : Tue May  6 11:13:47 2025
 ____________________________________________________________________
