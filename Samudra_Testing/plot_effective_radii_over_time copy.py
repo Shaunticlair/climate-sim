@@ -286,12 +286,12 @@ def track_effective_radius_over_time(sensitivity_files, center_lat, center_lon, 
 
 # Example usage:
 if __name__ == "__main__":
-    # Example: Process a single sensitivity map
-    in_time = 4
-    end_time = 12
-
-    sample_file = f"adjoint_arrays/Equatorial_Pacific/chunk_sensitivity_chin[76]_chout[76]_t[{in_time},{end_time}].npy"
-    center_lat, center_lon = 90, 180  # Equatorial Pacific
+    # Define center point coordinates (Equatorial Pacific)
+    center_lat, center_lon = 90, 180
+    
+    # First: Process a single sensitivity map as an example
+    in_time = 0
+    sample_file = f"adjoint_arrays/Equatorial_Pacific/chunk_sensitivity_chin[76]_chout[76]_t[{in_time},12].npy"
 
     if Path(sample_file).exists():
         print(f"Processing file: {sample_file}")
@@ -302,41 +302,125 @@ if __name__ == "__main__":
             sensitivity_map = sensitivity_map.reshape(180, 360)
         
         # Compute effective radius with plot saving
-        
         radius = compute_effective_radius(sensitivity_map, center_lat, center_lon, 
-                                         plot=True, save_prefix=f"chin[76]_chout[76]_t[{in_time},{end_time}]")
+                                         plot=True, save_prefix=f"chin[76]_chout[76]_t[{in_time},12]")
         print(f"Effective radius: {radius} pixels")
-        
-        
     else:
         print(f"File not found: {sample_file}")
         print("This script requires sensitivity maps in the current directory to run.")
         print("Example files: chunk_sensitivity_chin[76]_chout[76]_t[0,10].npy")
-
-# Track over time (example with multiple files)
-    end_time = 72 #72  # The end time for calculating time lag
-    times = [6*i for i in range(0, 12)]
-    #times = [0, 2, 4, 6, 8, 10]  # Example time points
-
-    ch_out, ch_in = 76, 76  # Example channel numbers
     
-    files = [f"adjoint_arrays/Equatorial_Pacific/chunk_sensitivity_chin[{ch_in}]_chout[{ch_out}]_t[{t},{end_time}].npy" 
-                for t in times]
+    # Second: Track effective radius over time with multiple files
+    month_end_time = 72  # The end time for calculating time lag
+    day_end_time = 12    # The end time for calculating time lag
     
-    #print(files)
+    # Define time points
+    day_times =  [6, 8, 10] #[0, 2, 4,
+    month_times = [6*i for i in range(0, 12)]
     
-    # Check which files exist
-    existing_files = [f for f in files if Path(f).exists()]
-    existing_times = [times[i] for i, f in enumerate(files) if Path(f).exists()]
-
-    #print(existing_files)
+    # Set channel numbers
+    ch_out, ch_in = 76, 76
     
-    if len(existing_files) > 1:
-        print(f"Tracking effective radius over {len(existing_files)} time points")
-        save_path = f"Plots/effective_radius_over_time_[{center_lat},{center_lon}]_endtime[{end_time}]_ch[{ch_out}]_ch[{ch_in}].png"
-        radii, lags = track_effective_radius_over_time(existing_files, center_lat, center_lon, 
-                                                        existing_times, end_time=end_time,
-                                                        save_file=save_path)
-        print("Effective radii over time:", radii)
-        print("Time lags:", lags)
-        print(f"Plot saved to {save_path}")
+    # Define file paths
+    day_files = [f"adjoint_arrays/Equatorial_Pacific/chunk_sensitivity_chin[{ch_in}]_chout[{ch_out}]_t[{t},{day_end_time}].npy"
+                for t in day_times]
+    month_files = [f"adjoint_arrays/Equatorial_Pacific/chunk_sensitivity_chin[{ch_in}]_chout[{ch_out}]_t[{t},{month_end_time}].npy" 
+                for t in month_times]
+    
+    # Create two separate lists to handle different end times properly
+    day_existing_files = [f for f in day_files if Path(f).exists()]
+    day_existing_times = [t for i, t in enumerate(day_times) if Path(day_files[i]).exists()]
+    
+    month_existing_files = [f for f in month_files if Path(f).exists()]
+    month_existing_times = [t for i, t in enumerate(month_times) if Path(month_files[i]).exists()]
+    
+    print(f"Found {len(day_existing_files)} day files and {len(month_existing_files)} month files")
+    
+    # Process day files
+    if len(day_existing_files) > 1:
+        print(f"Tracking effective radius over {len(day_existing_files)} day time points")
+        save_path = f"Plots/effective_radius_day_[{center_lat},{center_lon}]_endtime[{day_end_time}]_ch[{ch_out}]_ch[{ch_in}].png"
+        
+        day_radii, day_lags = track_effective_radius_over_time(
+            day_existing_files, center_lat, center_lon, 
+            day_existing_times, end_time=day_end_time,
+            save_file=save_path
+        )
+        
+        print("Day effective radii:", day_radii)
+        print("Day time lags:", day_lags)
+    
+    # Process month files
+    if len(month_existing_files) > 1:
+        print(f"Tracking effective radius over {len(month_existing_files)} month time points")
+        save_path = f"Plots/effective_radius_month_[{center_lat},{center_lon}]_endtime[{month_end_time}]_ch[{ch_out}]_ch[{ch_in}].png"
+        
+        month_radii, month_lags = track_effective_radius_over_time(
+            month_existing_files, center_lat, center_lon, 
+            month_existing_times, end_time=month_end_time,
+            save_file=save_path
+        )
+        
+        print("Month effective radii:", month_radii)
+        print("Month time lags:", month_lags)
+    
+    # If you want to combine them into a single plot, we need to handle the different end times
+    if len(day_existing_files) > 0 and len(month_existing_files) > 0:
+        print("Creating combined plot with both day and month data")
+        
+        # Combine files and times
+        all_files = day_existing_files + month_existing_files
+        
+        # Convert to a common time scale - normalize to days from final output
+        # For day files: lag = day_end_time - time
+        # For month files: lag = month_end_time - time
+        normalized_times = day_existing_times + month_existing_times
+        
+        # Use a special flag to indicate different end times
+        # The track_effective_radius_over_time function needs to be modified to handle this
+        save_path = f"Plots/effective_radius_combined_[{center_lat},{center_lon}]_ch[{ch_out}]_ch[{ch_in}].png"
+        
+        # Process files separately then combine for plotting
+        day_radii, day_lags = [], []
+        month_radii, month_lags = [], []
+        
+        # Process day files
+        for i, file_path in enumerate(day_existing_files):
+            sensitivity_map = np.load(file_path)
+            if len(sensitivity_map.shape) > 2:
+                sensitivity_map = sensitivity_map.reshape(180, 360)
+            
+            radius = compute_effective_radius(sensitivity_map, center_lat, center_lon)
+            day_radii.append(radius)
+            day_lags.append(day_end_time - day_existing_times[i])
+        
+        # Process month files
+        for i, file_path in enumerate(month_existing_files):
+            sensitivity_map = np.load(file_path)
+            if len(sensitivity_map.shape) > 2:
+                sensitivity_map = sensitivity_map.reshape(180, 360)
+            
+            radius = compute_effective_radius(sensitivity_map, center_lat, center_lon)
+            month_radii.append(radius)
+            month_lags.append(month_end_time - month_existing_times[i])
+        
+        # Create a custom combined plot
+        plt.figure(figsize=(12, 7))
+        
+        # Plot day data with one color/marker
+        plt.plot(day_lags, day_radii, 'bo-', linewidth=2, markersize=8)
+        plt.plot(month_lags, month_radii, 'bo-', linewidth=2, markersize=8)
+        # Plot month data with another color/marker
+        #plt.plot(month_lags, month_radii, 'rs-', linewidth=2, markersize=8, label=f'Month scale (end time = {month_end_time})')
+        
+        plt.xlabel('Time Lag (steps from output)', fontsize=12)
+        plt.ylabel('Effective Radius (pixels)', fontsize=12)
+        plt.title('Effective Radius of Sensitivity vs Time Lag', fontsize=14)
+        plt.grid(True, alpha=0.3)
+        plt.legend()
+        plt.tight_layout()
+        
+        plt.savefig(save_path, dpi=300, bbox_inches='tight')
+        plt.close()
+        
+        print(f"Combined plot saved to {save_path}")

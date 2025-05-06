@@ -146,7 +146,7 @@ def plot(path, map_dims, #Variables used to make the graph
 # We want t_end to be December 2015
 t_start = 0 
 # 699 days between January 2014 and December 2015: 700/5=140
-t_end = 10
+t_end = 12
 
 t_2year =   0 # A little less than 2 years from t_end
 t_1year =   140 - 73 # 1 year back from t_end
@@ -187,8 +187,8 @@ initial_times_dict = {'zos(even)': [t_1month, t_6months, t_1year, t_2year],
                       'hfds_anomalies': [t_1year, t_2year],}
 
 #initial_times = initial_times_dict[var_in] # [t_1month, t_6months, t_1year]#
-initial_times = [0,2,4,6,8]#[0,2,4,6,8]
-#map_dims = [0, 180, 0, 360]  # Full global map
+initial_times = [0,2,4,6,8,10]#[0,2,4,6,8]
+map_dims = [0, 180, 0, 360]  # Full global map
 
 
 output_pixel = (90, 180)#(131,289)#  # Coordinates for the output pixel
@@ -198,7 +198,7 @@ for initial_time in initial_times:
     plot_path = Path(f'chunk_sensitivity_chin[{ch_in}]_chout[{ch_out}]_t[{in_time},{out_time}].npy')
     #plot_path = Path(f'loss_sensitivity_chin[{ch_in}]_t[{in_time},{out_time}].npy')
     #plot_path = Path(f'sensitivity_arrays/Equatorial_Pacific/chunk_sensitivity_chin[{ch_in}]_chout[{ch_out}]_t[{in_time},{out_time}].npy')
-    
+    plot_path = Path(f'adjoint_arrays/Equatorial_Pacific/chunk_sensitivity_chin[{ch_in}]_chout[{ch_out}]_t[{in_time},{out_time}].npy')
     if plot_path.exists():
         plot(plot_path, map_dims=map_dims, t0=in_time, t1=out_time, 
              output_pixel=output_pixel, output_var=var_out, input_var=var_in,

@@ -5,11 +5,12 @@ from pathlib import Path
 # ===== CONFIGURATION (MODIFY THESE VALUES) =====
 # List of starting times for which to load sensitivity matrices
 times = [6*i for i in range(12)]  # Example: [0, 6, 12, ..., 66] for a year
+times = [0, 2, 4, 6, 8, 10]  
 # Input and output channel numbers
 chin = 76
 chout = 76
 # End time value (same for all matrices)
-tend = 72
+tend = 12#72
 # Directory to save the output plot
 output_dir = "Plots"
 input_folder = 'adjoint_arrays/Equatorial_Pacific'
@@ -188,7 +189,7 @@ def plot_sensitivity_magnitudes(chin, chout, denormalize=False):
         return [], [], []
 
 if __name__ == "__main__":
-    chins = [154,155,156]
+    chins = [76]#[154,155,156]
     out_channel_units = {"tauuo":154, "tauvo":155, "hfds":156}
     units_dict = {
         154: "Pa",
