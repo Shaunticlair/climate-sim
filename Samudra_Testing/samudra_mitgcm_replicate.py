@@ -27,20 +27,20 @@ timer = setup.Timer()
 # 699 days between January 2014 and December 2015: 700/5=140
 t_start = 0 
 #t_end = 72 # Approximately a year (73 might be more accurate, but doesn't divide into 12 months nicely)
-t_end = 72
+t_end = 292 # 4 years
 
 #t_months = [t_end - 6*i for i in range(1,13)]  # Months in a year
 #in_times = t_months #[t_2year, t_1year, t_6months, t_1month] #[0] # Times to compute sensitivity wrt to
 #in_times = [0, 2, 4, 6, 8]  # Times to compute sensitivity wrt to
 
-in_times = [i*2 for i in range(0, 36)]  # Times to compute sensitivity wrt to: every 10 days
+in_times = [i for i in range(0, 292)]  # Times to compute sensitivity wrt to: every 5 days
 
 # (126, 324) is the point in the middle of the North Atlantic Ocean
 # (90, 180) is the point at the Equatorial Pacific Ocean
 #final_lat, final_lon = 90, 180
 # Equatorial Pacific, Nantucket, North Atlantic Ocean
 final_coords = [(90,180), (131,289), (126, 324)]
-initial_channels = [76,154,155,156,157]  #[76]  # Channels to compute sensitivity for
+initial_channels = [154,155,156]  #[76]  # Channels to compute sensitivity for
 #initial_channels = [76]
 final_channel = 76
 
@@ -108,9 +108,14 @@ channel_time_mapping = []  # To keep track of (channel, time) for each in_obj_id
 
 for channel in initial_channels:
     for t in in_times:
-        # Two elements in dictionary: average over two time levels
-        channeltime_dict = {t: [(batch_slice, slice(channel, channel+1), lat_slice, lon_slice)],
-                            t+1: [(batch_slice, slice(channel + 77, channel + 78), lat_slice, lon_slice)]}
+        if t % 2 != 0: #Odd timestep
+            curr_channel = channel + 77
+        else: # Even timestep
+            curr_channel = channel
+
+        # One element in dictionary: only want 5-day average
+        channeltime_dict = {t: [(batch_slice, slice(curr_channel, curr_channel+1), lat_slice, lon_slice)],}
+                            #t+1: [(batch_slice, slice(channel + 77, channel + 78), lat_slice, lon_slice)]}
         
         # Add this dictionary to the list
         in_list_dict.append(channeltime_dict)
@@ -125,7 +130,7 @@ out_list_dict = []
 
 for final_coord in final_coords:
     # Each final coordinate creates a distinct output dictionary
-    # This, they aren't averaged with each other: they're distinct points
+    # Thus, they aren't averaged with each other: they're distinct points
     final_lat, final_lon = final_coord
     final_lat_slice = slice(final_lat, final_lat + 1)  # Slice for latitude
     final_lon_slice = slice(final_lon, final_lon + 1)  # Slice for longitude
