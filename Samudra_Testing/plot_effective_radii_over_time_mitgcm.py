@@ -314,17 +314,16 @@ if __name__ == "__main__":
         print("Example files: chunk_sensitivity_chin[76]_chout[76]_t[0,10].npy")
 
 # Track over time (example with multiple files)
-    end_time = 6 #72  # The end time for calculating time lag
-    times = [i for i in range(6)]  # Example time points
+    end_time = '292-297' #72  # The end time for calculating time lag
+    times = [291-i for i in range(6)]  # Example time points
     #times = [0, 2, 4, 6, 8, 10]  # Example time points
 
-    ch_out, ch_in = 76, 76  # Example channel numbers
+    ch_out, ch_in = 76, 154  # Example channel numbers
     center_lat, center_lon = 90, 180  # Equatorial Pacific
     
     folder = 'adjoint_arrays/Equatorial_Pacific/'
-    #folder = 'MITgcm_Replication/'
-    #f"{folder}chunk_sensitivity_chin[{ch_in}]_chout[{ch_out}]_loc[{center_lat},{center_lon}]_t[{t},{end_time}].npy
-    files = [f"{folder}chunk_sensitivity_chin[{ch_in}]_chout[{ch_out}]_t[{t},{end_time}].npy" 
+    folder = 'MITgcm_Replication/'
+    files = [f"{folder}avg_sensitivity_chin[{ch_in}]_chout[{ch_out}]_loc[{center_lat},{center_lon}]_t[{t},{end_time}].npy" 
                 for t in times]
     
     print(files)

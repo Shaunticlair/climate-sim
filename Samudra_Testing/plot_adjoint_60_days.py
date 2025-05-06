@@ -71,7 +71,7 @@ def plot_grid_sensitivities(t_times, t_end, map_dims, output_pixel, var_in, var_
     # First, load all data
     for i, t0 in enumerate(t_times):
         in_time, out_time = t0, t_end
-        plot_path = Path(f'{folder}/chunk_sensitivity_chin[{ch_in}]_chout[{ch_out}]_t[{in_time},{out_time}].npy')
+        plot_path = Path(f'{folder}/avg_sensitivity_chin[{ch_in}]_chout[{ch_out}]_t[{in_time},{out_time}].npy')
         
         if plot_path.exists():
             masked_sensitivity = load_and_crop_sensitivity(plot_path, map_dims)
