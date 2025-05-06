@@ -105,8 +105,14 @@ channel_time_mapping = []  # To keep track of (channel, time) for each in_obj_id
 
 for channel in initial_channels:
     for t in in_times:
-        # For each channel-time combination, create a dictionary with just that time
-        channeltime_dict = {t: [(batch_slice, slice(channel, channel+1), lat_slice, lon_slice)]}
+        if t % 2 != 0: #Odd timestep
+            curr_channel = channel + 77
+        else: # Even timestep
+            curr_channel = channel
+
+        # One element in dictionary: only want 5-day average
+        channeltime_dict = {t: [(batch_slice, slice(curr_channel, curr_channel+1), lat_slice, lon_slice)],}
+                            #t+1: [(batch_slice, slice(channel + 77, channel + 78), lat_slice, lon_slice)]}
         
         # Add this dictionary to the list
         in_list_dict.append(channeltime_dict)
@@ -120,7 +126,7 @@ out_list_dict = []
 output_dict = {
     
     t_end: [(slice(0,1), slice(final_channel, final_channel+1), final_lat_slice, final_lon_slice)],
-    t_end + 1: [(slice(0,1), slice(odd_final_channel, odd_final_channel+1), final_lat_slice, final_lon_slice)]
+    #t_end + 1: [(slice(0,1), slice(odd_final_channel, odd_final_channel+1), final_lat_slice, final_lon_slice)]
 }
 
 # Add this output dictionary to the list

@@ -197,14 +197,15 @@ if __name__ == "__main__":
     # Set parameters
     t_end = 72#12  # End time
     t_times = [12*i for i in range(0,6)]#[0, 2, 4, 6, 8, 10]  # 6 starting time points
-    
+    t_end = 6
+    t_times = [0,1,2,3,4,5]
     # Define output pixel (center of interest)
     output_pixel = (90, 180)  # Equatorial Pacific
     
     # Define map dimensions
     delta = 20
     map_dims = [90-delta, 90+delta+1, 180-delta, 180+delta+1]  # [xmin, xmax, ymin, ymax]
-    map_dims = [0, 180, 0, 360]  # [xmin, xmax, ymin, ymax]
+    #map_dims = [0, 180, 0, 360]  # [xmin, xmax, ymin, ymax]
     # Try to import variable dictionary from misc
     from misc import var_dict
 
