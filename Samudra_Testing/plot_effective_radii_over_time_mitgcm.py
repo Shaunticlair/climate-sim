@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from pathlib import Path
+import glob
 
 def compute_effective_radius(sensitivity_map, center_lat, center_lon, max_radius=None, plot=False, save_prefix=None):
     """
@@ -37,7 +38,9 @@ def compute_effective_radius(sensitivity_map, center_lat, center_lon, max_radius
     lat_size, lon_size = sensitivity.shape
     
     # Calculate global sensitivity magnitude (sum of squared sensitivities)
-    global_sensitivity_sq = np.sum(sensitivity**2)
+    global_sensitivity_sq = np.nansum(sensitivity**2)
+
+    #print(global_sensitivity_sq)
     
     # If the global sensitivity is zero, return 0
     if global_sensitivity_sq == 0:
@@ -72,9 +75,9 @@ def compute_effective_radius(sensitivity_map, center_lat, center_lon, max_radius
         # Create a mask for points within this radius
         mask = distances <= radius
         # Calculate sum of squared sensitivities within this radius
-        cumulative_sensitivity[i] = np.sum(sensitivity[mask]**2)
+        cumulative_sensitivity[i] = np.nansum(sensitivity[mask]**2)
         # Count number of points within this radius
-        num_points_per_radius[i] = np.sum(mask)
+        num_points_per_radius[i] = np.nansum(mask)
     
     # Calculate the number of points added at each radius
     points_added = np.zeros(len(radii), dtype=int)
@@ -97,8 +100,7 @@ def compute_effective_radius(sensitivity_map, center_lat, center_lon, max_radius
     normalized_cumulative = cumulative_sensitivity / global_sensitivity_sq
     
     # Normalize density for visualization (not by global, but to make the plot readable)
-    max_density = np.max(sensitivity_density) if np.max(sensitivity_density) > 0 else 1
-    normalized_density = sensitivity_density #/ max_density
+    normalized_density = sensitivity_density
     
     # Find the radius at which we reach 50% of global sensitivity
     if all(normalized_cumulative < 0.5):
@@ -109,7 +111,6 @@ def compute_effective_radius(sensitivity_map, center_lat, center_lon, max_radius
         effective_index = np.argmax(normalized_cumulative >= 0.5)
         effective_radius = radii[effective_index]
     
-    # Plot if requested
     # Plot if requested
     if plot:
         # Create Plots directory if it doesn't exist
@@ -135,7 +136,8 @@ def compute_effective_radius(sensitivity_map, center_lat, center_lon, max_radius
             cmap.set_bad('black', 0.5)
             
             # Ensure symmetric color scale around zero
-            abs_max = np.max(np.abs(masked_sensitivity.compressed()))
+            abs_max = np.nanmax(np.abs(masked_sensitivity.compressed()))
+            #print(f"Using color limits [{-abs_max}, {abs_max}]")
             
             fig = plt.gcf()
             ax = plt.gca()
@@ -143,7 +145,7 @@ def compute_effective_radius(sensitivity_map, center_lat, center_lon, max_radius
         else:
             # Fallback if no wetmask is available
             # Ensure symmetric color scale around zero
-            abs_max = np.max(np.abs(sensitivity))
+            abs_max = np.nanmax(np.abs(sensitivity))
             fig = plt.gcf()
             ax = plt.gca()
             im = ax.imshow(sensitivity, cmap='RdBu_r', origin='lower', vmin=-abs_max, vmax=abs_max)
@@ -217,131 +219,225 @@ def compute_effective_radius(sensitivity_map, center_lat, center_lon, max_radius
     
     return effective_radius
 
-def track_effective_radius_over_time(sensitivity_files, center_lat, center_lon, times=None, end_time=72, plot=True, save_file=None):
+def process_mitgcm_data_over_time(folder_path, var_name, center_lat, center_lon, days_per_level=7):
     """
-    Track how the effective radius changes over time for a series of sensitivity maps.
+    Process all time levels of MITgcm data for a specific variable and calculate effective radius.
     
     Parameters:
     -----------
-    sensitivity_files : list
-        List of file paths to sensitivity maps
+    folder_path : str
+        Path to the folder containing MITgcm data files
+    var_name : str
+        Variable name for the sensitivity files (e.g., 'hfds', 'tauuo', 'tauvo')
     center_lat : int
         Latitude index of the center point
     center_lon : int
         Longitude index of the center point
-    times : list, optional
-        List of time values corresponding to each file. If None, will use indices.
-    end_time : int, optional
-        The end time value for calculating time lag
-    plot : bool, optional
-        Whether to create a visualization of the results
-    save_file : str, optional
-        File path to save the plot. If None, plot will be displayed instead of saved.
+    days_per_level : int, optional
+        Number of days per time level (default: 7)
         
     Returns:
     --------
+    time_days : list
+        List of time points in days
     effective_radii : list
         List of effective radii for each time point
     """
+    # Create Plots directory if it doesn't exist
+    Path("Plots").mkdir(exist_ok=True)
+    
+    # Construct the file path pattern for the variable
+    file_path = Path(folder_path) / f"{var_name}.npy"
+    
+    if not file_path.exists():
+        print(f"File not found: {file_path}")
+        return [], []
+        
+    # Load the data - it should have shape (time, lat, lon)
+    sensitivity_data = np.load(file_path)
+    
+    # Check if we need to reshape
+    if len(sensitivity_data.shape) != 3:
+        print(f"Error: Expected 3D data (time, lat, lon), but got shape {sensitivity_data.shape}")
+        return [], []
+    
+    num_time_levels = sensitivity_data.shape[0]
+    print(f"Found {num_time_levels} time levels in the data")
+    
+    # Lists to store results
+    time_days = []
     effective_radii = []
     
-    # Process each sensitivity file
-    for file_path in sensitivity_files:
-        # Load the sensitivity map
-        sensitivity_map = np.load(file_path)
-        if len(sensitivity_map.shape) > 2:
-            sensitivity_map = sensitivity_map.reshape(180, 360)
+    # Process each time level
+    for t in range(num_time_levels):
+        # Extract sensitivity map for this time level
+        sensitivity_map = sensitivity_data[t, :, :]
+        
+        # Calculate days as time lag (days from the end)
+        days = (num_time_levels - 1 - t) * days_per_level
         
         # Compute effective radius
-        radius = compute_effective_radius(sensitivity_map, center_lat, center_lon)
-        effective_radii.append(radius)
+        print(f"Processing time level {t} ({days} days)")
+        try:
+            radius = compute_effective_radius(
+                sensitivity_map, center_lat, center_lon, 
+                plot=(t == 0),  # Only create plots for the first time level
+                save_prefix=f"mitgcm_{var_name}_t{t}" if t == 0 else None
+            )
+            
+            # Store results
+            time_days.append(days)
+            effective_radii.append(radius)
+            
+            print(f"Time level {t} ({days} days): Effective radius = {radius}")
+            
+        except Exception as e:
+            print(f"Error processing time level {t}: {e}")
     
-    # Create time points if not provided
-    if times is None:
-        times = list(range(len(sensitivity_files)))
+    # Plot the results
+    plt.figure(figsize=(12, 8))
+    plt.plot(time_days, effective_radii, 'bo-', linewidth=2, markersize=6)
+    plt.xlabel('Time Lag (days)', fontsize=14)
+
+    plt.ylabel('Effective Radius (pixels)', fontsize=14)
+    plt.title(f'Effective Radius vs Time Lag for {var_name}', fontsize=16)
+    plt.grid(True, alpha=0.3)
     
-    # Calculate time lags (time from output)
-    time_lags = [end_time - t for t in times]
-    
-    # Plot if requested
-    if plot:
-        # Create Plots directory if it doesn't exist
-        Path("Plots").mkdir(exist_ok=True)
-        
-        plt.figure(figsize=(10, 6))
-        plt.plot(time_lags, effective_radii, 'bo-', linewidth=2)
-        plt.xlabel('Time Lag (steps from output)')
-        plt.ylabel('Effective Radius (pixels)')
-        plt.title('Effective Radius of Sensitivity vs Time Lag')
-        plt.grid(True, alpha=0.3)
-        plt.tight_layout()
-        
-        if save_file:
-            plt.savefig(save_file, dpi=300, bbox_inches='tight')
-            plt.close()
+    # If we have enough data points, set x-axis ticks at sensible intervals
+    if time_days:
+        max_time = max(time_days)
+        if max_time > 100:
+            tick_interval = 100
+        elif max_time > 50:
+            tick_interval = 20
         else:
-            plt.show()
+            tick_interval = 10
+            
+        plt.xticks(np.arange(0, max(time_days) + tick_interval, tick_interval))
     
-    return effective_radii, time_lags
+    # Save the plot
+    output_file = f"Plots/mitgcm_{var_name}_effective_radius_vs_time.png"
+    plt.savefig(output_file, dpi=300, bbox_inches='tight')
+    plt.close()
+    
+    print(f"Plot saved to {output_file}")
+    
+    return time_days, effective_radii
 
-# Example usage:
+def test_single_timestep(folder_path, var_name, center_lat, center_lon, time_level=0):
+    """
+    Test processing a single timestep from a MITgcm data file with full visualization.
+    
+    Parameters:
+    -----------
+    folder_path : str
+        Path to the folder containing MITgcm data files
+    var_name : str
+        Variable name for the sensitivity files (e.g., 'hfds', 'tauuo', 'tauvo')
+    center_lat : int
+        Latitude index of the center point
+    center_lon : int
+        Longitude index of the center point
+    time_level : int, optional
+        Time level to process (default: 0, the first timestep)
+    
+    Returns:
+    --------
+    effective_radius : float
+        The effective radius for the selected time level
+    """
+    print(f"\n===== TESTING SINGLE TIMESTEP =====")
+    print(f"Variable: {var_name}")
+    print(f"Location: ({center_lat}, {center_lon})")
+    print(f"Time level: {time_level}")
+    
+    # Construct the file path for the variable
+    file_path = Path(folder_path) / f"{var_name}.npy"
+    
+    if not file_path.exists():
+        print(f"File not found: {file_path}")
+        return None
+    
+    # Load the data
+    try:
+        sensitivity_data = np.load(file_path)
+        
+        # Check dimensions
+        if len(sensitivity_data.shape) != 3:
+            print(f"Error: Expected 3D data (time, lat, lon), but got shape {sensitivity_data.shape}")
+            return None
+        
+        num_time_levels = sensitivity_data.shape[0]
+        if time_level >= num_time_levels:
+            print(f"Error: Requested time level {time_level} is out of range (max: {num_time_levels-1})")
+            return None
+            
+        # Extract the single timestep
+        sensitivity_map = sensitivity_data[time_level, :, :]
+        
+        # Compute effective radius with all plots
+        radius = compute_effective_radius(
+            sensitivity_map, center_lat, center_lon, 
+            plot=True,  # Create all visualizations
+            save_prefix=f"test_mitgcm_{var_name}_t{time_level}"
+        )
+        
+        print(f"Effective radius at time level {time_level}: {radius} pixels")
+        return radius
+        
+    except Exception as e:
+        print(f"Error processing file {file_path}: {e}")
+        return None
+
 if __name__ == "__main__":
-    # Example: Process a single sensitivity map
-    in_time = 4
-    end_time = 12
-
-    sample_file = f"adjoint_arrays/Equatorial_Pacific/chunk_sensitivity_chin[76]_chout[76]_t[{in_time},{end_time}].npy"
-    center_lat, center_lon = 90, 180  # Equatorial Pacific
-
-    if Path(sample_file).exists():
-        print(f"Processing file: {sample_file}")
-        sensitivity_map = np.load(sample_file)
-        
-        # Reshape if needed
-        if len(sensitivity_map.shape) > 2:
-            sensitivity_map = sensitivity_map.reshape(180, 360)
-        
-        # Compute effective radius with plot saving
-        
-        radius = compute_effective_radius(sensitivity_map, center_lat, center_lon, 
-                                         plot=True, save_prefix=f"chin[76]_chout[76]_t[{in_time},{end_time}]")
-        print(f"Effective radius: {radius} pixels")
-        
-        
-    else:
-        print(f"File not found: {sample_file}")
-        print("This script requires sensitivity maps in the current directory to run.")
-        print("Example files: chunk_sensitivity_chin[76]_chout[76]_t[0,10].npy")
-
-# Track over time (example with multiple files)
-    end_time = '292-297' #72  # The end time for calculating time lag
-    times = [291-i for i in range(6)]  # Example time points
-    #times = [0, 2, 4, 6, 8, 10]  # Example time points
-
-    ch_out, ch_in = 76, 154  # Example channel numbers
-    center_lat, center_lon = 90, 180  # Equatorial Pacific
+    # Define parameters
+    variables = ['hfds',]# 'tauuo', 'tauvo']  # MITgcm variables to process
+    locations = {
+        '(90,180)': (90, 180),  # Equatorial Pacific (lat, lon)
+        #'(126,324)': (126, 324),  # North Atlantic Ocean
+        #'(131,289)': (131, 289)  # Nantucket
+    }
     
-    folder = 'adjoint_arrays/Equatorial_Pacific/'
-    folder = 'MITgcm_Replication/'
-    files = [f"{folder}avg_sensitivity_chin[{ch_in}]_chout[{ch_out}]_loc[{center_lat},{center_lon}]_t[{t},{end_time}].npy" 
-                for t in times]
+    # Global settings
+    days_per_level = 7  # Each time level represents 7 days
     
-    print(files)
+    # First run the single timestep test for one location and variable
+    test_location = '(90,180)'  # Equatorial Pacific
+    test_var = 'hfds'
+    center_lat, center_lon = locations[test_location]
+    folder_path = f'Converted_NETcdf/{test_location}'
     
-    #print(files)
+    # Run the test (processes first timestep with full visualization)
+    test_single_timestep(folder_path, test_var, center_lat, center_lon)
     
-    # Check which files exist
-    existing_files = [f for f in files if Path(f).exists()]
-    existing_times = [times[i] for i, f in enumerate(files) if Path(f).exists()]
-
-    print(existing_files)
+    # Now process all data
+    print("\n===== PROCESSING ALL DATA =====")
     
-    if len(existing_files) > 1:
-        print(f"Tracking effective radius over {len(existing_files)} time points")
-        save_path = f"Plots/effective_radius_over_time_[{center_lat},{center_lon}]_endtime[{end_time}]_ch[{ch_out}]_ch[{ch_in}].png"
-        radii, lags = track_effective_radius_over_time(existing_files, center_lat, center_lon, 
-                                                        existing_times, end_time=end_time,
-                                                        save_file=save_path)
-        print("Effective radii over time:", radii)
-        print("Time lags:", lags)
-        print(f"Plot saved to {save_path}")
+    # Process each variable for each location
+    for loc_name, coords in locations.items():
+        center_lat, center_lon = coords
+        folder_path = f'Converted_NETcdf/{loc_name}'
+        
+        print(f"\nProcessing location: {loc_name} ({center_lat}, {center_lon})")
+        
+        for var_name in variables:
+            print(f"\nProcessing variable: {var_name}")
+            
+            # Process this variable's data over time
+            time_days, radii = process_mitgcm_data_over_time(
+                folder_path, var_name, center_lat, center_lon, days_per_level
+            )
+            
+            if time_days:  # If we got valid results
+                # Also save the raw data for later use
+                result_data = np.column_stack((time_days, radii))
+                np.savetxt(
+                    f"Plots/mitgcm_{var_name}_effective_radius_data_{loc_name.replace(',', '_')}.csv", 
+                    result_data, 
+                    delimiter=',', 
+                    header='time_days,effective_radius',
+                    comments=''
+                )
+                print(f"Raw data saved to CSV file")
+                
+    print("\nAll processing complete!")

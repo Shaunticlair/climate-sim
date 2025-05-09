@@ -37,27 +37,6 @@ def load_and_crop_sensitivity(path, map_dims):
     # Crop the sensitivity matrix
     cropped_sensitivity = sensitivity_matrix[:,xmin:xmax, ymin:ymax]
     
-    # Load and crop the wetmask
-    #drymask_path = 'drymask.npy'
-    #drymask = np.load(drymask_path)
-    #wetmask = np.where(drymask == 0, 1, 0)  # Invert the mask
-    #cropped_wetmask = wetmask[xmin:xmax, ymin:ymax]
-    # Reshape wetmas to [1, height, width] for masking
-    #cropped_wetmask = cropped_wetmask.reshape(1, *cropped_wetmask.shape)
-
-    #print(cropped_sensitivity.shape, cropped_wetmask.shape)
-    # Apply the wetmask to the sensitivity
-    #masked_sensitivity = np.ma.masked_array(
-    #    cropped_sensitivity,
-    #    mask=~cropped_wetmask.astype(bool)  # Invert wetmask to get drymask
-    #)
-    #mask_shape = ~cropped_wetmask.astype(bool)
-    #expanded_mask = np.broadcast_to(mask_shape, (210, cropped_sensitivity.shape[1], cropped_sensitivity.shape[2]))
-    #masked_sensitivity = np.ma.masked_array(
-    #    cropped_sensitivity,
-    #    mask=expanded_mask
-    #)
-    
     return cropped_sensitivity
 
 def plot_sensitivity_monthly(t_months, t_end, t_end2, loc, map_dims, output_pixel, 
@@ -109,7 +88,7 @@ def plot_sensitivity_monthly(t_months, t_end, t_end2, loc, map_dims, output_pixe
         print(f"File not found: {plot_path}")
         return
     for i, month in enumerate(t_months):
-        month_sensitivity = masked_sensitivity[-i-1, :, :]
+        month_sensitivity = masked_sensitivity[-4*i-4, :, :]
         all_sensitivities.append(month_sensitivity)
     
     # Calculate tick positions and labels ONCE before the loop
@@ -230,7 +209,7 @@ if __name__ == "__main__":
     t_months = [t_end - 6*i for i in range(1, 13)]  # 12 months back
     
     #loc = '131,289'  # Nantucket
-    loc = '126,324'  # North Atlantic Ocean
+    loc = '(126,324)'  # North Atlantic Ocean
     #loc = '90,180'  # Equatorial Pacific Ocean
 
     #x_out, y_out = 126, 324  # North Atlantic
@@ -261,7 +240,7 @@ if __name__ == "__main__":
         # Get channel numbers from dictionary
         ch_in = var_dict[var_in]
         ch_out = var_dict[var_out]
-        folder = 'Converted_NETcdf/emu_adj_48_48_1_2_209_1/numpy_output' #'adjoint_arrays/North_Atlantic'#'
+        folder = f'Converted_NETcdf/{loc}' #'adjoint_arrays/North_Atlantic'#'
 
         # Create the monthly sensitivity grid plot
         plot_sensitivity_monthly(t_months, t_end, t_end2, loc, map_dims, output_pixel, 

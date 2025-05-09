@@ -261,7 +261,8 @@ def track_effective_radius_over_time(sensitivity_files, center_lat, center_lon, 
         times = list(range(len(sensitivity_files)))
     
     # Calculate time lags (time from output)
-    time_lags = [end_time - t for t in times]
+    final_time = 292
+    time_lags = [(final_time - t)*5 for t in times]
     
     # Plot if requested
     if plot:
@@ -314,21 +315,34 @@ if __name__ == "__main__":
         print("Example files: chunk_sensitivity_chin[76]_chout[76]_t[0,10].npy")
 
 # Track over time (example with multiple files)
-    end_time = 12 #72  # The end time for calculating time lag
-    times = [i for i in range(12)]  # Example time points
+    end_time = '292-297' #72  # The end time for calculating time lag
+    times = [292-2*i for i in range(20//2)]#range(292//2)]  # Example time points
     #times = [0, 2, 4, 6, 8, 10]  # Example time points
 
-    ch_out, ch_in = 76, 76  # Example channel numbers
+    channel_mapping = {
+        'hfds': 156,
+        'tauuo': 154,
+        'tauvo': 155
+    }
+    var_in = 'hfds'
+
+    ch_in = channel_mapping[var_in]  # Default to hfds channel if not found
+    ch_out = 76  # Output channel (zos)
     center_lat, center_lon = 90, 180  # Equatorial Pacific
     
-    folder = 'adjoint_arrays/Equatorial_Pacific/'
+    folder = 'MITgcm_Replication/'
     #folder = 'MITgcm_Replication/'
-    #f"{folder}chunk_sensitivity_chin[{ch_in}]_chout[{ch_out}]_loc[{center_lat},{center_lon}]_t[{t},{end_time}].npy
-    files = [f"{folder}avg_sensitivity_chin[{ch_in}]_chout[{ch_out}]_t[{t},{end_time}].npy" 
+    #f"{folder}avg_sensitivity_chin[{ch_in}]_chout[{ch_out}]_t[{t},{end_time}].npy" 
+    #f"
+    files = [f"{folder}avg_sensitivity_chin[{ch_in}]_chout[{ch_out}]_loc[{center_lat},{center_lon}]_t[{t},{end_time}].npy" 
                 for t in times]
     
     print(files)
     
+    # Channel mappings
+    
+
+
     #print(files)
     
     # Check which files exist

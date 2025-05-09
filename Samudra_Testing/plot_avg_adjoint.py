@@ -163,7 +163,6 @@ from misc import var_dict
 #var_in = 'tauvo'
 var_in = 'zos(even)'
 var_out = 'zos(even)' 
-var_in,var_out='test', 'test'
 
 #ch_in = var_dict[var_in]
 #ch_out = var_dict[var_out]
