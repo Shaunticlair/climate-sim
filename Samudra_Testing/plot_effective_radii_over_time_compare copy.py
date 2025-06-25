@@ -7,6 +7,19 @@ import sys
 import plot_effective_radii_over_time
 import plot_effective_radii_over_time_mitgcm
 
+x = 1.5
+plt.rcParams['font.size'] = 24/2*x
+plt.rcParams['axes.titlesize'] = 32/2*x
+plt.rcParams['axes.labelsize'] = 28/2*x
+plt.rcParams['xtick.labelsize'] = 24/2*x
+plt.rcParams['ytick.labelsize'] = 24/2*x
+plt.rcParams['legend.fontsize'] = 24/2*x
+
+#plt.rcParams['figure.constrained_layout.use'] = True  # Use constrained layout
+plt.rcParams['axes.titlepad'] = 22  # Increase padding between title and plot
+plt.rcParams['figure.subplot.wspace'] = -0.5  # Increase width spacing between subplots
+plt.rcParams['figure.subplot.hspace'] = -0  # Increase height spacing between subplots
+
 def process_mitgcm_data_over_time(folder_path, var_name, center_lat, center_lon, days_per_level=7, max_days=100):
     """
     Process all time levels of MITgcm data for a specific variable and calculate effective radius.
@@ -213,11 +226,11 @@ def combined_plot(var_name, center_lat, center_lon, ch_in=154, ch_out=76, end_ti
         plt.plot(samudra_time_lags, samudra_radii, 'r-', linewidth=2, marker='s', markersize=6, label='Samudra')
     
     # Add labels and legend
-    plt.xlabel('Time Lag (days)', fontsize=14)
-    plt.ylabel('Effective Radius (pixels)', fontsize=14)
-    plt.title(f'Effective Radius vs Time Lag - {var_name} (up to {max_days} days)', fontsize=16)
+    plt.xlabel('Time Lag (days)')
+    plt.ylabel('Effective Radius (pixels)')
+    plt.title(f'Effective Radius vs Time Lag - {var_name} (up to {max_days} days)')
     plt.grid(True, alpha=0.3)
-    plt.legend(fontsize=12)
+    plt.legend(fontsize=24)
     
     # Set reasonable x-axis ticks
     if mitgcm_time_days or samudra_time_lags:

@@ -5,6 +5,21 @@ from scipy import stats
 import matplotlib.gridspec as gridspec
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 import xarray as xr
+full_map = False
+small_map = True
+
+x = 1.5
+plt.rcParams['font.size'] = 24/2*x
+plt.rcParams['axes.titlesize'] = 32/2*x
+plt.rcParams['axes.labelsize'] = 28/2*x
+plt.rcParams['xtick.labelsize'] = 24/2*x
+plt.rcParams['ytick.labelsize'] = 24/2*x
+plt.rcParams['legend.fontsize'] = 24/2*x
+
+#plt.rcParams['figure.constrained_layout.use'] = True  # Use constrained layout
+plt.rcParams['axes.titlepad'] = 22  # Increase padding between title and plot
+plt.rcParams['figure.subplot.wspace'] = 0.1 if full_map else -0.25 if small_map else -0.25#-0.5  # Increase width spacing between subplots
+plt.rcParams['figure.subplot.hspace'] = -0.5 if full_map else 0.25 if small_map else 0.25#-0  # Increase height spacing between subplots
 
 def denormalize_sensitivity(sensitivity_tensor, var_out, var_in, data_std):
     """
@@ -103,9 +118,8 @@ def plot_grid_sensitivities(t_days, t_end, map_dims, output_pixel, var_in, var_o
     #t_days = sorted(t_days, reverse=True)
     
     # Set up the figure with 2x3 grid
-    fig = plt.figure(figsize=(18, 12))
-    gs = gridspec.GridSpec(2, 3, figure=fig, wspace=0.3, 
-                           hspace=-0.2) ############## OVERHERE!!!!!!!!!!!!!!!!###################### -0.7
+    fig = plt.figure(figsize=(22, 12))
+    gs = gridspec.GridSpec(2, 3, figure=fig) ############## OVERHERE!!!!!!!!!!!!!!!!###################### -0.7
     
     # Get output pixel coordinates
     output_lat, output_lon = output_pixel
@@ -115,17 +129,34 @@ def plot_grid_sensitivities(t_days, t_end, map_dims, output_pixel, var_in, var_o
 
     # First, load all data
     for i, t0 in enumerate(t_days):
-        in_time = (1460 - t0) // 5
-        out_time = t_end
-        
-        plot_path = Path(f'{folder}/avg_sensitivity_chin[{ch_in}]_chout[{ch_out}]_loc[{output_lat},{output_lon}]_t[{in_time},{out_time}].npy')
-        
-        if plot_path.exists():
-            masked_sensitivity = load_and_crop_sensitivity(plot_path, map_dims, var_out, var_in, denormalize)
-            all_sensitivities.append(masked_sensitivity)
+        if t_end == '292-297':
+            in_time = (1460 - t0) // 5
+            out_time = t_end # String
         else:
-            print(f"File not found: {plot_path}")
+            in_time = (t_end - t0) // 5
+            out_time = (t_end) // 5
+
+        
+        avg_or_chunk = ['chunk','avg']
+        loc_or_no_loc = [f'_loc[{output_lat},{output_lon}]', '']
+        plot_paths = []
+        for avg_chunk in avg_or_chunk:
+            for loc in loc_or_no_loc:
+                plot_paths.append(Path(f'{folder}/{avg_chunk}_sensitivity_chin[{ch_in}]_chout[{ch_out}]{loc}_t[{in_time},{out_time}].npy'))
+                print(plot_paths)
+        
+        found_file = False
+        for plot_path in plot_paths:
+            if plot_path.exists():
+                masked_sensitivity = load_and_crop_sensitivity(plot_path, map_dims, var_out, var_in, denormalize)
+                all_sensitivities.append(masked_sensitivity)
+                found_file = True
+                break
+        if not found_file:
+            print(f"File not found: {plot_path}. Failed")
             return
+        
+                
     
     # Calculate tick positions and labels ONCE before the loop
     xmin, xmax, ymin, ymax = map_dims
@@ -138,8 +169,8 @@ def plot_grid_sensitivities(t_days, t_end, map_dims, output_pixel, var_in, var_o
     y_pos = np.arange(sample_sensitivity.shape[0])
     
     # Calculate tick positions and labels
-    xticks = 40
-    yticks = 20
+    xticks = 40 if sample_sensitivity.shape[1] > 120 else 10
+    yticks = 40 if sample_sensitivity.shape[0] > 120 else 10
     
     x_tick_pos = x_pos[::xticks]
     x_tick_labs = col_indices[::xticks]
@@ -182,7 +213,7 @@ def plot_grid_sensitivities(t_days, t_end, map_dims, output_pixel, var_in, var_o
         time_lag = t0
         
         # Add title with time lag using LaTeX formatting
-        ax.set_title(f'{time_lag} days back', fontsize=12)
+        ax.set_title(f'{time_lag} days back ($t_{1}-t_0 = {(t0)//5}$)')
         
         if circle: 
             # Add output pixel circle
@@ -241,18 +272,20 @@ def plot_grid_sensitivities(t_days, t_end, map_dims, output_pixel, var_in, var_o
 
     samudra_coords_to_global_coords = {
         (126, 324): ('36N', '36W'),  
-        (90, 180): ('0', '0'),  
+        (90, 180): ('0N', '0W'),  
         (131, 289): ('41N', '71W')
     }
     output_pixel = samudra_coords_to_global_coords[output_pixel]
     output_lat, output_lon = output_pixel
+
+    final_day = 1460 if t_end == '292-297' else t_end
     
+    y=0.85 if full_map else 1.0 if small_map else 0.95
     # Add super title using LaTeX formatting
-    fig.suptitle(f'Samudra: Sensitivity of {var_out_clean} at ({output_lat},{output_lon}) at day 1460\n'
+    fig.suptitle(f'Samudra: Sensitivity of {var_out_clean} at ({output_lat},{output_lon}) at day {final_day}\n'
                  f'wrt {var_in_clean} across map over various time scales{unit_str}', 
-                 fontsize=16, 
-                 y=0.9) ################################ OVERHERE!!!!!!!!!!!!!!!!###################### 0.75 
-    
+                 y=y) ################################ OVERHERE!!!!!!!!!!!!!!!!###################### 0.85 
+                # 1.1
     # Create Plots directory if it doesn't exist
     Path("Plots").mkdir(exist_ok=True)
     
@@ -266,19 +299,29 @@ def plot_grid_sensitivities(t_days, t_end, map_dims, output_pixel, var_in, var_o
 
 if __name__ == "__main__":
     t_end = '292-297'
-    t_days = [70, 140, 210, 350, 490, 700] #[70, 140, 210, 350, 490, 700] #[10*i for i in range(1,7)]
+    #t_days = [70, 140, 210, 350, 490, 700] #[70, 140, 210, 350, 490, 700] #[10*i for i in range(1,7)]
+    t_days = [10*i for i in range(1,7)]
+    
+    
+    #t_days = [2*i*5 for i in range(1,7)]
+    #t_end = 12*5
+
+    #t_days = [12*i*5 for i in range(1,7)]
+    #t_end = 72*5
     # Define output pixel (center of interest)
     
+    #t_days = [5*i for i in range(1,7)]
+    #t_end = 24*5
     
     # Try to import variable dictionary from misc
     from misc import var_dict
 
     
     # Choose variables to plot
-    vars_in = ['hfds']#, 'tauuo', 'tauvo']  # Input variable
+    vars_in = ['hfds',]# 'tauuo', 'tauvo']#['zos(even)']#['hfds', 'tauuo', 'tauvo']#, 'tauuo', 'tauvo']  # Input variable
     var_out = 'zos(even)'  # Output variable
     
-    for loc in ['(126,324)',]:# '(90,180)', '(131,289)']:
+    for loc in ['(126,324)']:#'(131,289)',]:#['(90,180)',]:#:# []: 
         #loc = '(126,324)'  # North Atlantic Ocean
         xout, yout = eval(loc)
         output_pixel = (xout, yout)  # Coordinates of the output pixel
@@ -286,13 +329,14 @@ if __name__ == "__main__":
         # Define map dimensions
         delta = 20
         map_dims = [xout-delta, xout+delta+1, yout-delta, yout+delta+1]  # [xmin, xmax, ymin, ymax]
-        map_dims = [0, 180, 180, 360] # [0, 180, 0, 360]  # [xmin, xmax, ymin, ymax]
+        #map_dims = [0, 180, 180, 360] # [0, 180, 0, 360]  # [xmin, xmax, ymin, ymax]
+        #map_dims = [0, 180, 0, 360]  # [xmin, xmax, ymin, ymax]
 
         for var_in in vars_in:
             # Get channel numbers from dictionary
             ch_in = var_dict[var_in]
             ch_out = var_dict[var_out]
-            folder = 'MITgcm_Replication/'
+            folder = 'MITgcm_Replication/'#'adjoint_arrays/Equatorial_Pacific/' #
 
             # Create both normalized and denormalized plots
             plot_grid_sensitivities(t_days, t_end, map_dims, output_pixel, 

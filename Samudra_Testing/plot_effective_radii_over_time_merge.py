@@ -2,6 +2,19 @@ import numpy as np
 import matplotlib.pyplot as plt
 from pathlib import Path
 
+x = 1.5
+plt.rcParams['font.size'] = 24/2*x
+plt.rcParams['axes.titlesize'] = 32/2*x
+plt.rcParams['axes.labelsize'] = 28/2*x
+plt.rcParams['xtick.labelsize'] = 24/2*x
+plt.rcParams['ytick.labelsize'] = 24/2*x
+plt.rcParams['legend.fontsize'] = 24/2*x
+
+#plt.rcParams['figure.constrained_layout.use'] = True  # Use constrained layout
+plt.rcParams['axes.titlepad'] = 22  # Increase padding between title and plot
+plt.rcParams['figure.subplot.wspace'] = -0.5  # Increase width spacing between subplots
+plt.rcParams['figure.subplot.hspace'] = -0  # Increase height spacing between subplots
+
 def compute_effective_radius(sensitivity_map, center_lat, center_lon, max_radius=None, plot=False, save_prefix=None):
     """
     Compute the effective radius of sensitivity from a given center point.
@@ -413,9 +426,9 @@ if __name__ == "__main__":
         # Plot month data with another color/marker
         #plt.plot(month_lags, month_radii, 'rs-', linewidth=2, markersize=8, label=f'Month scale (end time = {month_end_time})')
         
-        plt.xlabel('Time Lag (steps from output)', fontsize=12)
-        plt.ylabel('Effective Radius (pixels)', fontsize=12)
-        plt.title('Effective Radius of Sensitivity vs Time Lag', fontsize=14)
+        plt.xlabel('Time Lag (steps from output)')
+        plt.ylabel('Effective Radius (pixels)')
+        plt.title('Effective Radius of Sensitivity vs Time Lag')
         plt.grid(True, alpha=0.3)
         plt.legend()
         plt.tight_layout()

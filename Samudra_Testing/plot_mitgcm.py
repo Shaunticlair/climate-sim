@@ -5,6 +5,24 @@ from scipy import stats
 import matplotlib.gridspec as gridspec
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 
+full_map = False
+small_map = False
+
+x = 1.5
+plt.rcParams['font.size'] = 24/2*x
+plt.rcParams['axes.titlesize'] = 32/2*x
+plt.rcParams['axes.labelsize'] = 28/2*x
+plt.rcParams['xtick.labelsize'] = 24/2*x
+plt.rcParams['ytick.labelsize'] = 24/2*x
+plt.rcParams['legend.fontsize'] = 24/2*x
+
+#plt.rcParams['figure.constrained_layout.use'] = True  # Use constrained layout
+plt.rcParams['axes.titlepad'] = 22  # Increase padding between title and plot
+plt.rcParams['figure.subplot.wspace'] = 0.1 if full_map else -0.25 if small_map else -0.25#-0.5  # Increase width spacing between subplots
+plt.rcParams['figure.subplot.hspace'] = -0.5 if full_map else 0.25 if small_map else 0.25#-0  # Increase height spacing between subplots
+
+print(plt.rcParams['figure.subplot.hspace'])
+
 def center_bounds(view_size, centerx, centery):
     if view_size == "tiny":
         # Define the region of interest in the matrix for cropping
@@ -71,9 +89,8 @@ def plot_sensitivity_grid(t_days, loc, map_dims, output_pixel,
     #t_days = sorted(t_days, reverse=True)
 
     # Set up the figure with 2x3 grid
-    fig = plt.figure(figsize=(18, 12))
-    gs = gridspec.GridSpec(2, 3, figure=fig, wspace=0.3, 
-                           hspace=-0.2) ############## OVERHERE!!!!!!!!!!!!!!!!###################### -0.7
+    fig = plt.figure(figsize=(22, 12))
+    gs = gridspec.GridSpec(2, 3, figure=fig) ############## OVERHERE!!!!!!!!!!!!!!!!###################### -0.7
     
     # Get output pixel coordinates
     output_lat, output_lon = output_pixel
@@ -109,9 +126,9 @@ def plot_sensitivity_grid(t_days, loc, map_dims, output_pixel,
     y_pos = np.arange(sample_sensitivity.shape[0])
     
     # Calculate tick positions and labels
-    xticks = 40
-    yticks = 20
-    
+    xticks = 40 if sample_sensitivity.shape[1] > 120 else 10
+    yticks = 40 if sample_sensitivity.shape[0] > 120 else 10
+
     x_tick_pos = x_pos[::xticks]
     x_tick_labs = col_indices[::xticks]
     
@@ -154,7 +171,7 @@ def plot_sensitivity_grid(t_days, loc, map_dims, output_pixel,
         time_lag = t
         
         # Add title with time information
-        ax.set_title(f'{time_lag} days back', fontsize=12)
+        ax.set_title(f'{time_lag} days back')
         
         if circle:
             # Add output pixel circle
@@ -197,19 +214,19 @@ def plot_sensitivity_grid(t_days, loc, map_dims, output_pixel,
 
     samudra_coords_to_global_coords = {
         (126, 324): ('36N', '36W'),  
-        (90, 180): ('0', '0'),  
+        (90, 180): ('0', '180'),  
         (131, 289): ('41N', '71W')
     }
 
     output_pixel = samudra_coords_to_global_coords[output_pixel]
     output_lat, output_lon = output_pixel
 
+    y=0.85 if full_map else 1.0 if small_map else 1.0
     
     # Add super title
     fig.suptitle(f'MITgcm: Sensitivity of {var_out_clean} at ({output_lat},{output_lon}) at day 1460\n'
-                 f'wrt {var_in_clean} across map over various time scales', 
-                 fontsize=16, 
-                 y=0.9) ################################ OVERHERE!!!!!!!!!!!!!!!!###################### 0.75 
+                 f'wrt {var_in_clean} across map over various time scales',  
+                 y=y) ################################ OVERHERE!!!!!!!!!!!!!!!!###################### 0.75 
     
     # Create Plots directory if it doesn't exist
     Path("Plots").mkdir(exist_ok=True)
@@ -225,16 +242,17 @@ def plot_sensitivity_grid(t_days, loc, map_dims, output_pixel,
 if __name__ == "__main__":
     # Set parameters - select 6 months for 2x3 grid
     t_days = [70, 140, 210, 350, 490, 700] #[7,21,28,42,49,63]#[7*i for i in range(1,7)]#
+    t_days = [7,21,28,42,49,63] # [7*i for i in range(1,7)]#
 
     # Try to import variable dictionary from misc
     from misc import var_dict
 
     
     # Choose variables to plot
-    vars_in = ['hfds',]# 'tauuo', 'tauvo']  # Input variable
+    vars_in = ['hfds', 'tauuo', 'tauvo']# 'tauuo', 'tauvo']  # Input variable
     var_out = 'zos(even)'  # Output variable
     
-    for loc in ['(126,324)',]:# '(90,180)', '(131,289)']:
+    for loc in ['(126,324)']:#'(131,289)',]:#'(126,324)' ]:#'(131,289)',]:# '(90,180)', '(126,324)' ]: 
         #loc = '(126,324)'  # North Atlantic Ocean
         xout, yout = eval(loc)
         output_pixel = (xout, yout)  # Coordinates of the output pixel
@@ -242,8 +260,8 @@ if __name__ == "__main__":
     
         # Define map dimensions
         delta = 20
-        #map_dims = [xout-delta, xout+delta+1, yout-delta, yout+delta+1]  # [xmin, xmax, ymin, ymax]
-        map_dims = [0, 180, 180, 360]  # [xmin, xmax, ymin, ymax] # [0, 180, 0, 360]
+        map_dims = [xout-delta, xout+delta+1, yout-delta, yout+delta+1]  # [xmin, xmax, ymin, ymax]
+        #map_dims = [0, 180, 180, 360]  # [xmin, xmax, ymin, ymax] # [0, 180, 0, 360]
 
         for var_in in vars_in:
             # Get channel numbers from dictionary

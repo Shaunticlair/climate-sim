@@ -46,7 +46,7 @@ var_list += BOUNDARY_VARS["3D_all_hfds_anom"]
 var_dict = {var: i for i, var in enumerate(var_list)}
 
 var_arr = np.array(var_list)
-print(var_arr)
+#print(var_arr)
 
 # Obtained by printing directly from inside the Test class
 var_list_printed = ['uo_lev_2_5', 'uo_lev_10_0', 'uo_lev_22_5', 'uo_lev_40_0', 

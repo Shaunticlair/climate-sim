@@ -2,7 +2,20 @@ import numpy as np
 import matplotlib.pyplot as plt
 from pathlib import Path
 
-def compute_effective_radius(sensitivity_map, center_lat, center_lon, max_radius=None, plot=False, save_prefix=None):
+x = 1.5
+plt.rcParams['font.size'] = 24/2*x
+plt.rcParams['axes.titlesize'] = 32/2*x
+plt.rcParams['axes.labelsize'] = 28/2*x
+plt.rcParams['xtick.labelsize'] = 24/2*x
+plt.rcParams['ytick.labelsize'] = 24/2*x
+plt.rcParams['legend.fontsize'] = 24/2*x
+
+#plt.rcParams['figure.constrained_layout.use'] = True  # Use constrained layout
+plt.rcParams['axes.titlepad'] = 22  # Increase padding between title and plot
+plt.rcParams['figure.subplot.wspace'] = -0.5  # Increase width spacing between subplots
+plt.rcParams['figure.subplot.hspace'] = -0  # Increase height spacing between subplots
+
+def compute_effective_radius(sensitivity_map, center_lat, center_lon, max_radius=None, plot=False, save_prefix=None, map_dims=None):
     """
     Compute the effective radius of sensitivity from a given center point.
     
@@ -20,6 +33,8 @@ def compute_effective_radius(sensitivity_map, center_lat, center_lon, max_radius
         Whether to create a visualization of the result
     save_prefix : str, optional
         Prefix for saving plot files. If None, plots will be displayed instead of saved.
+    map_dims : list, optional
+        [xmin, xmax, ymin, ymax] defining the plot dimensions. If None, will use the full sensitivity map.
         
     Returns:
     --------
@@ -139,17 +154,42 @@ def compute_effective_radius(sensitivity_map, center_lat, center_lon, max_radius
             
             fig = plt.gcf()
             ax = plt.gca()
-            im = ax.imshow(masked_sensitivity, cmap=cmap, origin='lower', vmin=-abs_max, vmax=abs_max)
+            
+            # Adjust the plot dimensions if map_dims is provided
+            if map_dims is not None:
+                xmin, xmax, ymin, ymax = map_dims
+                plot_sensitivity = masked_sensitivity[xmin:xmax, ymin:ymax]
+                # Adjust center coordinates for the cropped plot
+                plot_center_lat = center_lat - xmin
+                plot_center_lon = center_lon - ymin
+                im = ax.imshow(plot_sensitivity, cmap=cmap, origin='lower', vmin=-abs_max, vmax=abs_max)
+                circle = plt.Circle((plot_center_lon, plot_center_lat), effective_radius, fill=False, color='black', linestyle='--', linewidth=1)
+            else:
+                im = ax.imshow(masked_sensitivity, cmap=cmap, origin='lower', vmin=-abs_max, vmax=abs_max)
+                circle = plt.Circle((center_lon, center_lat), effective_radius, fill=False, color='black', linestyle='--', linewidth=1)
+            
+            ax.add_patch(circle)
         else:
             # Fallback if no wetmask is available
             # Ensure symmetric color scale around zero
             abs_max = np.max(np.abs(sensitivity))
             fig = plt.gcf()
             ax = plt.gca()
-            im = ax.imshow(sensitivity, cmap='RdBu_r', origin='lower', vmin=-abs_max, vmax=abs_max)
             
-        circle = plt.Circle((center_lon, center_lat), effective_radius, fill=False, color='black', linestyle='--', linewidth=1)
-        ax.add_patch(circle)
+            # Adjust the plot dimensions if map_dims is provided
+            if map_dims is not None:
+                xmin, xmax, ymin, ymax = map_dims
+                plot_sensitivity = sensitivity[xmin:xmax, ymin:ymax]
+                # Adjust center coordinates for the cropped plot
+                plot_center_lat = center_lat - xmin
+                plot_center_lon = center_lon - ymin
+                im = ax.imshow(plot_sensitivity, cmap='RdBu_r', origin='lower', vmin=-abs_max, vmax=abs_max)
+                circle = plt.Circle((plot_center_lon, plot_center_lat), effective_radius, fill=False, color='black', linestyle='--', linewidth=1)
+            else:
+                im = ax.imshow(sensitivity, cmap='RdBu_r', origin='lower', vmin=-abs_max, vmax=abs_max)
+                circle = plt.Circle((center_lon, center_lat), effective_radius, fill=False, color='black', linestyle='--', linewidth=1)
+            
+            ax.add_patch(circle)
 
         # Create colorbar with scientific notation for small values and match plot height
         from mpl_toolkits.axes_grid1 import make_axes_locatable
@@ -303,9 +343,13 @@ if __name__ == "__main__":
             sensitivity_map = sensitivity_map.reshape(180, 360)
         
         # Compute effective radius with plot saving
+        delta = 50
+        map_dims = [90 - delta, 90 + delta, 180 - delta, 180 + delta]
+        #map_dims = [0, 180, 0, 360]  # Full map dimensions
         
         radius = compute_effective_radius(sensitivity_map, center_lat, center_lon, 
-                                         plot=True, save_prefix=f"chin[76]_chout[76]_t[{in_time},{end_time}]")
+                                         plot=True, save_prefix=f"chin[76]_chout[76]_t[{in_time},{end_time}]",
+                                            map_dims=map_dims)
         print(f"Effective radius: {radius} pixels")
         
         

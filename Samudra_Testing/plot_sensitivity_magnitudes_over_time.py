@@ -2,15 +2,28 @@ import numpy as np
 import matplotlib.pyplot as plt
 from pathlib import Path
 
+x = 1.5
+plt.rcParams['font.size'] = 24/2*x
+plt.rcParams['axes.titlesize'] = 32/2*x
+plt.rcParams['axes.labelsize'] = 28/2*x
+plt.rcParams['xtick.labelsize'] = 24/2*x
+plt.rcParams['ytick.labelsize'] = 24/2*x
+plt.rcParams['legend.fontsize'] = 24/2*x
+
+plt.rcParams['figure.constrained_layout.use'] = True  # Use constrained layout
+plt.rcParams['axes.titlepad'] = 60  # Increase padding between title and plot
+plt.rcParams['figure.subplot.wspace'] = -0.5  # Increase width spacing between subplots
+plt.rcParams['figure.subplot.hspace'] = -0  # Increase height spacing between subplots
+
 # ===== CONFIGURATION (MODIFY THESE VALUES) =====
 # List of starting times for which to load sensitivity matrices
 times = [6*i for i in range(12)]  # Example: [0, 6, 12, ..., 66] for a year
-times = [0, 2, 4, 6, 8, 10]  
+#times = [0, 2, 4, 6, 8, 10]  
 # Input and output channel numbers
 chin = 76
 chout = 76
 # End time value (same for all matrices)
-tend = 12#72
+tend = 72#12#72
 # Directory to save the output plot
 output_dir = "Plots"
 input_folder = 'adjoint_arrays/Equatorial_Pacific'
@@ -156,7 +169,7 @@ def plot_sensitivity_magnitudes(chin, chout, denormalize=False):
         sorted_delays, sorted_magnitudes = zip(*delay_magnitude)
         
         plt.plot(sorted_delays, sorted_magnitudes, 'o-', linewidth=2, markersize=8)
-        plt.xlabel('Delay (t_end - t)', fontsize=12)
+        plt.xlabel('Delay (t_end - t)')
 
         channel_to_units = {
         76: "m",
@@ -165,10 +178,10 @@ def plot_sensitivity_magnitudes(chin, chout, denormalize=False):
         156: "W m^{-2}",
         }
 
-        units = f"{channel_to_units[chout]} / ({channel_to_units[chin]})"
+        units = f"$\\frac{ {channel_to_units[chout]}} { {channel_to_units[chin]} }$".replace("'", "")
 
-        plt.ylabel(f'Global sensitivity Magnitude ({units})', fontsize=12)
-        plt.title(f'Sensitivity Magnitude vs. Delay: {var_out} at time t wrt {var_in} at time {tend}', fontsize=14)
+        plt.ylabel(f'Global sensitivity Magnitude ({units})')
+        plt.title(f'Sensitivity Magnitude vs. Delay: {var_out} at time t wrt {var_in} at time {tend}')
         plt.grid(True, alpha=0.3)
         
         # Add exponential notation for y-axis
@@ -192,10 +205,12 @@ if __name__ == "__main__":
     chins = [76]#[154,155,156]
     out_channel_units = {"tauuo":154, "tauvo":155, "hfds":156}
     units_dict = {
-        154: "Pa",
-        155: "Pa",
-        156: "W m^{-2}",
+        154: "$Pa$",
+        155: "$Pa$",
+        156: "$W m^{-2}$",
         }
+    
+    chins = [154,155,156]
     
     for chin in chins:
         plot_sensitivity_magnitudes(chin,chout,denormalize)

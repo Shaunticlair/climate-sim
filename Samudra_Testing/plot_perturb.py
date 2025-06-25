@@ -192,7 +192,7 @@ output_pixel = (90,180)#(90, 180)  # Coordinates for the output pixel
 
 for initial_time in initial_times:
     in_time, out_time = initial_time, t_end
-    plot_path = Path(f'perturbation_grid_chin[{ch_in}]_chout[{ch_out}]_t[{in_time},{out_time}].npy')
+    plot_path = Path(f'perturbation_arrays/Short_Time_1e-2/perturbation_grid_chin[{ch_in}]_chout[{ch_out}]_t[{in_time},{out_time}]_1e-2.npy')
 
     print(plot_path)
     

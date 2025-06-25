@@ -4,6 +4,16 @@ from pathlib import Path
 import scipy.stats as stats
 from matplotlib.ticker import ScalarFormatter
 
+# Set global font sizes
+x = 1.5
+plt.rcParams['font.size'] = 24/2*x
+plt.rcParams['axes.titlesize'] = 32/2*x
+plt.rcParams['axes.labelsize'] = 28/2*x
+plt.rcParams['xtick.labelsize'] = 24/2*x
+plt.rcParams['ytick.labelsize'] = 24/2*x
+plt.rcParams['legend.fontsize'] = 24/2*x
+plt.rcParams['axes.titlepad'] = 24/2*x
+
 def compare_sensitivities(adjoint_path, perturb_path, map_dims, t0, t1, 
                           output_pixel, output_var, input_var,
                           scatter_kwargs=None, correlation_kwargs=None, step_size=''):
@@ -288,9 +298,9 @@ def plot_correlation_vs_lag(results):
     ax.grid(True, alpha=0.3)
     
     # Labels and title
-    ax.set_title('Correlation between Adjoint and Perturbation Sensitivities vs Time Lag', fontsize=14)
-    ax.set_xlabel('Time Lag (t_end - t_start)', fontsize=12)
-    ax.set_ylabel('Correlation Coefficient', fontsize=12)
+    ax.set_title('Correlation between Adjoint and Perturbation Sensitivities vs Time Lag')
+    ax.set_xlabel('Time Lag (t_end - t_start)')
+    ax.set_ylabel('Correlation Coefficient')
     
     # Annotate each point with its exact correlation value
     for x, y in zip(time_lags, correlations):
@@ -299,11 +309,11 @@ def plot_correlation_vs_lag(results):
                     textcoords="offset points",
                     xytext=(0, 10), 
                     ha='center',
-                    fontsize=9)
+                    fontsize=15)
     
     # Add summary information
     avg_corr = sum(correlations) / len(correlations) if correlations else 0
-    plt.figtext(0.02, 0.02, f"Average correlation: {avg_corr:.3f}", fontsize=10)
+    #plt.figtext(-0.04, 0.02, f"Average correlation: {avg_corr:.3f}", fontsize=20)
     
     # Save the figure
     Path("Plots").mkdir(exist_ok=True)

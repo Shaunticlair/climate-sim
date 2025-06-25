@@ -4,6 +4,19 @@ from pathlib import Path
 import xarray as xr
 import misc
 
+x = 1.5
+plt.rcParams['font.size'] = 24/2*x
+plt.rcParams['axes.titlesize'] = 32/2*x
+plt.rcParams['axes.labelsize'] = 28/2*x
+plt.rcParams['xtick.labelsize'] = 24/2*x
+plt.rcParams['ytick.labelsize'] = 24/2*x
+plt.rcParams['legend.fontsize'] = 24/2*x
+
+#plt.rcParams['figure.constrained_layout.use'] = True  # Use constrained layout
+plt.rcParams['axes.titlepad'] = 22  # Increase padding between title and plot
+plt.rcParams['figure.subplot.wspace'] = -0.5  # Increase width spacing between subplots
+plt.rcParams['figure.subplot.hspace'] = -0  # Increase height spacing between subplots
+
 # ===== CONFIGURATION (MODIFY THESE VALUES) =====
 # Directory to save the output plot
 output_dir = "Plots"
@@ -233,7 +246,9 @@ def plot_comparison(location, var_name, ch_in, ch_out, normalize=True):
         154: "Pa",
         155: "Pa",
         156: "W m^{-2}",
-    }
+        }
+
+    
     
     # Load MITgcm data
     mitgcm_days, mitgcm_magnitudes = load_mitgcm_sensitivities(var_name, location)
@@ -257,14 +272,15 @@ def plot_comparison(location, var_name, ch_in, ch_out, normalize=True):
         if samudra_days:
             plt.plot(samudra_days, samudra_magnitudes, 'r-', linewidth=2, marker='s', markersize=6, label='Samudra')
         
-        plt.xlabel('Days before end (from day 1460)', fontsize=12)
+        plt.xlabel('Days before end (from day 1460)')
         
         # Add units to y-axis label if available
         if ch_in in channel_to_units and ch_out in channel_to_units:
-            units = f"{channel_to_units[ch_out]} / {channel_to_units[ch_in]}"
-            plt.ylabel(f'Global Sensitivity Magnitude [{units}]', fontsize=12)
+            #units = f"{channel_to_units[ch_out]} / {channel_to_units[ch_in]}"
+            units = f"$\\frac{ {channel_to_units[ch_out]}} { {channel_to_units[ch_in]} }$".replace("'", "")
+            plt.ylabel(f'Global Sensitivity Magnitude ({units})')
         else:
-            plt.ylabel('Global Sensitivity Magnitude', fontsize=12)
+            plt.ylabel('Global Sensitivity Magnitude')
         
         # Create clean variable names for display
         var_in_clean = var_in.replace('(odd)','').replace('(even)','')
@@ -282,11 +298,11 @@ def plot_comparison(location, var_name, ch_in, ch_out, normalize=True):
         else:
             loc_str = f"({location[0]},{location[1]})"
         
-        plt.title(f'Sensitivity Magnitude Comparison: {var_out_clean} at {loc_str} wrt {var_in_clean}', fontsize=14)
+        plt.title(f'Sensitivity Magnitude Comparison: {var_out_clean} at {loc_str} wrt {var_in_clean}')
         plt.grid(True, alpha=0.3)
         
         # Add legend
-        plt.legend(fontsize=12)
+        plt.legend(fontsize=24)
         
         # Add exponential notation for y-axis
         plt.ticklabel_format(axis='y', style='sci', scilimits=(0, 0))
