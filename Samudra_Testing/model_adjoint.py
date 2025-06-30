@@ -49,6 +49,8 @@ class SamudraAdjoint(model.Samudra):
             last_kernel_size,
             pad
         )
+    
+    ### Finite-difference state sensitivity ###
 
     def compute_fd_sensitivity(self, inputs, 
                             source_coords_dict, 
@@ -466,165 +468,6 @@ class SamudraAdjoint(model.Samudra):
         
         return sensitivity_results
     
-    def compute_loss_sensitivity(self, inputs,
-                             in_chunks_dict,
-                             initial_state=None,
-                             max_time=None,
-                             loss_fn=None,
-                             device="cuda",
-                             use_checkpointing=True,
-                             timer=null_timer):
-        """
-        Computes the sensitivity of the accumulated loss function J with respect to 
-        chunks of input elements in a single backward pass, with time specified in the dictionary.
-        
-        Parameters:
-        -----------
-        inputs : list of tensors
-            A Test dataset object
-            When indexed into, it returns a tuple (input_tensor, target_tensor) for each time step.
-        in_chunks_dict : dict
-            Dictionary mapping timesteps to lists of tuples of slices.
-            Each tuple contains (batch_slice, channel_slice, height_slice, width_slice) indicating a 
-            region of the state tensor to track gradients for. The timestep indicates which time step
-            the chunks correspond to.
-        initial_state : torch.Tensor, optional
-            Optional initial state to use instead of inputs[min_time//2][0].
-            If None, will use inputs[min_time//2][0].
-        max_time : int, optional
-            Maximum time step to compute loss for. If None, will use the maximum time in in_chunks_dict.
-        loss_fn : callable, optional
-            Loss function to use. Should take prediction and target tensors and return a scalar loss.
-            If None, will use mean squared error.
-        device : str
-            The device to run the computation on ('cuda' or 'cpu').
-        use_checkpointing : bool
-            Whether to use gradient checkpointing for memory efficiency.
-        timer : Timer
-            Timer object for performance tracking.
-                
-        Returns:
-        --------
-        dict of torch.Tensor
-            Each key is a tuple (in_time, str(in_slice)) where:
-                in_time : int
-                    The time step of the input chunk.
-                str(in_slice) : str
-                    String representation of slice tuple (batch_slice, channel_slice, height_slice, width_slice)
-                    defining the input chunk. String representation is used because slices are not hashable.
-            
-        """
-        # Make sure we're in evaluation mode
-        self.eval()
-        
-        # Define default loss function if none provided
-        if loss_fn is None:
-            loss_fn = lambda pred, target: ((pred - target) ** 2).mean()
-
-        # Determine the time range we need to process
-        in_times = list(in_chunks_dict.keys())
-        min_time = min(in_times)
-        if max_time is None:
-            max_time = max(in_times)
-        
-        # Initialize the model input for the minimum time step
-        initial_iter = min_time // 2
-        if initial_state is not None:
-            model_input = initial_state.clone().to(device)
-        else:
-            model_input = inputs[initial_iter][0].clone().to(device)
-        
-        timer.checkpoint("Finished setting up model input")
-        
-        # Dictionary to store tracked elements for each time step and chunk
-        tracked_dict = {}
-        
-        # Add gradient tracking for initial timesteps: even and odd
-        model_input = self.track_gradients_for_timestep(
-            model_input, in_chunks_dict, min_time, max_time, tracked_dict, device
-        )
-
-        timer.checkpoint("Finished setting up chunk tracking")
-        
-        # Run the autoregressive rollout
-        current_input = model_input
-        outputs = {min_time: current_input,
-                min_time+1: current_input}  # Store inputs/outputs by time step
-        
-        # Initialize accumulated loss
-        total_loss = 0.0
-        
-        for it in range(initial_iter, max_time // 2 + 1):
-            print(f"Processing time step: {it}")
-            
-            # Forward pass
-            if use_checkpointing and it < max_time // 2:
-                output = self.checkpointed_forward_once(current_input)
-            else:
-                output = self.forward_once(current_input)
-            
-            timer.checkpoint(f"Ran model forward for model iteration {it}")
-            
-            # Store output for this time step
-            next_even_time = it * 2 + 2
-            outputs[next_even_time] = output
-            next_odd_time = next_even_time + 1  
-            outputs[next_odd_time] = output
-            
-            # Compute loss if this timestep is within max_time
-            if next_even_time <= max_time:
-                # Get target for this timestep
-                target = inputs[it][1].to(device)
-                
-                # Compute loss for this timestep
-                timestep_loss = loss_fn(output, target)
-                
-                # Accumulate loss
-                total_loss = total_loss + timestep_loss
-            
-            # Prepare for next time step if needed
-            if it < max_time // 2:
-                boundary = inputs[it+1][0][:, self.output_channels:].to(device)
-                current_input = torch.cat([output, boundary], dim=1)
-                
-                # Add gradient tracking for next timesteps
-                current_input = self.track_gradients_for_timestep(
-                    current_input, in_chunks_dict, next_even_time, max_time, tracked_dict, device
-                )
-
-                timer.checkpoint(f"Added gradient tracking for model iteration {it+1}")
-        
-        timer.checkpoint("Forward pass complete, accumulated loss")
-        
-        # Dict to store sensitivity tensors for each input chunk
-        sensitivity_results = {}
-        
-        # Clear gradients before backward pass
-        for tracked_dict_in_time in tracked_dict.values():
-            for chunk in tracked_dict_in_time.values():
-                if chunk.grad is not None:
-                    chunk.grad.zero_()
-        
-        timer.checkpoint("Cleared gradients before backward pass")
-        
-        # Compute gradients of the accumulated loss with respect to all inputs
-        total_loss.backward()
-
-        timer.checkpoint("Backwards pass complete")
-        
-        # Gather sensitivity tensors for all input chunks
-        for in_time, tracked_dict_in_time in tracked_dict.items():
-            for in_slice, chunk in tracked_dict_in_time.items():
-                # Get the gradient for this chunk
-                grad_chunk = chunk.grad.clone() if chunk.grad is not None else torch.zeros_like(chunk)
-
-                # Store the sensitivity tensor in the results dict using string representation of slices
-                index = (in_time, in_slice)
-                sensitivity_results[index] = grad_chunk
-                
-        timer.checkpoint("Gathered sensitivities for all input chunks")
-        
-        return sensitivity_results
 
     ### Helper functions for compute_avg_state_sensitivity ###
     def create_grad_chunks(self, state_tensor, in_list_dict, device="cuda"):
@@ -887,6 +730,167 @@ class SamudraAdjoint(model.Samudra):
 
         return sensitivity_results
 
+    ### Loss sensitivity ###
+
+    def compute_loss_sensitivity(self, inputs,
+                             in_chunks_dict,
+                             initial_state=None,
+                             max_time=None,
+                             loss_fn=None,
+                             device="cuda",
+                             use_checkpointing=True,
+                             timer=null_timer):
+        """
+        Computes the sensitivity of the accumulated loss function J with respect to 
+        chunks of input elements in a single backward pass, with time specified in the dictionary.
+        
+        Parameters:
+        -----------
+        inputs : list of tensors
+            A Test dataset object
+            When indexed into, it returns a tuple (input_tensor, target_tensor) for each time step.
+        in_chunks_dict : dict
+            Dictionary mapping timesteps to lists of tuples of slices.
+            Each tuple contains (batch_slice, channel_slice, height_slice, width_slice) indicating a 
+            region of the state tensor to track gradients for. The timestep indicates which time step
+            the chunks correspond to.
+        initial_state : torch.Tensor, optional
+            Optional initial state to use instead of inputs[min_time//2][0].
+            If None, will use inputs[min_time//2][0].
+        max_time : int, optional
+            Maximum time step to compute loss for. If None, will use the maximum time in in_chunks_dict.
+        loss_fn : callable, optional
+            Loss function to use. Should take prediction and target tensors and return a scalar loss.
+            If None, will use mean squared error.
+        device : str
+            The device to run the computation on ('cuda' or 'cpu').
+        use_checkpointing : bool
+            Whether to use gradient checkpointing for memory efficiency.
+        timer : Timer
+            Timer object for performance tracking.
+                
+        Returns:
+        --------
+        dict of torch.Tensor
+            Each key is a tuple (in_time, str(in_slice)) where:
+                in_time : int
+                    The time step of the input chunk.
+                str(in_slice) : str
+                    String representation of slice tuple (batch_slice, channel_slice, height_slice, width_slice)
+                    defining the input chunk. String representation is used because slices are not hashable.
+            
+        """
+        # Make sure we're in evaluation mode
+        self.eval()
+        
+        # Define default loss function if none provided
+        if loss_fn is None:
+            loss_fn = lambda pred, target: ((pred - target) ** 2).mean()
+
+        # Determine the time range we need to process
+        in_times = list(in_chunks_dict.keys())
+        min_time = min(in_times)
+        if max_time is None:
+            max_time = max(in_times)
+        
+        # Initialize the model input for the minimum time step
+        initial_iter = min_time // 2
+        if initial_state is not None:
+            model_input = initial_state.clone().to(device)
+        else:
+            model_input = inputs[initial_iter][0].clone().to(device)
+        
+        timer.checkpoint("Finished setting up model input")
+        
+        # Dictionary to store tracked elements for each time step and chunk
+        tracked_dict = {}
+        
+        # Add gradient tracking for initial timesteps: even and odd
+        model_input = self.track_gradients_for_timestep(
+            model_input, in_chunks_dict, min_time, max_time, tracked_dict, device
+        )
+
+        timer.checkpoint("Finished setting up chunk tracking")
+        
+        # Run the autoregressive rollout
+        current_input = model_input
+        outputs = {min_time: current_input,
+                min_time+1: current_input}  # Store inputs/outputs by time step
+        
+        # Initialize accumulated loss
+        total_loss = 0.0
+        
+        for it in range(initial_iter, max_time // 2 + 1):
+            print(f"Processing time step: {it}")
+            
+            # Forward pass
+            if use_checkpointing and it < max_time // 2:
+                output = self.checkpointed_forward_once(current_input)
+            else:
+                output = self.forward_once(current_input)
+            
+            timer.checkpoint(f"Ran model forward for model iteration {it}")
+            
+            # Store output for this time step
+            next_even_time = it * 2 + 2
+            outputs[next_even_time] = output
+            next_odd_time = next_even_time + 1  
+            outputs[next_odd_time] = output
+            
+            # Compute loss if this timestep is within max_time
+            if next_even_time <= max_time:
+                # Get target for this timestep
+                target = inputs[it][1].to(device)
+                
+                # Compute loss for this timestep
+                timestep_loss = loss_fn(output, target)
+                
+                # Accumulate loss
+                total_loss = total_loss + timestep_loss
+            
+            # Prepare for next time step if needed
+            if it < max_time // 2:
+                boundary = inputs[it+1][0][:, self.output_channels:].to(device)
+                current_input = torch.cat([output, boundary], dim=1)
+                
+                # Add gradient tracking for next timesteps
+                current_input = self.track_gradients_for_timestep(
+                    current_input, in_chunks_dict, next_even_time, max_time, tracked_dict, device
+                )
+
+                timer.checkpoint(f"Added gradient tracking for model iteration {it+1}")
+        
+        timer.checkpoint("Forward pass complete, accumulated loss")
+        
+        # Dict to store sensitivity tensors for each input chunk
+        sensitivity_results = {}
+        
+        # Clear gradients before backward pass
+        for tracked_dict_in_time in tracked_dict.values():
+            for chunk in tracked_dict_in_time.values():
+                if chunk.grad is not None:
+                    chunk.grad.zero_()
+        
+        timer.checkpoint("Cleared gradients before backward pass")
+        
+        # Compute gradients of the accumulated loss with respect to all inputs
+        total_loss.backward()
+
+        timer.checkpoint("Backwards pass complete")
+        
+        # Gather sensitivity tensors for all input chunks
+        for in_time, tracked_dict_in_time in tracked_dict.items():
+            for in_slice, chunk in tracked_dict_in_time.items():
+                # Get the gradient for this chunk
+                grad_chunk = chunk.grad.clone() if chunk.grad is not None else torch.zeros_like(chunk)
+
+                # Store the sensitivity tensor in the results dict using string representation of slices
+                index = (in_time, in_slice)
+                sensitivity_results[index] = grad_chunk
+                
+        timer.checkpoint("Gathered sensitivities for all input chunks")
+        
+        return sensitivity_results
 
 
         

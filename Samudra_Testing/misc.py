@@ -12,6 +12,7 @@ VARS = {
     "3D_thermo_all": ['thetao', 'so', 'zos'],
 }
 # Define input and output variables
+
 INPUT_VARS_LEV = {
     "3D_thermo_dynamic_all": [
         k + str(j)
